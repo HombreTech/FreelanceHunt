@@ -82,7 +82,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return true
     }
 
-    private fun onLoginRequire() {
+    fun onLoginRequire() {
         val glide = Glide.get(App.instance)
         CoroutineScope(CoroutineContextProvider().io).launch {
             glide.clearDiskCache()

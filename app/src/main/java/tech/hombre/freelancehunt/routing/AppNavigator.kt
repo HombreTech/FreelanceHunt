@@ -6,6 +6,7 @@ import tech.hombre.domain.model.EmployerDetail
 import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.ui.base.BaseActivity
 import tech.hombre.freelancehunt.ui.contest.view.ContestDetailActivity
 import tech.hombre.freelancehunt.ui.employers.view.EmployerDetailActivity
@@ -36,9 +37,21 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
             putExtra(EXTRA_1, details)
         })
 
+    override fun showFreelancerDetails(profileId: Int) =
+        navigateTo(getIntent<FreelancerDetailActivity>().apply {
+            putExtra(EXTRA_1, profileId)
+            putExtra(EXTRA_2, true)
+        })
+
     override fun showEmployerDetails(details: EmployerDetail.Data) =
         navigateTo(getIntent<EmployerDetailActivity>().apply {
             putExtra(EXTRA_1, details)
+        })
+
+    override fun showEmployerDetails(profileId: Int) =
+        navigateTo(getIntent<EmployerDetailActivity>().apply {
+            putExtra(EXTRA_1, profileId)
+            putExtra(EXTRA_2, profileId)
         })
 
     override fun showProjectDetails(details: ProjectDetail.Data) =

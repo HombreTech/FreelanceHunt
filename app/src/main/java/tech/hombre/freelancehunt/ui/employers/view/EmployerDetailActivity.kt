@@ -15,10 +15,12 @@ import kotlinx.android.synthetic.main.activity_employer_detail.*
 import kotlinx.android.synthetic.main.appbar_fill.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.EmployerDetail
+import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.extensions.*
-import tech.hombre.freelancehunt.ui.base.BaseActivity
+import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerPublicViewModel
 import tech.hombre.freelancehunt.ui.employers.view.pager.PagerEmployerOverview
@@ -33,8 +35,6 @@ class EmployerDetailActivity : BaseActivity() {
 
     private val employerPublicViewModel: EmployerPublicViewModel by viewModel()
 
-    var profile: EmployerDetail.Data? = null
-
     var countryId = -1
 
     private lateinit var pagerAdapter: PagerAdapter
@@ -45,10 +45,17 @@ class EmployerDetailActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (savedInstanceState == null) {
-            profile = intent?.extras?.getParcelable(EXTRA_1)
+            intent?.extras?.let {
+                subscribeToData()
+                val locally = it.getBoolean(EXTRA_2, false)
+                if (!locally) {
+                    val profile: EmployerDetail.Data?  = it.getParcelable(EXTRA_1)
+                    initEmployerDetails(profile!!)
+                } else {
+                    viewModel.getEmployerDetails(it.getInt(EXTRA_1))
+                }
+            }
         }
-        subscribeToData()
-        initEmployerDetails(profile!!)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -69,6 +76,7 @@ class EmployerDetailActivity : BaseActivity() {
     }
 
     private fun subscribeToData() {
+        viewModel.viewState.subscribe(this, ::handleViewState)
         viewModel.countries.subscribe(this, {
             if (countryId != -1) {
                 val country = it.find { it.id == countryId }
@@ -83,6 +91,18 @@ class EmployerDetailActivity : BaseActivity() {
             }
         }
         viewModel.setCountries()
+    }
+
+    private fun handleViewState(viewState: ViewState<EmployerDetail>) {
+        when (viewState) {
+            is Loading -> showLoading(progressBar)
+            is Success -> {
+                initEmployerDetails(viewState.data.data)
+                viewModel.setCountries()
+            }
+            is Error -> handleError(viewState.error.localizedMessage)
+            is NoInternetState -> showNoInternetError()
+        }
     }
 
     private fun initEmployerDetails(details: EmployerDetail.Data) {
@@ -173,6 +193,16 @@ class EmployerDetailActivity : BaseActivity() {
             2 -> fragments[2]
             else -> fragments[0]
         }
+    }
+
+    private fun handleError(error: String) {
+        hideLoading(progressBar)
+        showError(error)
+    }
+
+    private fun showNoInternetError() {
+        hideLoading(progressBar)
+        snackbar(getString(R.string.no_internet_error_message), employersActivityContainer)
     }
 
 }

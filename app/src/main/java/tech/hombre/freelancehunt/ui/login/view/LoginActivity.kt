@@ -6,6 +6,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.data.di.API_TOKEN
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.login.presentation.LoginViewModel
@@ -81,6 +82,8 @@ class LoginActivity : BaseActivity() {
 
     private fun saveProfileAndGo(myprofile: MyProfile) {
         hideLoading(loginLoadingProgress)
+        appPreferences.setCurrentUserId(myprofile.data.id)
+        appPreferences.setCurrentUserType(myprofile.data.type)
         appPreferences.setCurrentUserProfile(myprofile.data.attributes)
         appPreferences.setAccessToken(token.text.toString())
         appNavigator.showMainActivity()

@@ -21,6 +21,18 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
             .apply()
     }
 
+    fun setCurrentUserType(type: String) {
+        sharedPreferences.edit().putString(KEY_USER_TYPE, type).apply()
+    }
+
+    fun getCurrentUserId(): Int = sharedPreferences.getInt(KEY_USER_ID, -1)
+
+    fun setCurrentUserId(id: Int) {
+        sharedPreferences.edit().putInt(KEY_USER_ID, id).apply()
+    }
+
+    fun getCurrentUserType(): String = sharedPreferences.getString(KEY_USER_TYPE, "") ?: ""
+
     fun getCurrentUserProfile(): MyProfile.Data.Attributes? {
         val json = sharedPreferences.getString(KEY_USER_PROFILE, "")
         return if (!json.isNullOrEmpty()) {
@@ -32,6 +44,8 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
     companion object {
         private const val KEY_API_TOKEN = "KEY_API_TOKEN"
         private const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
+        private const val KEY_USER_TYPE = "KEY_USER_TYPE"
+        private const val KEY_USER_ID = "KEY_USER_ID"
     }
 
 }

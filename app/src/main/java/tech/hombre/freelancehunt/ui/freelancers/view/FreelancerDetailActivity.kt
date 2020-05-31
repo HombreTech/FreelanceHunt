@@ -18,6 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
@@ -36,8 +37,6 @@ class FreelancerDetailActivity : BaseActivity() {
 
     var countryId = -1
 
-    var profile: FreelancerDetail.Data? = null
-
     private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +45,17 @@ class FreelancerDetailActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (savedInstanceState == null) {
-            profile = intent?.extras?.getParcelable(EXTRA_1)
+            intent?.extras?.let {
+                subscribeToData()
+                val locally = it.getBoolean(EXTRA_2, false)
+                if (!locally) {
+                    val profile: FreelancerDetail.Data? = it.getParcelable(EXTRA_1)
+                    initFreelancerDetails(profile!!)
+                } else {
+                    viewModel.getFreelancerDetails(it.getInt(EXTRA_1))
+                }
+            }
         }
-
-        initFreelancerDetails(profile!!)
-        subscribeToData()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -91,7 +96,10 @@ class FreelancerDetailActivity : BaseActivity() {
     private fun handleViewState(viewState: ViewState<FreelancerDetail>) {
         when (viewState) {
             is Loading -> showLoading(progressBar)
-            is Success -> initFreelancerDetails(viewState.data.data)
+            is Success -> {
+                initFreelancerDetails(viewState.data.data)
+                viewModel.setCountries()
+            }
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
         }

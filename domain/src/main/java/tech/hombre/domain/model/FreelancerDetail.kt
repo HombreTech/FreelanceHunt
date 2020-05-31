@@ -32,8 +32,8 @@ data class FreelancerDetail(
             val is_online: Boolean = false,
             val location: Location? = Location(),
             val verification: Verification = Verification(),
-            val contacts: String? = null,
-            val plus_ends_at: String? = null,
+            val contacts: Contacts? = Contacts(),
+            val plus_ends_at: String? = "",
             val created_at: String = "",
             val visited_at: String = "",
             val status: Status = Status(),
@@ -58,6 +58,16 @@ data class FreelancerDetail(
                     val height: Int = 0
                 ) : Parcelable
             }
+
+            @Parcelize
+            data class Contacts(
+                val skype: String = "",
+                val telegram: String = "",
+                val phone: String = "",
+                val wmid: String = "",
+                val email: String = "",
+                val website: String = ""
+            ) : Parcelable
 
             @Parcelize
             data class Location(

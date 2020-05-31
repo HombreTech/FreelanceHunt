@@ -6,6 +6,11 @@ const val EXTRA_1 = "EXTRA_1"
 const val EXTRA_2 = "EXTRA_2"
 const val EXTRA_3 = "EXTRA_3"
 
+enum class UserType(val type: String) {
+    EMPLOYER("employer"),
+    FREELANCER("freelancer")
+}
+
 enum class FeedType(val type: Int) {
     UNKNOWN(0),
     PROJECT(1),

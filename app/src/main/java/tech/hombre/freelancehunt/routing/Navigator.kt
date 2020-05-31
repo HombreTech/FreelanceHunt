@@ -14,7 +14,11 @@ interface Navigator {
 
     fun showFreelancerDetails(details: FreelancerDetail.Data)
 
+    fun showFreelancerDetails(profileId: Int)
+
     fun showEmployerDetails(details: EmployerDetail.Data)
+
+    fun showEmployerDetails(profileId: Int)
 
     fun showProjectDetails(details: ProjectDetail.Data)
 

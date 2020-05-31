@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.navigation_header.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.displayFragment
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.routing.AppNavigator
@@ -84,7 +85,11 @@ class MainActivity : BaseActivity() {
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
-                    R.id.menu_profile -> appNavigator.showProfileActivity()
+                    R.id.menu_profile -> when (UserType.EMPLOYER.type) {
+                        appPreferences.getCurrentUserType() -> appNavigator.showEmployerDetails(appPreferences.getCurrentUserId())
+                        else -> appNavigator.showFreelancerDetails(appPreferences.getCurrentUserId())
+                    }
+                    R.id.menu_logout -> onLoginRequire()
                     R.id.menu_freelancers -> supportFragmentManager.displayFragment(
                         R.id.fragmentContainer,
                         FreelancersFragment.newInstance(),
