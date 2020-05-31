@@ -1,2 +1,54 @@
-# FreelanceHunt
- Android Client for FreelanceHunt.com
+# Freelance Hunt [Android]
+
+Another one FreelanceHunt.com client app.
+
+```Kotlin```  ```Clean Architecture```
+## Features
+- **Feed**
+  - List of user feed updates ```Cached```
+- **Projects**
+  - List of employers projects ```Cached```
+  - Overview
+    - About
+    - Bids
+    - Comments
+  - Cached
+- **Contests**
+  - List of employers contests ```Cached```
+  - Overview
+    - About
+    - Comments
+- **Freelancers**
+  - All feelancers list
+  - Overview
+    - About
+    - Reviews
+- **Employers**
+  - All employers list
+  - Overview
+    - About
+    - Reviews
+- **Threads**
+  - All user threads list
+  - Thread messages
+- **Bids**
+  - My bids list
+
+## Third party libraries
+
+- **Android Architecture Components**
+- **Kotlin Coroutines**
+- **Koin**
+- **Retrofit**
+- **Gson**
+- **Room**
+- **OkHttp**
+
+## Contributing
+Pull requests are welcome. Open an issue to discuss what you would like to change.
+
+## License
+
+> Copyright (C) 2020 HombreTech.
+> Licensed under the [GPL-3.0](https://www.gnu.org/licenses/gpl.html) license.
+> (See the [LICENSE](https://github.com/HombreTech/FreelanceHunt/blob/master/LICENSE) file for license text.)

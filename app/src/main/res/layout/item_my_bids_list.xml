@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clickableView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/padding_middle">
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_middle"
+                android:layout_marginTop="@dimen/padding_middle"
+                app:constraint_referenced_ids="status"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="@dimen/padding_small"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalBias="0"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="@id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_status"
+                android:textColor="?textColorPrimary"
+                tools:text="Закрыт без выполнения" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextStyle.Heading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_middle"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:layout_marginBottom="@dimen/padding_middle"
+                android:autoLink="all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/flow"
+                app:layout_constraintTop_toBottomOf="@id/flow"
+                tools:text="Нарисовать одну сцену в необходимой стилистике." />
+
+            <TextView
+                android:id="@+id/comment"
+                style="@style/TextStyle.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:autoLink="all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/name"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                tools:text="Choose me and we can fix it!" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:barrierMargin="@dimen/padding_small"
+                app:constraint_referenced_ids="name, comment"
+                app:layout_constraintTop_toBottomOf="@id/status" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="days,mybudget"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="@dimen/padding_small"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalBias="0"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="@id/name"
+                app:layout_constraintStart_toStartOf="@id/name"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+            <TextView
+                android:id="@+id/mybudget"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/bid"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                tools:text="8300 ₴" />
+
+            <TextView
+                android:id="@+id/days"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/calendar"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                tools:text="2 дня" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

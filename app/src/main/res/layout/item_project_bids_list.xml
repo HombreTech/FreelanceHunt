@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:id="@+id/hiddenBid"
+            style="@style/TextStyle.Hidden"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding_middle"
+            android:gravity="center"
+            android:text="@string/bid_is_hidden"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clickableView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/padding_middle">
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flowlogin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_middle"
+                app:constraint_referenced_ids="avatar,login,verified,isplus"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="@dimen/padding_small"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalBias="0"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toStartOf="@id/flowrating"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <tech.hombre.freelancehunt.common.widgets.CustomImageView
+                android:id="@+id/avatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="@dimen/padding_middle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/login"
+                style="@style/TextStyle.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Илья К." />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/verified"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:text="@string/verified"
+                android:visibility="gone"
+                app:srcCompat="@drawable/verified"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/isplus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/plus"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/publishedAt"
+                style="@style/TextStyle.Title.Sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:drawableStart="@drawable/time"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/flowlogin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/flowlogin"
+                tools:text="Час назад" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flowrating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_middle"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:visibility="invisible"
+                app:constraint_referenced_ids="voteup,votedown,rating"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="@dimen/padding_small"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalBias="0"
+                app:flow_wrapMode="chain"
+                app:layout_constraintBottom_toBottomOf="@id/flowlogin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/flowlogin"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/rating"
+                style="@style/TextStyle.Rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_premium"
+                android:drawableStart="@drawable/star"
+                android:drawablePadding="@dimen/padding_small"
+                android:ellipsize="end"
+                android:textColor="?textColorPrimary"
+                tools:text="373" />
+
+            <TextView
+                android:id="@+id/voteup"
+                style="@style/TextStyle.Vote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/thumb_up"
+                android:drawablePadding="@dimen/padding_small"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:textColor="?textColorSecondary"
+                tools:text="2" />
+
+            <TextView
+                android:id="@+id/votedown"
+                style="@style/TextStyle.Vote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/thumb_down"
+                android:drawablePadding="@dimen/padding_small"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:textColor="?textColorSecondary"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/comment"
+                style="@style/TextStyle.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_middle"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:autoLink="all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/avatar"
+                app:layout_constraintTop_toBottomOf="@id/flowlogin"
+                tools:text="Choose me and we can fix it!" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_middle"
+                android:layout_marginTop="@dimen/padding_middle"
+                app:constraint_referenced_ids="days, mybid"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="@dimen/padding_small"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalBias="0"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toStartOf="@id/voteup"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comment" />
+
+            <TextView
+                android:id="@+id/days"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/calendar"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                tools:text="2 дня" />
+
+            <TextView
+                android:id="@+id/mybid"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/bid"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                tools:text="8300 ₴" />
+
+            <TextView
+                android:id="@+id/isWinner"
+                style="@style/TextStyle.Winner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:drawableStart="@drawable/trophy"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="@string/winner"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/flow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/flow"
+                tools:visibility="visible" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

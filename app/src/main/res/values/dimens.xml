@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="card_radius">0dp</dimen>
+
+    <dimen name="padding_micro">2dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_middle">8dp</dimen>
+    <dimen name="padding_standart">16dp</dimen>
+    <dimen name="padding_large">32dp</dimen>
+    <dimen name="padding_extra">64dp</dimen>
+</resources>

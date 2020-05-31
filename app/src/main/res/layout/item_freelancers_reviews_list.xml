@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clickableView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/padding_middle">
+
+            <TextView
+                android:id="@+id/projectName"
+                style="@style/TextStyle.Heading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/thumb_up"
+                android:drawablePadding="@dimen/padding_middle"
+                app:layout_constraintEnd_toStartOf="@id/publishedAt"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Project with pending review" />
+
+            <TextView
+                android:id="@+id/comment"
+                style="@style/TextStyle.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                app:layout_constraintEnd_toEndOf="@id/grades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/projectName"
+                tools:text="Great work!" />
+
+            <TextView
+                android:id="@+id/publishedAt"
+                style="@style/TextStyle.Title.Sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/time"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="@id/grades"
+                app:layout_constraintTop_toTopOf="@id/projectName"
+                tools:text="Час назад" />
+
+            <TableLayout
+                android:id="@+id/grades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_middle"
+                android:stretchColumns="2"
+                app:layout_constraintEnd_toEndOf="@id/projectName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comment">
+
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/gradesQuality"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/back_grade"
+                            android:text="Качество"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/qualityBar"
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:isIndicator="true"
+                        android:numStars="10"
+                        tools:rating="3" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/gradeProfessionalism"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/back_grade"
+                            android:text="Профессионализм"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/professionalismBar"
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:isIndicator="true"
+                        android:numStars="10"
+                        tools:rating="4" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/gradeCost"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/back_grade"
+                            android:text="Стоимость"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/costBar"
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:isIndicator="true"
+                        android:numStars="10"
+                        tools:rating="4" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/gradeСonnectivity"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/back_grade"
+                            android:text="Контактность"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/connectivityBar"
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:isIndicator="true"
+                        android:numStars="10"
+                        tools:rating="5" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/gradeSchedule"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/back_grade"
+                            android:text="Сроки"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/scheduleBar"
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:isIndicator="true"
+                        android:numStars="10"
+                        tools:rating="5" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <tech.hombre.freelancehunt.common.widgets.CustomImageView
+                android:id="@+id/avatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/padding_middle"
+                app:layout_constraintStart_toStartOf="@id/grades"
+                app:layout_constraintTop_toBottomOf="@id/grades"
+                tools:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextStyle.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_middle"
+                android:layout_marginEnd="@dimen/padding_middle"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="@id/avatar"
+                app:layout_constraintEnd_toStartOf="@id/budget"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/avatar"
+                app:layout_constraintTop_toTopOf="@id/avatar"
+                tools:text="Михаил К." />
+
+            <TextView
+                android:id="@+id/budget"
+                style="@style/TextStyle.Type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/bid"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/avatar"
+                app:layout_constraintEnd_toEndOf="@id/grades"
+                app:layout_constraintTop_toTopOf="@id/avatar"
+                tools:text="8300 ₴" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.freelancers.view.FreelancerDetailActivity">
+
+    <include layout="@layout/appbar_fill" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/freelancerActivityContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/freelancerLoadingProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/cardview_light_background"
+                        app:cardCornerRadius="@dimen/card_radius"
+                        app:cardElevation="0dp"
+                        app:cardUseCompatPadding="false">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/padding_middle"
+                            android:paddingStart="@dimen/padding_middle"
+                            android:paddingEnd="@dimen/padding_middle">
+
+                            <tech.hombre.freelancehunt.common.widgets.CustomImageView
+                                android:id="@+id/avatar"
+                                android:layout_width="144dp"
+                                android:layout_height="144dp"
+                                android:layout_marginEnd="@dimen/padding_standart"
+                                android:elevation="4dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/name" />
+
+                            <androidx.constraintlayout.helper.widget.Flow
+                                android:id="@+id/flowlogin"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/padding_middle"
+                                android:layout_marginTop="@dimen/padding_standart"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                app:constraint_referenced_ids="name,verified,isplus"
+                                app:flow_horizontalBias="0"
+                                app:flow_horizontalGap="@dimen/padding_small"
+                                app:flow_horizontalStyle="packed"
+                                app:flow_verticalBias="0"
+                                app:flow_wrapMode="chain"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/name"
+                                style="@style/TextStyle.Heading.Large"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/padding_middle"
+                                android:layout_marginTop="@dimen/padding_standart"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="Илья К." />
+
+                            <TextView
+                                android:id="@+id/login"
+                                style="@style/TextStyle.Title.Sub"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                app:layout_constraintEnd_toEndOf="@id/flowlogin"
+                                app:layout_constraintStart_toStartOf="@id/name"
+                                app:layout_constraintTop_toBottomOf="@id/flowlogin"
+                                tools:text="ilyakokhan" />
+
+                            <androidx.constraintlayout.helper.widget.Flow
+                                android:id="@+id/flow"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/padding_middle"
+                                android:layout_marginTop="@dimen/padding_standart"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                app:constraint_referenced_ids="rating,voteup,votedown"
+                                app:flow_horizontalBias="0"
+                                app:flow_horizontalGap="@dimen/padding_small"
+                                app:flow_horizontalStyle="packed"
+                                app:flow_verticalBias="0"
+                                app:flow_wrapMode="chain"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/login" />
+
+                            <TextView
+                                android:id="@+id/rating"
+                                style="@style/TextStyle.Rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/back_premium"
+                                android:drawableStart="@drawable/star"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:textColor="?textColorPrimary"
+                                tools:text="373" />
+
+                            <TextView
+                                android:id="@+id/voteup"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/thumb_up"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:textColor="?textColorSecondary"
+                                tools:text="2" />
+
+                            <TextView
+                                android:id="@+id/votedown"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/thumb_down"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:textColor="?textColorSecondary"
+                                tools:text="0" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/verified"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/avatar"
+                                app:srcCompat="@drawable/verified"
+                                tools:visibility="visible" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/isplus"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/plus"
+                                tools:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/status"
+                                style="@style/TextStyle.Type.Bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_middle"
+                                android:background="@drawable/back_status"
+                                android:ellipsize="end"
+                                android:textColor="?textColorPrimary"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="@id/flow"
+                                app:layout_constraintTop_toBottomOf="@id/flow"
+                                tools:text="Свободен" />
+
+                            <tech.hombre.freelancehunt.common.widgets.CustomImageView
+                                android:id="@+id/locationIcon"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="@dimen/padding_middle"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                app:layout_constraintBottom_toBottomOf="@id/location"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/location" />
+
+                            <TextView
+                                android:id="@+id/location"
+                                style="@style/TextStyle.Title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/padding_small"
+                                android:layout_marginTop="@dimen/padding_middle"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintStart_toEndOf="@id/locationIcon"
+                                app:layout_constraintTop_toBottomOf="@id/status"
+                                tools:text="Беларусь, Гомель" />
+
+                            <TextView
+                                android:id="@+id/birthdate"
+                                style="@style/TextStyle.Title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_small"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                android:drawableStart="@drawable/birthday"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:gravity="center_vertical"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintStart_toStartOf="@id/rating"
+                                app:layout_constraintTop_toBottomOf="@id/location"
+                                tools:text="26 лет" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:descendantFocusability="blocksDescendants" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

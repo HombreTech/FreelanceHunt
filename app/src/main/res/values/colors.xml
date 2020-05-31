@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorOnSurface">#6FFFFFFF</color>
+    <color name="colorAccent">#51a351</color>
+    <color name="black_effective">#2a2a2a</color>
+    <color name="shadow">#d0d8dc</color>
+    <color name="white">#FFFFFF</color>
+    <color name="background">#fbfbfb</color>
+    <color name="grey">#E4E4E4</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="grade">#999</color>
+    <color name="ratingBarBackground">#4E999999</color>
+    <color name="message_my">#008577</color>
+
+    <color name="toolbar_icon">#FBFBFB</color>
+    <color name="toolbar_subicon">#B9FFFFFF</color>
+
+    <color name="gold">#ffbb17</color>
+    <color name="fire">#F44336</color>
+    <color name="feedNew">#FF5722</color>
+    <color name="typeProject">#008577</color>
+    <color name="typeUnknown">#00ACC1</color>
+    <color name="typeWork">#FF9800</color>
+    <color name="typeLike">#E91E63</color>
+    <color name="typeComment">#3F51B5</color>
+
+    <color name="isPremium">#ffbb17</color>
+    <color name="isSafe">#1E88E5</color>
+    <color name="isRemote">#00ACC1</color>
+    <color name="isFinal">#43A047</color>
+
+    <color name="status_free">#5E35B1</color>
+    <color name="status_bit_busy">#FDD835</color>
+    <color name="status_very_busy">#FFB300</color>
+    <color name="status_not_work">#37000000</color>
+    <color name="status_on_vocation">#00ACC1</color>
+
+    <color name="status_bid_active">#C0CA33</color>
+    <color name="status_bid_revoked">#FFB300</color>
+    <color name="status_bid_rejected">#F4511E</color>
+
+    <color name="status_project_open">#3949AB</color>
+    <color name="status_project_completed">#7CB342</color>
+    <color name="status_project_expired">#FFB300</color>
+    <color name="status_project_pending">#FDD835</color>
+    <color name="status_project_closed_by_moderator">#F4511E</color>
+
+    <color name="status_project_closed">#00897B</color>
+
+
+    <color name="menu_item">#67008577</color>
+    <color name="menu_icon_unactive">#555555</color>
+    <color name="menu_icon_active">#00574B</color>
+
+    <color name="thumb_up">#43A047</color>
+    <color name="thumb_down">#E53935</color>
+
+
+</resources>

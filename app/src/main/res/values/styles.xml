@@ -1,0 +1,150 @@
+<resources>
+
+    <style name="ShapeAppearanceOverlay.Item" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+
+    <style name="ThemeOverlay.NavItem.Ripple" parent="">
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/black_effective</item>
+    </style>
+
+    <style name="TextStyle.Title" parent="TextStyle">
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextStyle.Title.Sub" parent="TextStyle.Title">
+        <item name="android:fontFamily">@font/light</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextStyle.Chat.Time" parent="TextStyle.Title">
+        <item name="android:fontFamily">@font/light</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextStyle.Chat.Text" parent="TextStyle.Title">
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextStyle.Caption" parent="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/light</item>
+    </style>
+
+    <style name="TextStyle.Heading" parent="TextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+
+    <style name="TextStyle.Heading.Large" parent="TextStyle">
+        <item name="android:textSize">26sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+
+    <style name="TextStyle.Splash" parent="TextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+
+    <style name="TextStyle.Type" parent="TextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+
+    <style name="TextStyle.Type.Bold" parent="TextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextStyle.Vote" parent="TextStyle">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextStyle.Editor" parent="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+
+    <style name="TextStyle.Rating" parent="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextStyle.Rating.Large" parent="TextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextStyle.Divider" parent="TextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextStyle.Winner" parent="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextStyle.Hidden" parent="TextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/ratingBarBackground</item>
+    </style>
+
+    <style name="DefaultButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/button</item>
+        <item name="colorButtonNormal">#51a351</item>
+        <item name="colorControlHighlight">#499249</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Button.Triangle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">4dp</item>
+        <item name="cornerSizeBottomLeft">4dp</item>
+
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeTopRight">18dp</item>
+        <item name="cornerSizeBottomRight">18dp</item>
+    </style>
+
+    <style name="RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar</item>
+        <item name="android:indeterminateDrawable">@drawable/ratingbar</item>
+        <item name="android:minHeight">18dp</item>
+        <item name="android:maxHeight">18dp</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:thumb">@null</item>
+        <item name="android:progressTint">?colorAccent</item>
+        <item name="android:progressBackgroundTint">@color/ratingBarBackground</item>
+    </style>
+
+    <style name="ContentLoadingProgress" parent="@style/Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+</resources>

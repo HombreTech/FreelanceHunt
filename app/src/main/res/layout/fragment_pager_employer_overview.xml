@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_middle"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="false">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_middle">
+
+
+                    <TextView
+                        android:id="@+id/verificationData"
+                        style="@style/TextStyle.Divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_middle"
+                        android:text="@string/verification_data"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0.9dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:background="@color/colorPrimaryDark"
+                        app:layout_constraintBottom_toBottomOf="@id/verificationData"
+                        app:layout_constraintEnd_toEndOf="@+id/verificationData"
+                        app:layout_constraintStart_toStartOf="@+id/verificationData" />
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/padding_middle"
+                        android:stretchColumns="3"
+                        app:layout_constraintEnd_toEndOf="@id/verificationData"
+                        app:layout_constraintStart_toStartOf="@id/verificationData"
+                        app:layout_constraintTop_toBottomOf="@id/verificationData">
+
+                        <TableRow
+                            android:id="@+id/tableRow1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/verificatedName"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/verificated_user"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/names"
+                                android:textColor="?textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/verificatedBirth"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/birthday"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/birth"
+                                android:textColor="?textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/verificatedPassport"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/verificated_passport"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/passport_data"
+                                android:textColor="?textColorSecondary" />
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/tableRow2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/verificatedPhoto"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/photo"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/photo"
+                                android:textColor="?textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/verificatedPhone"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/phone"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/phone"
+                                android:textColor="?textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/verificatedCountry"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/verificated_place"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/country"
+                                android:textColor="?textColorSecondary" />
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/tableRow3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/verificatedCard"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/card"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/card"
+                                android:textColor="?textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/verificatedBankID"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/bank"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/BankID"
+                                android:textColor="?textColorSecondary" />
+
+
+                            <TextView
+                                android:id="@+id/verificatedSite"
+                                style="@style/TextStyle.Type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/web"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:text="@string/site"
+                                android:textColor="?textColorSecondary" />
+                        </TableRow>
+
+                    </TableLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_middle"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="false">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_middle">
+
+
+                    <TextView
+                        android:id="@+id/summaryTitle"
+                        style="@style/TextStyle.Divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_middle"
+                        android:text="@string/summary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0.9dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/padding_small"
+                        android:background="@color/colorPrimaryDark"
+                        app:layout_constraintBottom_toBottomOf="@id/summaryTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/summaryTitle"
+                        app:layout_constraintStart_toStartOf="@+id/summaryTitle" />
+
+
+                    <TextView
+                        android:id="@+id/summary"
+                        style="@style/TextStyle.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_middle"
+                        android:padding="@dimen/padding_middle"
+                        app:layout_constraintTop_toBottomOf="@id/summaryTitle"
+                        tools:text="Text" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

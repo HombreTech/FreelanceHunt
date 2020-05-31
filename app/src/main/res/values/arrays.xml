@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ending_applications">
+        <item>участник</item>
+        <item>участника</item>
+        <item>участников</item>
+    </string-array>
+
+    <string-array name="ending_messages">
+        <item>сообщение</item>
+        <item>сообщения</item>
+        <item>сообщений</item>
+    </string-array>
+
+    <string-array name="ending_days">
+        <item>день</item>
+        <item>дня</item>
+        <item>дней</item>
+    </string-array>
+
+    <string-array name="ending_weeks">
+        <item>неделя</item>
+        <item>недели</item>
+        <item>недель</item>
+    </string-array>
+
+    <string-array name="ending_month">
+        <item>месяц</item>
+        <item>месяца</item>
+        <item>месяцев</item>
+    </string-array>
+
+    <string-array name="ending_years">
+        <item>год</item>
+        <item>года</item>
+        <item>лет</item>
+    </string-array>
+
+    <string-array name="ending_hours">
+        <item>час</item>
+        <item>часа</item>
+        <item>часов</item>
+    </string-array>
+
+    <string-array name="ending_minutes">
+        <item>минута</item>
+        <item>минуты</item>
+        <item>минут</item>
+    </string-array>
+
+    <string-array name="freelancer_tabs">
+        <item>Профиль</item>
+        <item>Ставки</item>
+        <item>Отзывы</item>
+    </string-array>
+
+    <string-array name="freelancer_tabs_icons">
+        <item>overview</item>
+        <item>bid</item>
+        <item>reviews</item>
+    </string-array>
+
+    <string-array name="employer_tabs">
+        <item>Профиль</item>
+        <item>Ставки</item>
+        <item>Отзывы</item>
+    </string-array>
+
+    <string-array name="employer_tabs_icons">
+        <item>overview</item>
+        <item>bid</item>
+        <item>reviews</item>
+    </string-array>
+
+    <string-array name="project_tabs">
+        <item>О проекте</item>
+        <item>Ставки</item>
+        <item>Обсуждение</item>
+    </string-array>
+
+    <string-array name="project_tabs_icons">
+        <item>project</item>
+        <item>bid</item>
+        <item>reviews</item>
+    </string-array>
+
+    <string-array name="contest_tabs">
+        <item>О конкурсе</item>
+        <!--<item>Работы</item>!-->
+        <item>Обсуждение</item>
+    </string-array>
+
+    <string-array name="contest_tabs_icons">
+        <item>trophy</item>
+        <!--<item>project</item>!-->
+        <item>reviews</item>
+    </string-array>
+
+</resources>

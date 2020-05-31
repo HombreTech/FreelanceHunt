@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutChat"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/padding_middle"
+    android:layout_marginEnd="@dimen/padding_extra"
+    android:layout_marginBottom="@dimen/padding_small"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/message_send"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_msg_left"
+        android:elevation="2dp"
+        android:paddingStart="@dimen/padding_middle"
+        android:paddingTop="5dp"
+        android:paddingEnd="@dimen/padding_small"
+        android:paddingBottom="7dp">
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/TextStyle.Chat.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:textColor="?textColorSecondary"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Text" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:barrierMargin="@dimen/padding_small"
+            app:constraint_referenced_ids="text"
+            app:layout_constraintTop_toBottomOf="@id/text" />
+
+        <TextView
+            android:id="@+id/postedAt"
+            style="@style/TextStyle.Chat.Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:textColor="?textColorSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier"
+            tools:text="Час назад" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <tech.hombre.freelancehunt.common.widgets.CustomImageView
+        android:id="@+id/avatar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:layout_marginTop="3dp"
+        tools:background="@color/colorPrimary" />
+
+</LinearLayout>

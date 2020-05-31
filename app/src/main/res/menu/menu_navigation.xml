@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_profile"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_profile"
+            android:icon="@drawable/profile"
+            android:title="@string/my_profile" />
+        <item
+            android:id="@+id/menu_threads"
+            android:icon="@drawable/mail"
+            android:title="@string/threads" />
+        <item
+            android:id="@+id/menu_bids"
+            android:icon="@drawable/bids"
+            android:title="@string/my_bids" />
+        <item
+            android:id="@+id/menu_contests"
+            android:icon="@drawable/contests"
+            android:title="@string/my_contests" />
+        <item
+            android:id="@+id/menu_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/logout" />
+    </group>
+
+    <group
+        android:id="@+id/group_menu"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_freelancers"
+            android:icon="@drawable/freelancers"
+            android:title="@string/freelancers" />
+        <item
+            android:id="@+id/menu_employers"
+            android:icon="@drawable/employers"
+            android:title="@string/employers" />
+    </group>
+
+    <group
+        android:id="@+id/group_app"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:icon="@drawable/settings"
+            android:title="@string/settings" />
+    </group>
+
+</menu>

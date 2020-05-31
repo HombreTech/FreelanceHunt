@@ -1,0 +1,47 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <tech.hombre.freelancehunt.common.widgets.CustomImageView
+        android:id="@+id/avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/padding_standart"
+        android:layout_marginTop="@dimen/padding_standart"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/white" />
+
+    <TextView
+        android:id="@+id/rate"
+        style="@style/TextStyle.Heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:background="@drawable/back_premium"
+        android:drawableStart="@drawable/star"
+        android:drawablePadding="@dimen/padding_small"
+        android:textColor="?textColorPrimary"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar"
+        tools:text="373" />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/TextStyle.Heading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_middle"
+        android:textColor="?textColorPrimary"
+        app:layout_constraintStart_toStartOf="@id/rate"
+        app:layout_constraintTop_toBottomOf="@id/rate"
+        tools:text="Илья К." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

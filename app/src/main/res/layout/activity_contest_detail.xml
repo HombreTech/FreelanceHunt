@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.project.view.ProjectDetailActivity">
+
+    <include layout="@layout/appbar_fill" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contestActivityContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/reviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/cardview_light_background"
+                    app:cardCornerRadius="@dimen/card_radius"
+                    app:cardElevation="0dp"
+                    app:cardUseCompatPadding="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_middle">
+
+                        <androidx.constraintlayout.helper.widget.Flow
+                            android:id="@+id/flow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:constraint_referenced_ids="skillIcon,skill"
+                            app:flow_horizontalBias="0"
+                            app:flow_horizontalGap="@dimen/padding_small"
+                            app:flow_horizontalStyle="packed"
+                            app:flow_verticalBias="0"
+                            app:flow_wrapMode="chain"
+                            app:layout_constraintEnd_toEndOf="@id/name"
+                            app:layout_constraintStart_toStartOf="@id/name"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <tech.hombre.freelancehunt.common.widgets.CustomImageView
+                            android:id="@+id/skillIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            tools:background="@color/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/skill"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?textColorSecondary"
+                            tools:text="Icon" />
+
+                        <TextView
+                            android:id="@+id/name"
+                            style="@style/TextStyle.Heading.Large"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:textColor="?textColorSecondary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/flow"
+                            tools:text="New contest" />
+
+
+                        <TextView
+                            android:id="@+id/status"
+                            style="@style/TextStyle.Vote"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/back_grade"
+                            android:textColor="?textColorPrimary"
+                            app:layout_constraintStart_toStartOf="@id/name"
+                            app:layout_constraintTop_toBottomOf="@id/name"
+                            tools:text="Final" />
+
+                        <TextView
+                            android:id="@+id/budget"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_small"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:drawableStart="@drawable/purse"
+                            android:drawablePadding="@dimen/padding_small"
+                            android:gravity="center_vertical"
+                            android:textColor="?textColorSecondary"
+                            app:layout_constraintStart_toStartOf="@id/name"
+                            app:layout_constraintTop_toBottomOf="@id/status"
+                            tools:text="2300 ₴" />
+
+                        <TextView
+                            android:id="@+id/finalAt"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_middle"
+                            android:drawableStart="@drawable/calendar"
+                            android:drawablePadding="@dimen/padding_small"
+                            android:textColor="?textColorSecondary"
+                            app:layout_constraintBottom_toBottomOf="@id/budget"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@id/budget"
+                            app:layout_constraintTop_toTopOf="@id/budget"
+                            tools:text="2 дня" />
+
+                        <TextView
+                            android:id="@+id/applications"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_middle"
+                            android:drawableStart="@drawable/parcel"
+                            android:drawablePadding="@dimen/padding_small"
+                            android:gravity="center"
+                            android:textColor="?textColorSecondary"
+                            app:layout_constraintBottom_toBottomOf="@id/budget"
+                            app:layout_constraintStart_toEndOf="@id/finalAt"
+                            app:layout_constraintTop_toTopOf="@id/budget"
+                            tools:text="12 участников" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_constraintTop_toBottomOf="@id/reviewView">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:descendantFocusability="blocksDescendants" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
