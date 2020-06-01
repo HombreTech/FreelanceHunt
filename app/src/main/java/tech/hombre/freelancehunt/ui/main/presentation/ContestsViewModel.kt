@@ -1,5 +1,6 @@
 package tech.hombre.freelancehunt.ui.main.presentation
 
+import tech.hombre.data.BuildConfig
 import tech.hombre.domain.interaction.contests.GetContestsListUseCase
 import tech.hombre.domain.model.ContestsList
 import tech.hombre.domain.model.onFailure
@@ -13,7 +14,7 @@ class ContestsViewModel(private val getContestsList: GetContestsListUseCase) :
 
     lateinit var pagination: ContestsList.Links
 
-    fun getContestsLists(url: String = "contests") = executeUseCase {
+    fun getContestsLists(url: String = BuildConfig.BASE_URL + "contests") = executeUseCase {
         getContestsList(url)
             .onSuccess {
                 pagination = it.links
