@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.FeedList
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.FeedType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
@@ -125,7 +126,9 @@ class FeedFragment : BaseFragment() {
                         .setOnClickListener(
                             R.id.clickableView
                         ) {
-                            if (!notForMe) projectDetailsViewModel.getProjectDetails(model.links.project) else handleError(
+                            if (!notForMe) {
+                                if (type != FeedType.UNKNOWN) projectDetailsViewModel.getProjectDetails(model.links.project)
+                            } else handleError(
                                 getString(R.string.only_for_plus)
                             )
                         }
