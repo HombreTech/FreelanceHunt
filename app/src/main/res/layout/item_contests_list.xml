@@ -23,22 +23,10 @@
             android:focusable="true"
             android:paddingBottom="@dimen/padding_middle">
 
-            <androidx.constraintlayout.helper.widget.Flow
-                android:id="@+id/flow2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_middle"
-                app:constraint_referenced_ids="isfinal"
-                app:flow_horizontalBias="0"
-                app:flow_horizontalGap="@dimen/padding_small"
-                app:flow_horizontalStyle="packed"
-                app:flow_verticalBias="0"
-                app:flow_wrapMode="chain"
+            <TextView
                 app:layout_constraintEnd_toEndOf="@id/name"
                 app:layout_constraintStart_toStartOf="@id/icon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
+                app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/isfinal"
                 style="@style/TextStyle.Type.Bold"
                 android:layout_width="wrap_content"
@@ -49,7 +37,7 @@
                 android:textColor="?textColorPrimary"
                 android:visibility="gone"
                 app:layout_constraintHorizontal_bias="0.0"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <tech.hombre.freelancehunt.common.widgets.CustomImageView
                 android:id="@+id/icon"
@@ -57,7 +45,7 @@
                 android:layout_height="64dp"
                 android:layout_margin="@dimen/padding_middle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/flow2"
+                app:layout_constraintTop_toBottomOf="@id/isfinal"
                 tools:background="@color/colorPrimary" />
 
             <androidx.constraintlayout.widget.Barrier
