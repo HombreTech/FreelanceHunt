@@ -18,6 +18,7 @@ import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
@@ -46,10 +47,17 @@ class ProjectDetailActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (savedInstanceState == null) {
-            project = intent?.extras?.getParcelable(EXTRA_1)
+            intent?.extras?.let {
+                subscribeToData()
+                val locally = it.getBoolean(EXTRA_2, false)
+                if (!locally) {
+                    val project: ProjectDetail.Data?  = it.getParcelable(EXTRA_1)
+                    initProjectDetails(project!!)
+                } else {
+                    viewModel.getProjectDetails("projects/${it.getInt(EXTRA_1)}")
+                }
+            }
         }
-        subscribeToData()
-        initProjectDetails(project!!)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -138,8 +146,6 @@ class ProjectDetailActivity : BaseActivity() {
         } else budget.text = getString(R.string.budget_nan)
 
         expiredAt.text = details.attributes.expired_at.parseFullDate(true).getTimeAgo()
-
-        //description.text = details.attributes.description
     }
 
     private fun updateTabViews(position: Int) {

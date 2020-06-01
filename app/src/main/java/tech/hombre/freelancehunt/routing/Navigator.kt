@@ -22,6 +22,8 @@ interface Navigator {
 
     fun showProjectDetails(details: ProjectDetail.Data)
 
+    fun showProjectDetails(projectId: Int)
+
     fun showContestDetails(contestId: Int)
 
 }

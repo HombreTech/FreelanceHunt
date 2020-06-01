@@ -51,12 +51,18 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
     override fun showEmployerDetails(profileId: Int) =
         navigateTo(getIntent<EmployerDetailActivity>().apply {
             putExtra(EXTRA_1, profileId)
-            putExtra(EXTRA_2, profileId)
+            putExtra(EXTRA_2, true)
         })
 
     override fun showProjectDetails(details: ProjectDetail.Data) =
         navigateTo(getIntent<ProjectDetailActivity>().apply {
             putExtra(EXTRA_1, details)
+        })
+
+    override fun showProjectDetails(projectId: Int) =
+        navigateTo(getIntent<ProjectDetailActivity>().apply {
+            putExtra(EXTRA_1, projectId)
+            putExtra(EXTRA_2, true)
         })
 
     override fun showContestDetails(contestId: Int) =
