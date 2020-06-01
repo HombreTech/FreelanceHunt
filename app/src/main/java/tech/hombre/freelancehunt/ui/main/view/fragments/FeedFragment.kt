@@ -25,8 +25,6 @@ class FeedFragment : BaseFragment() {
 
     private val sharedViewModelMain: MainPublicViewModel by sharedViewModel()
 
-    private val projectDetailsViewModel: ProjectDetailViewModel by sharedViewModel()
-
     override fun getLayout() = R.layout.fragment_feed
 
     override fun viewReady() {
@@ -36,7 +34,7 @@ class FeedFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        projectDetailsViewModel.viewState.subscribe(this, {
+        viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -127,7 +125,7 @@ class FeedFragment : BaseFragment() {
                             R.id.clickableView
                         ) {
                             if (!notForMe) {
-                                if (type != FeedType.UNKNOWN) projectDetailsViewModel.getProjectDetails(model.links.project)
+                                if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
                             } else handleError(
                                 getString(R.string.only_for_plus)
                             )

@@ -57,6 +57,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        // TODO return to main if now not here
         if (supportFragmentManager.backStackEntryCount <= 1) finish() else goBack()
     }
 

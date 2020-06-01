@@ -20,8 +20,6 @@ class ProjectsFragment : BaseFragment() {
 
     private val viewModel: ProjectsViewModel by viewModel()
 
-    private val projectDetailsViewModel: ProjectDetailViewModel by sharedViewModel()
-
     override fun getLayout() = R.layout.fragment_projects
 
     lateinit var adapter: RendererRecyclerViewAdapter
@@ -63,7 +61,7 @@ class ProjectsFragment : BaseFragment() {
                         .setText(R.id.bidCount, model.attributes.bid_count.toString())
                         .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
                         .setOnClickListener(R.id.clickableView) {
-                            projectDetailsViewModel.getProjectDetails(model.links.self.api)
+                            viewModel.getProjectDetails(model.links.self.api)
                         }
                 }
             )
@@ -94,7 +92,7 @@ class ProjectsFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        projectDetailsViewModel.viewState.subscribe(this, {
+        viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {

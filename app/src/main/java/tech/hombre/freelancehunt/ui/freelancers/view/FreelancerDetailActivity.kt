@@ -26,7 +26,6 @@ import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerPublicVie
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerOverview
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerReviews
 
-
 class FreelancerDetailActivity : BaseActivity() {
 
     override fun isPrivate() = false

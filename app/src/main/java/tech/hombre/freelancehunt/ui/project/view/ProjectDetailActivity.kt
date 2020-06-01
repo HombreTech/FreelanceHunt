@@ -35,8 +35,6 @@ class ProjectDetailActivity : BaseActivity() {
 
     private val projectPublicViewModel: ProjectPublicViewModel by viewModel()
 
-    private var project: ProjectDetail.Data? = null
-
     var countries = listOf<Countries.Data>()
 
     private lateinit var pagerAdapter: PagerAdapter
@@ -51,7 +49,7 @@ class ProjectDetailActivity : BaseActivity() {
                 subscribeToData()
                 val locally = it.getBoolean(EXTRA_2, false)
                 if (!locally) {
-                    val project: ProjectDetail.Data?  = it.getParcelable(EXTRA_1)
+                    val project: ProjectDetail.Data? = it.getParcelable(EXTRA_1)
                     initProjectDetails(project!!)
                 } else {
                     viewModel.getProjectDetails("projects/${it.getInt(EXTRA_1)}")
