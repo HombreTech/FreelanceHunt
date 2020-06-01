@@ -31,6 +31,17 @@ class ContestsFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.details.subscribe(this, {
+            when (it) {
+                is Loading -> showLoading()
+                is Success -> {
+                    hideLoading()
+                    appNavigator.showContestDetails(it.data.data)
+                }
+                is Error -> handleError(it.error.localizedMessage)
+                is NoInternetState -> showNoInternetError()
+            }
+        })
     }
 
     private fun handleViewState(viewState: ViewState<ContestsList>) {
@@ -89,7 +100,7 @@ class ContestsFragment : BaseFragment() {
                             model.attributes.final_started_at.parseFullDate(true).getTimeAgo()
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            appNavigator.showContestDetails(model.id)
+                            viewModel.getContestDetails(model.id)
                         }
                 }
             )

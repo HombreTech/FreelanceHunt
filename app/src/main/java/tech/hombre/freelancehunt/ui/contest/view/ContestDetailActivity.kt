@@ -18,6 +18,7 @@ import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.Countries
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestDetailViewModel
@@ -48,9 +49,18 @@ class ContestDetailActivity : BaseActivity() {
         if (savedInstanceState == null) {
             contestId = intent?.extras?.getInt(EXTRA_1, -1) ?: -1
         }
-
-        subscribeToData()
-        viewModel.getContestDetails(contestId)
+        if (savedInstanceState == null) {
+            intent?.extras?.let {
+                subscribeToData()
+                val locally = it.getBoolean(EXTRA_2, false)
+                if (!locally) {
+                    val contest: ContestDetail.Data? = it.getParcelable(EXTRA_1)
+                    initContestDetails(contest!!)
+                } else {
+                    viewModel.getContestDetails(it.getInt(EXTRA_1))
+                }
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

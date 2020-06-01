@@ -28,7 +28,7 @@ val presentationModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { FeedViewModel(get(), get()) }
     viewModel { ProjectsViewModel(get(), get()) }
-    viewModel { ContestsViewModel(get()) }
+    viewModel { ContestsViewModel(get(), get()) }
     viewModel { FreelancersViewModel(get(), get()) }
     viewModel { ThreadsViewModel(get()) }
     viewModel { MyBidsViewModel(get()) }

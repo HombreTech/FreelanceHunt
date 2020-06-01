@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.routing
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.EmployerDetail
 import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.domain.model.ProjectDetail
@@ -65,9 +66,15 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
             putExtra(EXTRA_2, true)
         })
 
+    override fun showContestDetails(details: ContestDetail.Data) =
+        navigateTo(getIntent<ContestDetailActivity>().apply {
+            putExtra(EXTRA_1, details)
+        })
+
     override fun showContestDetails(contestId: Int) =
         navigateTo(getIntent<ContestDetailActivity>().apply {
             putExtra(EXTRA_1, contestId)
+            putExtra(EXTRA_2, true)
         })
 
     private fun navigateTo(intent: Intent) = activity.startActivity(intent)

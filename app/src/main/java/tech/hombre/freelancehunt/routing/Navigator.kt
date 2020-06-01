@@ -1,5 +1,6 @@
 package tech.hombre.freelancehunt.routing
 
+import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.EmployerDetail
 import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.domain.model.ProjectDetail
@@ -25,5 +26,7 @@ interface Navigator {
     fun showProjectDetails(projectId: Int)
 
     fun showContestDetails(contestId: Int)
+
+    fun showContestDetails(details: ContestDetail.Data)
 
 }
