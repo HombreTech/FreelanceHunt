@@ -27,15 +27,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_middle"
+                android:paddingBottom="@dimen/padding_middle"
                 app:constraint_referenced_ids="avatar,login,isplus"
                 app:flow_horizontalBias="0"
                 app:flow_horizontalGap="@dimen/padding_small"
                 app:flow_horizontalStyle="packed"
                 app:flow_verticalBias="0"
                 app:flow_wrapMode="chain"
-                app:layout_constraintEnd_toStartOf="@id/createdAt"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/message" />
 
             <tech.hombre.freelancehunt.common.widgets.CustomImageView
                 android:id="@+id/avatar"
@@ -75,10 +76,9 @@
                 style="@style/TextStyle.Type"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:layout_constraintBottom_toBottomOf="@id/type"
-                app:layout_constraintEnd_toEndOf="@id/message"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@id/avatar"
+                app:layout_constraintEnd_toEndOf="@id/createdAt"
+                app:layout_constraintBottom_toBottomOf="@id/login"
+                app:layout_constraintTop_toTopOf="@id/login"
                 app:srcCompat="@drawable/new_icon" />
 
             <TextView
@@ -95,7 +95,7 @@
                 app:layout_constraintEnd_toStartOf="@id/createdAt"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/avatar"
-                app:layout_constraintTop_toBottomOf="@id/flow"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Новый проект" />
 
             <TextView
@@ -106,7 +106,6 @@
                 android:layout_marginTop="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:layout_marginBottom="@dimen/padding_middle"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/flow"
@@ -121,11 +120,10 @@
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="@dimen/padding_small"
-                app:layout_constraintBottom_toBottomOf="@id/login"
+                app:layout_constraintBottom_toBottomOf="@id/type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@id/message"
-                app:layout_constraintTop_toTopOf="@id/login"
+                app:layout_constraintTop_toTopOf="@id/type"
                 tools:text="47 минут назад" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

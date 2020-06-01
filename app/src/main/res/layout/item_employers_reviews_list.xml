@@ -224,7 +224,7 @@
 
             <TextView
                 android:id="@+id/name"
-                style="@style/TextStyle.Caption"
+                style="@style/TextStyle.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_middle"

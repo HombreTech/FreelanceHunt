@@ -33,11 +33,12 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/back_final"
                 android:ellipsize="end"
+                android:layout_marginTop="@dimen/padding_middle"
                 android:text="@string/isfinal"
                 android:textColor="?textColorPrimary"
                 android:visibility="gone"
                 app:layout_constraintHorizontal_bias="0.0"
-                tools:visibility="gone" />
+                tools:visibility="visible" />
 
             <tech.hombre.freelancehunt.common.widgets.CustomImageView
                 android:id="@+id/icon"
