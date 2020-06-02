@@ -4,6 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestCommentsViewModel
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestDetailViewModel
+import tech.hombre.freelancehunt.ui.contest.presentation.ContestOverviewViewModel
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestPublicViewModel
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerPublicViewModel
@@ -37,8 +38,8 @@ val presentationModule = module {
     viewModel { ThreadMessagesViewModel(get()) }
     viewModel { EmployerDetailViewModel(get(), get()) }
     viewModel { ProjectDetailViewModel(get(), get()) }
-    viewModel { FreelancerReviewsViewModel(get()) }
-    viewModel { EmployerReviewsViewModel(get()) }
+    viewModel { FreelancerReviewsViewModel(get(), get(), get()) }
+    viewModel { EmployerReviewsViewModel(get(), get(), get()) }
     viewModel { ContestDetailViewModel(get(), get()) }
     viewModel { ProjectBidsViewModel(get()) }
     viewModel { ProjectCommentsViewModel(get()) }
@@ -48,5 +49,6 @@ val presentationModule = module {
     viewModel { EmployerPublicViewModel() }
     viewModel { ContestCommentsViewModel(get()) }
     viewModel { ContestPublicViewModel() }
+    viewModel { ContestOverviewViewModel(get()) }
 
 }

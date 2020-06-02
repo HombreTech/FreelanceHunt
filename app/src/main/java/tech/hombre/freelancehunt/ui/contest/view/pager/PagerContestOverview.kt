@@ -11,8 +11,9 @@ import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.ui.base.*
+import tech.hombre.freelancehunt.ui.contest.presentation.ContestOverviewViewModel
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestPublicViewModel
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PagerContestOverview : BaseFragment() {
     override fun getLayout() = R.layout.fragment_pager_contest_overview
@@ -21,7 +22,7 @@ class PagerContestOverview : BaseFragment() {
 
     private val contestPublicViewModel: ContestPublicViewModel by sharedViewModel()
 
-    private val employerViewModel: EmployerDetailViewModel by sharedViewModel()
+    private val viewModel: ContestOverviewViewModel by viewModel()
 
     var countries = listOf<Countries.Data>()
 
@@ -36,7 +37,7 @@ class PagerContestOverview : BaseFragment() {
     }
 
     private fun subscribeToData() {
-        employerViewModel.viewState.subscribe(this, {
+        viewModel.employerDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -73,7 +74,7 @@ class PagerContestOverview : BaseFragment() {
         login.text = details.employer.login
 
         buttonProfile.setOnClickListener {
-            employerViewModel.getEmployerDetails(details.employer.id)
+            viewModel.getEmployerDetails(details.employer.id)
         }
 
         contestPublicViewModel.updateTabViews(0)

@@ -16,21 +16,15 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerPublicViewModel
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerReviewsViewModel
-import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
 
 class PagerFreelancerReviews : BaseFragment() {
     override fun getLayout() = R.layout.fragment_pager_freelancer_reviews
 
     private val viewModel: FreelancerReviewsViewModel by viewModel()
 
-    private val projectDetailsViewModel: ProjectDetailViewModel by sharedViewModel()
-
     private val projectPublicViewModel: FreelancerPublicViewModel by sharedViewModel()
-
-    private val employerViewModel: EmployerDetailViewModel by sharedViewModel()
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
@@ -51,7 +45,7 @@ class PagerFreelancerReviews : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        employerViewModel.viewState.subscribe(this, {
+        viewModel.employerDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -62,7 +56,7 @@ class PagerFreelancerReviews : BaseFragment() {
                 is NoInternetState -> showNoInternetError()
             }
         })
-        projectDetailsViewModel.viewState.subscribe(this, {
+        viewModel.projectDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -142,10 +136,10 @@ class PagerFreelancerReviews : BaseFragment() {
                             } else it.gone()
                         })
                         .setOnClickListener(R.id.clickableView) {
-                            projectDetailsViewModel.getProjectDetails(model.attributes.project.self)
+                            viewModel.getProjectDetails(model.attributes.project.self)
                         }
                         .setOnClickListener(R.id.name) {
-                            employerViewModel.getEmployerDetails(model.attributes.from.id)
+                            viewModel.getEmployerDetails(model.attributes.from.id)
                         }
                 }
             )
@@ -161,7 +155,7 @@ class PagerFreelancerReviews : BaseFragment() {
         list.addOnScrollListener(object : EndlessScroll() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (items.isNotEmpty() && viewModel.pagination.next.isNotEmpty()) {
-                    println("showLoadMore")
+                    println("showLoadMore: ${viewModel.pagination.next}")
                     //adapter.showLoadMore()
                     //viewModel.getFreelancerReview(viewModel.pagination.next)
                 }

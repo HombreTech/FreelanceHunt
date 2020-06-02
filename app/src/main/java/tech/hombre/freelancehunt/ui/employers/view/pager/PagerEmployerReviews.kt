@@ -26,11 +26,7 @@ class PagerEmployerReviews : BaseFragment() {
 
     private val viewModel: EmployerReviewsViewModel by viewModel()
 
-    private val employerViewModel: EmployerDetailViewModel by sharedViewModel()
-
     private val projectPublicViewModel: EmployerPublicViewModel by sharedViewModel()
-
-    private val projectDetailsViewModel: ProjectDetailViewModel by sharedViewModel()
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
@@ -51,7 +47,7 @@ class PagerEmployerReviews : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        employerViewModel.viewState.subscribe(this, {
+        viewModel.employerDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -62,7 +58,7 @@ class PagerEmployerReviews : BaseFragment() {
                 is NoInternetState -> showNoInternetError()
             }
         })
-        projectDetailsViewModel.viewState.subscribe(this, {
+        viewModel.projectDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -139,10 +135,10 @@ class PagerEmployerReviews : BaseFragment() {
                             } else it.gone()
                         })
                         .setOnClickListener(R.id.clickableView) {
-                            projectDetailsViewModel.getProjectDetails(model.attributes.project.self)
+                            viewModel.getProjectDetails(model.attributes.project.self)
                         }
                         .setOnClickListener(R.id.name) {
-                            employerViewModel.getEmployerDetails(model.attributes.from.id)
+                            viewModel.getEmployerDetails(model.attributes.from.id)
                         }
                 }
             )
