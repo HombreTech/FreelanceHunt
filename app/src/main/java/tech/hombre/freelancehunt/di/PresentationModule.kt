@@ -29,10 +29,10 @@ val presentationModule = module {
     viewModel { FeedViewModel(get(), get()) }
     viewModel { ProjectsViewModel(get(), get()) }
     viewModel { ContestsViewModel(get(), get()) }
-    viewModel { FreelancersViewModel(get(), get()) }
+    viewModel { FreelancersViewModel(get(), get(), get()) }
     viewModel { ThreadsViewModel(get()) }
     viewModel { MyBidsViewModel(get()) }
-    viewModel { EmployersViewModel(get(), get()) }
+    viewModel { EmployersViewModel(get(), get(), get()) }
     viewModel { FreelancerDetailViewModel(get(), get()) }
     viewModel { ThreadMessagesViewModel(get()) }
     viewModel { EmployerDetailViewModel(get(), get()) }

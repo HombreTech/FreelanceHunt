@@ -23,8 +23,6 @@ class EmployersFragment : BaseFragment() {
 
     private val viewModel: EmployersViewModel by viewModel()
 
-    private val employerViewModel: EmployerDetailViewModel by sharedViewModel()
-
     lateinit var adapter: RendererRecyclerViewAdapter
 
     val items = arrayListOf<EmployersList.Data>()
@@ -42,7 +40,7 @@ class EmployersFragment : BaseFragment() {
         viewModel.countries.subscribe(this, {
             countries = it
         })
-        employerViewModel.viewState.subscribe(this, {
+        viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -130,7 +128,7 @@ class EmployersFragment : BaseFragment() {
                             ).getSimpleTimeAgo(context!!)
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            employerViewModel.getEmployerDetails(model.id)
+                            viewModel.getEmployerDetails(model.id)
                         }
                 }
             )

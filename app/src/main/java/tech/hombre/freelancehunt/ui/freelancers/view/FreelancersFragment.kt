@@ -24,8 +24,6 @@ class FreelancersFragment : BaseFragment() {
 
     private val viewModel: FreelancersViewModel by viewModel()
 
-    private val freelancerViewModel: FreelancerDetailViewModel by viewModel()
-
     lateinit var adapter: RendererRecyclerViewAdapter
 
     val items = arrayListOf<FreelancersList.Data>()
@@ -43,7 +41,7 @@ class FreelancersFragment : BaseFragment() {
         viewModel.countries.subscribe(this, {
             countries = it
         })
-        freelancerViewModel.viewState.subscribe(this, {
+        viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -138,7 +136,7 @@ class FreelancersFragment : BaseFragment() {
                             ).getSimpleTimeAgo(context!!)
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            freelancerViewModel.getFreelancerDetails(model.id)
+                            viewModel.getFreelancerDetails(model.id)
                         }
                 }
             )
