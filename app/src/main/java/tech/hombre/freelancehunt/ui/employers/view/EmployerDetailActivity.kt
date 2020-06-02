@@ -118,7 +118,7 @@ class EmployerDetailActivity : BaseActivity() {
         }
         val tabsTitles = resources.getStringArray(R.array.employer_tabs)
         val tabsIcons = resources.getStringArray(R.array.employer_tabs_icons)
-        TabLayoutMediator(tabs, pager, false) { tab, position ->
+        TabLayoutMediator(tabs, pager, false, false) { tab, position ->
             tab.text = tabsTitles[position]
             tab.icon = ContextCompat.getDrawable(this, getDrawableIdByName(tabsIcons[position]))
             pager.setCurrentItem(tab.position, false)

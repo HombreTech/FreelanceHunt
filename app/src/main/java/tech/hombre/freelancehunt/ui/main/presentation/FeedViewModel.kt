@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.main.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import tech.hombre.data.BuildConfig
 import tech.hombre.domain.interaction.feedlist.GetFeedListUseCase
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCase
 import tech.hombre.domain.model.FeedList
@@ -20,8 +21,8 @@ class FeedViewModel(private val getFeedList: GetFeedListUseCase, private val get
     val details: LiveData<ViewState<ProjectDetail>>
         get() = _details
 
-    fun getFeedLists(param: String = "") = executeUseCase {
-        getFeedList(param)
+    fun getFeedLists(url: String = BuildConfig.BASE_URL + "my/feed") = executeUseCase {
+        getFeedList(url)
             .onSuccess { _viewState.value = Success(it) }
             .onFailure { _viewState.value = Error(it.throwable) }
     }

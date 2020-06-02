@@ -14,14 +14,14 @@ class FeedListRepositoryImpl(
     private val feedListDao: FeedListDao
 ) : BaseRepository<FeedList, FeedListEntity>(),
     FeedListRepository {
-    override suspend fun getFeedList(): Result<FeedList> {
+    override suspend fun getFeedList(url: String): Result<FeedList> {
         return fetchData(
             apiDataProvider = {
-                feedApi.getFeedList().getData(
-                    fetchFromCacheAction = { feedListDao.getFeedList("my/feed") },
+                feedApi.getFeedList(url).getData(
+                    fetchFromCacheAction = { feedListDao.getFeedList(url) },
                     cacheAction = { feedListDao.saveFeedList(it) })
             },
-            dbDataProvider = { feedListDao.getFeedList("my/feed") }
+            dbDataProvider = { feedListDao.getFeedList(url) }
         )
     }
 }

@@ -6,5 +6,5 @@ import tech.hombre.domain.model.Result
 
 interface GetFeedListUseCase : BaseUseCase<String, FeedList> {
 
-    override suspend operator fun invoke(param: String): Result<FeedList>
+    override suspend operator fun invoke(url: String): Result<FeedList>
 }
