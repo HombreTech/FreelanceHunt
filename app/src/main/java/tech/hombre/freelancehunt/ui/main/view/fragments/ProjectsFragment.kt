@@ -7,6 +7,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ProjectsList
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.extensions.collapse
+import tech.hombre.freelancehunt.common.extensions.currencyToChar
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
@@ -41,11 +43,12 @@ class ProjectsFragment : BaseFragment() {
                 ProjectsList.Data::class.java,
                 BaseViewRenderer.Binder { model: ProjectsList.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
-                        .setText(R.id.name, model.attributes.name)
+                        .setGone(R.id.budget, model.attributes.budget == null)
                         .setGone(R.id.premium, !model.attributes.is_premium)
-                        //.setGone(R.id.safe, !model.attributes.safe_type.isNotBlank())
+                        .setGone(R.id.safe, model.attributes.safe_type == null)
                         .setGone(R.id.isremote, !model.attributes.is_remote_job)
-                        .setText(R.id.description, model.attributes.description)
+                        .setText(R.id.name, model.attributes.name)
+                        .setText(R.id.description, model.attributes.description.collapse(300) )
                         .find(
                             R.id.avatar,
                             ViewProvider<CustomImageView> { avatar ->
@@ -59,6 +62,7 @@ class ProjectsFragment : BaseFragment() {
                             model.attributes.employer?.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name }
                                 ?: "N/A")
                         .setText(R.id.bidCount, model.attributes.bid_count.toString())
+                        .setText(R.id.budget, if (model.attributes.budget != null) "${model.attributes.budget!!.amount} ${currencyToChar(model.attributes.budget!!.currency)}" else "")
                         .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
                         .setOnClickListener(R.id.clickableView) {
                             viewModel.getProjectDetails(model.links.self.api)

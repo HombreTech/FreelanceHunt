@@ -22,7 +22,7 @@ data class ContestDetail(
         data class Attributes(
             val name: String = "",
             val description: String = "",
-            val description_html: String = "",
+            val description_html: String? = "",
             val skill: Skill = Skill(),
             val status: Status = Status(),
             val budget: Budget = Budget(),

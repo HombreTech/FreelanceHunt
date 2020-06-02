@@ -22,7 +22,7 @@ data class ProjectsList(
             val description_html: String = "",
             val skills: List<Skill> = listOf(),
             val status: Status = Status(),
-            val budget: Budget = Budget(),
+            val budget: Budget? = Budget(),
             val bid_count: Int = 0,
             val is_remote_job: Boolean = false,
             val is_premium: Boolean = false,

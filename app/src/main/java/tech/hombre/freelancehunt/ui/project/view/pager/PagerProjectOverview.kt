@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.project.view.pager
 import android.os.Bundle
 import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
@@ -60,7 +61,12 @@ class PagerProjectOverview : BaseFragment() {
 
 
     private fun initOverview(details: ProjectDetail.Data.Attributes) {
-        description.text = details.description_html
+        if (details.description_html != null) {
+            val getter = HtmlHttpImageGetter(description, null, true).apply {
+                enableCompressImage(true, 70)
+            }
+            description.setHtml(details.description_html!!, getter)
+        } else description.setHtml(getString(R.string.no_information))
 
         avatar.setUrl(details.employer.avatar.large.url, isCircle = true)
         name.text = "${details.employer.first_name} ${details.employer.last_name}"

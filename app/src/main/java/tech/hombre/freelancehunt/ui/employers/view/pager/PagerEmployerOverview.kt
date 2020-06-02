@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.employers.view.pager
 import android.os.Bundle
 import android.text.Html
 import kotlinx.android.synthetic.main.fragment_pager_employer_overview.*
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import tech.hombre.domain.model.EmployerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
@@ -36,9 +37,11 @@ class PagerEmployerOverview : BaseFragment() {
             verificatedBankID.alpha = 0.5f
         }
         if (details.attributes.cv_html != null) {
-            println(details.attributes.cv_html)
-            summary.text = Html.fromHtml(details.attributes.cv_html)
-        } else summary.text = getString(R.string.no_information)
+            val getter = HtmlHttpImageGetter(summary, null, true).apply {
+                enableCompressImage(true, 70)
+            }
+            summary.setHtml(details.attributes.cv_html!!, getter)
+        } else summary.setHtml(getString(R.string.no_information))
     }
 
     companion object {

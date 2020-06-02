@@ -145,7 +145,7 @@
                 app:flow_horizontalStyle="packed"
                 app:flow_verticalBias="0"
                 app:flow_wrapMode="chain"
-                app:layout_constraintEnd_toEndOf="@id/votedown"
+                app:layout_constraintEnd_toEndOf="@id/flowrating"
                 app:layout_constraintStart_toEndOf="@id/avatar"
                 app:layout_constraintTop_toTopOf="@id/avatar" />
 

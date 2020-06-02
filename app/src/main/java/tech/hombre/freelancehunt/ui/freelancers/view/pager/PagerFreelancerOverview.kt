@@ -1,12 +1,13 @@
 package tech.hombre.freelancehunt.ui.freelancers.view.pager
 
 import android.os.Bundle
-import android.text.Html
 import kotlinx.android.synthetic.main.fragment_pager_freelancer_overview.*
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.ui.base.BaseFragment
+
 
 class PagerFreelancerOverview : BaseFragment() {
     override fun getLayout() = R.layout.fragment_pager_freelancer_overview
@@ -37,9 +38,11 @@ class PagerFreelancerOverview : BaseFragment() {
         }
 
         if (details.attributes.cv_html != null) {
-            println(details.attributes.cv_html)
-            summary.text = Html.fromHtml(details.attributes.cv_html)
-        } else summary.text = getString(R.string.no_information)
+            val getter = HtmlHttpImageGetter(summary, null, true).apply {
+                enableCompressImage(true, 70)
+            }
+            summary.setHtml(details.attributes.cv_html!!, getter)
+        } else summary.setHtml(getString(R.string.no_information))
     }
 
     companion object {

@@ -133,7 +133,7 @@ class FreelancersFragment : BaseFragment() {
                         })
                         .setText(
                             R.id.serviceOn,
-                            getString(R.string.on_freelance) + model.attributes.created_at.parseFullDate(
+                            model.attributes.created_at.parseFullDate(
                                 true
                             ).getSimpleTimeAgo(context!!)
                         )

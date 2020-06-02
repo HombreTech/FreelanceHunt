@@ -22,7 +22,7 @@ data class ProjectDetail(
         data class Attributes(
             val name: String = "",
             val description: String = "",
-            val description_html: String = "",
+            val description_html: String? = "",
             val skills: List<Skill> = listOf(),
             val status: Status = Status(),
             val budget: Budget? = Budget(),

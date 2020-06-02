@@ -254,7 +254,7 @@
                         app:layout_constraintStart_toStartOf="@+id/summaryTitle" />
 
 
-                    <TextView
+                    <org.sufficientlysecure.htmltextview.HtmlTextView
                         android:id="@+id/summary"
                         style="@style/TextStyle.Title"
                         android:layout_width="match_parent"
