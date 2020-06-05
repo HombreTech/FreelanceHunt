@@ -43,10 +43,11 @@
 
                         <tech.hombre.freelancehunt.common.widgets.CustomImageView
                             android:id="@+id/avatar"
-                            android:layout_width="144dp"
-                            android:layout_height="144dp"
+                            android:layout_width="124dp"
+                            android:layout_height="124dp"
                             android:layout_marginEnd="@dimen/padding_standart"
-                            android:elevation="4dp"
+                            android:elevation="7dp"
+                            android:background="@drawable/round_shape"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/name" />
 

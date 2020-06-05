@@ -13,6 +13,7 @@ import tech.hombre.data.common.coroutine.CoroutineContextProvider
 import tech.hombre.data.local.LocalProperties
 import tech.hombre.freelancehunt.App
 import tech.hombre.freelancehunt.common.EMPTY_STRING
+import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
@@ -91,6 +92,11 @@ abstract class BaseActivity : AppCompatActivity() {
         glide.clearMemory()
         appNavigator.showLoginActivity()
         finishAffinity()
+    }
+
+    fun onShowMyProfile() = when (UserType.EMPLOYER.type) {
+        appPreferences.getCurrentUserType() -> appNavigator.showEmployerDetails(appPreferences.getCurrentUserId())
+        else -> appNavigator.showFreelancerDetails(appPreferences.getCurrentUserId())
     }
 
 

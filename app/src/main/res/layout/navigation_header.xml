@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
@@ -10,38 +10,43 @@
 
     <tech.hombre.freelancehunt.common.widgets.CustomImageView
         android:id="@+id/avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="@dimen/padding_standart"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginTop="@dimen/padding_standart"
         android:scaleType="centerCrop"
+        android:elevation="7dp"
+        android:clickable="true"
+        android:background="@drawable/round_shape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/white" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true" />
 
     <TextView
-        android:id="@+id/rate"
-        style="@style/TextStyle.Heading"
+        android:id="@+id/userType"
+        style="@style/TextStyle.Title.Sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_middle"
-        android:background="@drawable/back_premium"
-        android:drawableStart="@drawable/star"
-        android:drawablePadding="@dimen/padding_small"
         android:textColor="?textColorPrimary"
-        app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toTopOf="@id/avatar"
-        tools:text="373" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/padding_middle"
+        tools:text="Фрилансер" />
 
     <TextView
         android:id="@+id/name"
         style="@style/TextStyle.Heading"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_middle"
         android:textColor="?textColorPrimary"
-        app:layout_constraintStart_toStartOf="@id/rate"
-        app:layout_constraintTop_toBottomOf="@id/rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/avatar"
         tools:text="Илья К." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

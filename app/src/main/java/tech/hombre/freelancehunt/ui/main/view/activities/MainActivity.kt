@@ -85,10 +85,7 @@ class MainActivity : BaseActivity() {
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
-                    R.id.menu_profile -> when (UserType.EMPLOYER.type) {
-                        appPreferences.getCurrentUserType() -> appNavigator.showEmployerDetails(appPreferences.getCurrentUserId())
-                        else -> appNavigator.showFreelancerDetails(appPreferences.getCurrentUserId())
-                    }
+                    R.id.menu_profile -> onShowMyProfile()
                     R.id.menu_logout -> onLoginRequire()
                     R.id.menu_freelancers -> supportFragmentManager.displayFragment(
                         R.id.fragmentContainer,
@@ -151,11 +148,14 @@ class MainActivity : BaseActivity() {
 
     private fun updateHeader(profile: MyProfile.Data.Attributes) {
         val header = navigation.getHeaderView(0)
-        header.avatar.setUrl(profile.avatar.large.url)
+        header.avatar.setUrl(profile.avatar.large.url, isCircle = true)
+        header.avatar.setOnClickListener { onShowMyProfile() }
         header.name.text = "${profile.first_name} ${profile.last_name}"
-        header.rate.text = profile.rating.toString()
+        header.userType.text =
+            if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) getString(R.string.employer) else getString(
+                R.string.freelancer
+            )
     }
-
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
