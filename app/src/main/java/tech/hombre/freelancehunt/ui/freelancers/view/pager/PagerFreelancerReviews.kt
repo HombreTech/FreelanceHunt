@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.freelancers.view.pager
 import android.os.Bundle
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -95,7 +96,17 @@ class PagerFreelancerReviews : BaseFragment() {
                 FreelancerReviews.Data::class.java,
                 BaseViewRenderer.Binder { model: FreelancerReviews.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
-                        .setText(R.id.projectName, model.attributes.project.name)
+                        .find(R.id.projectName, ViewProvider<TextView> { projectName ->
+                            projectName.text = model.attributes.project.name
+                            projectName.compoundDrawablePadding = 8
+                            val rateIcon = ContextCompat.getDrawable(context!!, if (model.attributes.grades.total ?: 0f < 6) R.drawable.thumb_down else R.drawable.thumb_up)
+                            projectName.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                rateIcon,
+                                null,
+                                null,
+                                null
+                            )
+                        })
                         .setText(
                             R.id.publishedAt,
                             model.attributes.published_at.parseFullDate(true)

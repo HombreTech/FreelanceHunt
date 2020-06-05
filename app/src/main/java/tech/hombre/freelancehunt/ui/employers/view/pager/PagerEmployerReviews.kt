@@ -1,8 +1,10 @@
 package tech.hombre.freelancehunt.ui.employers.view.pager
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_pager_employer_reviews.*
@@ -96,7 +98,17 @@ class PagerEmployerReviews : BaseFragment() {
                 EmployerReviews.Data::class.java,
                 BaseViewRenderer.Binder { model: EmployerReviews.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
-                        .setText(R.id.projectName, model.attributes.project.name)
+                        .find(R.id.projectName, ViewProvider<TextView> { projectName ->
+                            projectName.text = model.attributes.project.name
+                            projectName.compoundDrawablePadding = 8
+                            val rateIcon = ContextCompat.getDrawable(context!!, if (model.attributes.grades.total ?: 0f < 6) R.drawable.thumb_down else R.drawable.thumb_up)
+                            projectName.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                rateIcon,
+                                null,
+                                null,
+                                null
+                            )
+                        })
                         .setText(
                             R.id.publishedAt,
                             model.attributes.published_at.parseFullDate(true)
