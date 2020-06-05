@@ -27,7 +27,7 @@ data class MyProfile(
             val plus_ends_at: String = "",
             val is_plus_active: Boolean = false,
             val is_online: Boolean = false,
-            val visited_at: String = "",
+            val visited_at: String? = "",
             val location: Location? = Location(),
             val verification: Verification = Verification(),
             val contacts: Contacts = Contacts(),

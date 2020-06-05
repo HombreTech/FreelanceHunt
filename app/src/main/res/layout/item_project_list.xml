@@ -81,8 +81,7 @@
                 android:drawablePadding="@dimen/padding_small"
                 android:text="@string/safe"
                 android:textColor="?textColorPrimary"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                />
 
             <TextView
                 android:id="@+id/isremote"

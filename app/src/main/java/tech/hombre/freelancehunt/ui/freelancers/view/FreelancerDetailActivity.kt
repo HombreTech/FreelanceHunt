@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.MeasureSpec
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -25,6 +26,7 @@ import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailVie
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerPublicViewModel
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerOverview
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerReviews
+
 
 class FreelancerDetailActivity : BaseActivity() {
 
@@ -92,6 +94,13 @@ class FreelancerDetailActivity : BaseActivity() {
         viewModel.setCountries()
     }
 
+    private fun updateTabViews(position: Int) {
+        val view = pagerAdapter.getViewAtPosition(position)
+        view?.let {
+            updatePagerHeightForChild(view, pager)
+        }
+    }
+
     private fun handleViewState(viewState: ViewState<FreelancerDetail>) {
         when (viewState) {
             is Loading -> showLoading(progressBar)
@@ -126,10 +135,7 @@ class FreelancerDetailActivity : BaseActivity() {
         }.attach()
         pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                val view = pagerAdapter.getViewAtPosition(position)
-                view?.let {
-                    updatePagerHeightForChild(view, pager)
-                }
+                updateTabViews(position)
             }
         })
 

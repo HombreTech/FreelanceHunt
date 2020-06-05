@@ -1,6 +1,7 @@
 package tech.hombre.domain.model
 
 import android.os.Parcelable
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.android.parcel.Parcelize
 
 
@@ -16,7 +17,7 @@ data class ProjectDetail(
         val type: String = "",
         val attributes: Attributes = Attributes(),
         val links: Links = Links()
-    ) : Parcelable {
+    ): ViewModel, Parcelable {
 
         @Parcelize
         data class Attributes(

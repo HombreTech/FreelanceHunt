@@ -84,7 +84,7 @@ class PagerEmployerReviews : BaseFragment() {
         hideLoading()
         items.addAll(reviews)
         adapter.setItems(items)
-        projectPublicViewModel.updateBadge(2, reviews.size)
+        if (items.isEmpty()) projectPublicViewModel.updateBadge(2, 0)
     }
 
     private fun initList() {
@@ -154,9 +154,8 @@ class PagerEmployerReviews : BaseFragment() {
         list.addOnScrollListener(object : EndlessScroll() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (items.isNotEmpty() && viewModel.pagination.next.isNotEmpty()) {
-                    println("showLoadMore")
-                    //adapter.showLoadMore()
-                    //viewModel.getFreelancerReview(viewModel.pagination.next)
+                   adapter.showLoadMore()
+                    viewModel.getEmployerReview(viewModel.pagination.next)
                 }
             }
         })

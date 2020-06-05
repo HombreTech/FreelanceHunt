@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_pager_freelancer_reviews.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -82,7 +83,7 @@ class PagerFreelancerReviews : BaseFragment() {
         hideLoading()
         items.addAll(reviews)
         adapter.setItems(items)
-        projectPublicViewModel.updateBadge(2, reviews.size)
+        if (items.isEmpty()) projectPublicViewModel.updateBadge(2, 0)
     }
 
     private fun initList() {
@@ -155,9 +156,8 @@ class PagerFreelancerReviews : BaseFragment() {
         list.addOnScrollListener(object : EndlessScroll() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (items.isNotEmpty() && viewModel.pagination.next.isNotEmpty()) {
-                    println("showLoadMore: ${viewModel.pagination.next}")
-                    //adapter.showLoadMore()
-                    //viewModel.getFreelancerReview(viewModel.pagination.next)
+                    adapter.showLoadMore()
+                    viewModel.getFreelancerReview(viewModel.pagination.next)
                 }
             }
         })

@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.fragment_employers.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
+import tech.hombre.domain.model.EmployerDetail
 import tech.hombre.domain.model.EmployersList
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.extensions.*
@@ -25,7 +26,7 @@ class EmployersFragment : BaseFragment() {
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
-    val items = arrayListOf<EmployersList.Data>()
+    val items = arrayListOf<EmployerDetail.Data>()
 
     var countries = listOf<Countries.Data>()
 
@@ -80,8 +81,8 @@ class EmployersFragment : BaseFragment() {
         adapter.registerRenderer(
             ViewRenderer(
                 R.layout.item_employers_list,
-                EmployersList.Data::class.java,
-                BaseViewRenderer.Binder { model: EmployersList.Data, finder: ViewFinder, payloads: List<Any?>? ->
+                EmployerDetail.Data::class.java,
+                BaseViewRenderer.Binder { model: EmployerDetail.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
                         .setGone(R.id.verified, !model.attributes.verification.identity)
                         .setGone(R.id.isplus, !model.attributes.is_plus_active)
@@ -128,7 +129,7 @@ class EmployersFragment : BaseFragment() {
                             ).getSimpleTimeAgo(context!!)
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            viewModel.getEmployerDetails(model.id)
+                            appNavigator.showEmployerDetails(model)
                         }
                 }
             )
@@ -143,7 +144,7 @@ class EmployersFragment : BaseFragment() {
 
         list.addOnScrollListener(object : EndlessScroll() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                if (viewModel.pagination.next.isNotEmpty()) {
+                if (items.isNotEmpty() && viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
                     viewModel.getEmployers(viewModel.pagination.next)
                 }

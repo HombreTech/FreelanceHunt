@@ -1,7 +1,7 @@
 package tech.hombre.freelancehunt.common.extensions
 
+import android.content.Context
 import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.ProjectStatus
 import tech.hombre.freelancehunt.common.SafeType
@@ -31,13 +31,13 @@ fun getColorByProjectStatus(status: ProjectStatus): Int {
     }
 }
 
-@StringRes
-fun getTitleBySafeType(type: SafeType): Int {
-    return when (type) {
+
+fun getTitleBySafeType(context: Context, type: SafeType): String {
+    return context.getString(when (type) {
         SafeType.DIRECT_PAYMENT -> R.string.safe_type_1
         SafeType.EMPLOYER -> R.string.safe_type_2
         SafeType.DEVELOPER -> R.string.safe_type_3
         SafeType.SPLIT -> R.string.safe_type_4
         SafeType.EMPLOYER_CASHLESS -> R.string.safe_type_5
-    }
+    })
 }

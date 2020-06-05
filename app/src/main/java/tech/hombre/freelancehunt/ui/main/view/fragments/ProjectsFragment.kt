@@ -5,12 +5,11 @@ import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_projects.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.domain.model.ProjectsList
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.extensions.collapse
-import tech.hombre.freelancehunt.common.extensions.currencyToChar
-import tech.hombre.freelancehunt.common.extensions.snackbar
-import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
@@ -26,7 +25,7 @@ class ProjectsFragment : BaseFragment() {
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
-    val items = arrayListOf<ProjectsList.Data>()
+    val items = arrayListOf<ProjectDetail.Data>()
 
     override fun viewReady() {
         initList()
@@ -40,12 +39,13 @@ class ProjectsFragment : BaseFragment() {
         adapter.registerRenderer(
             ViewRenderer(
                 R.layout.item_project_list,
-                ProjectsList.Data::class.java,
-                BaseViewRenderer.Binder { model: ProjectsList.Data, finder: ViewFinder, payloads: List<Any?>? ->
+                ProjectDetail.Data::class.java,
+                BaseViewRenderer.Binder { model: ProjectDetail.Data, finder: ViewFinder, payloads: List<Any?>? ->
+                    println(getTitleBySafeType(context!!, SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT))
                     finder
                         .setGone(R.id.budget, model.attributes.budget == null)
                         .setGone(R.id.premium, !model.attributes.is_premium)
-                        .setGone(R.id.safe, model.attributes.safe_type == null)
+                        .setText(R.id.safe, getTitleBySafeType(context!!, SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT))
                         .setGone(R.id.isremote, !model.attributes.is_remote_job)
                         .setText(R.id.name, model.attributes.name)
                         .setText(R.id.description, model.attributes.description.collapse(300) )
@@ -65,7 +65,7 @@ class ProjectsFragment : BaseFragment() {
                         .setText(R.id.budget, if (model.attributes.budget != null) "${model.attributes.budget!!.amount} ${currencyToChar(model.attributes.budget!!.currency)}" else "")
                         .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
                         .setOnClickListener(R.id.clickableView) {
-                            viewModel.getProjectDetails(model.links.self.api)
+                            appNavigator.showProjectDetails(model)
                         }
                 }
             )

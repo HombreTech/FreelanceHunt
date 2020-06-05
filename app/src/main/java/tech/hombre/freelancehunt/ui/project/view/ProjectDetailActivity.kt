@@ -19,6 +19,7 @@ import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
+import tech.hombre.freelancehunt.common.SafeType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
@@ -132,9 +133,10 @@ class ProjectDetailActivity : BaseActivity() {
 
         isplus.visibility = details.attributes.is_only_for_plus.toVisibleState()
         premium.visibility = details.attributes.is_premium.toVisibleState()
-        safe.visibility = (details.attributes.safe_type != null).toVisibleState()
+
+        safe.text = getTitleBySafeType(this, SafeType.values().find { it.type == details.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT)
+
         isremote.visibility = details.attributes.is_remote_job.toVisibleState()
-        //TODO getString(getTitleBySafeType(SafeType.valueOf(details.attributes.safe_type)))
         name.text = details.attributes.name
         status.text = details.attributes.status.name
 

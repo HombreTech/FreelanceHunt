@@ -8,6 +8,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_freelancers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
+import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.domain.model.FreelancersList
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.extensions.*
@@ -26,7 +27,7 @@ class FreelancersFragment : BaseFragment() {
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
-    val items = arrayListOf<FreelancersList.Data>()
+    val items = arrayListOf<FreelancerDetail.Data>()
 
     var countries = listOf<Countries.Data>()
 
@@ -82,8 +83,8 @@ class FreelancersFragment : BaseFragment() {
         adapter.registerRenderer(
             ViewRenderer(
                 R.layout.item_freelancers_list,
-                FreelancersList.Data::class.java,
-                BaseViewRenderer.Binder { model: FreelancersList.Data, finder: ViewFinder, payloads: List<Any?>? ->
+                FreelancerDetail.Data::class.java,
+                BaseViewRenderer.Binder { model: FreelancerDetail.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
                         .setGone(R.id.verified, !model.attributes.verification.identity)
                         .find(R.id.status, ViewProvider<TextView> {
@@ -136,7 +137,7 @@ class FreelancersFragment : BaseFragment() {
                             ).getSimpleTimeAgo(context!!)
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            viewModel.getFreelancerDetails(model.id)
+                            appNavigator.showFreelancerDetails(model)
                         }
                 }
             )

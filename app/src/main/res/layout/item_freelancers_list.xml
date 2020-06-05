@@ -81,6 +81,7 @@
                 app:layout_constraintTop_toTopOf="@id/flow2" />
 
             <TextView
+                android:elevation="8dp"
                 android:id="@+id/rating"
                 style="@style/TextStyle.Rating"
                 android:layout_width="wrap_content"
@@ -97,7 +98,6 @@
                 style="@style/TextStyle.Vote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/padding_small"
                 android:drawableStart="@drawable/thumb_up"
                 android:drawablePadding="@dimen/padding_small"
                 android:ellipsize="end"
@@ -112,7 +112,7 @@
                 style="@style/TextStyle.Vote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/padding_middle"
+                android:paddingEnd="@dimen/padding_small"
                 android:drawableStart="@drawable/thumb_down"
                 android:drawablePadding="@dimen/padding_small"
                 android:ellipsize="end"

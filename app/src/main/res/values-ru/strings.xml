@@ -72,11 +72,11 @@
     <string name="contest_view">Просмотр конкурса</string>
     <string name="status_title">Статус</string>
 
-    <string name="safe_type_1">Direct payment</string>
-    <string name="safe_type_2">Safe by employer</string>
-    <string name="safe_type_3">Safe by freelancer</string>
-    <string name="safe_type_4">Safe in halves</string>
-    <string name="safe_type_5">Business Safe</string>
+    <string name="safe_type_1">Прямой расчет</string>
+    <string name="safe_type_2">Сейф: заказчик</string>
+    <string name="safe_type_3">Сейф: фрилансер</string>
+    <string name="safe_type_4">Сейф: 50/50</string>
+    <string name="safe_type_5">Бизнес Cейф</string>
     <string name="budget_nan">Бюджет не установлен</string>
     <string name="other">Другое</string>
     <string name="bid_is_hidden">Ставка скрыта фрилансером</string>

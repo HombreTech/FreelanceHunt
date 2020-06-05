@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_contests.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.ContestsList
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.extensions.*
@@ -21,7 +22,7 @@ class ContestsFragment : BaseFragment() {
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
-    val items = arrayListOf<ContestsList.Data>()
+    val items = arrayListOf<ContestDetail.Data>()
 
     override fun viewReady() {
         initList()
@@ -69,8 +70,8 @@ class ContestsFragment : BaseFragment() {
         adapter.registerRenderer(
             ViewRenderer(
                 R.layout.item_contests_list,
-                ContestsList.Data::class.java,
-                BaseViewRenderer.Binder { model: ContestsList.Data, finder: ViewFinder, payloads: List<Any?>? ->
+                ContestDetail.Data::class.java,
+                BaseViewRenderer.Binder { model: ContestDetail.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
                         .find(
                             R.id.icon,
@@ -100,7 +101,7 @@ class ContestsFragment : BaseFragment() {
                             model.attributes.final_started_at.parseFullDate(true).getTimeAgo()
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            viewModel.getContestDetails(model.id)
+                            appNavigator.showContestDetails(model)
                         }
                 }
             )

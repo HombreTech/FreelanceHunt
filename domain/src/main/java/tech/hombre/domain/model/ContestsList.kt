@@ -3,10 +3,10 @@ package tech.hombre.domain.model
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 data class ContestsList(
-    val `data`: List<Data> = listOf(),
+    val `data`: List<ContestDetail.Data> = listOf(),
     val links: Links = Links()
 ) {
-    data class Data(
+    /*data class Data(
         val id: Int = 0,
         val type: String = "",
         val attributes: Attributes = Attributes(),
@@ -80,7 +80,7 @@ data class ContestsList(
                 val web: String = ""
             )
         }
-    }
+    }*/
 
     data class Links(
         val self: String = "",

@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.activity_thread_messages.*
-import kotlinx.android.synthetic.main.appbar_fill.*
+import kotlinx.android.synthetic.main.appbar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ThreadMessageList
 import tech.hombre.domain.model.ThreadMessageMy
@@ -70,7 +70,7 @@ class ThreadMessagesActivity : BaseActivity() {
 
     private fun handleViewState(viewState: ViewState<ThreadMessageList>) {
         when (viewState) {
-            is Loading -> showLoading(threadLoadingProgress)
+            is Loading -> showLoading(progressBar)
             is Success -> initMessagesList(viewState.data.data)
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
@@ -84,7 +84,7 @@ class ThreadMessagesActivity : BaseActivity() {
             )
         }
 
-        hideLoading(threadLoadingProgress)
+        hideLoading(progressBar)
         refresh.isRefreshing = false
         adapter = RendererRecyclerViewAdapter()
         adapter.enableDiffUtil(true)
@@ -143,12 +143,12 @@ class ThreadMessagesActivity : BaseActivity() {
     }
 
     private fun handleError(error: String) {
-        hideLoading(threadLoadingProgress)
+        hideLoading(progressBar)
         showError(error)
     }
 
     private fun showNoInternetError() {
-        hideLoading(threadLoadingProgress)
+        hideLoading(progressBar)
         snackbar(getString(R.string.no_internet_error_message), threadActivityContainer)
     }
 

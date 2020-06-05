@@ -2,10 +2,11 @@ package tech.hombre.data.networking.model
 
 import tech.hombre.data.database.model.ContestsListEntity
 import tech.hombre.data.networking.base.RoomMapper
+import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.ContestsList
 
 data class ContestsListResponse(
-    val data: List<ContestsList.Data>,
+    val data: List<ContestDetail.Data>,
     val links: ContestsList.Links
 ) : RoomMapper<ContestsListEntity> {
 

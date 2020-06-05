@@ -5,10 +5,10 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.android.parcel.Parcelize
 
 data class ProjectsList(
-    val `data`: List<Data> = listOf(),
+    val `data`: List<ProjectDetail.Data> = listOf(),
     val links: Links = Links()
 ) {
-    @Parcelize
+   /* @Parcelize
     data class Data(
         val id: Int = 0,
         val type: String = "",
@@ -163,7 +163,7 @@ data class ProjectsList(
             }
             return false
         }
-    }
+    }*/
 
     @Parcelize
     data class Links(

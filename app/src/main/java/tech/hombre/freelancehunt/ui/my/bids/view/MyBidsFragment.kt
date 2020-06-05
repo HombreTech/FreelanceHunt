@@ -21,8 +21,6 @@ class MyBidsFragment : BaseFragment() {
 
     private val viewModel: MyBidsViewModel by viewModel()
 
-    private val projectDetailsViewModel: ProjectDetailViewModel by sharedViewModel()
-
     lateinit var adapter: RendererRecyclerViewAdapter
 
     val items = arrayListOf<MyBidsList.Data>()
@@ -37,7 +35,7 @@ class MyBidsFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        projectDetailsViewModel.viewState.subscribe(this, {
+        viewModel.projectDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
@@ -107,8 +105,7 @@ class MyBidsFragment : BaseFragment() {
                             model.attributes.days.getEnding(context!!, R.array.ending_days)
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            projectDetailsViewModel.getProjectDetails(model.attributes.project.self)
-
+                            viewModel.getProjectDetails(model.attributes.project.self)
                         }
                 }
             )

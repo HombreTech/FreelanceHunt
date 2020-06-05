@@ -13,20 +13,24 @@ abstract class EndlessScroll : RecyclerView.OnScrollListener() {
     var totalItemCount = 0
     private val startingPageIndex = 0
     private var currentPage = 0
+    private var newlyAdded = true
+
     override fun onScrolled(mRecyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(mRecyclerView, dx, dy)
-        val mLayoutManager: LinearLayoutManager = mRecyclerView
-            .layoutManager as LinearLayoutManager
-        visibleItemCount = mRecyclerView.getChildCount()
-        totalItemCount = mLayoutManager.getItemCount()
+        val mLayoutManager: LinearLayoutManager = mRecyclerView.layoutManager as LinearLayoutManager
+        visibleItemCount = mRecyclerView.childCount
+        totalItemCount = mLayoutManager.itemCount
         firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
         onScroll(firstVisibleItem, visibleItemCount, totalItemCount)
     }
 
-    fun onScroll(firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+    private fun onScroll(firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+        if (newlyAdded) {
+            newlyAdded = false
+            return
+        }
         if (totalItemCount < previousTotalItemCount) {
             currentPage = startingPageIndex
-            previousTotalItemCount = totalItemCount
+            previousTotalItemCount = totalItemCount + 1
             if (totalItemCount == 0) {
                 loading = true
             }
@@ -34,7 +38,7 @@ abstract class EndlessScroll : RecyclerView.OnScrollListener() {
 
         if (loading && totalItemCount > previousTotalItemCount) {
             loading = false
-            previousTotalItemCount = totalItemCount
+            previousTotalItemCount = totalItemCount + 1
             currentPage++
         }
 
