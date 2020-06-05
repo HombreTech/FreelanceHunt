@@ -9,6 +9,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ProjectBid
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.SafeType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
@@ -81,6 +82,9 @@ class PagerProjectBids : BaseFragment() {
                                     it.visible()
                                 } else it.gone()
                             })*/
+                            .setText(R.id.safe,
+                                getTitleBySafeType(context!!, SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT)
+                            )
                             .setText(
                                 R.id.days,
                                 model.attributes.days.getEnding(context!!, R.array.ending_days)
@@ -99,7 +103,7 @@ class PagerProjectBids : BaseFragment() {
                             .setText(R.id.voteup, model.attributes.positive_bids.toString())
                             .setText(R.id.votedown, model.attributes.negative_bids.toString())
                             */
-                            .setGone(R.id.isWinner, !model.attributes.is_winner)
+                            .setInvisible(R.id.isWinner, !model.attributes.is_winner)
                             .setOnClickListener(R.id.clickableView) {
                                 freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
                             }

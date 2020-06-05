@@ -66,7 +66,7 @@ class PagerProjectOverview : BaseFragment() {
                 enableCompressImage(true, 70)
             }
             description.setHtml(details.description_html!!, getter)
-        } else description.setHtml(getString(R.string.no_information))
+        } else description.text = getString(R.string.no_information)
 
         avatar.setUrl(details.employer.avatar.large.url, isCircle = true)
         name.text = "${details.employer.first_name} ${details.employer.last_name}"

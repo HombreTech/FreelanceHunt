@@ -41,7 +41,7 @@ class PagerEmployerOverview : BaseFragment() {
                 enableCompressImage(true, 70)
             }
             summary.setHtml(details.attributes.cv_html!!, getter)
-        } else summary.setHtml(getString(R.string.no_information))
+        } else summary.text = getString(R.string.no_information)
     }
 
     companion object {

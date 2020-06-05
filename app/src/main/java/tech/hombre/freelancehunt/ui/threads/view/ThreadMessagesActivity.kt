@@ -10,15 +10,14 @@ import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.activity_thread_messages.*
 import kotlinx.android.synthetic.main.appbar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
+import org.sufficientlysecure.htmltextview.HtmlTextView
 import tech.hombre.domain.model.ThreadMessageList
 import tech.hombre.domain.model.ThreadMessageMy
 import tech.hombre.domain.model.ThreadMessageOther
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.extensions.getTimeAgo
-import tech.hombre.freelancehunt.common.extensions.parseFullDate
-import tech.hombre.freelancehunt.common.extensions.snackbar
-import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
@@ -102,7 +101,12 @@ class ThreadMessagesActivity : BaseActivity() {
                                     isCircle = true
                                 )
                             })
-                        .setText(R.id.text, model.data.attributes.message_html)
+                        .find<HtmlTextView>(R.id.text) {
+                            val getter = HtmlHttpImageGetter(it, null, true).apply {
+                                enableCompressImage(true, 70)
+                            }
+                            it.setHtml(model.data.attributes.message_html, getter)
+                        }
                         .setText(
                             R.id.postedAt,
                             model.data.attributes.posted_at.parseFullDate(true).getTimeAgo()
