@@ -42,17 +42,6 @@ class FreelancersFragment : BaseFragment() {
         viewModel.countries.subscribe(this, {
             countries = it
         })
-        viewModel.details.subscribe(this, {
-            when (it) {
-                is Loading -> showLoading()
-                is Success -> {
-                    hideLoading()
-                    appNavigator.showFreelancerDetails(it.data.data)
-                }
-                is Error -> handleError(it.error.localizedMessage)
-                is NoInternetState -> showNoInternetError()
-            }
-        })
 
         viewModel.setCountries()
     }

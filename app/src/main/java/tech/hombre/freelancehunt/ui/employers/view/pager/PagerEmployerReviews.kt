@@ -47,12 +47,12 @@ class PagerEmployerReviews : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        viewModel.employerDetails.subscribe(this, {
+        viewModel.freelancerDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
                 is Success -> {
                     hideLoading()
-                    appNavigator.showEmployerDetails(it.data.data)
+                    appNavigator.showFreelancerDetails(it.data.data)
                 }
                 is Error -> handleError(it.error.localizedMessage)
                 is NoInternetState -> showNoInternetError()
@@ -138,7 +138,7 @@ class PagerEmployerReviews : BaseFragment() {
                             viewModel.getProjectDetails(model.attributes.project.self)
                         }
                         .setOnClickListener(R.id.name) {
-                            viewModel.getEmployerDetails(model.attributes.from.id)
+                            viewModel.getFreelancerDetails(model.attributes.from.id)
                         }
                 }
             )
