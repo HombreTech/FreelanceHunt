@@ -7,8 +7,8 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/menu_profile"
-            android:icon="@drawable/verificated_user"
-            android:title="@string/my_profile" />
+            app:actionLayout="@layout/item_menu_profile"
+            tools:ignore="MenuTitle" />
         <item
             android:id="@+id/menu_threads"
             app:actionLayout="@layout/item_menu_threads"

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_middle"
+    android:paddingBottom="@dimen/padding_small">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/verificated_user"
+        app:tint="@drawable/menu_icon_background" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standart"
+        android:layout_marginEnd="@dimen/padding_standart"
+        android:text="@string/my_profile"
+        android:textColor="@drawable/menu_icon_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icon" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        style="@style/TextStyle.Menu.Subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_standart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:textColor="?textColorSecondary"
+        android:drawableStart="@drawable/star_outline"
+        android:drawablePadding="@dimen/padding_small"
+        android:text="0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

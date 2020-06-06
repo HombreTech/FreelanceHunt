@@ -136,6 +136,7 @@ class MainActivity : BaseActivity() {
         when (viewState) {
             is Success -> {
                 updateHeader(viewState.data)
+                updateDrawer(null, viewState.data.rating)
                 appPreferences.setCurrentUserProfile(viewState.data)
                 viewModel.checkMessages()
             }
@@ -143,13 +144,22 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun updateDrawer(newMassages: Boolean?, rating: Int?) {
+        if (rating != null) navigation.menu.findItem(R.id.menu_profile).actionView?.let {
+            it.subtitle.text = rating.toString()
+        }
+        if (newMassages != null)  navigation.menu.findItem(R.id.menu_threads).actionView?.let {
+            if (newMassages) {
+                it.subtitle.text = getString(R.string.have_messages)
+            } else it.subtitle.text = getString(R.string.not_have_messages)
+        }
+
+    }
+
     private fun handleMessagesState(messageViewState: ViewState<Boolean>) {
         when (messageViewState) {
             is Success -> {
-                val view = navigation.menu.findItem(R.id.menu_threads).actionView
-                if (messageViewState.data) {
-                    view.subtitle.text = getString(R.string.have_messages)
-                } else view.subtitle.text = getString(R.string.not_have_messages)
+                updateDrawer(messageViewState.data, null)
             }
             is Error -> handleError(messageViewState.error.localizedMessage)
         }
