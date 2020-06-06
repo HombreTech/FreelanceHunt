@@ -141,7 +141,7 @@ class ThreadMessagesActivity : BaseActivity() {
                 }
             )
         )
-        list.layoutManager = LinearLayoutManager(this)
+        list.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
         list.adapter = adapter
 
         adapter.setItems(messages_new)
