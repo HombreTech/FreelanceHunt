@@ -12,11 +12,16 @@ import org.koin.core.parameter.parametersOf
 import tech.hombre.data.common.coroutine.CoroutineContextProvider
 import tech.hombre.data.local.LocalProperties
 import tech.hombre.freelancehunt.App
+import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EMPTY_STRING
 import tech.hombre.freelancehunt.common.UserType
-import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.common.extensions.gone
+import tech.hombre.freelancehunt.common.extensions.showFragment
+import tech.hombre.freelancehunt.common.extensions.toast
+import tech.hombre.freelancehunt.common.extensions.visible
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
+import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -35,6 +40,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun hideLoading(progressBar: ProgressBar) = progressBar.gone()
 
+    private var backPressTimer: Long = 0
+
     private var _current_user_login: String? = null
     var current_user_login: String
         get() {
@@ -51,15 +58,29 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun addFragment(
         fragment: Fragment,
-        containerId: Int,
-        addToBackStack: Boolean = false
+        containerId: Int
     ) {
-        showFragment(fragment, containerId, addToBackStack)
+        showFragment(fragment, containerId)
     }
 
     override fun onBackPressed() {
-        // TODO return to main if now not here
-        if (supportFragmentManager.backStackEntryCount <= 1) finish() else goBack()
+        if (this is MainActivity) {
+            if (canExit()) {
+                super.onBackPressed()
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun canExit(): Boolean {
+        if (backPressTimer + 2000 > System.currentTimeMillis()) {
+            return true
+        } else {
+            toast(getString(R.string.press_again_to_exit))
+        }
+        backPressTimer = System.currentTimeMillis()
+        return false
     }
 
     override fun onStart() {

@@ -38,6 +38,6 @@
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title"
         android:textColor="?textColorSecondary"
-        tools:text="Есть новые сообщения" />
+        android:text="@string/not_have_messages" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

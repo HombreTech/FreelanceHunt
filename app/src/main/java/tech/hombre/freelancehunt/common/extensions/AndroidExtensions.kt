@@ -205,47 +205,14 @@ fun Boolean.toVisibleState(): Int {
     return if (this) View.VISIBLE else View.GONE
 }
 
-fun Fragment.showFragment(
-    fragment: Fragment, @IdRes container: Int,
-    addToBackStack: Boolean = false
-) {
-    childFragmentManager.beginTransaction().apply {
-        if (addToBackStack) {
-            addToBackStack(fragment.tag)
-        }
-    }
-        .replace(container, fragment)
-        .commitAllowingStateLoss()
-}
-
 fun FragmentActivity.showFragment(
-    fragment: Fragment, @IdRes container: Int,
-    addToBackStack: Boolean = false
+    fragment: Fragment, @IdRes container: Int
 ) {
-    supportFragmentManager.beginTransaction().apply {
-        if (addToBackStack) {
-            addToBackStack(fragment.tag)
-        }
-    }
+    supportFragmentManager.beginTransaction()
         .replace(container, fragment)
+        .setPrimaryNavigationFragment(fragment)
+        .setReorderingAllowed(true)
         .commitAllowingStateLoss()
-}
-
-fun FragmentManager.displayFragment(containerId: Int, fragment: Fragment, tag: String) {
-    val transaction: FragmentTransaction = beginTransaction()
-    if (fragment.isAdded) {
-        transaction.show(fragment)
-    } else {
-        val current = findFragmentById(containerId)
-        if (current != null) transaction.hide(current)
-        transaction.add(containerId, fragment)
-        transaction.addToBackStack(tag)
-    }
-    transaction.commit()
-}
-
-fun FragmentActivity.goBack() {
-    supportFragmentManager.popBackStack()
 }
 
 fun Int.getEnding(context: Context, @ArrayRes endsId: Int): String {

@@ -91,4 +91,5 @@
     <string name="signin">Войти</string>
     <string name="have_messages">Have a new messages</string>
     <string name="not_have_messages">0 new messages</string>
+    <string name="press_again_to_exit">Press again to close</string>
 </resources>

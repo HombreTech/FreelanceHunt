@@ -67,6 +67,8 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
     }
 
     companion object {
+        val TAG = MainFragment::class.java.simpleName
+
         fun newInstance() = MainFragment()
     }
 }

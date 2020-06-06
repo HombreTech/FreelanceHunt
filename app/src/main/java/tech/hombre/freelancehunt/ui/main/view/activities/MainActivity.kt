@@ -16,10 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.UserType
-import tech.hombre.freelancehunt.common.extensions.displayFragment
-import tech.hombre.freelancehunt.common.extensions.gone
-import tech.hombre.freelancehunt.common.extensions.subscribe
-import tech.hombre.freelancehunt.common.extensions.visible
+import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.routing.ScreenType
 import tech.hombre.freelancehunt.ui.base.BaseActivity
@@ -47,7 +44,7 @@ class MainActivity : BaseActivity() {
         initViews()
         subscribeToData()
         when (intent.getSerializableExtra(AppNavigator.SCREEN_TYPE)) {
-            ScreenType.MAIN -> addFragment(MainFragment.newInstance(), R.id.fragmentContainer, true)
+            ScreenType.MAIN -> addFragment(MainFragment.newInstance(), R.id.fragmentContainer)
             else -> finish()
         }
     }
@@ -90,22 +87,22 @@ class MainActivity : BaseActivity() {
                 when (it.itemId) {
                     R.id.menu_profile -> onShowMyProfile()
                     R.id.menu_logout -> onLoginRequire()
-                    R.id.menu_freelancers -> supportFragmentManager.displayFragment(
+                    R.id.menu_freelancers -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         FreelancersFragment.newInstance(),
                         FreelancersFragment.TAG
                     )
-                    R.id.menu_employers -> supportFragmentManager.displayFragment(
+                    R.id.menu_employers -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         EmployersFragment.newInstance(),
                         EmployersFragment.TAG
                     )
-                    R.id.menu_threads -> supportFragmentManager.displayFragment(
+                    R.id.menu_threads -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         ThreadsFragment.newInstance(),
                         ThreadsFragment.TAG
                     )
-                    R.id.menu_bids -> supportFragmentManager.displayFragment(
+                    R.id.menu_bids -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         MyBidsFragment.newInstance(),
                         MyBidsFragment.TAG
