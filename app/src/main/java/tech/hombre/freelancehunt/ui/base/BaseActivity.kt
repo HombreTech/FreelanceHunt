@@ -15,13 +15,11 @@ import tech.hombre.freelancehunt.App
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EMPTY_STRING
 import tech.hombre.freelancehunt.common.UserType
-import tech.hombre.freelancehunt.common.extensions.gone
-import tech.hombre.freelancehunt.common.extensions.showFragment
-import tech.hombre.freelancehunt.common.extensions.toast
-import tech.hombre.freelancehunt.common.extensions.visible
+import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
+import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -58,7 +56,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (this is MainActivity) {
-            if (canExit()) {
+            if (supportFragmentManager.primaryNavigationFragment?.tag != MainFragment.TAG) {
+                supportFragmentManager.switch(
+                    R.id.fragmentContainer,
+                    MainFragment.newInstance(),
+                    MainFragment.TAG
+                )
+            } else if (canExit()) {
                 super.onBackPressed()
             }
         } else {
