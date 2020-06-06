@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -26,9 +25,20 @@
         <item name="iconColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen_drawable</item>
+        <item name="android:navigationBarColor">?colorPrimary</item>
+    </style>
 
-    <style name="WelcomeTheme" parent="AppTheme">
+
+    <style name="WelcomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
+        <item name="android:windowBackground">@drawable/app_background</item>
         <item name="colorControlNormal">?colorAccent</item>
+        <item name="android:navigationBarColor">?colorPrimary</item>
     </style>
 
     <style name="ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">

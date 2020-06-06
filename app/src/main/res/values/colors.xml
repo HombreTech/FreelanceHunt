@@ -10,6 +10,7 @@
     <color name="background">#fbfbfb</color>
     <color name="grey">#E4E4E4</color>
     <color name="transparent">#00000000</color>
+    <color name="htransparent">#F5FFFFFF</color>
 
     <color name="grade">#999</color>
     <color name="ratingBarBackground">#4E999999</color>

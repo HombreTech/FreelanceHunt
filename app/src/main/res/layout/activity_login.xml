@@ -7,13 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.view.LoginActivity">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        app:srcCompat="@mipmap/logo"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
+        app:cardBackgroundColor="@color/htransparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="60dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="60dp"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp">
@@ -23,13 +28,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon"
-                android:layout_width="wrap_content"
-                android:layout_height="176dp"
+                android:layout_width="144dp"
+                android:layout_height="144dp"
                 android:layout_gravity="center"
+                app:srcCompat="@drawable/logo"
                 android:layout_marginTop="@dimen/padding_large"
-                app:srcCompat="@mipmap/logo" />
+                 />
 
             <TextView
                 android:id="@+id/authCodeHint"
@@ -40,7 +46,7 @@
                 android:layout_marginTop="40dp"
                 android:autoLink="web"
                 android:gravity="center_horizontal"
-                android:text="Для входа в приложение введите token, полученный по адресу\nhttps://freelancehunt.com/my/api"
+                android:text="@string/login_hint"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -57,10 +63,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/padding_middle"
                     android:layout_marginEnd="@dimen/padding_middle"
+                    android:padding="@dimen/padding_middle"
                     android:background="@drawable/bottom_border_shadow"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
-                    android:hint="Api Token"
+                    android:hint="@string/token_hint"
                     android:inputType="text"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
@@ -85,7 +92,7 @@
                     android:layout_marginTop="@dimen/padding_standart"
                     android:elevation="6dp"
                     android:stateListAnimator="@null"
-                    android:text="Войти"
+                    android:text="@string/signin"
                     android:translationZ="5dp"
                     android:visibility="visible" />
 

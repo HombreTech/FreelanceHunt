@@ -25,6 +25,10 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         sharedPreferences.edit().putString(KEY_USER_TYPE, type).apply()
     }
 
+    fun resetPreferences() {
+        sharedPreferences.edit().clear() .apply()
+    }
+
     fun getCurrentUserId(): Int = sharedPreferences.getInt(KEY_USER_ID, -1)
 
     fun setCurrentUserId(id: Int) {
