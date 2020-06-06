@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         android:id="@+id/group_profile"
         android:checkableBehavior="single">
@@ -9,8 +10,8 @@
             android:title="@string/my_profile" />
         <item
             android:id="@+id/menu_threads"
-            android:icon="@drawable/mail"
-            android:title="@string/threads" />
+            app:actionLayout="@layout/item_menu_threads"
+            />
         <item
             android:id="@+id/menu_bids"
             android:icon="@drawable/bids"
@@ -19,10 +20,6 @@
             android:id="@+id/menu_contests"
             android:icon="@drawable/contests"
             android:title="@string/my_contests" />
-        <item
-            android:id="@+id/menu_logout"
-            android:icon="@drawable/logout"
-            android:title="@string/logout" />
     </group>
 
     <group
@@ -46,6 +43,10 @@
             android:id="@+id/drawer_item_settings"
             android:icon="@drawable/settings"
             android:title="@string/settings" />
+        <item
+            android:id="@+id/menu_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/logout" />
     </group>
 
 </menu>

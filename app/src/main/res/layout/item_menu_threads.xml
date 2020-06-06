@@ -3,31 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_middle"
+    android:paddingBottom="@dimen/padding_middle">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mail"
+        app:tint="@drawable/menu_icon_background" />
 
     <TextView
-        android:layout_marginStart="@dimen/padding_standart"
-        android:layout_marginEnd="@dimen/padding_standart"
         android:id="@+id/title"
         style="@style/TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/threads" />
-
-    <TextView
         android:layout_marginStart="@dimen/padding_standart"
         android:layout_marginEnd="@dimen/padding_standart"
+        android:text="@string/threads"
+        android:textColor="@drawable/menu_icon_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icon" />
+
+    <TextView
         android:id="@+id/subtitle"
-        style="@style/TextStyle.Title.Sub"
+        style="@style/TextStyle.Menu.Subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/padding_standart"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
-        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:textColor="?textColorSecondary"
         tools:text="Есть новые сообщения" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

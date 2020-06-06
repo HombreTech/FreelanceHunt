@@ -25,19 +25,24 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="TextStyle.Title.Sub" parent="TextStyle.Title">
+    <style name="TextStyle.Title.Sub" parent="TextStyle">
         <item name="android:fontFamily">@font/light</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextStyle.Chat.Time" parent="TextStyle.Title">
+    <style name="TextStyle.Chat.Time" parent="TextStyle">
         <item name="android:fontFamily">@font/light</item>
         <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="TextStyle.Chat.Text" parent="TextStyle.Title">
+    <style name="TextStyle.Chat.Text" parent="TextStyle">
         <item name="android:fontFamily">@font/regular</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextStyle.Menu.Subtitle" parent="TextStyle">
+        <item name="android:fontFamily">@font/light</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="TextStyle.Caption" parent="TextStyle">

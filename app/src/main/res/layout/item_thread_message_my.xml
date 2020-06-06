@@ -34,7 +34,7 @@
         android:paddingBottom="7dp"
         tools:ignore="UselessParent">
 
-        <TextView
+        <org.sufficientlysecure.htmltextview.HtmlTextView
             android:id="@+id/text"
             style="@style/TextStyle.Chat.Text"
             android:layout_width="wrap_content"

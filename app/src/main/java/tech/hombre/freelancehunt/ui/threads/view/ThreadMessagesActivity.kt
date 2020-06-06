@@ -128,7 +128,12 @@ class ThreadMessagesActivity : BaseActivity() {
                                     isCircle = true
                                 )
                             })
-                        .setText(R.id.text, model.data.attributes.message_html)
+                        .find<HtmlTextView>(R.id.text) {
+                            val getter = HtmlHttpImageGetter(it, null, false).apply {
+                                enableCompressImage(true, 70)
+                            }
+                            it.setHtml(model.data.attributes.message_html, getter)
+                        }
                         .setText(
                             R.id.postedAt,
                             model.data.attributes.posted_at.parseFullDate(true).getTimeAgo()

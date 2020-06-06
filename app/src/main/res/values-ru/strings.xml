@@ -90,4 +90,6 @@
 
     <string name="login_hint">Для входа в приложение введите token, полученный по адресу\nhttps://freelancehunt.com/my/api</string>
     <string name="signin">Войти</string>
+    <string name="have_messages">Есть новые сообщения</string>
+    <string name="not_have_messages">Нет новых сообщений</string>
 </resources>

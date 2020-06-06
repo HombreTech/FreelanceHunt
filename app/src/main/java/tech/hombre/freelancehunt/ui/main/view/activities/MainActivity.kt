@@ -10,13 +10,16 @@ import androidx.core.view.GravityCompat
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.appbar.*
 import kotlinx.android.synthetic.main.drawer.*
+import kotlinx.android.synthetic.main.item_menu_threads.view.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.displayFragment
+import tech.hombre.freelancehunt.common.extensions.gone
 import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.extensions.visible
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.routing.ScreenType
 import tech.hombre.freelancehunt.ui.base.BaseActivity
@@ -128,6 +131,7 @@ class MainActivity : BaseActivity() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.hasMessages.subscribe(this, ::handleMessagesState)
         viewModel.checkTokenByMyProfile(appPreferences.getAccessToken())
         viewModel.refreshCountriesList()
     }
@@ -137,8 +141,21 @@ class MainActivity : BaseActivity() {
             is Success -> {
                 updateHeader(viewState.data)
                 appPreferences.setCurrentUserProfile(viewState.data)
+                viewModel.checkMessages()
             }
             is Error -> handleError(viewState.error.localizedMessage)
+        }
+    }
+
+    private fun handleMessagesState(messageViewState: ViewState<Boolean>) {
+        when (messageViewState) {
+            is Success -> {
+                val view = navigation.menu.findItem(R.id.menu_threads).actionView
+                if (messageViewState.data) {
+                    view.subtitle.text = getString(R.string.have_messages)
+                } else view.subtitle.text = getString(R.string.not_have_messages)
+            }
+            is Error -> handleError(messageViewState.error.localizedMessage)
         }
     }
 
