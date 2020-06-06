@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
@@ -13,10 +14,7 @@ import tech.hombre.domain.model.ProjectComment
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.UserType
-import tech.hombre.freelancehunt.common.extensions.getTimeAgo
-import tech.hombre.freelancehunt.common.extensions.parseFullDate
-import tech.hombre.freelancehunt.common.extensions.snackbar
-import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
@@ -75,6 +73,12 @@ class PagerProjectComments : BaseFragment() {
                             model.attributes.posted_at.parseFullDate(true).getTimeAgo()
                         )
                         .setText(R.id.comment, model.attributes.message)
+                        .find<TextView>(R.id.like) {
+                            if (model.attributes.likes > 0) {
+                                it.text = model.attributes.likes.toString()
+                                it.visible()
+                            } else it.gone()
+                        }
                         .setOnClickListener(R.id.clickableView) {
                             if (model.attributes.author.type == UserType.EMPLOYER.type) viewModel.getEmployerDetails(
                                 model.attributes.author.id
