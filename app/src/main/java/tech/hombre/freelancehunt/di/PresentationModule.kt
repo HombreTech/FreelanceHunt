@@ -42,12 +42,12 @@ val presentationModule = module {
     viewModel { EmployerReviewsViewModel(get(), get(), get()) }
     viewModel { ContestDetailViewModel(get(), get()) }
     viewModel { ProjectBidsViewModel(get()) }
-    viewModel { ProjectCommentsViewModel(get()) }
+    viewModel { ProjectCommentsViewModel(get(), get(), get()) }
     viewModel { MainPublicViewModel() }
     viewModel { ProjectPublicViewModel() }
     viewModel { FreelancerPublicViewModel() }
     viewModel { EmployerPublicViewModel() }
-    viewModel { ContestCommentsViewModel(get()) }
+    viewModel { ContestCommentsViewModel(get(), get(), get()) }
     viewModel { ContestPublicViewModel() }
     viewModel { ContestOverviewViewModel(get()) }
 

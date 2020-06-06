@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ProjectComment
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.getTimeAgo
 import tech.hombre.freelancehunt.common.extensions.parseFullDate
 import tech.hombre.freelancehunt.common.extensions.snackbar
@@ -75,6 +76,9 @@ class PagerProjectComments : BaseFragment() {
                         )
                         .setText(R.id.comment, model.attributes.message)
                         .setOnClickListener(R.id.clickableView) {
+                            if (model.attributes.author.type == UserType.EMPLOYER.type) viewModel.getEmployerDetails(
+                                model.attributes.author.id
+                            ) else viewModel.getFreelancerDetails(model.attributes.author.id)
                         }
                 }
             )
@@ -85,6 +89,28 @@ class PagerProjectComments : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.freelancerDetails.subscribe(this, {
+            when (it) {
+                is Loading -> showLoading()
+                is Success -> {
+                    hideLoading()
+                    appNavigator.showFreelancerDetails(it.data.data)
+                }
+                is Error -> handleError(it.error.localizedMessage)
+                is NoInternetState -> showNoInternetError()
+            }
+        })
+        viewModel.employerDetails.subscribe(this, {
+            when (it) {
+                is Loading -> showLoading()
+                is Success -> {
+                    hideLoading()
+                    appNavigator.showEmployerDetails(it.data.data)
+                }
+                is Error -> handleError(it.error.localizedMessage)
+                is NoInternetState -> showNoInternetError()
+            }
+        })
     }
 
     private fun handleViewState(viewState: ViewState<ProjectComment>) {
