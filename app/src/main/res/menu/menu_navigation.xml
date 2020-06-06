@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         android:id="@+id/group_profile"
         android:checkableBehavior="single">
         <item
             android:id="@+id/menu_profile"
-            android:icon="@drawable/profile"
+            android:icon="@drawable/verificated_user"
             android:title="@string/my_profile" />
         <item
             android:id="@+id/menu_threads"
             app:actionLayout="@layout/item_menu_threads"
-            />
+            tools:ignore="MenuTitle" />
         <item
             android:id="@+id/menu_bids"
             android:icon="@drawable/bids"
@@ -25,6 +26,10 @@
     <group
         android:id="@+id/group_menu"
         android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_main"
+            android:icon="@drawable/profile"
+            android:title="@string/main" />
         <item
             android:id="@+id/menu_freelancers"
             android:icon="@drawable/freelancers"

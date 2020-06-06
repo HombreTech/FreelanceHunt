@@ -44,7 +44,11 @@ class MainActivity : BaseActivity() {
         initViews()
         subscribeToData()
         when (intent.getSerializableExtra(AppNavigator.SCREEN_TYPE)) {
-            ScreenType.MAIN -> addFragment(MainFragment.newInstance(), R.id.fragmentContainer)
+            ScreenType.MAIN -> supportFragmentManager.switch(
+                R.id.fragmentContainer,
+                MainFragment.newInstance(),
+                MainFragment.TAG
+            )
             else -> finish()
         }
     }
@@ -85,6 +89,11 @@ class MainActivity : BaseActivity() {
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
+                    R.id.menu_main -> supportFragmentManager.switch(
+                        R.id.fragmentContainer,
+                        MainFragment.newInstance(),
+                        MainFragment.TAG
+                    )
                     R.id.menu_profile -> onShowMyProfile()
                     R.id.menu_logout -> onLoginRequire()
                     R.id.menu_freelancers -> supportFragmentManager.switch(
@@ -109,16 +118,6 @@ class MainActivity : BaseActivity() {
                     )
                 }
                 selectMenuItem(it.itemId, true)
-                /*Handler().postDelayed({
-                    when (it.itemId) {
-                        R.id.menu_profile -> appNavigator.showProfileActivity()
-                        R.id.menu_freelancers -> supportFragmentManager.displayFragment(R.id.fragmentContainer, FreelancersFragment.newInstance(), FreelancersFragment.TAG)
-                        R.id.menu_employers -> supportFragmentManager.displayFragment(R.id.fragmentContainer, EmployersFragment.newInstance(), EmployersFragment.TAG)
-                        R.id.menu_threads -> supportFragmentManager.displayFragment(R.id.fragmentContainer, ThreadsFragment.newInstance(), ThreadsFragment.TAG)
-                        R.id.menu_bids -> supportFragmentManager.displayFragment(R.id.fragmentContainer, MyBidsFragment.newInstance(), MyBidsFragment.TAG)
-                    }
-                    selectMenuItem(it.itemId, true)
-                }, 256)*/
             }
             drawer.closeDrawers()
             true

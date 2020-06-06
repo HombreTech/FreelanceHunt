@@ -56,13 +56,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun getCurrentUser() = current_user_login
 
-    fun addFragment(
-        fragment: Fragment,
-        containerId: Int
-    ) {
-        showFragment(fragment, containerId)
-    }
-
     override fun onBackPressed() {
         if (this is MainActivity) {
             if (canExit()) {

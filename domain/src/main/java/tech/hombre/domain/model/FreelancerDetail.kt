@@ -109,7 +109,7 @@ data class FreelancerDetail(
                 val id: Int = 0,
                 val name: String = "",
                 val rating_position: Int = 0
-            ) : Parcelable
+            ) : ViewModel, Parcelable
         }
 
         @Parcelize
