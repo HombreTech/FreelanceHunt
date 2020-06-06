@@ -15,6 +15,7 @@
     <string name="unknown">-</string>
     <string name="new_work">Предложение работы</string>
     <string name="type_project">добавил проект</string>
+    <string name="type_like_message">нравится ваше</string>
     <string name="type_work">предлагает работу над проектом</string>
     <string name="premium">Премиум</string>
     <string name="safe">Сейф</string>

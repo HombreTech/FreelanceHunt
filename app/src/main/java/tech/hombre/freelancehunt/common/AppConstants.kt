@@ -14,7 +14,8 @@ enum class UserType(val type: String) {
 enum class FeedType(val type: Int) {
     UNKNOWN(0),
     PROJECT(1),
-    WORK(2)
+    WORK(2),
+    LIKE(3)
 }
 
 enum class FreelancerStatus(val status: Int) {

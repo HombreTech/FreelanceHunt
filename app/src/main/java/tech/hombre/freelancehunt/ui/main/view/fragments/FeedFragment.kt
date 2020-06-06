@@ -17,7 +17,6 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.main.presentation.FeedViewModel
 import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
-import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
 
 class FeedFragment : BaseFragment() {
 
@@ -96,27 +95,36 @@ class FeedFragment : BaseFragment() {
                                     )
                                 } else {
                                     avatar.gone()
-                                    finder.setGone(R.id.login, true)
-                                    finder.setGone(R.id.isplus, false)
+                                    finder
+                                        .setGone(R.id.login, true)
+                                        .setGone(R.id.isplus, false)
                                 }
                             })
                         .setGone(R.id.isNew, !model.attributes.is_new)
-                        .find(R.id.type, ViewProvider<TextView> { type ->
-                            type.text = typeText
-                            type.compoundDrawablePadding = 8
-                            type.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        .find(R.id.type, ViewProvider<TextView> { typeView ->
+                            typeView.text = typeText
+                            typeView.compoundDrawablePadding = 8
+                            typeView.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 typeIcon,
                                 null,
                                 null,
                                 null
                             )
-                            type.background.setColorFilter(typeColor, PorterDuff.Mode.SRC_OVER)
+                            typeView.background.setColorFilter(typeColor, PorterDuff.Mode.SRC_OVER)
                         })
                         .setText(R.id.login, model.attributes.from?.login ?: "")
-                        .setText(
-                            R.id.message,
-                            model.attributes.message.prepareFeedMessage(context!!)
-                        )
+                        .find(R.id.message, ViewProvider<TextView> { messageView ->
+                            if (type == FeedType.LIKE) {
+                                messageView.compoundDrawablePadding = 8
+                                messageView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    ContextCompat.getDrawable(context!!, R.drawable.type_like),
+                                    null,
+                                    null,
+                                    null
+                                )
+                            }
+                            messageView.text = model.attributes.message.prepareFeedMessage(context!!)
+                        })
                         .setText(
                             R.id.createdAt,
                             model.attributes.created_at.parseFullDate(true).getTimeAgo()

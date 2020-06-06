@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginStart="@dimen/padding_standart"
+        android:layout_marginEnd="@dimen/padding_standart"
+        android:id="@+id/title"
+        style="@style/TextStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/threads" />
+
+    <TextView
+        android:layout_marginStart="@dimen/padding_standart"
+        android:layout_marginEnd="@dimen/padding_standart"
+        android:id="@+id/subtitle"
+        style="@style/TextStyle.Title.Sub"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="Есть новые сообщения" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
