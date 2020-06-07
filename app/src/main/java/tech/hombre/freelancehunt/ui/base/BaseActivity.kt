@@ -2,9 +2,10 @@ package tech.hombre.freelancehunt.ui.base
 
 import android.os.Bundle
 import android.widget.ProgressBar
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.drawer.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -15,7 +16,10 @@ import tech.hombre.freelancehunt.App
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EMPTY_STRING
 import tech.hombre.freelancehunt.common.UserType
-import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.common.extensions.gone
+import tech.hombre.freelancehunt.common.extensions.switch
+import tech.hombre.freelancehunt.common.extensions.toast
+import tech.hombre.freelancehunt.common.extensions.visible
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
@@ -62,6 +66,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     MainFragment.newInstance(),
                     MainFragment.TAG
                 )
+                selectMenuItem(R.id.menu_main, true)
             } else if (canExit()) {
                 super.onBackPressed()
             }
@@ -116,6 +121,17 @@ abstract class BaseActivity : AppCompatActivity() {
     fun onShowMyProfile() = when (UserType.EMPLOYER.type) {
         appPreferences.getCurrentUserType() -> appNavigator.showEmployerDetails(appPreferences.getCurrentUserId())
         else -> appNavigator.showFreelancerDetails(appPreferences.getCurrentUserId())
+    }
+
+    fun selectMenuItem(@IdRes id: Int, check: Boolean) {
+        navigation?.let {
+            it.menu.findItem(id)?.let { item ->
+                with(item) {
+                    isCheckable = check
+                    isChecked = check
+                }
+            }
+        }
     }
 
 

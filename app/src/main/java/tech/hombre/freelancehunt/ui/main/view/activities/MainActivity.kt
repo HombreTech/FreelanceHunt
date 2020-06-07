@@ -53,11 +53,14 @@ class MainActivity : BaseActivity() {
         initViews()
         subscribeToData()
         when (intent.getSerializableExtra(AppNavigator.SCREEN_TYPE)) {
-            ScreenType.MAIN -> supportFragmentManager.switch(
-                R.id.fragmentContainer,
-                MainFragment.newInstance(),
-                MainFragment.TAG
-            )
+            ScreenType.MAIN -> {
+                supportFragmentManager.switch(
+                    R.id.fragmentContainer,
+                    MainFragment.newInstance(),
+                    MainFragment.TAG
+                )
+                selectMenuItem(R.id.menu_main, true)
+            }
             ScreenType.THREADS -> supportFragmentManager.switch(
                 R.id.fragmentContainer,
                 ThreadsFragment.newInstance(),
@@ -207,18 +210,6 @@ class MainActivity : BaseActivity() {
         super.onConfigurationChanged(newConfig)
         drawerToggle.onConfigurationChanged(newConfig)
     }
-
-    private fun selectMenuItem(@IdRes id: Int, check: Boolean) {
-        navigation?.let {
-            it.menu.findItem(id)?.let { item ->
-                with(item) {
-                    isCheckable = check
-                    isChecked = check
-                }
-            }
-        }
-    }
-
 
     private fun setupTasks() {
 

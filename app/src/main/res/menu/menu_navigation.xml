@@ -2,6 +2,16 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/group_menu"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_main"
+            android:icon="@drawable/profile"
+            android:title="@string/main" />
+    </group>
+
     <group
         android:id="@+id/group_profile"
         android:checkableBehavior="single">
@@ -24,12 +34,8 @@
     </group>
 
     <group
-        android:id="@+id/group_menu"
+        android:id="@+id/group_lists"
         android:checkableBehavior="none">
-        <item
-            android:id="@+id/menu_main"
-            android:icon="@drawable/profile"
-            android:title="@string/main" />
         <item
             android:id="@+id/menu_freelancers"
             android:icon="@drawable/freelancers"
