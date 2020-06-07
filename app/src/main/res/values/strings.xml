@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Freelance Hunt</string>
+    <string name="app_name" translatable="false">Freelancehunt</string>
     <string name="token_hint" translatable="false">Api Token</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
