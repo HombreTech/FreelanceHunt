@@ -39,7 +39,7 @@ class ThreadsWorker(
                         val new =
                             it.data.filter { thread -> thread.attributes.is_unread && thread.id > lastChecked }
                         if (new.isNotEmpty()) {
-                            appPreferences.setLastMessageId(new.last().id)
+                            appPreferences.setLastMessageId(new.first().id)
                             Log.e("ThreadsWorker", "Notify")
                             notificationService.notify(
                                 SimpleNotification(

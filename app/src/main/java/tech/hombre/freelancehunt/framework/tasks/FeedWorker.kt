@@ -38,7 +38,7 @@ class FeedWorker(
                     val new = feeds.data.filter { it.attributes.is_new && it.id > lastChecked }
                     if (new.isNotEmpty()) {
                         Log.e("FeedWorker", "Notify")
-                        appPreferences.setLastFeedId(new.last().id)
+                        appPreferences.setLastFeedId(new.first().id)
                         notificationService.notify(
                             SimpleNotification(
                                 context.getString(R.string.notify_new_feed)

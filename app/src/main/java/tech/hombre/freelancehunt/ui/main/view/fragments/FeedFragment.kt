@@ -152,7 +152,7 @@ class FeedFragment : BaseFragment() {
             viewModel.getFeedLists()
         }
 
-        appPreferences.setLastFeedId(feedList.data.last().id)
+        appPreferences.setLastFeedId(feedList.data.first().id)
     }
 
 

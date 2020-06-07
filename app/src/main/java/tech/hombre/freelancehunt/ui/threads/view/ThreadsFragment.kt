@@ -128,7 +128,7 @@ class ThreadsFragment : BaseFragment() {
         items.addAll(freelancersList.data)
         adapter.setItems(items)
 
-        appPreferences.setLastMessageId(items.last().id)
+        appPreferences.setLastMessageId(items.first().id)
     }
 
     companion object {
