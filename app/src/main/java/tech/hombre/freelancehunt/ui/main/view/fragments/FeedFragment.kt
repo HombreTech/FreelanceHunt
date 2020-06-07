@@ -151,6 +151,8 @@ class FeedFragment : BaseFragment() {
             adapter.setItems(arrayListOf())
             viewModel.getFeedLists()
         }
+
+        appPreferences.setLastFeedId(feedList.data.last().id)
     }
 
 

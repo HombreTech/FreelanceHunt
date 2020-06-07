@@ -71,7 +71,6 @@
     <string name="reviews">Отзывы</string>
     <string name="contest_view">Просмотр конкурса</string>
     <string name="status_title">Статус</string>
-
     <string name="safe_type_1">Прямой расчет</string>
     <string name="safe_type_2">Сейф: заказчик</string>
     <string name="safe_type_3">Сейф: фрилансер</string>
@@ -87,11 +86,13 @@
     <string name="profile">Профиль</string>
     <string name="search">Поиск</string>
     <string name="no_information">Нет информации</string>
-
     <string name="login_hint">Для входа в приложение введите token, полученный по адресу\nhttps://freelancehunt.com/my/api</string>
     <string name="signin">Войти</string>
     <string name="have_messages">Есть новые сообщения</string>
     <string name="not_have_messages">Нет новых сообщений</string>
     <string name="press_again_to_exit">Нажмите еще раз, чтобы закрыть</string>
     <string name="main">Главная</string>
+    <string name="notify_new_feed">Новое событие в ленте</string>
+    <string name="notify_new_message">У Вас %s</string>
+    <string name="more">+ еще&#160;</string>
 </resources>

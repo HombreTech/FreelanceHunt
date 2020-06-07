@@ -24,4 +24,10 @@ class FeedListRepositoryImpl(
             dbDataProvider = { feedListDao.getFeedList(url) }
         )
     }
+
+    override suspend fun getFeedSimpleList(): Result<FeedList> {
+        return fetchData(
+            dataProvider = { feedApi.getFeedSimpleList().getData() }
+        )
+    }
 }

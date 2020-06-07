@@ -79,4 +79,6 @@ dependencies {
 
     implementation 'org.sufficientlysecure:html-textview:3.9'
 
+    implementation "androidx.work:work-runtime-ktx:$workVersion"
+
 }

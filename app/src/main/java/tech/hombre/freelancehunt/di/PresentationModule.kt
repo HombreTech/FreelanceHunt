@@ -25,7 +25,7 @@ import tech.hombre.freelancehunt.ui.threads.presentation.ThreadMessagesViewModel
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadsViewModel
 
 val presentationModule = module {
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { FeedViewModel(get(), get()) }
     viewModel { ProjectsViewModel(get(), get()) }

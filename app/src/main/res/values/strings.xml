@@ -71,7 +71,6 @@
     <string name="reviews">Отзывы</string>
     <string name="contest_view">Просмотр конкурса</string>
     <string name="status_title">Статус</string>
-
     <string name="safe_type_1">Direct payment</string>
     <string name="safe_type_2">Safe by employer</string>
     <string name="safe_type_3">Safe by freelancer</string>
@@ -93,4 +92,7 @@
     <string name="not_have_messages">0 new messages</string>
     <string name="press_again_to_exit">Press again to close</string>
     <string name="main">Главная</string>
+    <string name="notify_new_feed">New feed event</string>
+    <string name="notify_new_message">You have new %s</string>
+    <string name="more">+&#160;</string>
 </resources>

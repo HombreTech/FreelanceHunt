@@ -6,6 +6,10 @@ const val EXTRA_1 = "EXTRA_1"
 const val EXTRA_2 = "EXTRA_2"
 const val EXTRA_3 = "EXTRA_3"
 
+const val CHANNEL_ID = "freelancehunt_channel_1"
+const val NOTIFY_ID = 9042
+const val MAX_LINES = 3
+
 enum class UserType(val type: String) {
     EMPLOYER("employer"),
     FREELANCER("freelancer")

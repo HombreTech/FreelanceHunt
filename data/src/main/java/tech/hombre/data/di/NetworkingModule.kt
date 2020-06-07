@@ -1,8 +1,10 @@
 package tech.hombre.data.di
 
+import android.content.Context
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -11,8 +13,6 @@ import tech.hombre.data.BuildConfig
 import tech.hombre.data.networking.*
 import java.util.concurrent.TimeUnit
 
-var API_TOKEN = ""
-
 val networkingModule = module {
     single { GsonConverterFactory.create() as Converter.Factory }
     single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
@@ -20,10 +20,15 @@ val networkingModule = module {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) addInterceptor(get())
             addInterceptor {
+                val prefs = androidContext().getSharedPreferences(
+                    "preferences",
+                    Context.MODE_PRIVATE
+                )
+                val apiToken = prefs.getString("KEY_API_TOKEN", "")
                 it.proceed(
                     it.request().newBuilder().addHeader(
                         "Authorization",
-                        "Bearer $API_TOKEN"
+                        if (!apiToken.isNullOrEmpty()) "Bearer $apiToken" else ""
                     ).build()
                 )
             }

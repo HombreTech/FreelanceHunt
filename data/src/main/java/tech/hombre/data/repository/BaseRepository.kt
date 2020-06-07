@@ -6,7 +6,7 @@ import org.koin.core.inject
 import tech.hombre.data.common.coroutine.CoroutineContextProvider
 import tech.hombre.data.common.utils.Connectivity
 import tech.hombre.data.database.DB_ENTRY_ERROR
-import tech.hombre.data.networking.GENERAL_NETWORK_ERROR
+import tech.hombre.data.networking.NOT_HAVE_INTERNET_CONNECTION
 import tech.hombre.data.networking.base.DomainMapper
 import tech.hombre.domain.model.Failure
 import tech.hombre.domain.model.HttpError
@@ -35,7 +35,7 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
                 if (dbResult != null) Success(dbResult.mapToDomainModel()) else if (fromCache) {
                     if (connectivity.hasNetworkAccess()) apiDataProvider() else Failure(
                         HttpError(
-                            Throwable(GENERAL_NETWORK_ERROR)
+                            Throwable(NOT_HAVE_INTERNET_CONNECTION)
                         )
                     )
                 } else {
@@ -58,7 +58,7 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
                 dataProvider()
             }
         } else {
-            Failure(HttpError(Throwable(GENERAL_NETWORK_ERROR)))
+            Failure(HttpError(Throwable(NOT_HAVE_INTERNET_CONNECTION)))
         }
     }
 }

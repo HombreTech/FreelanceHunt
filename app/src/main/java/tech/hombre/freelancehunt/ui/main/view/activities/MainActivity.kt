@@ -7,16 +7,24 @@ import android.view.MenuItem
 import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.work.*
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.appbar.*
 import kotlinx.android.synthetic.main.drawer.*
 import kotlinx.android.synthetic.main.item_menu_threads.view.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.UserType
-import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.extensions.switch
+import tech.hombre.freelancehunt.framework.tasks.FeedWorker
+import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.routing.ScreenType
 import tech.hombre.freelancehunt.ui.base.BaseActivity
@@ -29,6 +37,7 @@ import tech.hombre.freelancehunt.ui.main.presentation.MainViewModel
 import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
 import tech.hombre.freelancehunt.ui.my.bids.view.MyBidsFragment
 import tech.hombre.freelancehunt.ui.threads.view.ThreadsFragment
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
@@ -49,8 +58,17 @@ class MainActivity : BaseActivity() {
                 MainFragment.newInstance(),
                 MainFragment.TAG
             )
+            ScreenType.THREADS -> supportFragmentManager.switch(
+                R.id.fragmentContainer,
+                ThreadsFragment.newInstance(),
+                ThreadsFragment.TAG
+            )
             else -> finish()
         }
+        if (!intent.getBooleanExtra(EXTRA_1, false))
+            CoroutineScope(Dispatchers.Default).launch {
+                setupTasks()
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -148,7 +166,7 @@ class MainActivity : BaseActivity() {
         if (rating != null) navigation.menu.findItem(R.id.menu_profile).actionView?.let {
             it.subtitle.text = rating.toString()
         }
-        if (newMassages != null)  navigation.menu.findItem(R.id.menu_threads).actionView?.let {
+        if (newMassages != null) navigation.menu.findItem(R.id.menu_threads).actionView?.let {
             if (newMassages) {
                 it.subtitle.text = getString(R.string.have_messages)
             } else it.subtitle.text = getString(R.string.not_have_messages)
@@ -199,6 +217,30 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+
+    private fun setupTasks() {
+
+        val constrains = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            FeedWorker.WORK_NAME,
+            ExistingPeriodicWorkPolicy.KEEP,
+            PeriodicWorkRequestBuilder<FeedWorker>(
+                appPreferences.getFeedWorkerInterval(), TimeUnit.MINUTES
+            ).setConstraints(constrains).build()
+        )
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            ThreadsWorker.WORK_NAME,
+            ExistingPeriodicWorkPolicy.KEEP,
+            PeriodicWorkRequestBuilder<ThreadsWorker>(
+                appPreferences.getMessagesWorkerInterval(), TimeUnit.MINUTES
+            ).setConstraints(constrains).build()
+        )
     }
 
 }

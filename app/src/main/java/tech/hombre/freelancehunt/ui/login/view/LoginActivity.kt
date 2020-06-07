@@ -3,10 +3,8 @@ package tech.hombre.freelancehunt.ui.login.view
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import tech.hombre.data.di.API_TOKEN
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.login.presentation.LoginViewModel
@@ -35,7 +33,6 @@ class LoginActivity : BaseActivity() {
             }
 
         } else {
-            API_TOKEN = appPreferences.getAccessToken()
             appNavigator.showMainActivity()
             finishAffinity()
         }

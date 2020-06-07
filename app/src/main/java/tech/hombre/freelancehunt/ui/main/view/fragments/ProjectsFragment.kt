@@ -41,7 +41,6 @@ class ProjectsFragment : BaseFragment() {
                 R.layout.item_project_list,
                 ProjectDetail.Data::class.java,
                 BaseViewRenderer.Binder { model: ProjectDetail.Data, finder: ViewFinder, payloads: List<Any?>? ->
-                    println(getTitleBySafeType(context!!, SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT))
                     finder
                         .setGone(R.id.budget, model.attributes.budget == null)
                         .setGone(R.id.premium, !model.attributes.is_premium)
