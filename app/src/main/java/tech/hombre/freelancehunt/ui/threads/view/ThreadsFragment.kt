@@ -74,7 +74,7 @@ class ThreadsFragment : BaseFragment() {
                         .setImageDrawable(
                             R.id.status,
                             ContextCompat.getDrawable(
-                                context!!,
+                                requireContext(),
                                 if (model.attributes.is_unread) R.drawable.check else R.drawable.checkall
                             )
                         )
@@ -90,7 +90,7 @@ class ThreadsFragment : BaseFragment() {
                             R.id.name,
                             "${model.attributes.participants.from.first_name} ${model.attributes.participants.from.last_name}"
                         )
-                        //.setText(R.id.messages, model.attributes.messages_count.getEnding(context!!, R.array.ending_messages))
+                        //.setText(R.id.messages, model.attributes.messages_count.getEnding(requireContext(), R.array.ending_messages))
                         .setOnClickListener(R.id.clickableView) {
                             ThreadMessagesActivity.startActivity(activity!!, model.id)
                         }

@@ -44,7 +44,7 @@ class ProjectsFragment : BaseFragment() {
                     finder
                         .setGone(R.id.budget, model.attributes.budget == null)
                         .setGone(R.id.premium, !model.attributes.is_premium)
-                        .setText(R.id.safe, getTitleBySafeType(context!!, SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT))
+                        .setText(R.id.safe, getTitleBySafeType(requireContext(), SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT))
                         .setGone(R.id.isremote, !model.attributes.is_remote_job)
                         .setText(R.id.name, model.attributes.name)
                         .setText(R.id.description, model.attributes.description.collapse(300) )

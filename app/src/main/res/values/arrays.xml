@@ -96,4 +96,22 @@
         <item>reviews</item>
     </string-array>
 
+    <string-array name="pref_notifications_period_entries">
+        <item>Каждые 15 минут</item>
+        <item>Каждые полчаса</item>
+        <item>Раз в час</item>
+        <item>Каждые два часа</item>
+        <item>Два раза в день</item>
+        <item>Один раз в день</item>
+    </string-array>
+
+    <string-array name="pref_notifications_interval_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+
 </resources>

@@ -80,7 +80,7 @@ class FreelancersFragment : BaseFragment() {
                             it.text = model.attributes.status.name
                             it.background.setColorFilter(
                                 ContextCompat.getColor(
-                                    context!!,
+                                    requireContext(),
                                     getColorByFreelancerStatus(getFreelancerStatus(model.attributes.status.id))
                                 ), PorterDuff.Mode.SRC_OVER
                             )
@@ -123,7 +123,7 @@ class FreelancersFragment : BaseFragment() {
                             R.id.serviceOn,
                             model.attributes.created_at.parseFullDate(
                                 true
-                            ).getSimpleTimeAgo(context!!)
+                            ).getSimpleTimeAgo(requireContext())
                         )
                         .setOnClickListener(R.id.clickableView) {
                             appNavigator.showFreelancerDetails(model)

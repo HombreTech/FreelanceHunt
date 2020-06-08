@@ -83,11 +83,11 @@ class PagerProjectBids : BaseFragment() {
                                 } else it.gone()
                             })*/
                             .setText(R.id.safe,
-                                getTitleBySafeType(context!!, SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT)
+                                getTitleBySafeType(requireContext(), SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT)
                             )
                             .setText(
                                 R.id.days,
-                                model.attributes.days.getEnding(context!!, R.array.ending_days)
+                                model.attributes.days.getEnding(requireContext(), R.array.ending_days)
                             )
                             .setText(
                                 R.id.publishedAt,

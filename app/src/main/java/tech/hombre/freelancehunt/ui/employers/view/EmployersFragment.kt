@@ -126,7 +126,7 @@ class EmployersFragment : BaseFragment() {
                             R.id.serviceOn,
                             model.attributes.created_at.parseFullDate(
                                 true
-                            ).getSimpleTimeAgo(context!!)
+                            ).getSimpleTimeAgo(requireContext())
                         )
                         .setOnClickListener(R.id.clickableView) {
                             appNavigator.showEmployerDetails(model)

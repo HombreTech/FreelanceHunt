@@ -9,11 +9,13 @@ import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.framework.notifications.AndroidNotificationService
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
+import tech.hombre.freelancehunt.ui.main.view.activities.SettingFragment
 
 val appModule = module {
     single { CoroutineContextProvider() }
     single { (activity: AppCompatActivity) -> AppNavigator(activity) }
     single { (activity: FragmentActivity) -> AppFragmentNavigator(activity) }
+    single { SettingFragment() }
     single { AndroidNotificationService(get()) }
     single { FeedWorker(get(), get()) }
     single { ThreadsWorker(get(), get()) }

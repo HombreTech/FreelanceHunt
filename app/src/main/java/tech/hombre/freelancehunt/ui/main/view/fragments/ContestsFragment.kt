@@ -92,7 +92,7 @@ class ContestsFragment : BaseFragment() {
                         .setText(
                             R.id.applications,
                             model.attributes.application_count.getEnding(
-                                context!!,
+                                requireContext(),
                                 R.array.ending_applications
                             )
                         )

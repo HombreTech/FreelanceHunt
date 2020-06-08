@@ -76,9 +76,9 @@ class FeedFragment : BaseFragment() {
                 R.layout.item_feed_list,
                 FeedList.Data::class.java,
                 BaseViewRenderer.Binder<FeedList.Data, ViewFinder> { model: FeedList.Data, finder: ViewFinder, payloads: List<Any?>? ->
-                    val type = feedTypeByMessage(context!!, model.attributes.message)
-                    val typeIcon = ContextCompat.getDrawable(context!!, getTypeIcon(type))
-                    val typeColor = ContextCompat.getColor(context!!, getTypeColor(type))
+                    val type = feedTypeByMessage(requireContext(), model.attributes.message)
+                    val typeIcon = ContextCompat.getDrawable(requireContext(), getTypeIcon(type))
+                    val typeColor = ContextCompat.getColor(requireContext(), getTypeColor(type))
                     val typeText = getString(getTypeLabel(type))
                     val notForMe = model.attributes.from == null
                     finder
@@ -117,13 +117,13 @@ class FeedFragment : BaseFragment() {
                             if (type == FeedType.LIKE) {
                                 messageView.compoundDrawablePadding = 8
                                 messageView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                    ContextCompat.getDrawable(context!!, R.drawable.type_like),
+                                    ContextCompat.getDrawable(requireContext(), R.drawable.type_like),
                                     null,
                                     null,
                                     null
                                 )
                             }
-                            messageView.text = model.attributes.message.prepareFeedMessage(context!!)
+                            messageView.text = model.attributes.message.prepareFeedMessage(requireContext())
                         })
                         .setText(
                             R.id.createdAt,

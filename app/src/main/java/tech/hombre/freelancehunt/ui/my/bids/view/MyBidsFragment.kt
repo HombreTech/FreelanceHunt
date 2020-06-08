@@ -80,7 +80,7 @@ class MyBidsFragment : BaseFragment() {
                             it.text = model.attributes.project.status.name
                             it.background.setColorFilter(
                                 ContextCompat.getColor(
-                                    context!!,
+                                    requireContext(),
                                     getColorByProjectStatus(getProjectStatus(model.attributes.project.status.id))
                                 ), PorterDuff.Mode.SRC_OVER
                             )
@@ -102,7 +102,7 @@ class MyBidsFragment : BaseFragment() {
                         )
                         .setText(
                             R.id.days,
-                            model.attributes.days.getEnding(context!!, R.array.ending_days)
+                            model.attributes.days.getEnding(requireContext(), R.array.ending_days)
                         )
                         .setOnClickListener(R.id.clickableView) {
                             viewModel.getProjectDetails(model.attributes.project.self)

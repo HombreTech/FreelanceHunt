@@ -116,6 +116,11 @@ class MainActivity : BaseActivity() {
                     )
                     R.id.menu_profile -> onShowMyProfile()
                     R.id.menu_logout -> onLoginRequire()
+                    R.id.menu_settings -> supportFragmentManager.switch(
+                        R.id.fragmentContainer,
+                        SettingFragment(),
+                        SettingFragment.TAG
+                    )
                     R.id.menu_freelancers -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         FreelancersFragment.newInstance(),
@@ -212,25 +217,28 @@ class MainActivity : BaseActivity() {
 
     private fun setupTasks() {
 
+        val networkType = if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
+
         val constrains = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .setRequiredNetworkType(networkType)
             .build()
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            FeedWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
-            PeriodicWorkRequestBuilder<FeedWorker>(
-                appPreferences.getFeedWorkerInterval(), TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
-        )
-
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            ThreadsWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
-            PeriodicWorkRequestBuilder<ThreadsWorker>(
-                appPreferences.getMessagesWorkerInterval(), TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
-        )
+        if (appPreferences.getWorkerFeedEnabled())
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                FeedWorker.WORK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                PeriodicWorkRequestBuilder<FeedWorker>(
+                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
+                ).setConstraints(constrains).addTag(FeedWorker.WORK_NAME).build()
+            )
+        if (appPreferences.getWorkerMessagesEnabled())
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                ThreadsWorker.WORK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                PeriodicWorkRequestBuilder<ThreadsWorker>(
+                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
+                ).setConstraints(constrains).addTag(ThreadsWorker.WORK_NAME).build()
+            )
     }
 
 }

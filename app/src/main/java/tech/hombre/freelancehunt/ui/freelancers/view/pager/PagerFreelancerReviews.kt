@@ -99,7 +99,7 @@ class PagerFreelancerReviews : BaseFragment() {
                         .find(R.id.projectName, ViewProvider<TextView> { projectName ->
                             projectName.text = model.attributes.project.name
                             projectName.compoundDrawablePadding = 8
-                            val rateIcon = ContextCompat.getDrawable(context!!, if (model.attributes.grades.total ?: 0f < 6) R.drawable.thumb_down else R.drawable.thumb_up)
+                            val rateIcon = ContextCompat.getDrawable(requireContext(), if (model.attributes.grades.total ?: 0f < 6) R.drawable.thumb_down else R.drawable.thumb_up)
                             projectName.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 rateIcon,
                                 null,
@@ -110,7 +110,7 @@ class PagerFreelancerReviews : BaseFragment() {
                         .setText(
                             R.id.publishedAt,
                             model.attributes.published_at.parseFullDate(true)
-                                .getSimpleTimeAgo(context!!)
+                                .getSimpleTimeAgo(requireContext())
                         )
                         .find<RatingBar>(R.id.qualityBar) {
                             it.rating = (model.attributes.grades.quality ?: 0).toFloat()

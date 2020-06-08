@@ -10,6 +10,7 @@ buildscript {
         okhttp3LogInterceptor = OKHTTP3LOGINTERCEPTOR_VERSION
         architectureComponents = ARHITECTURECOMPONENTS_VERSION
         workVersion = WORK_VERSION
+        preferencesVersion = PREFERENCES_VERSION
     }
     repositories {
         google()

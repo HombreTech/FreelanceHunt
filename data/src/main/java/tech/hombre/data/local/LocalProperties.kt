@@ -45,17 +45,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         } else null
     }
 
-    fun getFeedWorkerInterval(): Long = sharedPreferences.getLong(KEY_WORKER_FEED_INTERVAL, 15)
-
-    fun setFeedWorkerInterval(minutes: Long) {
-        sharedPreferences.edit().putLong(KEY_WORKER_FEED_INTERVAL, minutes).apply()
-    }
-
-    fun getMessagesWorkerInterval(): Long = sharedPreferences.getLong(KEY_WORKER_MESSAGES_INTERVAL, 15)
-
-    fun setMessagesWorkerInterval(minutes: Long) {
-        sharedPreferences.edit().putLong(KEY_WORKER_MESSAGES_INTERVAL, minutes).apply()
-    }
+    fun getWorkerInterval(): Long = sharedPreferences.getString(KEY_WORKER_INTERVAL, "15").toLong()
 
     fun getLastFeedId(): Long = sharedPreferences.getLong(KEY_LAST_FEED_ID, -1)
 
@@ -69,15 +59,23 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         sharedPreferences.edit().putInt(KEY_LAST_MESSAGE_ID, id).apply()
     }
 
+    fun getWorkerFeedEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_FEED, false)
+
+    fun getWorkerMessagesEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_MESSAGES, false)
+
+    fun getWorkerUnmeteredEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_UNMETERED, false)
+
     companion object {
-        private const val KEY_API_TOKEN = "KEY_API_TOKEN"
-        private const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
-        private const val KEY_USER_TYPE = "KEY_USER_TYPE"
-        private const val KEY_USER_ID = "KEY_USER_ID"
-        private const val KEY_LAST_FEED_ID = "KEY_LAST_FEED_ID"
-        private const val KEY_LAST_MESSAGE_ID = "KEY_LAST_MESSAGE_ID"
-        private const val KEY_WORKER_FEED_INTERVAL = "KEY_WORKER_FEED_INTERVAL"
-        private const val KEY_WORKER_MESSAGES_INTERVAL = "KEY_WORKER_MESSAGES_INTERVAL"
+        const val KEY_API_TOKEN = "KEY_API_TOKEN"
+        const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
+        const val KEY_USER_TYPE = "KEY_USER_TYPE"
+        const val KEY_USER_ID = "KEY_USER_ID"
+        const val KEY_LAST_FEED_ID = "KEY_LAST_FEED_ID"
+        const val KEY_LAST_MESSAGE_ID = "KEY_LAST_MESSAGE_ID"
+        const val KEY_WORKER_FEED = "KEY_WORKER_FEED"
+        const val KEY_WORKER_MESSAGES = "KEY_WORKER_MESSAGES"
+        const val KEY_WORKER_INTERVAL = "KEY_WORKER_INTERVAL"
+        const val KEY_WORKER_UNMETERED = "KEY_WORKER_UNMETERED"
     }
 
 }
