@@ -7,13 +7,11 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="KEY_WORKER_FEED"
-            android:summary="@string/pref_notification_feed_summary"
             android:title="@string/pref_notifications_feed"
             app:icon="@drawable/feed_small" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="KEY_WORKER_MESSAGES"
-            android:summary="@string/pref_notification_messages_summary"
             android:title="@string/pref_notifications_messages"
             app:icon="@drawable/messages" />
         <CheckBoxPreference

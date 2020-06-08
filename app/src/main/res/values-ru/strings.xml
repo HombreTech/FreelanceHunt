@@ -96,9 +96,7 @@
     <string name="more">+ еще&#160;</string>
     <string name="pref_notification_title">Уведомления</string>
     <string name="pref_notifications_feed">Новые события в ленте</string>
-    <string name="pref_notification_feed_summary">Проверять наличие новых событий в ленте</string>
     <string name="pref_notifications_messages">Новые сообщения</string>
-    <string name="pref_notification_messages_summary">Проверять наличие новых сообщений</string>
     <string name="pref_notifications_interval">Периодичность проверки обновлений</string>
     <string name="pref_notification_wifi_summary">Прверять наличие обновлений только при подключении к WIFI</string>
     <string name="pref_notifications_wifi">Только WIFI</string>
