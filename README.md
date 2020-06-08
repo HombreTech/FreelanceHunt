@@ -33,7 +33,7 @@ Another one Freelancehunt.com client app.
   - All user threads list
   - Thread messages
 - **Bids**
-  - My bids list
+  - My bids list ```for freelancers```
 - **Notifications**
   - New feed events
   - New messages

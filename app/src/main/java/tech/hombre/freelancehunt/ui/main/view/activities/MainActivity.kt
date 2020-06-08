@@ -113,6 +113,7 @@ class MainActivity : BaseActivity() {
 
         drawer.addDrawerListener(drawerToggle)
         navigation.menu.findItem(R.id.menu_contests).isVisible = appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
+        navigation.menu.findItem(R.id.menu_bids).isVisible = appPreferences.getCurrentUserType() == UserType.FREELANCER.type
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
