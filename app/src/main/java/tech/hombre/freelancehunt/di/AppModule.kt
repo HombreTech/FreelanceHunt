@@ -9,7 +9,7 @@ import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.framework.notifications.AndroidNotificationService
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
-import tech.hombre.freelancehunt.ui.main.view.activities.SettingFragment
+import tech.hombre.freelancehunt.ui.main.view.fragments.SettingFragment
 
 val appModule = module {
     single { CoroutineContextProvider() }

@@ -32,8 +32,10 @@ import tech.hombre.freelancehunt.ui.base.Success
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.employers.view.EmployersFragment
 import tech.hombre.freelancehunt.ui.freelancers.view.FreelancersFragment
+import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
 import tech.hombre.freelancehunt.ui.main.presentation.MainViewModel
 import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
+import tech.hombre.freelancehunt.ui.main.view.fragments.SettingFragment
 import tech.hombre.freelancehunt.ui.my.bids.view.MyBidsFragment
 import tech.hombre.freelancehunt.ui.threads.view.ThreadsFragment
 import java.util.concurrent.TimeUnit
@@ -44,7 +46,10 @@ class MainActivity : BaseActivity() {
     override fun isPrivate() = true
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
+
     private val viewModel: MainViewModel by viewModel()
+
+    private val sharedViewModelMain: MainPublicViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,6 +158,9 @@ class MainActivity : BaseActivity() {
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
         viewModel.hasMessages.subscribe(this, ::handleMessagesState)
+        sharedViewModelMain.messagesCounter.subscribe(this) {
+            updateDrawer(it, null)
+        }
         viewModel.checkTokenByMyProfile(appPreferences.getAccessToken())
         viewModel.refreshCountriesList()
     }

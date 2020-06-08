@@ -17,7 +17,7 @@ data class ThreadsList(
             val first_post_at: String = "",
             val last_post_at: String = "",
             val messages_count: Int = 0,
-            val is_unread: Boolean = false,
+            var is_unread: Boolean = false,
             val has_attachments: Boolean = false,
             val participants: Participants = Participants()
         ) {

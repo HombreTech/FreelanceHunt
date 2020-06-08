@@ -1,4 +1,4 @@
-package tech.hombre.freelancehunt.ui.main.view.activities
+package tech.hombre.freelancehunt.ui.main.view.fragments
 
 import android.content.Context
 import android.content.SharedPreferences

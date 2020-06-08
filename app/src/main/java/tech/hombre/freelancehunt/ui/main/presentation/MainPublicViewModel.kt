@@ -8,13 +8,13 @@ class MainPublicViewModel : ViewModel(), KoinComponent {
 
     val feedBadgeCounter = MutableLiveData<Int>()
 
-    val messagesCounter = MutableLiveData<Int>()
+    val messagesCounter = MutableLiveData<Boolean>()
 
     fun setFeedBadgeCounter(count: Int) {
         feedBadgeCounter.value = count
     }
 
-    fun setMessagesCounter(count: Int) {
-        feedBadgeCounter.value = count
+    fun setMessagesCounter(newMessages: Boolean) {
+        messagesCounter.value = newMessages
     }
 }

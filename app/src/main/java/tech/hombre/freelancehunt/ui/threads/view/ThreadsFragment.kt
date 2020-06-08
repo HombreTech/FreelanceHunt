@@ -1,9 +1,11 @@
 package tech.hombre.freelancehunt.ui.threads.view
 
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_threads.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ThreadsList
 import tech.hombre.freelancehunt.R
@@ -15,11 +17,14 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
+import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadsViewModel
 
 class ThreadsFragment : BaseFragment() {
 
     private val viewModel: ThreadsViewModel by viewModel()
+
+    private val sharedViewModelMain: MainPublicViewModel by sharedViewModel()
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
@@ -66,6 +71,9 @@ class ThreadsFragment : BaseFragment() {
                 ThreadsList.Data::class.java,
                 BaseViewRenderer.Binder { model: ThreadsList.Data, finder: ViewFinder, payloads: List<Any?>? ->
                     finder
+                        .find(R.id.icon, ViewProvider<AppCompatImageView> {
+                            if (!model.attributes.is_unread) it.alpha = 0.5F else it.alpha = 1F
+                        })
                         .setText(
                             R.id.lastAt,
                             model.attributes.last_post_at.parseFullDate(true).getTimeAgo()
@@ -92,7 +100,10 @@ class ThreadsFragment : BaseFragment() {
                         )
                         //.setText(R.id.messages, model.attributes.messages_count.getEnding(requireContext(), R.array.ending_messages))
                         .setOnClickListener(R.id.clickableView) {
-                            ThreadMessagesActivity.startActivity(activity!!, model.id)
+                            model.attributes.is_unread = false
+                            adapter.notifyItemChanged(items.indexOf(model))
+                            sharedViewModelMain.setMessagesCounter(items.any { it.attributes.is_unread })
+                            ThreadMessagesActivity.startActivity(requireActivity(), model.id)
                         }
                 }
             )
