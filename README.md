@@ -1,6 +1,6 @@
-# Freelance Hunt [Android]
+# Freelancehunt [Android]
 
-Another one FreelanceHunt.com client app.
+Another one Freelancehunt.com client app.
 
 ```Kotlin```  ```Clean Architecture```
 ## Features
@@ -15,6 +15,7 @@ Another one FreelanceHunt.com client app.
   - Cached
 - **Contests**
   - List of employers contests ```Cached```
+  -  My contests ```for employers```
   - Overview
     - About
     - Comments
@@ -33,6 +34,9 @@ Another one FreelanceHunt.com client app.
   - Thread messages
 - **Bids**
   - My bids list
+- **Notifications**
+  - New feed events
+  - New messages
 
 ## Third party libraries
 
@@ -43,6 +47,7 @@ Another one FreelanceHunt.com client app.
 - **Gson**
 - **Room**
 - **OkHttp**
+- **Glide**
 
 ## Contributing
 Pull requests are welcome. Open an issue to discuss what you would like to change.

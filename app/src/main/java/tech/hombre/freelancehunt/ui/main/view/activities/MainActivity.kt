@@ -37,6 +37,7 @@ import tech.hombre.freelancehunt.ui.main.presentation.MainViewModel
 import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
 import tech.hombre.freelancehunt.ui.main.view.fragments.SettingFragment
 import tech.hombre.freelancehunt.ui.my.bids.view.MyBidsFragment
+import tech.hombre.freelancehunt.ui.my.contests.view.MyContestsFragment
 import tech.hombre.freelancehunt.ui.threads.view.ThreadsFragment
 import java.util.concurrent.TimeUnit
 
@@ -111,6 +112,7 @@ class MainActivity : BaseActivity() {
         drawerToggle.syncState()
 
         drawer.addDrawerListener(drawerToggle)
+        navigation.menu.findItem(R.id.menu_contests).isVisible = appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
@@ -121,6 +123,11 @@ class MainActivity : BaseActivity() {
                     )
                     R.id.menu_profile -> onShowMyProfile()
                     R.id.menu_logout -> onLoginRequire()
+                    R.id.menu_contests -> supportFragmentManager.switch(
+                        R.id.fragmentContainer,
+                        MyContestsFragment(),
+                        MyContestsFragment.TAG
+                    )
                     R.id.menu_settings -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         SettingFragment(),

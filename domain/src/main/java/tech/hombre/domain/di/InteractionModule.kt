@@ -25,6 +25,8 @@ import tech.hombre.domain.interaction.freelancerslist.reviews.GetFreelancerRevie
 import tech.hombre.domain.interaction.freelancerslist.reviews.GetFreelancerReviewsUseCaseImpl
 import tech.hombre.domain.interaction.mybids.GetMyBidsListUseCase
 import tech.hombre.domain.interaction.mybids.GetMyBidsListUseCaseImpl
+import tech.hombre.domain.interaction.mycontests.GetMyContestsListUseCase
+import tech.hombre.domain.interaction.mycontests.GetMyContestsListUseCaseImpl
 import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCase
 import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCase
@@ -60,4 +62,5 @@ val interactionModule = module {
     factory<GetProjectBidsUseCase> { GetProjectBidsUseCaseImpl(get()) }
     factory<GetProjectCommentsUseCase> { GetProjectCommentsUseCaseImpl(get()) }
     factory<GetContestCommentsUseCase> { GetContestCommentsUseCaseImpl(get()) }
+    factory<GetMyContestsListUseCase> { GetMyContestsListUseCaseImpl(get()) }
 }

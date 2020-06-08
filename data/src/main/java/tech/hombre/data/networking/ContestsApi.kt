@@ -7,11 +7,15 @@ import retrofit2.http.Url
 import tech.hombre.data.networking.model.ContestCommentsResponse
 import tech.hombre.data.networking.model.ContestDetailResponse
 import tech.hombre.data.networking.model.ContestsListResponse
+import tech.hombre.data.networking.model.MyContestsListResponse
 
 interface ContestsApi {
 
     @GET
     suspend fun getContestsList(@Url url: String): Response<ContestsListResponse>
+
+    @GET
+    suspend fun getMyContestsList(@Url url: String): Response<MyContestsListResponse>
 
     @GET("contests/{contestId}")
     suspend fun getContestDetail(@Path("contestId") contestId: Int): Response<ContestDetailResponse>

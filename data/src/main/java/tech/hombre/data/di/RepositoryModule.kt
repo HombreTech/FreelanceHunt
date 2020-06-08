@@ -16,6 +16,7 @@ import tech.hombre.data.repository.feedlist.FeedListRepositoryImpl
 import tech.hombre.data.repository.freelancerslist.FreelancerDetailRepositoryImpl
 import tech.hombre.data.repository.freelancerslist.FreelancerReviewsRepositoryImpl
 import tech.hombre.data.repository.freelancerslist.FreelancersRepositoryImpl
+import tech.hombre.data.repository.mycontests.MyContestsListRepositoryImpl
 import tech.hombre.data.repository.myprofile.MyProfileRepositoryImpl
 import tech.hombre.data.repository.projectslist.ProjectBidsRepositoryImpl
 import tech.hombre.data.repository.projectslist.ProjectCommentsRepositoryImpl
@@ -46,4 +47,5 @@ val repositoryModule = module {
     factory<ProjectBidsRepository> { ProjectBidsRepositoryImpl(get()) }
     factory<ProjectCommentsRepository> { ProjectCommentsRepositoryImpl(get()) }
     factory<ContestCommentsRepository> { ContestCommentsRepositoryImpl(get()) }
+    factory<MyContestsListRepository> { MyContestsListRepositoryImpl(get()) }
 }
