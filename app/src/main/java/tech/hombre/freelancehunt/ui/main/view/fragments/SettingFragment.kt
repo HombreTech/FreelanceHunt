@@ -48,14 +48,14 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                     if (state) {
                         recreateTasks(true, false)
                     } else WorkManager.getInstance(requireContext())
-                        .cancelAllWorkByTag(FeedWorker.WORK_NAME)
+                        .cancelUniqueWork(FeedWorker.WORK_NAME)
                 }
                 KEY_WORKER_MESSAGES -> {
                     val state = pref.getBoolean(key, false)
                     if (state) {
                         recreateTasks(false, true)
                     } else WorkManager.getInstance(requireContext())
-                        .cancelAllWorkByTag(ThreadsWorker.WORK_NAME)
+                        .cancelUniqueWork(ThreadsWorker.WORK_NAME)
                 }
                 KEY_WORKER_INTERVAL -> {
                     recreateTasks(true, true)
@@ -84,7 +84,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
             ExistingPeriodicWorkPolicy.REPLACE,
             PeriodicWorkRequestBuilder<FeedWorker>(
                 interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).addTag(FeedWorker.WORK_NAME).build()
+            ).setConstraints(constrains).build()
         )
 
         if (messages) WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
@@ -92,7 +92,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
             ExistingPeriodicWorkPolicy.REPLACE,
             PeriodicWorkRequestBuilder<ThreadsWorker>(
                 interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).addTag(ThreadsWorker.WORK_NAME).build()
+            ).setConstraints(constrains).build()
         )
 
     }

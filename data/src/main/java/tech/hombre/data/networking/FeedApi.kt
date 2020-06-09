@@ -2,6 +2,7 @@ package tech.hombre.data.networking
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Url
 import tech.hombre.data.networking.model.FeedListResponse
 import tech.hombre.data.networking.model.FeedListSimpleResponse
@@ -14,6 +15,6 @@ interface FeedApi {
     @GET("my/feed")
     suspend fun getFeedSimpleList(): Response<FeedListSimpleResponse>
 
-    @GET("my/feed/read")
-    suspend fun markFeedAsRead(): Response<Any>
+    @POST("my/feed/read")
+    suspend fun markFeedAsRead(): Response<Unit>
 }

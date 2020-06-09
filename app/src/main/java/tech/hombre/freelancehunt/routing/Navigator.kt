@@ -9,7 +9,7 @@ interface Navigator {
 
     fun showLoginActivity()
 
-    fun showMainActivity()
+    fun showMainActivity(screenType: ScreenType = ScreenType.MAIN, fromNotification: Boolean = false)
 
     fun showProfileActivity()
 

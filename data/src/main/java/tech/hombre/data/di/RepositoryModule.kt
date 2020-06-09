@@ -13,6 +13,7 @@ import tech.hombre.data.repository.employerslist.EmployerDetailRepositoryImpl
 import tech.hombre.data.repository.employerslist.EmployerReviewsRepositoryImpl
 import tech.hombre.data.repository.employerslist.EmployersListRepositoryImpl
 import tech.hombre.data.repository.feedlist.FeedListRepositoryImpl
+import tech.hombre.data.repository.feedlist.MarkFeedAsReadRepositoryImpl
 import tech.hombre.data.repository.freelancerslist.FreelancerDetailRepositoryImpl
 import tech.hombre.data.repository.freelancerslist.FreelancerReviewsRepositoryImpl
 import tech.hombre.data.repository.freelancerslist.FreelancersRepositoryImpl
@@ -48,4 +49,5 @@ val repositoryModule = module {
     factory<ProjectCommentsRepository> { ProjectCommentsRepositoryImpl(get()) }
     factory<ContestCommentsRepository> { ContestCommentsRepositoryImpl(get()) }
     factory<MyContestsListRepository> { MyContestsListRepositoryImpl(get()) }
+    factory<MarkFeedAsReadRepository> { MarkFeedAsReadRepositoryImpl(get()) }
 }

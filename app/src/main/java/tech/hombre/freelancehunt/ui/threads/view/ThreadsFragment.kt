@@ -139,7 +139,9 @@ class ThreadsFragment : BaseFragment() {
         items.addAll(freelancersList.data)
         adapter.setItems(items)
 
-        appPreferences.setLastMessageId(items.first().id)
+
+        val lastMessageId = items.first().attributes.last_post_at.parseFullDate(true)?.time ?: 0
+        appPreferences.setLastMessageId(lastMessageId)
     }
 
     companion object {

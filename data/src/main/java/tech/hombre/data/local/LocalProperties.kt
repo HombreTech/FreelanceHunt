@@ -47,21 +47,21 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     fun getWorkerInterval(): Long = sharedPreferences.getString(KEY_WORKER_INTERVAL, "15").toLong()
 
-    fun getLastFeedId(): Long = sharedPreferences.getLong(KEY_LAST_FEED_ID, -1)
+    fun getLastFeedId(): Long = sharedPreferences.getLong(KEY_LAST_FEED_ID, 0)
 
     fun setLastFeedId(id: Long) {
         sharedPreferences.edit().putLong(KEY_LAST_FEED_ID, id).apply()
     }
 
-    fun getLastMessageId(): Int = sharedPreferences.getInt(KEY_LAST_MESSAGE_ID, -1)
+    fun getLastMessageId(): Long = sharedPreferences.getLong(KEY_LAST_MESSAGE_ID, 0)
 
-    fun setLastMessageId(id: Int) {
-        sharedPreferences.edit().putInt(KEY_LAST_MESSAGE_ID, id).apply()
+    fun setLastMessageId(id: Long) {
+        sharedPreferences.edit().putLong(KEY_LAST_MESSAGE_ID, id).apply()
     }
 
-    fun getWorkerFeedEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_FEED, false)
+    fun getWorkerFeedEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_FEED, true)
 
-    fun getWorkerMessagesEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_MESSAGES, false)
+    fun getWorkerMessagesEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_MESSAGES, true)
 
     fun getWorkerUnmeteredEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_UNMETERED, false)
 

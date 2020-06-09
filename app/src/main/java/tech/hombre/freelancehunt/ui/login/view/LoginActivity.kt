@@ -5,7 +5,10 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.routing.AppNavigator
+import tech.hombre.freelancehunt.routing.ScreenType
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.login.presentation.LoginViewModel
 
@@ -33,7 +36,9 @@ class LoginActivity : BaseActivity() {
             }
 
         } else {
-            appNavigator.showMainActivity()
+            val type = (intent.getSerializableExtra(AppNavigator.SCREEN_TYPE) ?: ScreenType.MAIN) as ScreenType
+            val fromNotification = intent.getBooleanExtra(EXTRA_1, false)
+            appNavigator.showMainActivity(type, fromNotification)
             finishAffinity()
         }
 

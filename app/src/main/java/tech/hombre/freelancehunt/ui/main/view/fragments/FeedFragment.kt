@@ -24,53 +24,19 @@ class FeedFragment : BaseFragment() {
 
     private val sharedViewModelMain: MainPublicViewModel by sharedViewModel()
 
+    var items = FeedList()
+
+    val adapter = RendererRecyclerViewAdapter()
+
     override fun getLayout() = R.layout.fragment_feed
 
     override fun viewReady() {
+        initList()
         subscribeToData()
         viewModel.getFeedLists()
     }
 
-    private fun subscribeToData() {
-        viewModel.viewState.subscribe(this, ::handleViewState)
-        viewModel.details.subscribe(this, {
-            when (it) {
-                is Loading -> showLoading()
-                is Success -> {
-                    hideLoading()
-                    appNavigator.showProjectDetails(it.data.data)
-                }
-                is Error -> handleError(it.error.localizedMessage)
-                is NoInternetState -> showNoInternetError()
-            }
-        })
-    }
-
-    private fun handleViewState(viewState: ViewState<FeedList>) {
-        when (viewState) {
-            is Loading -> showLoading()
-            is Success -> showFeedList(viewState.data)
-            is Error -> handleError(viewState.error.localizedMessage)
-            is NoInternetState -> showNoInternetError()
-        }
-    }
-
-    private fun handleError(error: String) {
-        hideLoading()
-        showError(error, feedFragmentContainer)
-    }
-
-    private fun showNoInternetError() {
-        hideLoading()
-        snackbar(getString(R.string.no_internet_error_message), feedFragmentContainer)
-    }
-
-
-    private fun showFeedList(feedList: FeedList) {
-        hideLoading()
-        refresh.isRefreshing = false
-        val adapter: RendererRecyclerViewAdapter?
-        adapter = RendererRecyclerViewAdapter()
+    private fun initList() {
         adapter.registerRenderer(
             ViewRenderer<FeedList.Data, ViewFinder>(
                 R.layout.item_feed_list,
@@ -117,13 +83,17 @@ class FeedFragment : BaseFragment() {
                             if (type == FeedType.LIKE) {
                                 messageView.compoundDrawablePadding = 8
                                 messageView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                    ContextCompat.getDrawable(requireContext(), R.drawable.type_like),
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.type_like
+                                    ),
                                     null,
                                     null,
                                     null
                                 )
                             }
-                            messageView.text = model.attributes.message.prepareFeedMessage(requireContext())
+                            messageView.text =
+                                model.attributes.message.prepareFeedMessage(requireContext())
                         })
                         .setText(
                             R.id.createdAt,
@@ -132,6 +102,8 @@ class FeedFragment : BaseFragment() {
                         .setOnClickListener(
                             R.id.clickableView
                         ) {
+                            model.attributes.is_new = false
+                            adapter.notifyItemChanged(items.data.indexOf(model))
                             if (!notForMe) {
                                 if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
                             } else handleError(
@@ -141,9 +113,63 @@ class FeedFragment : BaseFragment() {
                 }
             )
         )
+    }
+
+    private fun subscribeToData() {
+        viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.feedMarked.subscribe(this, ::handleFeedViewState)
+        viewModel.details.subscribe(this, {
+            when (it) {
+                is Loading -> showLoading()
+                is Success -> {
+                    hideLoading()
+                    appNavigator.showProjectDetails(it.data.data)
+                }
+                is Error -> handleError(it.error.localizedMessage)
+                is NoInternetState -> showNoInternetError()
+            }
+        })
+    }
+
+    private fun handleViewState(viewState: ViewState<FeedList>) {
+        when (viewState) {
+            is Loading -> showLoading()
+            is Success -> showFeedList(viewState.data)
+            is Error -> handleError(viewState.error.localizedMessage)
+            is NoInternetState -> showNoInternetError()
+        }
+    }
+
+    private fun handleFeedViewState(viewState: ViewState<Boolean>) {
+        when (viewState) {
+            is Success -> {
+                hideLoading()
+                sharedViewModelMain.setFeedBadgeCounter(0)
+            }
+            is Error -> handleError(viewState.error.localizedMessage)
+            is NoInternetState -> showNoInternetError()
+        }
+    }
+
+    private fun handleError(error: String) {
+        hideLoading()
+        showError(error, feedFragmentContainer)
+    }
+
+    private fun showNoInternetError() {
+        hideLoading()
+        snackbar(getString(R.string.no_internet_error_message), feedFragmentContainer)
+    }
+
+
+    private fun showFeedList(feedList: FeedList) {
+        hideLoading()
+        refresh.isRefreshing = false
+
         list.layoutManager = LinearLayoutManager(context)
-        adapter.setItems(feedList.data)
         list.adapter = adapter
+
+        adapter.setItems(feedList.data)
 
         sharedViewModelMain.setFeedBadgeCounter(feedList.data.filter { it.attributes.is_new }.size)
 
@@ -151,6 +177,10 @@ class FeedFragment : BaseFragment() {
             adapter.setItems(arrayListOf())
             viewModel.getFeedLists()
         }
+
+        items = feedList
+
+        if (items.data.any { it.attributes.is_new }) viewModel.markFeedAsReaded()
 
         appPreferences.setLastFeedId(feedList.data.first().id)
     }

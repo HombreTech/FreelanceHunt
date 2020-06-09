@@ -15,7 +15,7 @@ data class FeedList(
         data class Attributes(
             val from: From? = From(),
             val message: String = "",
-            val is_new: Boolean = false,
+            var is_new: Boolean = false,
             val created_at: String = ""
         ) {
             data class From(

@@ -17,6 +17,8 @@ import tech.hombre.domain.interaction.employerslist.reviews.GetEmployerReviewsUs
 import tech.hombre.domain.interaction.employerslist.reviews.GetEmployerReviewsUseCaseImpl
 import tech.hombre.domain.interaction.feedlist.GetFeedListUseCase
 import tech.hombre.domain.interaction.feedlist.GetFeedListUseCaseImpl
+import tech.hombre.domain.interaction.feedlist.MarkFeedAsReadUseCase
+import tech.hombre.domain.interaction.feedlist.MarkFeedAsReadUseCaseImpl
 import tech.hombre.domain.interaction.freelancerslist.GetFreelancersListUseCase
 import tech.hombre.domain.interaction.freelancerslist.GetFreelancersListUseCaseImpl
 import tech.hombre.domain.interaction.freelancerslist.detail.GetFreelancerDetailUseCase
@@ -63,4 +65,5 @@ val interactionModule = module {
     factory<GetProjectCommentsUseCase> { GetProjectCommentsUseCaseImpl(get()) }
     factory<GetContestCommentsUseCase> { GetContestCommentsUseCaseImpl(get()) }
     factory<GetMyContestsListUseCase> { GetMyContestsListUseCaseImpl(get()) }
+    factory<MarkFeedAsReadUseCase> { MarkFeedAsReadUseCaseImpl(get()) }
 }

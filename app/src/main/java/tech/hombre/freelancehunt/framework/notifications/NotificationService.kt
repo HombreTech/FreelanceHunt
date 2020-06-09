@@ -11,5 +11,6 @@ data class SimpleNotification(
     val title : String,
     val messages : List<String>,
     val screenType: ScreenType,
-    val count: Int
+    val count: Int,
+    val id: Int
 )

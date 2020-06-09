@@ -20,7 +20,7 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
     override fun viewReady() {
         subscribeToData()
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
-        bottomNavigationView.selectedItemId = R.id.menu_feed
+        bottomNavigationView.selectedItemId = R.id.menu_projects
     }
 
     private fun subscribeToData() {

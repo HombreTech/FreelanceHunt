@@ -112,8 +112,10 @@ class MainActivity : BaseActivity() {
         drawerToggle.syncState()
 
         drawer.addDrawerListener(drawerToggle)
-        navigation.menu.findItem(R.id.menu_contests).isVisible = appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
-        navigation.menu.findItem(R.id.menu_bids).isVisible = appPreferences.getCurrentUserType() == UserType.FREELANCER.type
+        navigation.menu.findItem(R.id.menu_contests).isVisible =
+            appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
+        navigation.menu.findItem(R.id.menu_bids).isVisible =
+            appPreferences.getCurrentUserType() == UserType.FREELANCER.type
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
@@ -166,10 +168,12 @@ class MainActivity : BaseActivity() {
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
         viewModel.hasMessages.subscribe(this, ::handleMessagesState)
+        viewModel.feedEvents.subscribe(this, ::handleFeedState)
         sharedViewModelMain.messagesCounter.subscribe(this) {
             updateDrawer(it, null)
         }
         viewModel.checkTokenByMyProfile(appPreferences.getAccessToken())
+        viewModel.checkFeed()
         viewModel.refreshCountriesList()
     }
 
@@ -206,6 +210,15 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun handleFeedState(feedViewState: ViewState<Int>) {
+        when (feedViewState) {
+            is Success -> {
+                sharedViewModelMain.setFeedBadgeCounter(feedViewState.data)
+            }
+            is Error -> handleError(feedViewState.error.localizedMessage)
+        }
+    }
+
     private fun handleError(error: String) {
         showError(error)
     }
@@ -233,7 +246,8 @@ class MainActivity : BaseActivity() {
 
     private fun setupTasks() {
 
-        val networkType = if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
+        val networkType =
+            if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
 
         val constrains = Constraints.Builder()
             .setRequiredNetworkType(networkType)
@@ -245,7 +259,7 @@ class MainActivity : BaseActivity() {
                 ExistingPeriodicWorkPolicy.KEEP,
                 PeriodicWorkRequestBuilder<FeedWorker>(
                     appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).addTag(FeedWorker.WORK_NAME).build()
+                ).setConstraints(constrains).build()
             )
         if (appPreferences.getWorkerMessagesEnabled())
             WorkManager.getInstance(this).enqueueUniquePeriodicWork(
@@ -253,7 +267,7 @@ class MainActivity : BaseActivity() {
                 ExistingPeriodicWorkPolicy.KEEP,
                 PeriodicWorkRequestBuilder<ThreadsWorker>(
                     appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).addTag(ThreadsWorker.WORK_NAME).build()
+                ).setConstraints(constrains).build()
             )
     }
 

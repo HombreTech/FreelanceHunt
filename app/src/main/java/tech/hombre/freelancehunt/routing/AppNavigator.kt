@@ -21,10 +21,12 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
 
     companion object {
         const val SCREEN_TYPE = "screen_type"
+        const val FROM_NOTIFICATION = "from_notification"
     }
 
-    override fun showMainActivity() = navigateTo(getIntent<MainActivity>().apply {
-        putExtra(SCREEN_TYPE, ScreenType.MAIN)
+    override fun showMainActivity(screenType: ScreenType, fromNotification: Boolean) = navigateTo(getIntent<MainActivity>().apply {
+        putExtra(SCREEN_TYPE, screenType)
+        putExtra(FROM_NOTIFICATION, fromNotification)
     })
 
     override fun showLoginActivity() = navigateTo(getIntent<LoginActivity>().apply {

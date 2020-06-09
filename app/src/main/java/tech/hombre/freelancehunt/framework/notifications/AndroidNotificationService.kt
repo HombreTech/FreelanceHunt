@@ -10,8 +10,8 @@ import androidx.core.text.HtmlCompat
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.CHANNEL_ID
 import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.NOTIFY_ID
 import tech.hombre.freelancehunt.routing.AppNavigator
+import tech.hombre.freelancehunt.ui.login.view.LoginActivity
 import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
 
 
@@ -23,7 +23,7 @@ class AndroidNotificationService constructor(val appContext: Application) : Noti
 
         val notificationIntent = Intent(
             appContext,
-            MainActivity::class.java
+            LoginActivity::class.java
         ).apply {
             putExtra(AppNavigator.SCREEN_TYPE, msg.screenType)
             putExtra(EXTRA_1, true)
@@ -33,7 +33,7 @@ class AndroidNotificationService constructor(val appContext: Application) : Noti
 
         val contentIntent: PendingIntent? = PendingIntent.getActivity(
             appContext,
-            NOTIFY_ID,
+            msg.id,
             notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -64,7 +64,7 @@ class AndroidNotificationService constructor(val appContext: Application) : Noti
             mNotificationManager.createNotificationChannel(mChannel)
         }
 
-        mNotificationManager.notify(NOTIFY_ID, createNotification())
+        mNotificationManager.notify(msg.id, createNotification())
     }
 
     private fun isAppIsInBackground(context: Context): Boolean {

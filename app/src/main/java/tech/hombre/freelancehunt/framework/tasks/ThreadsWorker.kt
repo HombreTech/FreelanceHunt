@@ -12,7 +12,9 @@ import tech.hombre.domain.model.onSuccess
 import tech.hombre.domain.repository.ThreadsListRepository
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.MAX_LINES
+import tech.hombre.freelancehunt.common.NOTIFY_MESSAGE_ID
 import tech.hombre.freelancehunt.common.extensions.getEnding
+import tech.hombre.freelancehunt.common.extensions.parseFullDate
 import tech.hombre.freelancehunt.framework.notifications.AndroidNotificationService
 import tech.hombre.freelancehunt.framework.notifications.SimpleNotification
 import tech.hombre.freelancehunt.routing.ScreenType
@@ -31,16 +33,20 @@ class ThreadsWorker(
 
     override suspend fun doWork(): Result {
         try {
-            Log.e("ThreadsWorker", "doWork")
+            Log.d("ThreadsWorker", "doWork")
             if (appPreferences.getCurrentUserId() != -1) {
                 threadsRepository.getThreadsList("threads")
                     .onSuccess {
                         val lastChecked = appPreferences.getLastMessageId()
                         val new =
-                            it.data.filter { thread -> thread.attributes.is_unread && thread.id > lastChecked }
+                            it.data.filter { thread ->
+                                val time = thread.attributes.last_post_at.parseFullDate(true)?.time ?: 0
+                                thread.attributes.is_unread && time > lastChecked
+                            }
                         if (new.isNotEmpty()) {
-                            appPreferences.setLastMessageId(new.first().id)
-                            Log.e("ThreadsWorker", "Notify")
+                            val lastMessageId = new.first().attributes.last_post_at.parseFullDate(true)?.time ?: 0
+                            appPreferences.setLastMessageId(lastMessageId)
+                            Log.d("ThreadsWorker", "Notify")
                             notificationService.notify(
                                 SimpleNotification(
                                     String.format(
@@ -50,13 +56,14 @@ class ThreadsWorker(
                                     new.map { "<b>${it.attributes.participants.from.login}:</b> <i>${it.attributes.subject}</i>" }
                                         .chunked(MAX_LINES)[0],
                                     ScreenType.THREADS,
-                                    new.size - MAX_LINES
+                                    new.size - MAX_LINES,
+                                    NOTIFY_MESSAGE_ID
                                 )
                             )
                         }
                     }
                     .onFailure { Log.e("ThreadsWorker", it.throwable.message, it.throwable) }
-            } else Log.e("FeedWorker", "Skip")
+            } else Log.d("FeedWorker", "Skip")
             return Result.success()
         } catch (e: Exception) {
             Log.e("ThreadsWorker", e.message, e)
