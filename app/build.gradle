@@ -6,6 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+buildProperties {
+    notThere {
+        using rootProject.file('debug_gradle.properties')
+    }
+    secrets {
+        using rootProject.file('release_gradle.properties')
+    }
+}
+
 android {
     compileSdkVersion Integer.parseInt(ANDROID_COMPILE_SDK_VERSION)
     defaultConfig {
@@ -19,10 +28,25 @@ android {
         resValue("string", "versionName", "${versionName}")
 
     }
+    signingConfigs {
+        signing {
+            keyAlias((buildProperties.secrets['android_key_alias'] | buildProperties.notThere['android_key_alias']).string)
+            keyPassword((buildProperties.secrets['android_store_password'] | buildProperties.notThere['android_store_password']).string)
+            storeFile file('keystore-public')
+            storePassword((buildProperties.secrets['android_store_password'] | buildProperties.notThere['android_store_password']).string)
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.signing
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            ext.alwaysUpdateBuildId = false
         }
     }
     androidExtensions {
@@ -31,6 +55,10 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+    }
+    configurations {
+        all*.exclude module: 'javax.annotation'
+        all*.exclude group: 'org.jetbrains', module: 'annotations-java5'
     }
     kotlinOptions {
         jvmTarget = "1.8"
