@@ -61,6 +61,10 @@ class PagerProjectOverview : BaseFragment() {
 
 
     private fun initOverview(details: ProjectDetail.Data.Attributes) {
+        if (details.employer == null) {
+            handleError(getString(R.string.only_for_plus))
+            return
+        }
         if (details.description_html != null) {
             val getter = HtmlHttpImageGetter(description, null, true).apply {
                 enableCompressImage(true, 70)
@@ -68,12 +72,12 @@ class PagerProjectOverview : BaseFragment() {
             description.setHtml(details.description_html!!, getter)
         } else description.text = getString(R.string.no_information)
 
-        avatar.setUrl(details.employer.avatar.large.url, isCircle = true)
-        name.text = "${details.employer.first_name} ${details.employer.last_name}"
-        login.text = details.employer.login
+        avatar.setUrl(details.employer!!.avatar.large.url, isCircle = true)
+        name.text = "${details.employer!!.first_name} ${details.employer!!.last_name}"
+        login.text = details.employer!!.login
 
         buttonProfile.setOnClickListener {
-            employerViewModel.getEmployerDetails(details.employer.id)
+            employerViewModel.getEmployerDetails(details.employer!!.id)
         }
 
         projectPublicViewModel.updateTabViews(0)
