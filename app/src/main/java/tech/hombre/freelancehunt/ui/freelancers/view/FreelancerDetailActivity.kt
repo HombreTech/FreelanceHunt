@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.MeasureSpec
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -26,9 +25,12 @@ import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailVie
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerPublicViewModel
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerOverview
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerReviews
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.CreateThreadBottomDialogFragment
 
 
-class FreelancerDetailActivity : BaseActivity() {
+class FreelancerDetailActivity : BaseActivity(),
+    CreateThreadBottomDialogFragment.OnCreateThreadListener {
 
     override fun isPrivate() = false
 
@@ -37,6 +39,8 @@ class FreelancerDetailActivity : BaseActivity() {
     private val freelancerPublicViewModel: FreelancerPublicViewModel by viewModel()
 
     var countryId = -1
+
+    var profileId = -1
 
     private lateinit var pagerAdapter: PagerAdapter
 
@@ -71,6 +75,10 @@ class FreelancerDetailActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_message -> BottomMenuBuilder(
+                supportFragmentManager,
+                CreateThreadBottomDialogFragment.TAG
+            ).buildMenuForCreateThread(profileId)
             R.id.action_share -> true
         }
         return super.onOptionsItemSelected(item)
@@ -78,6 +86,7 @@ class FreelancerDetailActivity : BaseActivity() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.action.subscribe(this, ::handleActionViewState)
         viewModel.countries.subscribe(this, {
             if (countryId != -1) {
                 val country = it.find { it.id == countryId }
@@ -113,8 +122,21 @@ class FreelancerDetailActivity : BaseActivity() {
         }
     }
 
+    private fun handleActionViewState(viewState: ViewState<String>) {
+        hideLoading(progressBar)
+        when (viewState) {
+            is Success -> {
+                when (viewState.data) {
+                    "message" -> toast(getString(R.string.message_sent))
+                }
+            }
+        }
+    }
+
     private fun initFreelancerDetails(details: FreelancerDetail.Data) {
         hideLoading(progressBar)
+
+        profileId = details.id
 
         toolbar.subtitle = details.attributes.login
 
@@ -194,6 +216,10 @@ class FreelancerDetailActivity : BaseActivity() {
     private fun showNoInternetError() {
         hideLoading(progressBar)
         snackbar(getString(R.string.no_internet_error_message), freelancerActivityContainer)
+    }
+
+    override fun onThreadCreated(subject: String, message: String, toProfileId: Int) {
+        viewModel.sendMessage(toProfileId, subject, message)
     }
 
     private inner class PagerAdapter(fa: FragmentActivity, details: FreelancerDetail.Data) :

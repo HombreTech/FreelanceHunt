@@ -19,6 +19,9 @@ class BottomMenuBuilder(val fm: FragmentManager, val tag: String) : KoinComponen
     fun buildMenuForChooseBid(projectId: Int, bidId: Int) =
         ChooseBidBottomDialogFragment.newInstance(projectId, bidId).show(fm, tag)
 
+    fun buildMenuForCreateThread(profileId: Int) =
+        CreateThreadBottomDialogFragment.newInstance(profileId).show(fm, tag)
+
     fun buildMenuForFreelancerBid(projectId: Int, bidId: Int, isRevoked: Boolean) {
         val items = arrayListOf<MenuItem>()
         if (!isRevoked)

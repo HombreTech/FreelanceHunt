@@ -51,7 +51,7 @@
     <string name="share">Поделиться</string>
     <string name="message">Сообщение</string>
     <string name="thread_view">Просмотр беседы</string>
-    <string name="type_here">Написать сообщение…</string>
+    <string name="type_here">Начните писать сообщение…</string>
     <string name="employer_view">Профиль заказчика</string>
     <string name="project_view">Просмотр проекта</string>
     <string name="project_state11">Прием ставок</string>
@@ -116,4 +116,8 @@
     <string name="choose_comment_hint">Можете написать сообщение, известив таким образом исполнителя о том, что его ставка победила</string>
     <string name="not_have_action">Нет доступных действий</string>
     <string name="about">О программе</string>
+    <string name="create_thread">Личное сообщение</string>
+    <string name="thread">Тема сообщения</string>
+    <string name="send">Отправить</string>
+    <string name="message_sent">Сообщение отправлено</string>
 </resources>

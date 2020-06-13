@@ -25,9 +25,11 @@ import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewMod
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerPublicViewModel
 import tech.hombre.freelancehunt.ui.employers.view.pager.PagerEmployerOverview
 import tech.hombre.freelancehunt.ui.employers.view.pager.PagerEmployerReviews
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.CreateThreadBottomDialogFragment
 
 
-class EmployerDetailActivity : BaseActivity() {
+class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.OnCreateThreadListener {
 
     override fun isPrivate() = false
 
@@ -36,6 +38,8 @@ class EmployerDetailActivity : BaseActivity() {
     private val employerPublicViewModel: EmployerPublicViewModel by viewModel()
 
     var countryId = -1
+
+    var profileId = -1
 
     private lateinit var pagerAdapter: PagerAdapter
 
@@ -70,6 +74,10 @@ class EmployerDetailActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_message -> BottomMenuBuilder(
+                supportFragmentManager,
+                CreateThreadBottomDialogFragment.TAG
+            ).buildMenuForCreateThread(profileId)
             R.id.action_share -> true
         }
         return super.onOptionsItemSelected(item)
@@ -77,6 +85,7 @@ class EmployerDetailActivity : BaseActivity() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.action.subscribe(this, ::handleActionViewState)
         viewModel.countries.subscribe(this, {
             if (countryId != -1) {
                 val country = it.find { it.id == countryId }
@@ -105,8 +114,21 @@ class EmployerDetailActivity : BaseActivity() {
         }
     }
 
+    private fun handleActionViewState(viewState: ViewState<String>) {
+        hideLoading(progressBar)
+        when (viewState) {
+            is Success -> {
+                when (viewState.data) {
+                    "message" -> toast(getString(R.string.message_sent))
+                }
+            }
+        }
+    }
+
     private fun initEmployerDetails(details: EmployerDetail.Data) {
         hideLoading(progressBar)
+
+        profileId = details.id
 
         toolbar.subtitle = details.attributes.login
 
@@ -171,6 +193,20 @@ class EmployerDetailActivity : BaseActivity() {
         }
     }
 
+    private fun handleError(error: String) {
+        hideLoading(progressBar)
+        showError(error)
+    }
+
+    private fun showNoInternetError() {
+        hideLoading(progressBar)
+        snackbar(getString(R.string.no_internet_error_message), employersActivityContainer)
+    }
+
+    override fun onThreadCreated(subject: String, message: String, toProfileId: Int) {
+        viewModel.sendMessage(toProfileId, subject, message)
+    }
+
     private inner class PagerAdapter(
         fa: FragmentActivity,
         details: EmployerDetail.Data
@@ -193,16 +229,6 @@ class EmployerDetailActivity : BaseActivity() {
             2 -> fragments[2]
             else -> fragments[0]
         }
-    }
-
-    private fun handleError(error: String) {
-        hideLoading(progressBar)
-        showError(error)
-    }
-
-    private fun showNoInternetError() {
-        hideLoading(progressBar)
-        snackbar(getString(R.string.no_internet_error_message), employersActivityContainer)
     }
 
 }

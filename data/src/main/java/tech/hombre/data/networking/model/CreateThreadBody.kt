@@ -9,5 +9,5 @@ data class CreateThreadBody(
     @SerializedName("message_html")
     val messageHtml: String,
     @SerializedName("to_profile_id")
-    val toProfileId: String
+    val toProfileId: Int
 )
