@@ -34,7 +34,7 @@ data class ProjectDetail(
             val location: Location? = Location(),
             val safe_type: String? = "",
             val is_personal: Boolean = false,
-            val employer: Employer = Employer(),
+            val employer: Employer? = Employer(),
             val freelancer: Freelancer? = Freelancer(),
             val tags: List<Tag> = listOf(),
             val updates: List<Update> = listOf(),

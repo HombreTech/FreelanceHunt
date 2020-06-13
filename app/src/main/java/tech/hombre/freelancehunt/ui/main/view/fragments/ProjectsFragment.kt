@@ -3,7 +3,6 @@ package tech.hombre.freelancehunt.ui.main.view.fragments
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_projects.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.domain.model.ProjectsList
@@ -15,7 +14,6 @@ import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.main.presentation.ProjectsViewModel
-import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
 
 class ProjectsFragment : BaseFragment() {
 
@@ -44,10 +42,15 @@ class ProjectsFragment : BaseFragment() {
                     finder
                         .setGone(R.id.budget, model.attributes.budget == null)
                         .setGone(R.id.premium, !model.attributes.is_premium)
-                        .setText(R.id.safe, getTitleBySafeType(requireContext(), SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT))
+                        .setText(
+                            R.id.safe,
+                            getTitleBySafeType(
+                                requireContext(),
+                                SafeType.values().find { it.type == model.attributes.safe_type }
+                                    ?: SafeType.DIRECT_PAYMENT))
                         .setGone(R.id.isremote, !model.attributes.is_remote_job)
                         .setText(R.id.name, model.attributes.name)
-                        .setText(R.id.description, model.attributes.description.collapse(300) )
+                        .setText(R.id.description, model.attributes.description.collapse(300))
                         .find(
                             R.id.avatar,
                             ViewProvider<CustomImageView> { avatar ->
@@ -61,11 +64,20 @@ class ProjectsFragment : BaseFragment() {
                             model.attributes.employer?.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name }
                                 ?: "N/A")
                         .setText(R.id.bidCount, model.attributes.bid_count.toString())
-                        .setText(R.id.budget, if (model.attributes.budget != null) "${model.attributes.budget!!.amount} ${currencyToChar(model.attributes.budget!!.currency)}" else "")
+                        .setText(
+                            R.id.budget,
+                            if (model.attributes.budget != null) "${model.attributes.budget!!.amount} ${currencyToChar(
+                                model.attributes.budget!!.currency
+                            )}" else ""
+                        )
                         .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
                         .setOnClickListener(R.id.clickableView) {
-                            println(model.links.self.api)
-                            appNavigator.showProjectDetails(model)
+                            if (model.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active == true) {
+                                appNavigator.showProjectDetails(model)
+                            } else if (!model.attributes.is_only_for_plus)
+                                appNavigator.showProjectDetails(model)
+                            else
+                                handleError(getString(R.string.only_for_plus))
                         }
                 }
             )
