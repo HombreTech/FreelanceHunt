@@ -23,6 +23,8 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadMessagesViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ThreadMessagesActivity : BaseActivity() {
 
@@ -40,6 +42,11 @@ class ThreadMessagesActivity : BaseActivity() {
 
     private var messages = arrayListOf<ThreadMessageList.Data>()
 
+    private var timer = Timer()
+
+    // TODO to preferences
+    private val delay = 15000L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread_messages)
@@ -51,6 +58,7 @@ class ThreadMessagesActivity : BaseActivity() {
         }
 
         subscribeToData()
+        initMessagesList()
         viewModel.getMessages(threadId)
         initViews()
     }
@@ -96,7 +104,7 @@ class ThreadMessagesActivity : BaseActivity() {
     private fun handleViewState(viewState: ViewState<ThreadMessageList>) {
         when (viewState) {
             is Loading -> showLoading(progressBar)
-            is Success -> initMessagesList(viewState.data.data)
+            is Success -> initMessages(viewState.data.data)
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
         }
@@ -118,16 +126,7 @@ class ThreadMessagesActivity : BaseActivity() {
 
     }
 
-    private fun initMessagesList(messages: List<ThreadMessageList.Data>) {
-        this.messages = messages as ArrayList<ThreadMessageList.Data>
-        messagesGroup = messages.map {
-            if (it.attributes.participants.from.login == getCurrentUser()) ThreadMessageMy(it) else ThreadMessageOther(
-                it
-            )
-        } as ArrayList<ViewModel>
-
-        hideLoading(progressBar)
-        refresh.isRefreshing = false
+    private fun initMessagesList() {
         adapter = RendererRecyclerViewAdapter()
         adapter.enableDiffUtil(true)
         adapter.registerRenderer(
@@ -187,11 +186,23 @@ class ThreadMessagesActivity : BaseActivity() {
         list.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
         list.adapter = adapter
 
-        adapter.setItems(messagesGroup)
-
         refresh.setOnRefreshListener {
             viewModel.getMessages(threadId)
         }
+
+        timer.schedule(timerTask, delay, delay)
+    }
+
+    private fun initMessages(messages: List<ThreadMessageList.Data>) {
+        hideLoading(progressBar)
+        refresh.isRefreshing = false
+        this.messages = messages as ArrayList<ThreadMessageList.Data>
+        messagesGroup = messages.map {
+            if (it.attributes.participants.from.login == getCurrentUser()) ThreadMessageMy(it) else ThreadMessageOther(
+                it
+            )
+        } as ArrayList<ViewModel>
+        adapter.setItems(messagesGroup)
     }
 
     private fun handleError(error: String) {
@@ -202,6 +213,20 @@ class ThreadMessagesActivity : BaseActivity() {
     private fun showNoInternetError() {
         hideLoading(progressBar)
         snackbar(getString(R.string.no_internet_error_message), threadActivityContainer)
+    }
+
+    private val timerTask = object : TimerTask() {
+        override fun run() {
+            runOnUiThread {
+                viewModel.getMessages(threadId)
+            }
+        }
+    }
+
+    override fun finish() {
+        timer.cancel()
+        timer.purge()
+        super.finish()
     }
 
     companion object {
