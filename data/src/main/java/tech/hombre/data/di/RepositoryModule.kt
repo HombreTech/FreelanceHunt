@@ -5,6 +5,8 @@ import org.koin.dsl.module
 import tech.hombre.data.common.utils.Connectivity
 import tech.hombre.data.common.utils.ConnectivityImpl
 import tech.hombre.data.repository.bids.BidsRepositoryImpl
+import tech.hombre.data.repository.bids.ProjectRejectBidRepositoryImpl
+import tech.hombre.data.repository.bids.ProjectRevokeBidRepositoryImpl
 import tech.hombre.data.repository.contestslist.ContestCommentsRepositoryImpl
 import tech.hombre.data.repository.contestslist.ContestDetailRepositoryImpl
 import tech.hombre.data.repository.contestslist.ContestsListRepositoryImpl
@@ -19,10 +21,7 @@ import tech.hombre.data.repository.freelancerslist.FreelancerReviewsRepositoryIm
 import tech.hombre.data.repository.freelancerslist.FreelancersRepositoryImpl
 import tech.hombre.data.repository.mycontests.MyContestsListRepositoryImpl
 import tech.hombre.data.repository.myprofile.MyProfileRepositoryImpl
-import tech.hombre.data.repository.projectslist.ProjectBidsRepositoryImpl
-import tech.hombre.data.repository.projectslist.ProjectCommentsRepositoryImpl
-import tech.hombre.data.repository.projectslist.ProjectDetailRepositoryImpl
-import tech.hombre.data.repository.projectslist.ProjectsListRepositoryImpl
+import tech.hombre.data.repository.projectslist.*
 import tech.hombre.data.repository.threadslist.ThreadMessageListRepositoryImpl
 import tech.hombre.data.repository.threadslist.ThreadsListRepositoryImpl
 import tech.hombre.domain.repository.*
@@ -50,4 +49,7 @@ val repositoryModule = module {
     factory<ContestCommentsRepository> { ContestCommentsRepositoryImpl(get()) }
     factory<MyContestsListRepository> { MyContestsListRepositoryImpl(get()) }
     factory<MarkFeedAsReadRepository> { MarkFeedAsReadRepositoryImpl(get()) }
+    factory<ProjectAddBidRepository> { ProjectAddBidRepositoryImpl(get()) }
+    factory<ProjectRevokeBidRepository> { ProjectRevokeBidRepositoryImpl(get()) }
+    factory<ProjectRejectBidRepository> { ProjectRejectBidRepositoryImpl(get()) }
 }

@@ -34,6 +34,7 @@ Another one Freelancehunt.com client app.
   - Thread messages
 - **Bids**
   - My bids list ```for freelancers```
+  - Add / Revoke / Reject bid
 - **Notifications**
   - New feed events
   - New messages

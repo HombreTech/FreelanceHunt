@@ -65,6 +65,12 @@
         <item name="android:fontFamily">@font/regular</item>
     </style>
 
+    <style name="TextStyle.Menu.Item" parent="TextStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="TextStyle.Type" parent="TextStyle">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/regular</item>

@@ -114,4 +114,16 @@
         <item>1440</item>
     </string-array>
 
+    <string-array name="cost_entries">
+        <item>₴ (гривна)</item>
+        <item>₽ (рубль)</item>
+    </string-array>
+
+    <string-array name="safe_entries">
+        <item>Комиссию оплачивает заказчик</item>
+        <item>Комиссию оплачиваю я</item>
+        <item>Комиссия делится пополам</item>
+        <item>Прямой расчет</item>
+    </string-array>
+
 </resources>

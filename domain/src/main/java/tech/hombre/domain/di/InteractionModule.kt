@@ -33,8 +33,7 @@ import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCase
 import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCase
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCaseImpl
-import tech.hombre.domain.interaction.projectslist.bids.GetProjectBidsUseCase
-import tech.hombre.domain.interaction.projectslist.bids.GetProjectBidsUseCaseImpl
+import tech.hombre.domain.interaction.projectslist.bids.*
 import tech.hombre.domain.interaction.projectslist.comments.GetProjectCommentsUseCase
 import tech.hombre.domain.interaction.projectslist.comments.GetProjectCommentsUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCase
@@ -66,4 +65,7 @@ val interactionModule = module {
     factory<GetContestCommentsUseCase> { GetContestCommentsUseCaseImpl(get()) }
     factory<GetMyContestsListUseCase> { GetMyContestsListUseCaseImpl(get()) }
     factory<MarkFeedAsReadUseCase> { MarkFeedAsReadUseCaseImpl(get()) }
+    factory<AddProjectBidsUseCase> { AddProjectBidsUseCaseImpl(get()) }
+    factory<RevokeProjectBidsUseCase> { RevokeProjectBidsUseCaseImpl(get()) }
+    factory<RejectProjectBidsUseCase> { RejectProjectBidsUseCaseImpl(get()) }
 }

@@ -33,6 +33,9 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
+    //networking
+    implementation "com.google.code.gson:gson:2.8.5"
+
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
@@ -42,5 +45,5 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
     implementation "org.koin:koin-androidx-scope:$koinVersion"
 
-    implementation 'com.github.vivchar:RendererRecyclerViewAdapter:3.0.0-SNAPSHOT'
+    api 'com.github.vivchar:RendererRecyclerViewAdapter:3.0.3-SNAPSHOT'
 }

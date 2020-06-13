@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/padding_standart">
+
+    <TextView
+        android:id="@+id/addBidTitle"
+        style="@style/TextStyle.Heading.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:layout_marginTop="@dimen/padding_standart"
+        android:layout_marginEnd="@dimen/padding_middle"
+        android:drawableStart="@drawable/bid"
+        android:drawablePadding="@dimen/padding_middle"
+        android:text="@string/new_bid"
+        android:textAllCaps="true"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/params"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_middle"
+        android:stretchColumns="2"
+        app:layout_constraintEnd_toEndOf="@id/addBidTitle"
+        app:layout_constraintStart_toStartOf="@id/addBidTitle"
+        app:layout_constraintTop_toBottomOf="@id/addBidTitle">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/costTitle"
+                style="@style/TextStyle.Title.Sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/cost"
+                android:textColor="?android:textColorPrimary" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/costValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="100"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextStyle.Title.Sub" />
+
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/costType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner"
+                    android:entries="@array/cost_entries"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/safeTitle"
+                style="@style/TextStyle.Title.Sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/safe"
+                android:textColor="?android:textColorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/safeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/spinner"
+                android:entries="@array/safe_entries"
+                android:spinnerMode="dialog" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/daysTitle"
+                style="@style/TextStyle.Title.Sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/days_bid"
+                android:textColor="?android:textColorPrimary" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="1"
+                android:inputType="number"
+                android:textAppearance="@style/TextStyle.Title.Sub" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/commentTitle"
+        style="@style/TextStyle.Title.Sub"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/comment"
+        android:textColor="?android:textColorPrimary"
+        app:layout_constraintEnd_toEndOf="@id/addBidTitle"
+        app:layout_constraintStart_toStartOf="@id/addBidTitle"
+        app:layout_constraintTop_toBottomOf="@id/params" />
+
+    <tech.hombre.freelancehunt.common.widgets.EditorEditText
+        android:id="@+id/comment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:hint="@string/comment_hint"
+        android:lines="3"
+        android:paddingTop="0dp"
+        android:textAppearance="@style/TextStyle.Chat.Text"
+        app:layout_constraintEnd_toEndOf="@id/addBidTitle"
+        app:layout_constraintStart_toStartOf="@id/addBidTitle"
+        app:layout_constraintTop_toBottomOf="@id/commentTitle" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/hiddenBid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/plus"
+        android:drawablePadding="@dimen/padding_small"
+        android:enabled="false"
+        android:text="@string/hide_bid"
+        android:textAppearance="@style/TextStyle.Title.Sub"
+        app:buttonTint="?colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/commentTitle"
+        app:layout_constraintTop_toBottomOf="@id/comment" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddBid"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        app:icon="@drawable/bid"
+        app:iconPadding="@dimen/padding_middle"
+        app:layout_constraintEnd_toEndOf="@id/addBidTitle"
+        app:layout_constraintTop_toBottomOf="@id/hiddenBid" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -151,6 +151,21 @@
                 android:textColor="?textColorSecondary"
                 tools:text="0" />
 
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flowsecond"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_middle"
+                app:constraint_referenced_ids="status,safe"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="@dimen/padding_small"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalBias="0"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flowlogin"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/safe"
                 style="@style/TextStyle.Type.Bold"
@@ -164,6 +179,17 @@
                 android:text="@string/safe"
                 android:textColor="?textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/flowlogin"
+                />
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/TextStyle.Type.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_bid_status"
+                android:layout_marginTop="@dimen/padding_middle"
+                tools:text="Отозвана"
+                android:textColor="?textColorPrimary"
                 />
 
             <TextView

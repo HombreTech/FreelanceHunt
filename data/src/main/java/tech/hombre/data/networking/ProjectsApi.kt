@@ -1,13 +1,8 @@
 package tech.hombre.data.networking
 
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Url
-import tech.hombre.data.networking.model.ProjectBidsResponse
-import tech.hombre.data.networking.model.ProjectCommentsResponse
-import tech.hombre.data.networking.model.ProjectDetailResponse
-import tech.hombre.data.networking.model.ProjectsListResponse
+import retrofit2.http.*
+import tech.hombre.data.networking.model.*
 
 interface ProjectsApi {
 
@@ -22,4 +17,10 @@ interface ProjectsApi {
 
     @GET("projects/{projectId}/comments")
     suspend fun getProjectComments(@Path("projectId") projectId: Int): Response<ProjectCommentsResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects/{projectId}/bids")
+    suspend fun addProjectBid(
+        @Path("projectId") projectId: Int, @Body data: AddBidBody
+    ): Response<ProjectAddBidResponse>
 }

@@ -59,5 +59,10 @@
     <color name="thumb_up">#43A047</color>
     <color name="thumb_down">#E53935</color>
 
+    <color name="seekbar_accent">#6cc788</color>
+    <color name="seekbar_accent_disabled">#9255725D</color>
+    <color name="seekbar_accent_negative">#d9534f</color>
+    <color name="seekbar_accent_negative2">#AF3733</color>
+
 
 </resources>

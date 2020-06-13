@@ -1,6 +1,6 @@
-package tech.hombre.data.repository.feedlist
+package tech.hombre.data.repository.bids
 
-import tech.hombre.data.networking.FeedApi
+import tech.hombre.data.networking.BidsApi
 import tech.hombre.data.networking.GENERAL_NETWORK_ERROR
 import tech.hombre.data.networking.base.DomainMapper
 import tech.hombre.data.repository.BaseRepository
@@ -8,15 +8,15 @@ import tech.hombre.domain.model.Failure
 import tech.hombre.domain.model.HttpError
 import tech.hombre.domain.model.Result
 import tech.hombre.domain.model.Success
-import tech.hombre.domain.repository.MarkFeedAsReadRepository
+import tech.hombre.domain.repository.ProjectRevokeBidRepository
 
-class MarkFeedAsReadRepositoryImpl(
-    private val feedApi: FeedApi
+class ProjectRevokeBidRepositoryImpl(
+    private val bidsApi: BidsApi
 ) : BaseRepository<Boolean, DomainMapper<Boolean>>(),
-    MarkFeedAsReadRepository {
+    ProjectRevokeBidRepository {
 
-    override suspend fun markFeedAsRead(): Result<Boolean> {
-        return if (feedApi.markFeedAsRead().isSuccessful
+    override suspend fun revokeBid(projectId: Int, bidId: Int): Result<Boolean> {
+        return if (bidsApi.revokeProjectBid(projectId, bidId).isSuccessful
         ) Success(true) else Failure(
             HttpError(Throwable(GENERAL_NETWORK_ERROR))
         )

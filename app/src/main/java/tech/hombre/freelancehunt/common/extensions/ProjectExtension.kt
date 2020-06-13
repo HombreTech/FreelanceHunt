@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.common.extensions
 import android.content.Context
 import androidx.annotation.ColorRes
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.BidStatus
 import tech.hombre.freelancehunt.common.ProjectStatus
 import tech.hombre.freelancehunt.common.SafeType
 
@@ -40,4 +41,25 @@ fun getTitleBySafeType(context: Context, type: SafeType): String {
         SafeType.SPLIT -> R.string.safe_type_4
         SafeType.EMPLOYER_CASHLESS -> R.string.safe_type_5
     })
+}
+
+fun getBidStatus(status: String): BidStatus {
+    return BidStatus.values().find { it.status == status } ?: BidStatus.ACTIVE
+}
+
+fun getTitleByBidStatus(context: Context, status: BidStatus): String {
+    return context.getString(when (status) {
+        BidStatus.ACTIVE -> R.string.bid_active
+        BidStatus.REVOKED -> R.string.bid_revoked
+        BidStatus.REJECTED -> R.string.bid_rejected
+    })
+}
+
+@ColorRes
+fun getColorByFreelancerStatus(status: BidStatus): Int {
+    return when (status) {
+        BidStatus.ACTIVE -> R.color.status_bid_active
+        BidStatus.REVOKED -> R.color.status_bid_revoked
+        BidStatus.REJECTED -> R.color.status_bid_rejected
+    }
 }

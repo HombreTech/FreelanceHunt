@@ -44,7 +44,7 @@ class AndroidNotificationService constructor(val appContext: Application) : Noti
                 styleBox.addLine(HtmlCompat.fromHtml(line, HtmlCompat.FROM_HTML_MODE_LEGACY))
             }
             if (msg.count > 0) styleBox.setSummaryText(
-                appContext.getString(R.string.more) + msg.count
+                "+ ${msg.count}"
             )
             return NotificationCompat.Builder(appContext, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)

@@ -1,24 +1,30 @@
 package tech.hombre.freelancehunt.ui.project.view.pager
 
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_pager_project_bids.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectBid
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.ListMenuBottomDialogFragment
+import tech.hombre.freelancehunt.ui.menu.model.MenuItem
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectBidsViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectPublicViewModel
 
-class PagerProjectBids : BaseFragment() {
+class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener {
     override fun getLayout() = R.layout.fragment_pager_project_bids
 
     private val viewModel: ProjectBidsViewModel by viewModel()
@@ -30,6 +36,8 @@ class PagerProjectBids : BaseFragment() {
     lateinit var adapter: RendererRecyclerViewAdapter
 
     private var projectId = 0
+
+    private var items: ArrayList<ProjectBid.Data> = arrayListOf()
 
     override fun viewReady() {
         arguments?.let {
@@ -83,11 +91,28 @@ class PagerProjectBids : BaseFragment() {
                                 } else it.gone()
                             })*/
                             .setText(R.id.safe,
-                                getTitleBySafeType(requireContext(), SafeType.values().find { it.type == model.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT)
+                                getTitleBySafeType(
+                                    requireContext(),
+                                    SafeType.values().find { it.type == model.attributes.safe_type }
+                                        ?: SafeType.DIRECT_PAYMENT)
                             )
+                            .find<TextView>(R.id.status) {
+                                val status = getBidStatus(model.attributes.status)
+                                println("${model.attributes.status} / $status -> ${getTitleByBidStatus(requireContext(), status)}")
+                                it.text = getTitleByBidStatus(requireContext(), status)
+                                it.background.setColorFilter(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        getColorByFreelancerStatus(status)
+                                    ), PorterDuff.Mode.SRC_OVER
+                                )
+                            }
                             .setText(
                                 R.id.days,
-                                model.attributes.days.getEnding(requireContext(), R.array.ending_days)
+                                model.attributes.days.getEnding(
+                                    requireContext(),
+                                    R.array.ending_days
+                                )
                             )
                             .setText(
                                 R.id.publishedAt,
@@ -105,7 +130,24 @@ class PagerProjectBids : BaseFragment() {
                             */
                             .setInvisible(R.id.isWinner, !model.attributes.is_winner)
                             .setOnClickListener(R.id.clickableView) {
-                                freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
+                                if (model.attributes.freelancer.id == appPreferences.getCurrentUserId()) {
+                                    val openForBids =
+                                        getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
+                                    if (openForBids) {
+                                        val bidStatus = getBidStatus(model.attributes.status)
+                                        val isRevoked = bidStatus == BidStatus.REVOKED
+                                        val isRejected = bidStatus == BidStatus.REJECTED
+                                        if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type)
+                                            BottomMenuBuilder(
+                                                childFragmentManager,
+                                                ListMenuBottomDialogFragment.TAG
+                                            ).buildMenuForFreelancerBid(model.attributes.project.id, model.id, isRevoked)
+                                        else BottomMenuBuilder(
+                                            childFragmentManager,
+                                            ListMenuBottomDialogFragment.TAG
+                                        ).buildMenuForEmployerBid(model.attributes.project.id, model.id, isRejected)
+                                    } else handleError(getString(R.string.project_non_bids))
+                                } else freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
                             }
                     }
                 }
@@ -117,6 +159,8 @@ class PagerProjectBids : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.bid.subscribe(this, ::handleAddBid)
+        viewModel.bidAction.subscribe(this, ::handleBidAction)
         freelancerViewModel.viewState.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
@@ -139,6 +183,39 @@ class PagerProjectBids : BaseFragment() {
         }
     }
 
+    private fun handleAddBid(viewState: ViewState<ProjectBid.Data>) {
+        when (viewState) {
+            is Success -> addBid(viewState.data)
+        }
+    }
+
+    private fun handleBidAction(viewState: ViewState<Pair<Int, String>>) {
+        when (viewState) {
+            is Success -> {
+                updateBid(viewState.data)
+            }
+        }
+    }
+
+    private fun updateBid(result: Pair<Int, String>) {
+        val position = items.indexOf(items.find { it.id == result.first })
+        println(items[position].attributes.status )
+        items[position].attributes.status = result.second
+        println(items[position].attributes.status )
+        adapter.notifyItemChanged(position)
+        //adapter.setItems(items)
+    }
+
+    private fun addBid(bid: ProjectBid.Data) {
+        hideLoading()
+        items.add(0, bid)
+        adapter.setItems(items)
+        projectPublicViewModel.updateTabViews(1)
+        refreshBadge()
+    }
+
+    private fun refreshBadge() = projectPublicViewModel.updateBadge(1, items.size)
+
     private fun handleError(error: String) {
         hideLoading()
         showError(error, bidsContainer)
@@ -151,8 +228,29 @@ class PagerProjectBids : BaseFragment() {
 
     private fun initBids(bids: List<ProjectBid.Data>) {
         hideLoading()
-        adapter.setItems(bids)
-        projectPublicViewModel.updateBadge(1, bids.size)
+        items = bids as ArrayList<ProjectBid.Data>
+        adapter.setItems(items)
+        refreshBadge()
+    }
+
+    fun onBidAdded(
+        id: Int,
+        days: Int,
+        budget: MyBidsList.Data.Attributes.Budget,
+        safeType: SafeType,
+        comment: String,
+        isHidden: Boolean
+    ) {
+        viewModel.addNewProjectBid(id, days, budget, safeType, comment, isHidden)
+    }
+
+    override fun onMenuItemSelected(projectId: Int, bidId: Int, position: Int, model: MenuItem) {
+        when (model.tag) {
+            "revoke" -> viewModel.revokeProjectBids(projectId, bidId)
+            "reject" -> viewModel.rejectProjectBids(projectId, bidId)
+            "restore" -> {}
+            "choose" -> {}
+        }
     }
 
     companion object {

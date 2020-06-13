@@ -92,8 +92,7 @@
                             android:drawableStart="@drawable/safe"
                             android:drawablePadding="@dimen/padding_small"
                             android:text="@string/safe"
-                            android:textColor="?textColorPrimary"
-                             />
+                            android:textColor="?textColorPrimary" />
 
                         <TextView
                             android:id="@+id/isremote"
@@ -193,5 +192,15 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/bid"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

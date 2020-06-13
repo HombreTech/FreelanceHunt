@@ -75,7 +75,7 @@
     <string name="winner">Победитель</string>
     <string name="employer">Заказчик</string>
     <string name="description">Описание</string>
-    <string name="profile">Профиль</string>
+    <string name="profile">Profile</string>
     <string name="search">Поиск</string>
     <string name="no_information">No information</string>
     <string name="login_hint">To enter the application, type token received at\nhttps://freelancehunt.com/my/api</string>
@@ -86,7 +86,6 @@
     <string name="main">Home</string>
     <string name="notify_new_feed">New feed event</string>
     <string name="notify_new_message">You have new %s</string>
-    <string name="more">+&#160;</string>
     <string name="pref_notification_title">Notifications</string>
     <string name="pref_notifications_feed">New feed events</string>
     <string name="pref_notifications_messages">New messages</string>
@@ -94,4 +93,25 @@
     <string name="pref_notifications_interval_default" translatable="false">15</string>
     <string name="pref_notification_wifi_summary">Check for updates only when connected to WIFI</string>
     <string name="pref_notifications_wifi">Only WIFI</string>
+    <string name="check_inputs">Ошибка. Проверьте введенные данные.</string>
+    <string name="init_error">Ошибка инициализации</string>
+    <string name="add">Добавить</string>
+    <string name="hide_bid">Скрыть ставку</string>
+    <string name="comment_hint">Публикация контактной информации в ставке не разрешена</string>
+    <string name="comment">Комментарий</string>
+    <string name="days_bid">Срок выполнения</string>
+    <string name="cost">Стоимость</string>
+    <string name="new_bid">Новая ставка</string>
+    <string name="bit_a_bid">Сделать ставку</string>
+    <string name="safe_cost_minimal">Минимальный бюджет Сейф проекта должен быть не менее 200₴ или 600₽</string>
+    <string name="bid_comment_min">Минимальная длина ставки должна быть не менее 60 символов.</string>
+    <string name="bid_add_success">Ставка успешно отправлена</string>
+    <string name="revoke">Отозвать ставку</string>
+    <string name="restore">Восстановить</string>
+    <string name="reject">Отклонить</string>
+    <string name="choose">Выбрать исполнителя</string>
+    <string name="project_non_bids">Проект закрыт для ставок</string>
+    <string name="bid_active">Активна</string>
+    <string name="bid_revoked">Отозвана</string>
+    <string name="bid_rejected">Отменена</string>
 </resources>

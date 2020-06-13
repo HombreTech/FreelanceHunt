@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_project_detail.*
 import kotlinx.android.synthetic.main.appbar_fill.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
+import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
@@ -22,13 +23,15 @@ import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.SafeType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
+import tech.hombre.freelancehunt.ui.menu.AddBidBottomDialogFragment
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectPublicViewModel
 import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectBids
 import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectComments
 import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectOverview
 
-class ProjectDetailActivity : BaseActivity() {
+class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAddedListener  {
 
     override fun isPrivate() = false
 
@@ -128,13 +131,28 @@ class ProjectDetailActivity : BaseActivity() {
         pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateTabViews(position)
+                hideShowFab(position)
+            }
+
+            private fun hideShowFab(position: Int) {
+                when (position) {
+                    0 -> fab.hide()
+                    1 -> {
+                        fab.setImageResource(R.drawable.project)
+                        fab.show()
+                    }
+                    2 -> fab.hide()
+                }
             }
         })
 
         isplus.visibility = details.attributes.is_only_for_plus.toVisibleState()
         premium.visibility = details.attributes.is_premium.toVisibleState()
 
-        safe.text = getTitleBySafeType(this, SafeType.values().find { it.type == details.attributes.safe_type } ?: SafeType.DIRECT_PAYMENT)
+        safe.text = getTitleBySafeType(
+            this,
+            SafeType.values().find { it.type == details.attributes.safe_type }
+                ?: SafeType.DIRECT_PAYMENT)
 
         isremote.visibility = details.attributes.is_remote_job.toVisibleState()
         name.text = details.attributes.name
@@ -146,6 +164,26 @@ class ProjectDetailActivity : BaseActivity() {
         } else budget.text = getString(R.string.budget_nan)
 
         expiredAt.text = details.attributes.expired_at.parseFullDate(true).getTimeAgo()
+
+        fab.setOnClickListener {
+            when (tabs.selectedTabPosition) {
+                1 -> {
+                    if (details.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active == true)
+                        BottomMenuBuilder(supportFragmentManager, AddBidBottomDialogFragment.TAG).buildMenuForAddBid(
+                            appPreferences.getCurrentUserProfile()?.is_plus_active ?: false,
+                            details.id
+                        )
+                    else if (!details.attributes.is_only_for_plus) {
+                        BottomMenuBuilder(supportFragmentManager, AddBidBottomDialogFragment.TAG).buildMenuForAddBid(
+                            appPreferences.getCurrentUserProfile()?.is_plus_active ?: false,
+                            details.id
+                        )
+                    } else {
+                        handleError(getString(R.string.only_for_plus))
+                    }
+                }
+            }
+        }
     }
 
     private fun updateTabViews(position: Int) {
@@ -202,6 +240,17 @@ class ProjectDetailActivity : BaseActivity() {
             2 -> fragments[2]
             else -> fragments[0]
         }
+    }
+
+    override fun onBidAdded(
+        id: Int,
+        days: Int,
+        budget: MyBidsList.Data.Attributes.Budget,
+        safeType: SafeType,
+        comment: String,
+        isHidden: Boolean
+    ) {
+        (pagerAdapter.fragments[1] as PagerProjectBids).onBidAdded(id, days, budget, safeType, comment, isHidden)
     }
 
 
