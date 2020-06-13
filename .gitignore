@@ -52,4 +52,4 @@ freeline_project_description.json
 /keystore.properties
 /app/fabric.properties
 
-/app/keystore-public
+app/keystore-public

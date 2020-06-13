@@ -64,6 +64,7 @@ class ProjectsFragment : BaseFragment() {
                         .setText(R.id.budget, if (model.attributes.budget != null) "${model.attributes.budget!!.amount} ${currencyToChar(model.attributes.budget!!.currency)}" else "")
                         .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
                         .setOnClickListener(R.id.clickableView) {
+                            println(model.links.self.api)
                             appNavigator.showProjectDetails(model)
                         }
                 }
