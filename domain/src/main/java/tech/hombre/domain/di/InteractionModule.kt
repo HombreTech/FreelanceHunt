@@ -68,4 +68,5 @@ val interactionModule = module {
     factory<AddProjectBidsUseCase> { AddProjectBidsUseCaseImpl(get()) }
     factory<RevokeProjectBidsUseCase> { RevokeProjectBidsUseCaseImpl(get()) }
     factory<RejectProjectBidsUseCase> { RejectProjectBidsUseCaseImpl(get()) }
+    factory<ChooseProjectBidsUseCase> { ChooseProjectBidsUseCaseImpl(get()) }
 }

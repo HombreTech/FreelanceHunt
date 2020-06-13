@@ -3,10 +3,7 @@ package tech.hombre.freelancehunt.ui.project.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import tech.hombre.domain.interaction.projectslist.bids.AddProjectBidsUseCase
-import tech.hombre.domain.interaction.projectslist.bids.GetProjectBidsUseCase
-import tech.hombre.domain.interaction.projectslist.bids.RejectProjectBidsUseCase
-import tech.hombre.domain.interaction.projectslist.bids.RevokeProjectBidsUseCase
+import tech.hombre.domain.interaction.projectslist.bids.*
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectBid
 import tech.hombre.domain.model.onFailure
@@ -21,7 +18,8 @@ class ProjectBidsViewModel(
     private val getProjectBid: GetProjectBidsUseCase,
     private val addProjectBid: AddProjectBidsUseCase,
     private val revokeProjectBid: RevokeProjectBidsUseCase,
-    private val rejectProjectBid: RejectProjectBidsUseCase
+    private val rejectProjectBid: RejectProjectBidsUseCase,
+    private val chooseProjectBid: ChooseProjectBidsUseCase
 ) :
     BaseViewModel<ProjectBid>() {
 
@@ -68,6 +66,14 @@ class ProjectBidsViewModel(
         rejectProjectBid(projectId, bidId)
             .onSuccess {
                 _bidAction.value = Success(Pair(bidId, "rejected"))
+            }
+            .onFailure { _viewState.value = Error(it.throwable) }
+    }
+
+    fun chooseProjectBids(projectId: Int, bidId: Int, comment: String) = executeUseCase{
+        chooseProjectBid(projectId, bidId, comment)
+            .onSuccess {
+                _bidAction.value = Success(Pair(bidId, "choose"))
             }
             .onFailure { _viewState.value = Error(it.throwable) }
     }

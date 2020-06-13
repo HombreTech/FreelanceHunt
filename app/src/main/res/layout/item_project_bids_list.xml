@@ -186,6 +186,8 @@
                 style="@style/TextStyle.Type.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/bid_small"
+                android:drawablePadding="@dimen/padding_small"
                 android:background="@drawable/back_bid_status"
                 android:layout_marginTop="@dimen/padding_middle"
                 tools:text="Отозвана"

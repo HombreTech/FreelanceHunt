@@ -19,7 +19,7 @@ data class ProjectBid(
             val comment: String = "",
             var status: String = "",
             val is_hidden: Boolean = false,
-            val is_winner: Boolean = false,
+            var is_winner: Boolean = false,
             val freelancer: Freelancer = Freelancer(),
             val project: Project = Project(),
             val attachment: Any? = null,

@@ -85,6 +85,16 @@ class MyBidsFragment : BaseFragment() {
                                 ), PorterDuff.Mode.SRC_OVER
                             )
                         })
+                        .find<TextView>(R.id.bidStatus) {
+                            val status = getBidStatus(model.attributes.status)
+                            it.text = getTitleByBidStatus(requireContext(), status)
+                            it.background.setColorFilter(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    getColorByFreelancerStatus(status)
+                                ), PorterDuff.Mode.SRC_OVER
+                            )
+                        }
                         .setText(R.id.name, model.attributes.project.name)
                         .setText(R.id.comment, model.attributes.comment)
                         .find(R.id.mybudget, ViewProvider<TextView> {

@@ -5,6 +5,7 @@ import org.koin.dsl.module
 import tech.hombre.data.common.utils.Connectivity
 import tech.hombre.data.common.utils.ConnectivityImpl
 import tech.hombre.data.repository.bids.BidsRepositoryImpl
+import tech.hombre.data.repository.bids.ProjectChooseBidRepositoryImpl
 import tech.hombre.data.repository.bids.ProjectRejectBidRepositoryImpl
 import tech.hombre.data.repository.bids.ProjectRevokeBidRepositoryImpl
 import tech.hombre.data.repository.contestslist.ContestCommentsRepositoryImpl
@@ -52,4 +53,5 @@ val repositoryModule = module {
     factory<ProjectAddBidRepository> { ProjectAddBidRepositoryImpl(get()) }
     factory<ProjectRevokeBidRepository> { ProjectRevokeBidRepositoryImpl(get()) }
     factory<ProjectRejectBidRepository> { ProjectRejectBidRepositoryImpl(get()) }
+    factory<ProjectChooseBidRepository> { ProjectChooseBidRepositoryImpl(get()) }
 }

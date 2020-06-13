@@ -114,4 +114,7 @@
     <string name="bid_active">Активна</string>
     <string name="bid_revoked">Отозвана</string>
     <string name="bid_rejected">Отменена</string>
+    <string name="choose_bid">Выбор исполнителя</string>
+    <string name="choose_comment_hint">Можете написать сообщение, известив таким образом исполнителя о том, что его ставка победила</string>
+    <string name="not_have_action">Нет доступных действий</string>
 </resources>

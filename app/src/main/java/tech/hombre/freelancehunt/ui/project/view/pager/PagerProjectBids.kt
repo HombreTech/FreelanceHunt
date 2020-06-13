@@ -19,12 +19,14 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
 import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.ChooseBidBottomDialogFragment
 import tech.hombre.freelancehunt.ui.menu.ListMenuBottomDialogFragment
 import tech.hombre.freelancehunt.ui.menu.model.MenuItem
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectBidsViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectPublicViewModel
 
-class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener {
+class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener,
+    ChooseBidBottomDialogFragment.OnChooseBidListener {
     override fun getLayout() = R.layout.fragment_pager_project_bids
 
     private val viewModel: ProjectBidsViewModel by viewModel()
@@ -37,12 +39,15 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
 
     private var projectId = 0
 
+    private var employerId = 0
+
     private var items: ArrayList<ProjectBid.Data> = arrayListOf()
 
     override fun viewReady() {
         arguments?.let {
             projectId = it.getInt(EXTRA_1)
-            if (projectId != 0) {
+            employerId = it.getInt(EXTRA_2)
+            if (projectId != 0 && employerId != 0) {
                 initList()
                 subscribeToData()
                 viewModel.getProjectBids(projectId)
@@ -98,7 +103,6 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                             )
                             .find<TextView>(R.id.status) {
                                 val status = getBidStatus(model.attributes.status)
-                                println("${model.attributes.status} / $status -> ${getTitleByBidStatus(requireContext(), status)}")
                                 it.text = getTitleByBidStatus(requireContext(), status)
                                 it.background.setColorFilter(
                                     ContextCompat.getColor(
@@ -130,23 +134,38 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                             */
                             .setInvisible(R.id.isWinner, !model.attributes.is_winner)
                             .setOnClickListener(R.id.clickableView) {
-                                if (model.attributes.freelancer.id == appPreferences.getCurrentUserId()) {
-                                    val openForBids =
-                                        getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
-                                    if (openForBids) {
-                                        val bidStatus = getBidStatus(model.attributes.status)
-                                        val isRevoked = bidStatus == BidStatus.REVOKED
-                                        val isRejected = bidStatus == BidStatus.REJECTED
-                                        if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type)
-                                            BottomMenuBuilder(
-                                                childFragmentManager,
-                                                ListMenuBottomDialogFragment.TAG
-                                            ).buildMenuForFreelancerBid(model.attributes.project.id, model.id, isRevoked)
-                                        else BottomMenuBuilder(
+
+                                val bidStatus = getBidStatus(model.attributes.status)
+                                val isRevoked = bidStatus == BidStatus.REVOKED
+                                val isRejected = bidStatus == BidStatus.REJECTED
+
+                                val openForBids =
+                                    getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
+                                if (!openForBids) {
+                                    handleError(getString(R.string.project_non_bids))
+                                    return@setOnClickListener
+                                }
+                                if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type) {
+                                    if (model.attributes.freelancer.id == appPreferences.getCurrentUserId()) {
+                                        BottomMenuBuilder(
                                             childFragmentManager,
                                             ListMenuBottomDialogFragment.TAG
-                                        ).buildMenuForEmployerBid(model.attributes.project.id, model.id, isRejected)
-                                    } else handleError(getString(R.string.project_non_bids))
+                                        ).buildMenuForFreelancerBid(
+                                            model.attributes.project.id,
+                                            model.id,
+                                            isRevoked
+                                        )
+                                    } else freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
+                                } else if (employerId == appPreferences.getCurrentUserId()) {
+                                    BottomMenuBuilder(
+                                        childFragmentManager,
+                                        ListMenuBottomDialogFragment.TAG
+                                    ).buildMenuForEmployerBid(
+                                        model.attributes.project.id,
+                                        model.id,
+                                        isRejected
+                                    )
+
                                 } else freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
                             }
                     }
@@ -184,12 +203,14 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
     }
 
     private fun handleAddBid(viewState: ViewState<ProjectBid.Data>) {
+        hideLoading()
         when (viewState) {
             is Success -> addBid(viewState.data)
         }
     }
 
     private fun handleBidAction(viewState: ViewState<Pair<Int, String>>) {
+        hideLoading()
         when (viewState) {
             is Success -> {
                 updateBid(viewState.data)
@@ -199,15 +220,14 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
 
     private fun updateBid(result: Pair<Int, String>) {
         val position = items.indexOf(items.find { it.id == result.first })
-        println(items[position].attributes.status )
-        items[position].attributes.status = result.second
-        println(items[position].attributes.status )
+        when (result.second) {
+            "choose" -> items[position].attributes.is_winner = true
+            else -> items[position].attributes.status = result.second
+        }
         adapter.notifyItemChanged(position)
-        //adapter.setItems(items)
     }
 
     private fun addBid(bid: ProjectBid.Data) {
-        hideLoading()
         items.add(0, bid)
         adapter.setItems(items)
         projectPublicViewModel.updateTabViews(1)
@@ -244,22 +264,31 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         viewModel.addNewProjectBid(id, days, budget, safeType, comment, isHidden)
     }
 
+    override fun onBidChoose(projectId: Int, bidId: Int, comment: String) {
+        viewModel.chooseProjectBids(projectId, bidId, comment)
+    }
+
     override fun onMenuItemSelected(projectId: Int, bidId: Int, position: Int, model: MenuItem) {
         when (model.tag) {
             "revoke" -> viewModel.revokeProjectBids(projectId, bidId)
             "reject" -> viewModel.rejectProjectBids(projectId, bidId)
-            "restore" -> {}
-            "choose" -> {}
+            "restore" -> {
+            }
+            "choose" -> BottomMenuBuilder(
+                childFragmentManager,
+                ChooseBidBottomDialogFragment.TAG
+            ).buildMenuForChooseBid(projectId, bidId)
         }
     }
 
     companion object {
         val TAG = PagerProjectBids::class.java.simpleName
 
-        fun newInstance(profileId: Int): PagerProjectBids {
+        fun newInstance(projectId: Int, employerId: Int): PagerProjectBids {
             val fragment = PagerProjectBids()
             val extra = Bundle()
-            extra.putInt(EXTRA_1, profileId)
+            extra.putInt(EXTRA_1, projectId)
+            extra.putInt(EXTRA_2, employerId)
             fragment.arguments = extra
             return fragment
         }

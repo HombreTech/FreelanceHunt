@@ -42,10 +42,12 @@
 
             <TextView
                 android:id="@+id/costTitle"
-                style="@style/TextStyle.Title.Sub"
+                style="@style/TextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
+                android:gravity="end"
+                android:paddingEnd="@dimen/padding_middle"
                 android:text="@string/cost"
                 android:textColor="?android:textColorPrimary" />
 
@@ -83,10 +85,11 @@
 
             <TextView
                 android:id="@+id/safeTitle"
-                style="@style/TextStyle.Title.Sub"
+                style="@style/TextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
+                android:gravity="end"
                 android:text="@string/safe"
                 android:textColor="?android:textColorPrimary" />
 
@@ -110,7 +113,7 @@
 
             <TextView
                 android:id="@+id/daysTitle"
-                style="@style/TextStyle.Title.Sub"
+                style="@style/TextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -131,7 +134,7 @@
 
     <TextView
         android:id="@+id/commentTitle"
-        style="@style/TextStyle.Title.Sub"
+        style="@style/TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comment"
