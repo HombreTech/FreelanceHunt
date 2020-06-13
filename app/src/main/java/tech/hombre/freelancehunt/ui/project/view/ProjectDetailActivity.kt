@@ -244,7 +244,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
         val fragments = arrayListOf<Fragment>(
             PagerProjectOverview.newInstance(details.attributes),
-            PagerProjectBids.newInstance(details.id, details.attributes.employer.id ?: 0),
+            PagerProjectBids.newInstance(details.id, details.attributes.employer?.id ?: 0),
             PagerProjectComments.newInstance(details.id)
         )
 

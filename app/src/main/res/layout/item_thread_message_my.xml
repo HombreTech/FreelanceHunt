@@ -36,6 +36,7 @@
 
         <org.sufficientlysecure.htmltextview.HtmlTextView
             android:id="@+id/text"
+            android:textIsSelectable="true"
             style="@style/TextStyle.Chat.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

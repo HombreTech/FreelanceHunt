@@ -36,26 +36,31 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".ui.freelancers.view.FreelancerDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/profile_view" />
 
         <activity
             android:theme="@style/AppTheme"
             android:name=".ui.threads.view.ThreadMessagesActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/thread_view" />
 
         <activity
             android:theme="@style/AppTheme"
             android:name=".ui.employers.view.EmployerDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/employer_view" />
 
         <activity
             android:theme="@style/AppTheme"
             android:name=".ui.project.view.ProjectDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/project_view" />
 
         <activity
             android:theme="@style/AppTheme"
             android:name=".ui.contest.view.ContestDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/contest_view" />
 
 
