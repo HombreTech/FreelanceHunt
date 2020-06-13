@@ -33,6 +33,10 @@ class ThreadMessagesActivity : BaseActivity() {
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
+    private var messagesGroup = arrayListOf<ViewModel>()
+
+    private var messages = arrayListOf<ThreadMessageList.Data>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread_messages)
@@ -44,6 +48,23 @@ class ThreadMessagesActivity : BaseActivity() {
 
         subscribeToData()
         viewModel.getMessages(threadId)
+        initViews()
+    }
+
+    private fun initViews() {
+        attach.setOnClickListener {
+            handleError("Not implemented yet :(")
+        }
+        send.setOnClickListener {
+            list.hideKeyboard()
+            if (correctInputs()) {
+                viewModel.sendMessage(threadId, editText.savedText.toString())
+            }
+        }
+    }
+
+    private fun correctInputs(): Boolean {
+        return editText.savedText.isNotEmpty()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -65,6 +86,7 @@ class ThreadMessagesActivity : BaseActivity() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.message.subscribe(this, ::handleMessageViewState)
     }
 
     private fun handleViewState(viewState: ViewState<ThreadMessageList>) {
@@ -76,12 +98,29 @@ class ThreadMessagesActivity : BaseActivity() {
         }
     }
 
+    private fun handleMessageViewState(viewState: ViewState<ThreadMessageList.Data>) {
+        when (viewState) {
+            is Success -> addMessage(viewState.data)
+        }
+    }
+
+    private fun addMessage(message: ThreadMessageList.Data) {
+        messagesGroup.add(ThreadMessageMy(message))
+        adapter.setItems(messagesGroup)
+        list.postDelayed(
+            { list.scrollToPosition(adapter.itemCount - 1) },
+            100
+        )
+
+    }
+
     private fun initMessagesList(messages: List<ThreadMessageList.Data>) {
-        val messages_new = messages.map {
+        this.messages = messages as ArrayList<ThreadMessageList.Data>
+        messagesGroup = messages.map {
             if (it.attributes.participants.from.login == getCurrentUser()) ThreadMessageMy(it) else ThreadMessageOther(
                 it
             )
-        }
+        } as ArrayList<ViewModel>
 
         hideLoading(progressBar)
         refresh.isRefreshing = false
@@ -144,7 +183,7 @@ class ThreadMessagesActivity : BaseActivity() {
         list.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
         list.adapter = adapter
 
-        adapter.setItems(messages_new)
+        adapter.setItems(messagesGroup)
 
         refresh.setOnRefreshListener {
             viewModel.getMessages(threadId)

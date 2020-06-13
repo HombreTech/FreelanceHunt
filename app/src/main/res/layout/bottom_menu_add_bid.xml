@@ -91,6 +91,7 @@
                 android:layout_weight="0"
                 android:gravity="end"
                 android:text="@string/safe"
+                android:paddingEnd="@dimen/padding_middle"
                 android:textColor="?android:textColorPrimary" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -118,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="@string/days_bid"
+                android:paddingEnd="@dimen/padding_middle"
                 android:textColor="?android:textColorPrimary" />
 
             <com.google.android.material.textfield.TextInputEditText

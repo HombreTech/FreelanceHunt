@@ -18,9 +18,7 @@ import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.EXTRA_2
-import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.menu.AddBidBottomDialogFragment
@@ -31,7 +29,7 @@ import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectBids
 import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectComments
 import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectOverview
 
-class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAddedListener  {
+class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAddedListener {
 
     override fun isPrivate() = false
 
@@ -138,8 +136,16 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
                 when (position) {
                     0 -> fab.hide()
                     1 -> {
-                        fab.setImageResource(R.drawable.project)
-                        fab.show()
+                        if (details.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active != true) {
+                            fab.hide()
+                            return
+                        }
+                        val status = ProjectStatus.values().find { it.id == details.attributes.status.id }
+                        if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type && status == ProjectStatus.OPEN_FOR_PROPOSALS) {
+                            fab.setImageResource(R.drawable.bid)
+                            fab.show()
+
+                        } else fab.hide()
                     }
                     2 -> fab.hide()
                 }
@@ -169,12 +175,18 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
             when (tabs.selectedTabPosition) {
                 1 -> {
                     if (details.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active == true)
-                        BottomMenuBuilder(supportFragmentManager, AddBidBottomDialogFragment.TAG).buildMenuForAddBid(
+                        BottomMenuBuilder(
+                            supportFragmentManager,
+                            AddBidBottomDialogFragment.TAG
+                        ).buildMenuForAddBid(
                             appPreferences.getCurrentUserProfile()?.is_plus_active ?: false,
                             details.id
                         )
                     else if (!details.attributes.is_only_for_plus) {
-                        BottomMenuBuilder(supportFragmentManager, AddBidBottomDialogFragment.TAG).buildMenuForAddBid(
+                        BottomMenuBuilder(
+                            supportFragmentManager,
+                            AddBidBottomDialogFragment.TAG
+                        ).buildMenuForAddBid(
                             appPreferences.getCurrentUserProfile()?.is_plus_active ?: false,
                             details.id
                         )
@@ -250,7 +262,14 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
         comment: String,
         isHidden: Boolean
     ) {
-        (pagerAdapter.fragments[1] as PagerProjectBids).onBidAdded(id, days, budget, safeType, comment, isHidden)
+        (pagerAdapter.fragments[1] as PagerProjectBids).onBidAdded(
+            id,
+            days,
+            budget,
+            safeType,
+            comment,
+            isHidden
+        )
     }
 
 

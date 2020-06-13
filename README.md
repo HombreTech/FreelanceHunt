@@ -32,6 +32,7 @@ Another one Freelancehunt.com client app.
 - **Threads**
   - All user threads list
   - Thread messages
+  - Send message
 - **Bids**
   - My bids list ```for freelancers```
   - Add / Revoke / Reject / Choose winner bid

@@ -13,6 +13,9 @@
         <item name="iconColor">@color/colorPrimaryDark</item>
         <item name="textColorPrimary">#FFFFFF</item>
         <item name="textColorSecondary">#676767</item>
+        <item name="menuItemTextColor">#2E2E2E</item>
+
+        <item name="popupTheme">@style/popupTheme</item>
 
     </style>
 
@@ -44,6 +47,10 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="popupTheme" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">?menuItemTextColor</item>
 
     </style>
 

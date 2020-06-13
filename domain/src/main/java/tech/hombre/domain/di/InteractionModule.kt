@@ -42,6 +42,8 @@ import tech.hombre.domain.interaction.threadslist.GetThreadsListUseCase
 import tech.hombre.domain.interaction.threadslist.GetThreadsListUseCaseImpl
 import tech.hombre.domain.interaction.threadslist.messages.GetThreadMessageListUseCase
 import tech.hombre.domain.interaction.threadslist.messages.GetThreadMessageListUseCaseImpl
+import tech.hombre.domain.interaction.threadslist.messages.SendThreadMessageUseCase
+import tech.hombre.domain.interaction.threadslist.messages.SendThreadMessageUseCaseImpl
 
 val interactionModule = module {
     factory<GetMyProfileUseCase> { GetMyProfileUseCaseImpl(get()) }
@@ -69,4 +71,5 @@ val interactionModule = module {
     factory<RevokeProjectBidsUseCase> { RevokeProjectBidsUseCaseImpl(get()) }
     factory<RejectProjectBidsUseCase> { RejectProjectBidsUseCaseImpl(get()) }
     factory<ChooseProjectBidsUseCase> { ChooseProjectBidsUseCaseImpl(get()) }
+    factory<SendThreadMessageUseCase> { SendThreadMessageUseCaseImpl(get()) }
 }

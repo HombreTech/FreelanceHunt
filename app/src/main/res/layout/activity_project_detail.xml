@@ -199,6 +199,8 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/bid"
+        app:backgroundTint="@color/colorPrimary"
+        app:tint="@color/white"
         android:visibility="gone"
         tools:visibility="visible"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
