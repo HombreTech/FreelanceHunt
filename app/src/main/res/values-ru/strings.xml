@@ -120,4 +120,7 @@
     <string name="thread">Тема сообщения</string>
     <string name="send">Отправить</string>
     <string name="message_sent">Сообщение отправлено</string>
+    <string name="send_with">Открыть…</string>
+    <string name="send_email">Отправить email</string>
+    <string name="open">Открыть…</string>
 </resources>

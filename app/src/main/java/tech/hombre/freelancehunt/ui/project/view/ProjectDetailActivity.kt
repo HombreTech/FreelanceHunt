@@ -39,6 +39,8 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
     var countries = listOf<Countries.Data>()
 
+    var projectUrl = ""
+
     private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +74,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> true
+            R.id.action_share -> shareUrl(this, projectUrl)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -109,6 +111,8 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
     private fun initProjectDetails(details: ProjectDetail.Data) {
         hideLoading(progressBar)
+
+        projectUrl = details.links.self.web
 
         toolbar.subtitle = details.attributes.name
 

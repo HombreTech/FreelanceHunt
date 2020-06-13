@@ -34,6 +34,7 @@ import tech.hombre.freelancehunt.ui.employers.view.EmployersFragment
 import tech.hombre.freelancehunt.ui.freelancers.view.FreelancersFragment
 import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
 import tech.hombre.freelancehunt.ui.main.presentation.MainViewModel
+import tech.hombre.freelancehunt.ui.main.view.fragments.AboutFragment
 import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
 import tech.hombre.freelancehunt.ui.main.view.fragments.SettingFragment
 import tech.hombre.freelancehunt.ui.my.bids.view.MyBidsFragment
@@ -126,6 +127,11 @@ class MainActivity : BaseActivity() {
                     )
                     R.id.menu_profile -> onShowMyProfile()
                     R.id.menu_logout -> onLoginRequire()
+                    R.id.menu_about -> supportFragmentManager.switch(
+                        R.id.fragmentContainer,
+                        AboutFragment(),
+                        AboutFragment.TAG
+                    )
                     R.id.menu_contests -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
                         MyContestsFragment(),

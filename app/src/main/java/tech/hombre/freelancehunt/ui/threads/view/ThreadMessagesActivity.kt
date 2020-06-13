@@ -17,6 +17,7 @@ import tech.hombre.domain.model.ThreadMessageMy
 import tech.hombre.domain.model.ThreadMessageOther
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
@@ -31,6 +32,8 @@ class ThreadMessagesActivity : BaseActivity() {
 
     private var threadId = 0
 
+    private var threadUrl = ""
+
     lateinit var adapter: RendererRecyclerViewAdapter
 
     private var messagesGroup = arrayListOf<ViewModel>()
@@ -44,6 +47,7 @@ class ThreadMessagesActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (savedInstanceState == null) {
             threadId = intent?.extras?.getInt(EXTRA_1, -1) ?: -1
+            threadUrl = intent?.extras?.getString(EXTRA_2, "") ?: ""
         }
 
         subscribeToData()
@@ -79,7 +83,7 @@ class ThreadMessagesActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> true
+            R.id.action_share -> shareUrl(this, threadUrl)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -202,9 +206,10 @@ class ThreadMessagesActivity : BaseActivity() {
 
     companion object {
 
-        fun startActivity(activity: Activity, threadId: Int) {
+        fun startActivity(activity: Activity, threadId: Int, threadUrl: String) {
             val intent = Intent(activity, ThreadMessagesActivity::class.java)
             intent.putExtra(EXTRA_1, threadId)
+            intent.putExtra(EXTRA_2, threadUrl)
             activity.startActivity(intent)
         }
     }

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Freelancehunt</string>
     <string name="token_hint" translatable="false">Api Token</string>
+    <string name="url" translatable="false">https://hombre.tech</string>
+    <string name="github_url" translatable="false">https://github.com/HombreTech/FreelanceHunt</string>
     <string name="no_internet_error_message">No Internet connection available. Please try again</string>
     <string name="token_is_empty">Enter Token</string>
     <string name="new_project">Новый проект</string>
@@ -122,4 +124,7 @@
     <string name="thread">Тема сообщения</string>
     <string name="send">Отправить</string>
     <string name="message_sent">Сообщение отправлено</string>
+    <string name="send_with">Открыть…</string>
+    <string name="send_email">Отправить email</string>
+    <string name="open">Открыть…</string>
 </resources>

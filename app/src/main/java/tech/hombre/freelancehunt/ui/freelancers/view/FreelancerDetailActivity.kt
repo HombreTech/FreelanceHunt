@@ -42,6 +42,8 @@ class FreelancerDetailActivity : BaseActivity(),
 
     var profileId = -1
 
+    var freelancerUrl = ""
+
     private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +81,7 @@ class FreelancerDetailActivity : BaseActivity(),
                 supportFragmentManager,
                 CreateThreadBottomDialogFragment.TAG
             ).buildMenuForCreateThread(profileId)
-            R.id.action_share -> true
+            R.id.action_share -> shareUrl(this, freelancerUrl)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -137,6 +139,8 @@ class FreelancerDetailActivity : BaseActivity(),
         hideLoading(progressBar)
 
         profileId = details.id
+
+        freelancerUrl = details.links.self.web
 
         toolbar.subtitle = details.attributes.login
 

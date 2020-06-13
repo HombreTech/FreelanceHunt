@@ -41,6 +41,8 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
 
     var profileId = -1
 
+    var employerUrl = ""
+
     private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +80,7 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
                 supportFragmentManager,
                 CreateThreadBottomDialogFragment.TAG
             ).buildMenuForCreateThread(profileId)
-            R.id.action_share -> true
+            R.id.action_share -> shareUrl(this, employerUrl)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -129,6 +131,8 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
         hideLoading(progressBar)
 
         profileId = details.id
+
+        employerUrl = details.links.self.web
 
         toolbar.subtitle = details.attributes.login
 

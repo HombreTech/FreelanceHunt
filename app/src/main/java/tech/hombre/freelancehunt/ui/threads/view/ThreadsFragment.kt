@@ -103,7 +103,7 @@ class ThreadsFragment : BaseFragment() {
                             model.attributes.is_unread = false
                             adapter.notifyItemChanged(items.indexOf(model))
                             sharedViewModelMain.setMessagesCounter(items.any { it.attributes.is_unread })
-                            ThreadMessagesActivity.startActivity(requireActivity(), model.id)
+                            ThreadMessagesActivity.startActivity(requireActivity(), model.id, model.links.self.web)
                         }
                 }
             )

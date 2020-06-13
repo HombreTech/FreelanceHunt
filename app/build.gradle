@@ -15,7 +15,9 @@ android {
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue("string", "versionCode", "${versionCode}")
+        resValue("string", "versionName", "${versionName}")
+
     }
     buildTypes {
         release {

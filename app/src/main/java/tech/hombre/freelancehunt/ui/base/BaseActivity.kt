@@ -1,9 +1,16 @@
 package tech.hombre.freelancehunt.ui.base
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ProgressBar
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.drawer.*
 import kotlinx.coroutines.CoroutineScope
@@ -134,5 +141,32 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun getActivity(content: Context?): Activity? {
+        return when (content) {
+            null -> null
+            is Activity -> content
+            is ContextWrapper -> getActivity(content.baseContext)
+            else -> null
+        }
+    }
+
+    fun shareUrl(context: Context, url: String) {
+        val activity = getActivity(context)
+            ?: throw IllegalArgumentException("Context given is not an instance of activity ${context.javaClass.name}")
+        try {
+            ShareCompat.IntentBuilder.from(activity)
+                .setChooserTitle(context.getString(R.string.share))
+                .setType("text/plain")
+                .setText(url)
+                .startChooser()
+        } catch (e: ActivityNotFoundException) {
+            showError(e.message!!)
+        }
+    }
+
+    fun openUrl(context: Context, url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(Intent.createChooser(browserIntent, context.getString(R.string.open)))
+    }
 
 }

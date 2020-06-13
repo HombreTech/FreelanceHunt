@@ -1,5 +1,8 @@
 package tech.hombre.freelancehunt.ui.base
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import kotlinx.android.synthetic.main.appbar_fill.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import tech.hombre.data.local.LocalProperties
+import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
 
@@ -31,6 +35,11 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewReady()
+    }
+
+    fun openUrl(context: Context, url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(Intent.createChooser(browserIntent, context.getString(R.string.open)))
     }
 
     protected fun onBackPressed() = (activity as BaseActivity).onBackPressed()

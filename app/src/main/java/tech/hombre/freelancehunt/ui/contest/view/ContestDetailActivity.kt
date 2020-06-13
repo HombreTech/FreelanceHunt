@@ -37,6 +37,8 @@ class ContestDetailActivity : BaseActivity() {
 
     var contestId = 0
 
+    var contestUrl = ""
+
     var countries = listOf<Countries.Data>()
 
     private lateinit var pagerAdapter: PagerAdapter
@@ -75,7 +77,7 @@ class ContestDetailActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> true
+            R.id.action_share -> shareUrl(this, contestUrl)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -129,6 +131,8 @@ class ContestDetailActivity : BaseActivity() {
 
     private fun initContestDetails(details: ContestDetail.Data) {
         hideLoading(progressBar)
+
+        contestUrl = details.links.self.web
 
         toolbar.subtitle = details.attributes.name
 

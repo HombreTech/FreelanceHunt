@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mainFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/padding_standart"
+                tools:context=".ui.main.view.activities.MainActivity">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/wave"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/logo"
+                    android:layout_width="112dp"
+                    android:layout_height="112dp"
+                    android:background="@drawable/round_shape"
+                    android:elevation="7dp"
+                    app:layout_constraintBottom_toBottomOf="@id/view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view"
+                    app:srcCompat="@drawable/logo" />
+
+                <TextView
+                    android:id="@+id/appTitle"
+                    style="@style/TextStyle.Heading.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_standart"
+                    android:paddingTop="@dimen/padding_middle"
+                    android:paddingEnd="@dimen/padding_standart"
+                    android:text="@string/app_name"
+                    android:textColor="?textColorSecondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logo" />
+
+                <TextView
+                    android:id="@+id/appVersion"
+                    style="@style/TextStyle.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/versionName"
+                    android:textColor="?textColorSecondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/appTitle" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/telegramView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_middle"
+                    android:layout_marginTop="@dimen/padding_middle"
+                    android:layout_marginEnd="@dimen/padding_middle"
+                    app:cardBackgroundColor="@color/cardview_light_background"
+                    app:cardCornerRadius="@dimen/card_radius"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintTop_toBottomOf="@id/appVersion">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/buttonTelegram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/padding_middle">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:layout_marginBottom="@dimen/padding_middle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/telegram" />
+
+                        <TextView
+                            android:id="@+id/telegramTitle"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginEnd="@dimen/padding_middle"
+                            android:text="Telegram"
+                            app:layout_constraintBottom_toBottomOf="@id/icon"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/icon"
+                            app:layout_constraintTop_toTopOf="@id/icon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_middle"
+                    android:layout_marginEnd="@dimen/padding_middle"
+                    app:cardBackgroundColor="@color/cardview_light_background"
+                    app:cardCornerRadius="@dimen/card_radius"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintTop_toBottomOf="@id/telegramView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/buttonWeb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/padding_middle">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconWeb"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:layout_marginBottom="@dimen/padding_middle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/web" />
+
+                        <TextView
+                            android:id="@+id/webTitle"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginEnd="@dimen/padding_middle"
+                            android:text="Web"
+                            app:layout_constraintBottom_toBottomOf="@id/iconWeb"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iconWeb"
+                            app:layout_constraintTop_toTopOf="@id/iconWeb" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/emailView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_middle"
+                    android:layout_marginEnd="@dimen/padding_middle"
+                    app:cardBackgroundColor="@color/cardview_light_background"
+                    app:cardCornerRadius="@dimen/card_radius"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintTop_toBottomOf="@id/webView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/buttonEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/padding_middle">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconEmail"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:layout_marginBottom="@dimen/padding_middle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/email" />
+
+                        <TextView
+                            android:id="@+id/emailTitle"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginEnd="@dimen/padding_middle"
+                            android:text="Email"
+                            app:layout_constraintBottom_toBottomOf="@id/iconEmail"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iconEmail"
+                            app:layout_constraintTop_toTopOf="@id/iconEmail" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/githubView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_middle"
+                    android:layout_marginEnd="@dimen/padding_middle"
+                    app:cardBackgroundColor="@color/cardview_light_background"
+                    app:cardCornerRadius="@dimen/card_radius"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintTop_toBottomOf="@id/emailView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/buttonGithub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/padding_middle">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iconGithub"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginTop="@dimen/padding_middle"
+                            android:layout_marginBottom="@dimen/padding_middle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/github" />
+
+                        <TextView
+                            android:id="@+id/githubTitle"
+                            style="@style/TextStyle.Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_standart"
+                            android:layout_marginEnd="@dimen/padding_middle"
+                            android:text="Github"
+                            app:layout_constraintBottom_toBottomOf="@id/iconGithub"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iconGithub"
+                            app:layout_constraintTop_toTopOf="@id/iconGithub" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
+
