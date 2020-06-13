@@ -98,7 +98,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Новый проект" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/message"
                 style="@style/TextStyle.Heading"
                 android:layout_width="0dp"
