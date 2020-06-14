@@ -1,4 +1,4 @@
-package tech.hombre.freelancehunt.ui.freelancers.view.pager
+package tech.hombre.freelancehunt.ui.employers.view.pager
 
 import android.os.Bundle
 import androidx.annotation.Keep
@@ -7,8 +7,8 @@ import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.ui.base.BaseFragment
 
-class PagerFreelancerBids : BaseFragment() {
-    override fun getLayout() = R.layout.fragment_pager_freelancer_bids
+class PagerEmployerProjects : BaseFragment() {
+    override fun getLayout() = R.layout.fragment_pager_employer_projects
 
     private var profileId = 0
 
@@ -27,10 +27,10 @@ class PagerFreelancerBids : BaseFragment() {
 
     companion object {
         @Keep
-        val TAG = PagerFreelancerBids::class.java.simpleName
+        val TAG = PagerEmployerProjects::class.java.simpleName
 
-        fun newInstance(profileId: Int): PagerFreelancerBids {
-            val fragment = PagerFreelancerBids()
+        fun newInstance(profileId: Int): PagerEmployerProjects {
+            val fragment = PagerEmployerProjects()
             val extra = Bundle()
             extra.putInt(EXTRA_1, profileId)
             fragment.arguments = extra

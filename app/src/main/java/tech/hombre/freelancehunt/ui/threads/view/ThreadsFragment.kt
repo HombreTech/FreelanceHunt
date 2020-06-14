@@ -1,5 +1,6 @@
 package tech.hombre.freelancehunt.ui.threads.view
 
+import androidx.annotation.Keep
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -145,6 +146,7 @@ class ThreadsFragment : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = ThreadsFragment::class.java.simpleName
 
         fun newInstance() =

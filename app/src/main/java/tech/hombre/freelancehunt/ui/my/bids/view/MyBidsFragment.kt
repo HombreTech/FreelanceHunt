@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.my.bids.view
 
 import android.graphics.PorterDuff
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -153,6 +154,7 @@ class MyBidsFragment : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = MyBidsFragment::class.java.simpleName
 
         fun newInstance() = MyBidsFragment()

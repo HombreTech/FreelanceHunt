@@ -24,6 +24,7 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerPublicViewModel
 import tech.hombre.freelancehunt.ui.employers.view.pager.PagerEmployerOverview
+import tech.hombre.freelancehunt.ui.employers.view.pager.PagerEmployerProjects
 import tech.hombre.freelancehunt.ui.employers.view.pager.PagerEmployerReviews
 import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
 import tech.hombre.freelancehunt.ui.menu.CreateThreadBottomDialogFragment
@@ -226,7 +227,7 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
 
         val fragments = arrayListOf<Fragment>(
             PagerEmployerOverview.newInstance(details),
-            PagerEmployerOverview.newInstance(details),
+            PagerEmployerProjects.newInstance(details.id),
             PagerEmployerReviews.newInstance(details.id)
         )
 

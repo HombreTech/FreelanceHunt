@@ -4,6 +4,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -184,6 +185,7 @@ class PagerEmployerReviews : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerEmployerReviews::class.java.simpleName
 
         fun newInstance(profileId: Int): PagerEmployerReviews {

@@ -1,5 +1,7 @@
 package tech.hombre.freelancehunt.ui.freelancers.view
 
+import android.content.res.Resources
+import android.graphics.Point
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
@@ -19,10 +21,12 @@ import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
+import tech.hombre.freelancehunt.common.FreelancerStatus
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerPublicViewModel
+import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerBids
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerOverview
 import tech.hombre.freelancehunt.ui.freelancers.view.pager.PagerFreelancerReviews
 import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
@@ -194,12 +198,14 @@ class FreelancerDetailActivity : BaseActivity(),
 
         if (profileId != appPreferences.getCurrentUserId()) {
             buttonMessage.visible()
-            buttonMessage.setOnClickListener {
-                BottomMenuBuilder(
-                    supportFragmentManager,
-                    CreateThreadBottomDialogFragment.TAG
-                ).buildMenuForCreateThread(profileId)
-            }
+            if (getFreelancerStatus(details.attributes.status.id) != FreelancerStatus.TEMP_NOT_WORK) {
+                buttonMessage.setOnClickListener {
+                    BottomMenuBuilder(
+                        supportFragmentManager,
+                        CreateThreadBottomDialogFragment.TAG
+                    ).buildMenuForCreateThread(profileId)
+                }
+            } else buttonMessage.isEnabled = false
         }
 
     }
@@ -240,7 +246,7 @@ class FreelancerDetailActivity : BaseActivity(),
 
         val fragments = arrayListOf<Fragment>(
             PagerFreelancerOverview.newInstance(details),
-            PagerFreelancerOverview.newInstance(details),
+            PagerFreelancerBids.newInstance(details.id),
             PagerFreelancerReviews.newInstance(details.id)
         )
 

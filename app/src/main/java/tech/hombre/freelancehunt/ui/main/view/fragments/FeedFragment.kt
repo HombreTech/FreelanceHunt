@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.main.view.fragments
 
 import android.graphics.PorterDuff
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -189,6 +190,7 @@ class FeedFragment : BaseFragment() {
 
 
     companion object {
+        @Keep
         val TAG = FeedFragment::class.java.simpleName
 
         fun newInstance() = FeedFragment()

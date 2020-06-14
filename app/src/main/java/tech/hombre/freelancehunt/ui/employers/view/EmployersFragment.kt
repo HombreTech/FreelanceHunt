@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.employers.view
 
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_employers.*
@@ -167,6 +168,7 @@ class EmployersFragment : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = EmployersFragment::class.java.simpleName
 
         fun newInstance() = EmployersFragment()

@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.freelancers.view.pager
 
 import android.os.Bundle
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.BaseViewRenderer
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
@@ -74,6 +75,7 @@ class PagerFreelancerOverview : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerFreelancerOverview::class.java.simpleName
 
         fun newInstance(details: FreelancerDetail.Data): PagerFreelancerOverview {

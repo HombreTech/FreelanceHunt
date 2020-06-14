@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.main.view.fragments
 
 import android.view.MenuItem
+import androidx.annotation.Keep
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -67,6 +68,7 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
     }
 
     companion object {
+        @Keep
         val TAG = MainFragment::class.java.simpleName
 
         fun newInstance() = MainFragment()

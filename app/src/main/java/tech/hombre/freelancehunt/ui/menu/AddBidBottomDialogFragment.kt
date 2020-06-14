@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.menu
 
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.bottom_menu_add_bid.*
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.freelancehunt.R
@@ -109,6 +110,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = AddBidBottomDialogFragment::class.java.simpleName
 
         fun newInstance(isPlus: Boolean, ids: Int): AddBidBottomDialogFragment {

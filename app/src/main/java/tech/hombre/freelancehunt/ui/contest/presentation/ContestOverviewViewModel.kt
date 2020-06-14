@@ -23,9 +23,9 @@ class ContestOverviewViewModel(
     fun getEmployerDetails(profileId: Int) = executeUseCase {
         getEmployerDetail(profileId)
             .onSuccess {
-                _viewState.value = Success(it)
+                _employerDetails.value = Success(it)
             }
-            .onFailure { _viewState.value = Error(it.throwable) }
+            .onFailure { _employerDetails.value = Error(it.throwable) }
     }
 
 }

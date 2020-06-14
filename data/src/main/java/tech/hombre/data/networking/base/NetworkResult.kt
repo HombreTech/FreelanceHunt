@@ -1,5 +1,7 @@
 package tech.hombre.data.networking.base
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import tech.hombre.data.common.extensions.getApiError
 import tech.hombre.data.database.DB_ENTRY_ERROR
@@ -75,5 +77,20 @@ fun <T : DomainMapper<R>, R : Any> Response<T>.getData(): Result<R> {
         return Failure(HttpError(Throwable(GENERAL_NETWORK_ERROR)))
     } catch (e: IOException) {
         return Failure(HttpError(Throwable(GENERAL_NETWORK_ERROR)))
+    }
+}
+
+suspend fun Response<Unit>.query(): Result<Boolean> {
+    val query = this
+    return if (query.isSuccessful) {
+        Success(true)
+    } else {
+        withContext(Dispatchers.IO) {
+            val error = query.errorBody()?.string()?.getApiError()
+            if (error != null)
+                Failure(HttpError(Throwable(if (error.error.detail.isNullOrEmpty()) error.error.title else error.error.detail)))
+            else
+                Failure(HttpError(Throwable(GENERAL_NETWORK_ERROR)))
+        }
     }
 }

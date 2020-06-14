@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <group
         android:id="@+id/group_menu"
@@ -54,7 +54,6 @@
             android:id="@+id/menu_settings"
             android:icon="@drawable/settings"
             android:title="@string/settings" />
-
         <item
             android:id="@+id/menu_about"
             android:icon="@drawable/about"
@@ -62,8 +61,8 @@
         <item
             android:id="@+id/menu_logout"
             android:icon="@drawable/logout"
-            android:visible="false"
-            android:title="@string/logout" />
+            android:title="@string/logout"
+            android:visible="false" />
     </group>
 
 </menu>

@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.contest.view.pager
 
 import android.os.Bundle
+import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
@@ -82,6 +83,7 @@ class PagerContestOverview : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerContestOverview::class.java.simpleName
 
         fun newInstance(details: ContestDetail.Data.Attributes): PagerContestOverview {

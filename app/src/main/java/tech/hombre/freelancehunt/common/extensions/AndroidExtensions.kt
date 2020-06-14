@@ -90,7 +90,7 @@ fun Date?.getTimeAgo(): CharSequence {
         val now = System.currentTimeMillis()
         return getRelativeTimeSpanString(this.time, now, SECOND_IN_MILLIS)
     }
-    return "N/A"
+    return "-"
 }
 
 fun Date?.getSimpleTimeAgo(context: Context): String {
@@ -184,6 +184,7 @@ inline fun View.onClick(crossinline onClick: () -> Unit) {
 }
 
 fun FragmentManager.switch(containerId: Int, newFrag: Fragment, tag: String) {
+    println(tag)
     var current = findFragmentByTag(tag)
     beginTransaction()
         .apply {

@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.main.view.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.annotation.Keep
 import androidx.preference.PreferenceFragmentCompat
 import androidx.work.*
 import org.koin.core.KoinComponent
@@ -98,6 +99,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
     }
 
     companion object {
+        @Keep
         val TAG = SettingFragment::class.java.simpleName
     }
 

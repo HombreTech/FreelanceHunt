@@ -8,7 +8,6 @@ import tech.hombre.data.repository.BaseRepository
 import tech.hombre.domain.model.Result
 import tech.hombre.domain.model.ThreadMessageList
 import tech.hombre.domain.repository.SendThreadMessageRepository
-import tech.hombre.domain.repository.ThreadMessageListRepository
 
 class SendThreadMessageRepositoryImpl(
     private val threadsApi: ThreadsApi

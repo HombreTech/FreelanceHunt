@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.employers.view.pager
 
 import android.os.Bundle
 import android.text.Html
+import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.fragment_pager_employer_overview.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import tech.hombre.domain.model.EmployerDetail
@@ -45,6 +46,7 @@ class PagerEmployerOverview : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerEmployerOverview::class.java.simpleName
 
         fun newInstance(details: EmployerDetail.Data): PagerEmployerOverview {

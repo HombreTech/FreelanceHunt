@@ -62,13 +62,13 @@
 
     <string-array name="employer_tabs">
         <item>Профиль</item>
-        <item>Ставки</item>
+        <item>Проекты</item>
         <item>Отзывы</item>
     </string-array>
 
     <string-array name="employer_tabs_icons">
         <item>overview</item>
-        <item>bid</item>
+        <item>project</item>
         <item>reviews</item>
     </string-array>
 

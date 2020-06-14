@@ -144,6 +144,16 @@
         <item name="colorControlHighlight">#499249</item>
     </style>
 
+    <style name="TextStyle.About.Copyrights" parent="TextStyle">
+        <item name="android:fontFamily">@font/light</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextStyle.About.Copyrights.Small" parent="TextStyle">
+        <item name="android:fontFamily">@font/light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay.Button.Triangle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">4dp</item>

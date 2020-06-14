@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.main.view.fragments
 
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.fragment_about.*
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.ui.base.BaseFragment
@@ -37,6 +38,7 @@ class AboutFragment : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = AboutFragment::class.java.simpleName
 
         fun newInstance() = AboutFragment()

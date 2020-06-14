@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.menu
 
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.bottom_menu_create_thread.*
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
@@ -65,6 +66,7 @@ class CreateThreadBottomDialogFragment : BaseBottomDialogFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = CreateThreadBottomDialogFragment::class.java.simpleName
 
         fun newInstance(profileId: Int): CreateThreadBottomDialogFragment {

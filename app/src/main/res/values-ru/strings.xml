@@ -124,4 +124,6 @@
     <string name="send_email">Отправить email</string>
     <string name="open">Открыть…</string>
     <string name="freelancer_view">Профиль фрилансера</string>
+    <string name="copyright">© Кохан Илья, 2020</string>
+    <string name="madeinchina">Сделано в Беларуси</string>
 </resources>

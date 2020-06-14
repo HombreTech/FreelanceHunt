@@ -1,5 +1,6 @@
 package tech.hombre.freelancehunt.ui.main.view.fragments
 
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_projects.*
@@ -150,6 +151,7 @@ class ProjectsFragment : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = ProjectsFragment::class.java.simpleName
 
         fun newInstance() = ProjectsFragment()

@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.contest.view.pager
 
 import android.os.Bundle
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
@@ -54,7 +55,7 @@ class PagerContestComments : BaseFragment() {
                     finder
                         .find<CardView>(R.id.mainView) {
                             it.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                                marginStart = (model.attributes.level - 1) * 50
+                                marginStart = if (model.attributes.level <= 3) (model.attributes.level - 1) * 50 else 150
                             }
                         }
                         .find(
@@ -148,6 +149,7 @@ class PagerContestComments : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerContestComments::class.java.simpleName
 
         fun newInstance(profileId: Int): PagerContestComments {

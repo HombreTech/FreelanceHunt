@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.os.Bundle
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
@@ -143,6 +144,7 @@ class PagerProjectComments : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerProjectComments::class.java.simpleName
 
         fun newInstance(profileId: Int): PagerProjectComments {

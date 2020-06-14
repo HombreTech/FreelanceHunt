@@ -2,7 +2,10 @@ package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -139,13 +142,14 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                                 val isRevoked = bidStatus == BidStatus.REVOKED
                                 val isRejected = bidStatus == BidStatus.REJECTED
 
-                                val openForBids = getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
-                                if (!openForBids) {
+                                val openForBids =
+                                    getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
+                                if (!openForBids && appPreferences.getCurrentUserType() != UserType.FREELANCER.type) {
                                     freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
                                     return@setOnClickListener
                                 }
                                 if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type) {
-                                    if (model.attributes.freelancer.id == appPreferences.getCurrentUserId()) {
+                                    if (model.attributes.freelancer.id == appPreferences.getCurrentUserId() && openForBids) {
                                         BottomMenuBuilder(
                                             childFragmentManager,
                                             ListMenuBottomDialogFragment.TAG
@@ -155,7 +159,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                                             isRevoked
                                         )
                                     } else freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
-                                } else if (employerId == appPreferences.getCurrentUserId()) {
+                                } else if (employerId == appPreferences.getCurrentUserId() && openForBids) {
                                     BottomMenuBuilder(
                                         childFragmentManager,
                                         ListMenuBottomDialogFragment.TAG
@@ -173,6 +177,17 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         )
         list.layoutManager = LinearLayoutManager(activity)
         list.adapter = adapter
+
+        bidsRevoked.setOnClickListener {
+            handleError("Not implemented yet :(")
+        }
+        bidsActive.setOnClickListener {
+            handleError("Not implemented yet :(")
+        }
+        bidsRejected.setOnClickListener {
+            handleError("Not implemented yet :(")
+        }
+
     }
 
     private fun subscribeToData() {
@@ -281,6 +296,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
     }
 
     companion object {
+        @Keep
         val TAG = PagerProjectBids::class.java.simpleName
 
         fun newInstance(projectId: Int, employerId: Int): PagerProjectBids {

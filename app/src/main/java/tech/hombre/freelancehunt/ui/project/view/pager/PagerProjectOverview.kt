@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.os.Bundle
+import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
@@ -84,6 +85,7 @@ class PagerProjectOverview : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = PagerProjectOverview::class.java.simpleName
 
         fun newInstance(details: ProjectDetail.Data.Attributes): PagerProjectOverview {

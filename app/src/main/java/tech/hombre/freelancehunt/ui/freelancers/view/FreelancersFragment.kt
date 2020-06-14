@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.freelancers.view
 
 import android.graphics.PorterDuff
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -164,6 +165,7 @@ class FreelancersFragment : BaseFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = FreelancersFragment::class.java.simpleName
 
         fun newInstance() = FreelancersFragment()

@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.menu
 
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.BaseViewRenderer
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
@@ -83,6 +84,7 @@ class ListMenuBottomDialogFragment : BaseBottomDialogFragment() {
     }
 
     companion object {
+        @Keep
         val TAG = ListMenuBottomDialogFragment::class.java.simpleName
 
         fun newInstance(projectId: Int, bidId: Int, items: ArrayList<MenuItem>): ListMenuBottomDialogFragment {
