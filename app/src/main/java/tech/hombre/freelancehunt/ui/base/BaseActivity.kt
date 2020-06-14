@@ -141,7 +141,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun getActivity(content: Context?): Activity? {
+    private fun getActivity(content: Context?): Activity? {
         return when (content) {
             null -> null
             is Activity -> content

@@ -65,6 +65,18 @@
         <item name="android:fontFamily">@font/regular</item>
     </style>
 
+    <style name="TextStyle.Appbar.Title" parent="TextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextStyle.Appbar.Subtitle" parent="TextStyle">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/light</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="TextStyle.Menu.Item" parent="TextStyle">
         <item name="android:textSize">17sp</item>
         <item name="android:fontFamily">@font/regular</item>

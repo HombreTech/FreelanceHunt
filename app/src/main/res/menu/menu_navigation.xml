@@ -14,7 +14,7 @@
 
     <group
         android:id="@+id/group_profile"
-        android:checkableBehavior="single">
+        android:checkableBehavior="none">
         <item
             android:id="@+id/menu_profile"
             app:actionLayout="@layout/item_menu_profile"

@@ -47,11 +47,11 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:homeAsUpIndicator">@drawable/back_arrow</item>
     </style>
 
     <style name="popupTheme" parent="Theme.AppCompat.Light">
         <item name="android:textColor">?menuItemTextColor</item>
-
     </style>
 
 </resources>

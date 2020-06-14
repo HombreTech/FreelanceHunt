@@ -24,6 +24,9 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
             tools:subtitle="ilyakokhan"
+            app:titleTextAppearance="@style/TextStyle.Appbar.Title"
+            app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
+            app:contentInsetStartWithNavigation="0dp"
             tools:title="Просмотр профиля">
 
             <androidx.core.widget.ContentLoadingProgressBar

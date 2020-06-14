@@ -37,7 +37,7 @@
             android:theme="@style/AppTheme"
             android:name=".ui.freelancers.view.FreelancerDetailActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/profile_view" />
+            android:label="@string/freelancer_view" />
 
         <activity
             android:theme="@style/AppTheme"

@@ -77,10 +77,6 @@ class FreelancerDetailActivity : BaseActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_message -> BottomMenuBuilder(
-                supportFragmentManager,
-                CreateThreadBottomDialogFragment.TAG
-            ).buildMenuForCreateThread(profileId)
             R.id.action_share -> shareUrl(this, freelancerUrl)
         }
         return super.onOptionsItemSelected(item)
@@ -193,6 +189,18 @@ class FreelancerDetailActivity : BaseActivity(),
             birthdate.text = details.attributes.birth_date!!.parseSimpleDate()
                 ?.let { calculateAge(it).getEnding(this, R.array.ending_years) }
         } else birthdate.gone()
+
+        visitedAt.text = details.attributes.visited_at?.parseFullDate(true).getTimeAgo()
+
+        if (profileId != appPreferences.getCurrentUserId()) {
+            buttonMessage.visible()
+            buttonMessage.setOnClickListener {
+                BottomMenuBuilder(
+                    supportFragmentManager,
+                    CreateThreadBottomDialogFragment.TAG
+                ).buildMenuForCreateThread(profileId)
+            }
+        }
 
     }
 

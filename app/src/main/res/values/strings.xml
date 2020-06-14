@@ -3,6 +3,7 @@
     <string name="token_hint" translatable="false">Api Token</string>
     <string name="url" translatable="false">https://hombre.tech</string>
     <string name="github_url" translatable="false">https://github.com/HombreTech/FreelanceHunt</string>
+    <string name="email" translatable="false">ilyakokhan@gmail.com</string>
     <string name="no_internet_error_message">No Internet connection available. Please try again</string>
     <string name="token_is_empty">Enter Token</string>
     <string name="new_project">Новый проект</string>
@@ -127,4 +128,5 @@
     <string name="send_with">Открыть…</string>
     <string name="send_email">Отправить email</string>
     <string name="open">Открыть…</string>
+    <string name="freelancer_view">Профиль фрилансера</string>
 </resources>

@@ -5,9 +5,4 @@
         android:icon="@drawable/share"
         android:title="@string/share" />
 
-    <item
-        android:id="@+id/action_message"
-        android:icon="@drawable/message"
-        android:title="@string/message" />
-
 </menu>

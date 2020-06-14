@@ -32,7 +32,7 @@ class AboutFragment : BaseFragment() {
     private fun emailMe() {
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:");
-        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("ilyakokhan@gmail.com"))
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.email)))
         startActivity(Intent.createChooser(intent, getString(R.string.send_email)))
     }
 

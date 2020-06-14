@@ -129,7 +129,7 @@ class MainActivity : BaseActivity() {
                     R.id.menu_logout -> onLoginRequire()
                     R.id.menu_about -> supportFragmentManager.switch(
                         R.id.fragmentContainer,
-                        AboutFragment(),
+                        AboutFragment.newInstance(),
                         AboutFragment.TAG
                     )
                     R.id.menu_contests -> supportFragmentManager.switch(
@@ -163,7 +163,9 @@ class MainActivity : BaseActivity() {
                         MyBidsFragment.TAG
                     )
                 }
-                selectMenuItem(it.itemId, true)
+                if (it.itemId != R.id.menu_profile) {
+                    selectMenuItem(it.itemId, true)
+                }
             }
             drawer.closeDrawers()
             true

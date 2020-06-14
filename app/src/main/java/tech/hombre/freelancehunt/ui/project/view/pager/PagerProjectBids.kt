@@ -139,10 +139,9 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                                 val isRevoked = bidStatus == BidStatus.REVOKED
                                 val isRejected = bidStatus == BidStatus.REJECTED
 
-                                val openForBids =
-                                    getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
+                                val openForBids = getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
                                 if (!openForBids) {
-                                    handleError(getString(R.string.project_non_bids))
+                                    freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
                                     return@setOnClickListener
                                 }
                                 if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type) {

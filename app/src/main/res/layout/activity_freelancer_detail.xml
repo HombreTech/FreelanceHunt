@@ -57,6 +57,19 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/name" />
 
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonMessage"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_middle"
+                                android:text="@string/message"
+                                android:visibility="gone"
+                                tools:visibility="visible"
+                                app:layout_constraintEnd_toEndOf="@id/avatar"
+                                app:layout_constraintStart_toStartOf="@id/avatar"
+                                app:layout_constraintTop_toBottomOf="@id/avatar" />
+
                             <androidx.constraintlayout.helper.widget.Flow
                                 android:id="@+id/flowlogin"
                                 android:layout_width="0dp"
@@ -223,6 +236,20 @@
                                 app:layout_constraintTop_toBottomOf="@id/location"
                                 tools:text="26 лет" />
 
+                            <TextView
+                                android:id="@+id/visitedAt"
+                                style="@style/TextStyle.Title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_small"
+                                android:layout_marginEnd="@dimen/padding_middle"
+                                android:drawableStart="@drawable/date"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:gravity="center_vertical"
+                                app:layout_constraintEnd_toStartOf="@id/avatar"
+                                app:layout_constraintStart_toStartOf="@id/rating"
+                                app:layout_constraintTop_toBottomOf="@id/birthdate"
+                                tools:text="Час назад" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>

@@ -102,8 +102,10 @@ class FeedFragment : BaseFragment() {
                         .setOnClickListener(
                             R.id.clickableView
                         ) {
-                            model.attributes.is_new = false
-                            adapter.notifyItemChanged(items.data.indexOf(model))
+                            if (model.attributes.is_new) {
+                                model.attributes.is_new = false
+                                adapter.notifyItemChanged(items.data.indexOf(model))
+                            }
                             if (!notForMe) {
                                 if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
                             } else handleError(

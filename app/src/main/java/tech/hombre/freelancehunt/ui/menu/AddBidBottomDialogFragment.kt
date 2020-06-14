@@ -64,15 +64,16 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
             costVerified = when {
                 currency == CurrencyType.UAH && cost < 200 -> {
                     showError(getString(R.string.safe_cost_minimal))
-                    false
+                    return false
                 }
                 currency == CurrencyType.RUR && cost < 600 -> {
                     showError(getString(R.string.safe_cost_minimal))
-                    false
+                    return false
                 }
                 else -> true
             }
         }
+        if (!costVerified) return false
         comm = comment.savedText.toString()
         if (comm.length < 60) {
             showError(getString(R.string.bid_comment_min))
