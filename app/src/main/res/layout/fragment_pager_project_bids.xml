@@ -38,7 +38,7 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <tech.hombre.freelancehunt.common.widgets.ControlledRecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <tech.hombre.freelancehunt.common.widgets.ControlledRecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:itemCount="2"
         tools:listitem="@layout/item_freelancers_reviews_list" />
 

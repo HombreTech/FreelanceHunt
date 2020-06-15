@@ -17,6 +17,8 @@
     <color name="ratingBarBackground">#4E999999</color>
     <color name="message_my">#008577</color>
 
+    <color name="placeholder_dark">#CACACA</color>
+
     <color name="toolbar_icon">#FBFBFB</color>
     <color name="toolbar_subicon">#B9FFFFFF</color>
 

@@ -7,186 +7,244 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.project.view.ProjectDetailActivity">
 
-    <include layout="@layout/appbar_fill" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/uykuyk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        android:theme="@style/ActionBarTheme">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/transparent"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:titleEnabled="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:layout_collapseMode="pin"
+                    app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
+                    app:titleTextAppearance="@style/TextStyle.Appbar.Title"
+                    tools:subtitle="ilyakokhan"
+                    tools:title="Просмотр профиля">
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:progressTint="@color/white"
+                        android:theme="@style/ContentLoadingProgress"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/projectActivityContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/reviewView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/cardview_light_background"
+                            app:cardCornerRadius="@dimen/card_radius"
+                            app:cardElevation="0dp"
+                            app:cardUseCompatPadding="false"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/padding_middle">
+
+                                <androidx.constraintlayout.helper.widget.Flow
+                                    android:id="@+id/flow"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:constraint_referenced_ids="isplus,premium,safe,isremote"
+                                    app:flow_horizontalBias="0"
+                                    app:flow_horizontalGap="@dimen/padding_small"
+                                    app:flow_horizontalStyle="packed"
+                                    app:flow_verticalBias="0"
+                                    app:flow_wrapMode="chain"
+                                    app:layout_constraintEnd_toEndOf="@id/name"
+                                    app:layout_constraintStart_toStartOf="@id/name"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/isplus"
+                                    style="@style/TextStyle.Type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/plus"
+                                    android:gravity="center"
+                                    android:textColor="?textColorSecondary"
+                                    android:visibility="gone"
+                                    tools:visibility="visible" />
+
+                                <TextView
+                                    android:id="@+id/premium"
+                                    style="@style/TextStyle.Type.Bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_premium"
+                                    android:drawableStart="@drawable/star"
+                                    android:drawablePadding="@dimen/padding_small"
+                                    android:text="@string/premium"
+                                    android:textColor="?textColorPrimary"
+                                    android:visibility="gone"
+                                    tools:visibility="visible" />
+
+                                <TextView
+                                    android:id="@+id/safe"
+                                    style="@style/TextStyle.Type.Bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_safe"
+                                    android:drawableStart="@drawable/safe"
+                                    android:drawablePadding="@dimen/padding_small"
+                                    android:text="@string/safe"
+                                    android:textColor="?textColorPrimary" />
+
+                                <TextView
+                                    android:id="@+id/isremote"
+                                    style="@style/TextStyle.Type.Bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_remote"
+                                    android:drawableStart="@drawable/remote"
+                                    android:drawablePadding="@dimen/padding_small"
+                                    android:text="@string/remote"
+                                    android:textColor="?textColorPrimary"
+                                    android:visibility="gone"
+                                    tools:visibility="visible" />
+
+                                <TextView
+                                    android:id="@+id/name"
+                                    style="@style/TextStyle.Heading.Large"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/padding_middle"
+                                    android:textColor="?textColorSecondary"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/flow"
+                                    tools:text="Project with bids" />
+
+                                <TextView
+                                    android:id="@+id/status"
+                                    style="@style/TextStyle.Vote"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_grade"
+                                    android:textColor="?textColorPrimary"
+                                    app:layout_constraintStart_toStartOf="@id/name"
+                                    app:layout_constraintTop_toBottomOf="@id/name"
+                                    tools:text="Утверждение условий" />
+
+                                <TextView
+                                    android:id="@+id/budget"
+                                    style="@style/TextStyle.Title"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/padding_small"
+                                    android:layout_marginTop="@dimen/padding_middle"
+                                    android:drawableStart="@drawable/purse"
+                                    android:drawablePadding="@dimen/padding_small"
+                                    android:gravity="center_vertical"
+                                    android:textColor="?textColorSecondary"
+                                    app:layout_constraintStart_toStartOf="@id/name"
+                                    app:layout_constraintTop_toBottomOf="@id/status"
+                                    tools:text="2300 ₴" />
+
+                                <TextView
+                                    android:id="@+id/expiredAt"
+                                    style="@style/TextStyle.Title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/padding_middle"
+                                    android:drawableStart="@drawable/calendar"
+                                    android:drawablePadding="@dimen/padding_small"
+                                    android:textColor="?textColorSecondary"
+                                    app:layout_constraintBottom_toBottomOf="@id/budget"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toEndOf="@id/budget"
+                                    app:layout_constraintTop_toTopOf="@id/budget"
+                                    tools:text="2 дня" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/overview_project"
+                android:text="О проекте" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/bid"
+                android:text="Ставки" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/reviews"
+                android:text="Обсуждение" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/containerScroller"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="fill_vertical"
-        android:fillViewport="true"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-           <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/projectActivityContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:orientation="vertical"
-                  >
-
-               <androidx.cardview.widget.CardView
-                    android:id="@+id/reviewView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/cardview_light_background"
-                    app:cardCornerRadius="@dimen/card_radius"
-                    app:cardElevation="0dp"
-                    app:cardUseCompatPadding="false"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_middle">
-
-                        <androidx.constraintlayout.helper.widget.Flow
-                            android:id="@+id/flow"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:constraint_referenced_ids="isplus,premium,safe,isremote"
-                            app:flow_horizontalBias="0"
-                            app:flow_horizontalGap="@dimen/padding_small"
-                            app:flow_horizontalStyle="packed"
-                            app:flow_verticalBias="0"
-                            app:flow_wrapMode="chain"
-                            app:layout_constraintEnd_toEndOf="@id/name"
-                            app:layout_constraintStart_toStartOf="@id/name"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/isplus"
-                            style="@style/TextStyle.Type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/plus"
-                            android:gravity="center"
-                            android:textColor="?textColorSecondary"
-                            android:visibility="gone"
-                            tools:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/premium"
-                            style="@style/TextStyle.Type.Bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/back_premium"
-                            android:drawableStart="@drawable/star"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:text="@string/premium"
-                            android:textColor="?textColorPrimary"
-                            android:visibility="gone"
-                            tools:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/safe"
-                            style="@style/TextStyle.Type.Bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/back_safe"
-                            android:drawableStart="@drawable/safe"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:text="@string/safe"
-                            android:textColor="?textColorPrimary" />
-
-                        <TextView
-                            android:id="@+id/isremote"
-                            style="@style/TextStyle.Type.Bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/back_remote"
-                            android:drawableStart="@drawable/remote"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:text="@string/remote"
-                            android:textColor="?textColorPrimary"
-                            android:visibility="gone"
-                            tools:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/name"
-                            style="@style/TextStyle.Heading.Large"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_middle"
-                            android:textColor="?textColorSecondary"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/flow"
-                            tools:text="Project with bids" />
-
-                        <TextView
-                            android:id="@+id/status"
-                            style="@style/TextStyle.Vote"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/back_grade"
-                            android:textColor="?textColorPrimary"
-                            app:layout_constraintStart_toStartOf="@id/name"
-                            app:layout_constraintTop_toBottomOf="@id/name"
-                            tools:text="Утверждение условий" />
-
-                        <TextView
-                            android:id="@+id/budget"
-                            style="@style/TextStyle.Title"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/padding_small"
-                            android:layout_marginTop="@dimen/padding_middle"
-                            android:drawableStart="@drawable/purse"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:gravity="center_vertical"
-                            android:textColor="?textColorSecondary"
-                            app:layout_constraintStart_toStartOf="@id/name"
-                            app:layout_constraintTop_toBottomOf="@id/status"
-                            tools:text="2300 ₴" />
-
-                        <TextView
-                            android:id="@+id/expiredAt"
-                            style="@style/TextStyle.Title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/padding_middle"
-                            android:drawableStart="@drawable/calendar"
-                            android:drawablePadding="@dimen/padding_small"
-                            android:textColor="?textColorSecondary"
-                            app:layout_constraintBottom_toBottomOf="@id/budget"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@id/budget"
-                            app:layout_constraintTop_toTopOf="@id/budget"
-                            tools:text="2 дня" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/pager"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:descendantFocusability="blocksDescendants" />
-
-                </LinearLayout>
-
-               </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants" />
 
     </androidx.core.widget.NestedScrollView>
 
@@ -197,10 +255,10 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/bid"
-        app:backgroundTint="@color/colorPrimary"
-        app:tint="@color/white"
         android:visibility="gone"
-        tools:visibility="visible"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:tint="@color/white"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

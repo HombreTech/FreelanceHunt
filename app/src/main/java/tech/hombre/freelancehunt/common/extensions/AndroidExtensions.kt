@@ -185,7 +185,12 @@ inline fun View.onClick(crossinline onClick: () -> Unit) {
     setOnClickListener { onClick() }
 }
 
-fun FragmentManager.switch(containerId: Int, newFrag: Fragment, tag: String) {
+fun FragmentManager.switch(
+    containerId: Int,
+    newFrag: Fragment,
+    tag: String,
+    animation: Boolean = true
+) {
     var current = findFragmentByTag(tag)
     beginTransaction()
         .apply {
@@ -197,7 +202,7 @@ fun FragmentManager.switch(containerId: Int, newFrag: Fragment, tag: String) {
                 show(current!!)
             }
         }
-        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        .setTransition(if (animation) FragmentTransaction.TRANSIT_FRAGMENT_OPEN else FragmentTransaction.TRANSIT_NONE)
         .setPrimaryNavigationFragment(current)
         .setReorderingAllowed(true)
         .commitNowAllowingStateLoss()

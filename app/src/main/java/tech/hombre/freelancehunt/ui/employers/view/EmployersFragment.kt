@@ -130,7 +130,7 @@ class EmployersFragment : BaseFragment() {
                             ).getSimpleTimeAgo(requireContext())
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            appNavigator.showEmployerDetails(model)
+                            appNavigator.showEmployerDetails(model.id)
                         }
                 }
             )

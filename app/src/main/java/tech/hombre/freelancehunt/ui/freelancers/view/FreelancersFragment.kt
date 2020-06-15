@@ -127,7 +127,7 @@ class FreelancersFragment : BaseFragment() {
                             ).getSimpleTimeAgo(requireContext())
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            appNavigator.showFreelancerDetails(model)
+                            appNavigator.showFreelancerDetails(model.id)
                         }
                 }
             )

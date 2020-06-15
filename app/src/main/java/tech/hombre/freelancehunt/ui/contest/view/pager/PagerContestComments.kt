@@ -145,7 +145,6 @@ class PagerContestComments : BaseFragment() {
     private fun initBids(comments: List<ContestComment.Data>) {
         hideLoading()
         adapter.setItems(comments)
-        contestPublicViewModel.updateBadge(1, comments.size)
     }
 
     companion object {

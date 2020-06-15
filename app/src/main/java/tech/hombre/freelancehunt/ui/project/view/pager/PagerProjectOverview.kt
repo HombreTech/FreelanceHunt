@@ -80,8 +80,6 @@ class PagerProjectOverview : BaseFragment() {
         buttonProfile.setOnClickListener {
             employerViewModel.getEmployerDetails(details.employer!!.id)
         }
-
-        projectPublicViewModel.updateTabViews(0)
     }
 
     companion object {

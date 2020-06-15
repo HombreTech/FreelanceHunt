@@ -87,7 +87,6 @@ class PagerEmployerReviews : BaseFragment() {
         hideLoading()
         items.addAll(reviews)
         adapter.setItems(items)
-        if (items.isEmpty()) projectPublicViewModel.updateBadge(2, 0)
     }
 
     private fun initList() {

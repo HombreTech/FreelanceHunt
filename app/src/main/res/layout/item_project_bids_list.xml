@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
-                android:autoLink="all"
+                android:autoLink="web|email|phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/avatar"
                 app:layout_constraintTop_toBottomOf="@id/safe"

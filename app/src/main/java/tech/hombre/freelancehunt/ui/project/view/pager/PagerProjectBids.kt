@@ -244,11 +244,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
     private fun addBid(bid: ProjectBid.Data) {
         items.add(0, bid)
         adapter.setItems(items)
-        projectPublicViewModel.updateTabViews(1)
-        refreshBadge()
     }
-
-    private fun refreshBadge() = projectPublicViewModel.updateBadge(1, items.size)
 
     private fun handleError(error: String) {
         hideLoading()
@@ -264,7 +260,6 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         hideLoading()
         items = bids as ArrayList<ProjectBid.Data>
         adapter.setItems(items)
-        refreshBadge()
     }
 
     fun onBidAdded(

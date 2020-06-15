@@ -3,16 +3,8 @@ package tech.hombre.freelancehunt.ui.project.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_project_detail.*
-import kotlinx.android.synthetic.main.appbar_fill.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.MyBidsList
@@ -41,7 +33,9 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
     var projectUrl = ""
 
-    private lateinit var pagerAdapter: PagerAdapter
+    var statusId = 0
+
+    var isOnlyForPlus = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,17 +77,8 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
         viewModel.viewState.subscribe(this, ::handleViewState)
         viewModel.countries.subscribe(this, {
             countries = it
+            hideLoading(progressBar)
         })
-        projectPublicViewModel.badgeCounter.subscribe(this) { badges ->
-            tabs.getTabAt(badges.first)?.let {
-                val badge: BadgeDrawable = it.orCreateBadge
-                badge.isVisible = true
-                badge.number = badges.second
-            }
-        }
-        projectPublicViewModel.tabViewsRefresher.subscribe(this) { tab ->
-            updateTabViews(tab)
-        }
         viewModel.setCountries()
     }
 
@@ -109,52 +94,35 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
         }
     }
 
+    private fun hideShowFab(position: Int) {
+        when (position) {
+            0 -> fab.hide()
+            1 -> {
+                if (isOnlyForPlus && appPreferences.getCurrentUserProfile()?.is_plus_active != true) {
+                    fab.hide()
+                    return
+                }
+                val status =
+                    ProjectStatus.values().find { it.id == statusId }
+                if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type && status == ProjectStatus.OPEN_FOR_PROPOSALS) {
+                    fab.setImageResource(R.drawable.bid)
+                    fab.show()
+
+                } else fab.hide()
+            }
+            2 -> fab.hide()
+        }
+    }
+
     private fun initProjectDetails(details: ProjectDetail.Data) {
         hideLoading(progressBar)
 
         projectUrl = details.links.self.web
 
+        isOnlyForPlus = details.attributes.is_only_for_plus
+        statusId = details.attributes.status.id
+
         toolbar.subtitle = details.attributes.name
-
-        pagerAdapter = PagerAdapter(this, details)
-        with(pager) {
-            adapter = pagerAdapter
-            offscreenPageLimit = 3
-            isUserInputEnabled = false
-        }
-        val tabsTitles = resources.getStringArray(R.array.project_tabs)
-        val tabsIcons = resources.getStringArray(R.array.project_tabs_icons)
-
-        TabLayoutMediator(tabs, pager, false, false) { tab, position ->
-            tab.text = tabsTitles[position]
-            tab.icon = ContextCompat.getDrawable(this, getDrawableIdByName(tabsIcons[position]))
-            pager.setCurrentItem(tab.position, false)
-        }.attach()
-        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updateTabViews(position)
-                hideShowFab(position)
-            }
-
-            private fun hideShowFab(position: Int) {
-                when (position) {
-                    0 -> fab.hide()
-                    1 -> {
-                        if (details.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active != true) {
-                            fab.hide()
-                            return
-                        }
-                        val status = ProjectStatus.values().find { it.id == details.attributes.status.id }
-                        if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type && status == ProjectStatus.OPEN_FOR_PROPOSALS) {
-                            fab.setImageResource(R.drawable.bid)
-                            fab.show()
-
-                        } else fab.hide()
-                    }
-                    2 -> fab.hide()
-                }
-            }
-        })
 
         isplus.visibility = details.attributes.is_only_for_plus.toVisibleState()
         premium.visibility = details.attributes.is_premium.toVisibleState()
@@ -200,29 +168,54 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
                 }
             }
         }
-    }
 
-    private fun updateTabViews(position: Int) {
-        val view = pagerAdapter.getViewAtPosition(position)
-        view?.let {
-            updatePagerHeightForChild(view, pager)
-        }
-    }
+        supportFragmentManager.switch(
+            R.id.fragmentContainer,
+            PagerProjectOverview.newInstance(details.attributes),
+            PagerProjectOverview.TAG,
+            false
+        )
 
-    private fun updatePagerHeightForChild(view: View, pager: ViewPager2) {
-        view.post {
-            val wMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-            val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            view.measure(wMeasureSpec, hMeasureSpec)
-
-            if (pager.layoutParams.height != view.measuredHeight) {
-                pager.layoutParams = (pager.layoutParams)
-                    .also { lp ->
-                        lp.height = view.measuredHeight
-                    }
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                containerScroller.scrollTo(0, 0)
             }
-        }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                containerScroller.scrollTo(0, 0)
+                tab?.position?.let {
+                    hideShowFab(it)
+                    when (it) {
+                        0 -> supportFragmentManager.switch(
+                            R.id.fragmentContainer,
+                            PagerProjectOverview.newInstance(details.attributes),
+                            PagerProjectOverview.TAG,
+                            false
+                        )
+                        1 -> supportFragmentManager.switch(
+                            R.id.fragmentContainer,
+                            PagerProjectBids.newInstance(
+                                details.id,
+                                details.attributes.employer?.id ?: 0
+                            ),
+                            PagerProjectBids.TAG,
+                            false
+                        )
+                        2 -> supportFragmentManager.switch(
+                            R.id.fragmentContainer,
+                            PagerProjectComments.newInstance(details.id),
+                            PagerProjectComments.TAG,
+                            false
+                        )
+                    }
+                }
+
+            }
+
+        })
     }
 
     private fun handleError(error: String) {
@@ -236,28 +229,6 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
         snackbar(getString(R.string.no_internet_error_message), projectActivityContainer)
     }
 
-    private inner class PagerAdapter(
-        fa: FragmentActivity,
-        details: ProjectDetail.Data
-    ) : FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int = 3
-
-        val fragments = arrayListOf<Fragment>(
-            PagerProjectOverview.newInstance(details.attributes),
-            PagerProjectBids.newInstance(details.id, details.attributes.employer?.id ?: 0),
-            PagerProjectComments.newInstance(details.id)
-        )
-
-        fun getViewAtPosition(position: Int) = fragments[position].view
-
-        override fun createFragment(position: Int): Fragment = when (position) {
-            0 -> fragments[0]
-            1 -> fragments[1]
-            2 -> fragments[2]
-            else -> fragments[0]
-        }
-    }
-
     override fun onBidAdded(
         id: Int,
         days: Int,
@@ -266,7 +237,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
         comment: String,
         isHidden: Boolean
     ) {
-        (pagerAdapter.fragments[1] as PagerProjectBids).onBidAdded(
+        (supportFragmentManager.findFragmentByTag(PagerProjectBids.TAG) as PagerProjectBids).onBidAdded(
             id,
             days,
             budget,

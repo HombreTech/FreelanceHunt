@@ -79,7 +79,6 @@ class PagerContestOverview : BaseFragment() {
             viewModel.getEmployerDetails(details.employer.id)
         }
 
-        contestPublicViewModel.updateTabViews(0)
     }
 
     companion object {

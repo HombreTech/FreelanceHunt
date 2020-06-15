@@ -4,18 +4,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_employer_detail.*
-import kotlinx.android.synthetic.main.appbar_fill.*
+import kotlinx.android.synthetic.main.activity_employer_detail.avatar
+import kotlinx.android.synthetic.main.activity_employer_detail.birthdate
+import kotlinx.android.synthetic.main.activity_employer_detail.buttonMessage
+import kotlinx.android.synthetic.main.activity_employer_detail.isplus
+import kotlinx.android.synthetic.main.activity_employer_detail.location
+import kotlinx.android.synthetic.main.activity_employer_detail.locationIcon
+import kotlinx.android.synthetic.main.activity_employer_detail.login
+import kotlinx.android.synthetic.main.activity_employer_detail.name
+import kotlinx.android.synthetic.main.activity_employer_detail.rating
+import kotlinx.android.synthetic.main.activity_employer_detail.verified
+import kotlinx.android.synthetic.main.activity_employer_detail.visitedAt
+import kotlinx.android.synthetic.main.activity_employer_detail.votedown
+import kotlinx.android.synthetic.main.activity_employer_detail.voteup
+import kotlinx.android.synthetic.main.placeholder_employer.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.EmployerDetail
-import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
@@ -30,7 +36,8 @@ import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
 import tech.hombre.freelancehunt.ui.menu.CreateThreadBottomDialogFragment
 
 
-class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.OnCreateThreadListener {
+class EmployerDetailActivity : BaseActivity(),
+    CreateThreadBottomDialogFragment.OnCreateThreadListener {
 
     override fun isPrivate() = false
 
@@ -44,8 +51,6 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
 
     var employerUrl = ""
 
-    private lateinit var pagerAdapter: PagerAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employer_detail)
@@ -56,7 +61,7 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
                 subscribeToData()
                 val locally = it.getBoolean(EXTRA_2, false)
                 if (!locally) {
-                    val profile: EmployerDetail.Data?  = it.getParcelable(EXTRA_1)
+                    val profile: EmployerDetail.Data? = it.getParcelable(EXTRA_1)
                     initEmployerDetails(profile!!)
                 } else {
                     viewModel.getEmployerDetails(it.getInt(EXTRA_1))
@@ -86,18 +91,12 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
         viewModel.viewState.subscribe(this, ::handleViewState)
         viewModel.action.subscribe(this, ::handleActionViewState)
         viewModel.countries.subscribe(this, {
+            hideLoading(progressBar)
             if (countryId != -1) {
                 val country = it.find { it.id == countryId }
                 if (country != null) locationIcon.setUrlSVG("https://freelancehunt.com/static/images/flags/4x3/${country.iso2.toLowerCase()}.svg")
             }
         })
-        employerPublicViewModel.badgeCounter.subscribe(this) { badges ->
-            tabs.getTabAt(badges.first)?.let {
-                val badge: BadgeDrawable = it.orCreateBadge
-                badge.isVisible = true
-                badge.number = badges.second
-            }
-        }
         viewModel.setCountries()
     }
 
@@ -126,6 +125,8 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
 
     private fun initEmployerDetails(details: EmployerDetail.Data) {
         hideLoading(progressBar)
+        preview.visibility = View.INVISIBLE
+        content.visible()
 
         profileId = details.id
 
@@ -133,27 +134,6 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
 
         toolbar.subtitle = details.attributes.login
 
-        pagerAdapter = PagerAdapter(this, details)
-        with(pager) {
-            adapter = pagerAdapter
-            offscreenPageLimit = 3
-            isUserInputEnabled = false
-        }
-        val tabsTitles = resources.getStringArray(R.array.employer_tabs)
-        val tabsIcons = resources.getStringArray(R.array.employer_tabs_icons)
-        TabLayoutMediator(tabs, pager, false, false) { tab, position ->
-            tab.text = tabsTitles[position]
-            tab.icon = ContextCompat.getDrawable(this, getDrawableIdByName(tabsIcons[position]))
-            pager.setCurrentItem(tab.position, false)
-        }.attach()
-        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                val view = pagerAdapter.getViewAtPosition(position)
-                view?.let {
-                    updatePagerHeightForChild(view, pager)
-                }
-            }
-        })
 
         avatar.setUrl(details.attributes.avatar.large.url, isCircle = true)
         name.text = "${details.attributes.first_name} ${details.attributes.last_name}"
@@ -188,23 +168,52 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
                 ).buildMenuForCreateThread(profileId)
             }
         }
-    }
 
-    private fun updatePagerHeightForChild(view: View, pager: ViewPager2) {
-        view.post {
-            val wMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-            val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            view.measure(wMeasureSpec, hMeasureSpec)
+        supportFragmentManager.switch(
+            R.id.fragmentContainer,
+            PagerEmployerOverview.newInstance(details),
+            PagerEmployerOverview.TAG,
+            false
+        )
 
-            if (pager.layoutParams.height != view.measuredHeight) {
-                pager.layoutParams = (pager.layoutParams)
-                    .also { lp ->
-                        lp.height = view.measuredHeight
-                    }
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                containerScroller.scrollTo(0, 0)
             }
-        }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                containerScroller.scrollTo(0, 0)
+                tab?.position?.let {
+                    when (it) {
+                        0 -> supportFragmentManager.switch(
+                            R.id.fragmentContainer,
+                            PagerEmployerOverview.newInstance(details),
+                            PagerEmployerOverview.TAG,
+                            false
+                        )
+                        1 -> supportFragmentManager.switch(
+                            R.id.fragmentContainer,
+                            PagerEmployerProjects.newInstance(details.id),
+                            PagerEmployerProjects.TAG,
+                            false
+                        )
+                        2 -> supportFragmentManager.switch(
+                            R.id.fragmentContainer,
+                            PagerEmployerReviews.newInstance(details.id),
+                            PagerEmployerReviews.TAG,
+                            false
+                        )
+                    }
+                }
+
+            }
+        })
+
     }
+
 
     private fun handleError(error: String) {
         hideLoading(progressBar)
@@ -218,30 +227,6 @@ class EmployerDetailActivity : BaseActivity(), CreateThreadBottomDialogFragment.
 
     override fun onThreadCreated(subject: String, message: String, toProfileId: Int) {
         viewModel.sendMessage(toProfileId, subject, message)
-    }
-
-    private inner class PagerAdapter(
-        fa: FragmentActivity,
-        details: EmployerDetail.Data
-    ) : FragmentStateAdapter(fa) {
-
-        val fragments = arrayListOf<Fragment>(
-            PagerEmployerOverview.newInstance(details),
-            PagerEmployerProjects.newInstance(details.id),
-            PagerEmployerReviews.newInstance(details.id)
-        )
-
-        override fun getItemCount(): Int = 3
-
-        fun getViewAtPosition(position: Int) = fragments[position].view
-
-
-        override fun createFragment(position: Int): Fragment = when (position) {
-            0 -> fragments[0]
-            1 -> fragments[1]
-            2 -> fragments[2]
-            else -> fragments[0]
-        }
     }
 
 }

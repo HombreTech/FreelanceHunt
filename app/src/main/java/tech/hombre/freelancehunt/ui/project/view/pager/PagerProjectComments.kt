@@ -140,7 +140,6 @@ class PagerProjectComments : BaseFragment() {
     private fun initBids(comments: List<ProjectComment.Data>) {
         hideLoading()
         adapter.setItems(comments)
-        projectPublicViewModel.updateBadge(2, comments.size)
     }
 
     companion object {
