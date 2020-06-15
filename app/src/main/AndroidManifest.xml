@@ -10,12 +10,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:launchMode="singleTask"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme"
         android:usesCleartextTraffic="true"
-        android:launchMode="singleTask"
-        android:largeHeap="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.login.view.LoginActivity"
@@ -29,40 +29,62 @@
         </activity>
 
         <activity
-            android:theme="@style/AppTheme"
             android:name=".ui.main.view.activities.MainActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme" />
 
         <activity
-            android:theme="@style/AppTheme"
             android:name=".ui.freelancers.view.FreelancerDetailActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/freelancer_view" />
+            android:label="@string/freelancer_view"
+            android:theme="@style/AppTheme" />
 
         <activity
-            android:theme="@style/AppTheme"
             android:name=".ui.threads.view.ThreadMessagesActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/thread_view" />
+            android:label="@string/thread_view"
+            android:theme="@style/AppTheme" />
 
         <activity
-            android:theme="@style/AppTheme"
             android:name=".ui.employers.view.EmployerDetailActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/employer_view" />
+            android:label="@string/employer_view"
+            android:theme="@style/AppTheme" />
 
         <activity
-            android:theme="@style/AppTheme"
             android:name=".ui.project.view.ProjectDetailActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/project_view" />
+            android:label="@string/project_view"
+            android:theme="@style/AppTheme" />
 
         <activity
-            android:theme="@style/AppTheme"
             android:name=".ui.contest.view.ContestDetailActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/contest_view" />
+            android:label="@string/contest_view"
+            android:theme="@style/AppTheme" />
 
+        <activity
+            android:name=".ui.base.LinksParserActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter
+                android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+
+                <data
+                    android:host="freelancehunt.com"
+                    android:scheme="https" />
+
+                <data android:pathPattern=".*\\/project.*" />
+                <data android:pathPattern=".*\\/contest.*" />
+                <data android:pathPattern=".*\\/mailbox.*" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
 
     </application>
 

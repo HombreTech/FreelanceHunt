@@ -10,7 +10,7 @@
     android:paddingEnd="@dimen/padding_middle"
     android:paddingBottom="@dimen/padding_standart">
 
-    <org.sufficientlysecure.htmltextview.HtmlTextView
+    <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
         android:id="@+id/description"
         style="@style/TextStyle.Title"
         android:layout_width="0dp"

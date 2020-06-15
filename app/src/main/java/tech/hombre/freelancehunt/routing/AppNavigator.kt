@@ -15,6 +15,7 @@ import tech.hombre.freelancehunt.ui.freelancers.view.FreelancerDetailActivity
 import tech.hombre.freelancehunt.ui.login.view.LoginActivity
 import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
 import tech.hombre.freelancehunt.ui.project.view.ProjectDetailActivity
+import tech.hombre.freelancehunt.ui.threads.view.ThreadMessagesActivity
 import java.io.Serializable
 
 class AppNavigator(private val activity: AppCompatActivity) : Navigator {
@@ -77,6 +78,12 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
         navigateTo(getIntent<ContestDetailActivity>().apply {
             putExtra(EXTRA_1, contestId)
             putExtra(EXTRA_2, true)
+        })
+
+    override fun showThread(threadId: Int, threadUrl: String) =
+        navigateTo(getIntent<ThreadMessagesActivity>().apply {
+            putExtra(EXTRA_1, threadId)
+            putExtra(EXTRA_2, threadUrl)
         })
 
     private fun navigateTo(intent: Intent) = activity.startActivity(intent)

@@ -19,6 +19,7 @@ import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
@@ -143,11 +144,8 @@ class ThreadMessagesActivity : BaseActivity() {
                                     isCircle = true
                                 )
                             })
-                        .find<HtmlTextView>(R.id.text) {
-                            val getter = HtmlHttpImageGetter(it, null, true).apply {
-                                enableCompressImage(true, 70)
-                            }
-                            it.setHtml(model.data.attributes.message_html, getter)
+                        .find<CustomHtmlTextView>(R.id.text) {
+                            it.setHtmlText(model.data.attributes.message_html, false)
                         }
                         .setText(
                             R.id.postedAt,
@@ -170,11 +168,8 @@ class ThreadMessagesActivity : BaseActivity() {
                                     isCircle = true
                                 )
                             })
-                        .find<HtmlTextView>(R.id.text) {
-                            val getter = HtmlHttpImageGetter(it, null, false).apply {
-                                enableCompressImage(true, 70)
-                            }
-                            it.setHtml(model.data.attributes.message_html, getter)
+                        .find<CustomHtmlTextView>(R.id.text) {
+                            it.setHtmlText(model.data.attributes.message_html, false)
                         }
                         .setText(
                             R.id.postedAt,

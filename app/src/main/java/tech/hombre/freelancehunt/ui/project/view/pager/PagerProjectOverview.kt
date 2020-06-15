@@ -67,10 +67,7 @@ class PagerProjectOverview : BaseFragment() {
             return
         }
         if (details.description_html != null) {
-            val getter = HtmlHttpImageGetter(description, null, true).apply {
-                enableCompressImage(true, 70)
-            }
-            description.setHtml(details.description_html!!, getter)
+            description.setHtmlText(details.description_html!!)
         } else description.text = getString(R.string.no_information)
 
         avatar.setUrl(details.employer!!.avatar.large.url, isCircle = true)

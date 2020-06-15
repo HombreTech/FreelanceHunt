@@ -29,4 +29,6 @@ interface Navigator {
 
     fun showContestDetails(details: ContestDetail.Data)
 
+    fun showThread(threadId: Int, threadUrl: String)
+
 }

@@ -1,6 +1,7 @@
 package tech.hombre.data.di
 
 import android.content.Context
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,6 +15,7 @@ import tech.hombre.data.networking.*
 import java.util.concurrent.TimeUnit
 
 val networkingModule = module {
+    //single { GsonConverterFactory.create(GsonBuilder().setLenient().create()) as Converter.Factory }
     single { GsonConverterFactory.create() as Converter.Factory }
     if (BuildConfig.DEBUG) single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
     single {

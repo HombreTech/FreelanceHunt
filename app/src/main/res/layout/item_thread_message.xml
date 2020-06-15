@@ -25,7 +25,7 @@
         android:paddingEnd="@dimen/padding_small"
         android:paddingBottom="7dp">
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
+        <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
             android:id="@+id/text"
             style="@style/TextStyle.Chat.Text"
             android:layout_width="wrap_content"

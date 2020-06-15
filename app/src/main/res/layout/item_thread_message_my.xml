@@ -34,7 +34,7 @@
         android:paddingBottom="7dp"
         tools:ignore="UselessParent">
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
+        <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
             android:id="@+id/text"
             android:textIsSelectable="true"
             style="@style/TextStyle.Chat.Text"

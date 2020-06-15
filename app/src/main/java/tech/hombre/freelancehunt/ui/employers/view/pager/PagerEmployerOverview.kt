@@ -38,10 +38,7 @@ class PagerEmployerOverview : BaseFragment() {
             verificatedBankID.alpha = 0.5f
         }
         if (details.attributes.cv_html != null) {
-            val getter = HtmlHttpImageGetter(summary, null, true).apply {
-                enableCompressImage(true, 70)
-            }
-            summary.setHtml(details.attributes.cv_html!!, getter)
+            summary.setHtmlText(details.attributes.cv_html!!)
         } else summary.text = getString(R.string.no_information)
     }
 

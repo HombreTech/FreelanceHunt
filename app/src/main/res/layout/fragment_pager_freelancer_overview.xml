@@ -245,7 +245,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/summaryTitle"
                         app:layout_constraintStart_toStartOf="@+id/summaryTitle" />
 
-                    <org.sufficientlysecure.htmltextview.HtmlTextView
+                    <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
                         android:id="@+id/summary"
                         style="@style/TextStyle.Title"
                         android:layout_width="match_parent"
