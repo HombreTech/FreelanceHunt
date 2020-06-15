@@ -27,6 +27,7 @@ android {
         resValue("string", "versionCode", "${versionCode}")
         resValue("string", "versionName", "${versionName}")
 
+        archivesBaseName = "freelancehunt-${versionName}(${versionCode})"
     }
     signingConfigs {
         signing {
