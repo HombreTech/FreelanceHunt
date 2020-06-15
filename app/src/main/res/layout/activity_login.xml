@@ -80,6 +80,7 @@
                     android:hint="@string/token_hint"
                     android:inputType="text"
                     android:imeOptions="actionDone"
+                    android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
                     android:textSize="16sp" />
