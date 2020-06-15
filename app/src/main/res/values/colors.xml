@@ -26,6 +26,7 @@
     <color name="typeProject">#008577</color>
     <color name="typeUnknown">#00ACC1</color>
     <color name="typeWork">#FF9800</color>
+    <color name="typeForumMessage">#909A28</color>
     <color name="typeLike">#E91E63</color>
     <color name="typeComment">#3F51B5</color>
 

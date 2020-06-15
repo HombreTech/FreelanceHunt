@@ -20,7 +20,8 @@ enum class FeedType(val type: Int) {
     UNKNOWN(0),
     PROJECT(1),
     WORK(2),
-    LIKE(3)
+    LIKE(3),
+    FORUM_MESSAGE(4)
 }
 
 enum class FreelancerStatus(val status: Int) {
