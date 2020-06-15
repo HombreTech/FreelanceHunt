@@ -10,15 +10,25 @@
     android:paddingEnd="@dimen/padding_middle"
     android:paddingBottom="@dimen/padding_standart">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/skillList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_middle"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_project_skill_list"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
         android:id="@+id/description"
         style="@style/TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/padding_middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/skillList"
         tools:text="Need to update several articles in the knowledge base: screenshots in all languages and a couple of dozen small text edits. I will describe everything in the workspace. Looking for basic HTML knowledge." />
 
     <tech.hombre.freelancehunt.common.widgets.CustomImageView
@@ -27,7 +37,6 @@
         android:layout_height="48dp"
         android:layout_marginStart="@dimen/padding_middle"
         android:layout_marginTop="@dimen/padding_standart"
-
         app:layout_constraintStart_toStartOf="@id/description"
         app:layout_constraintTop_toBottomOf="@id/description" />
 

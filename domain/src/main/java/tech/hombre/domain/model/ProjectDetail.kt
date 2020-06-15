@@ -46,7 +46,7 @@ data class ProjectDetail(
             data class Skill(
                 val id: Int = 0,
                 val name: String = ""
-            ) : Parcelable
+            ) : Parcelable, ViewModel
 
             @Parcelize
             data class Tag(

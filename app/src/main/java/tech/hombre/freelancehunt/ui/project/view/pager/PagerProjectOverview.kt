@@ -2,6 +2,10 @@ package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.os.Bundle
 import androidx.annotation.Keep
+import com.github.vivchar.rendererrecyclerviewadapter.BaseViewRenderer
+import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
+import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
+import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
 import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
@@ -25,6 +29,8 @@ class PagerProjectOverview : BaseFragment() {
     private val employerViewModel: EmployerDetailViewModel by sharedViewModel()
 
     var countries = listOf<Countries.Data>()
+
+    lateinit var adapter: RendererRecyclerViewAdapter
 
     override fun viewReady() {
         arguments?.let {
@@ -66,6 +72,9 @@ class PagerProjectOverview : BaseFragment() {
             handleError(getString(R.string.only_for_plus))
             return
         }
+
+        initSkills(details.skills)
+
         if (details.description_html != null) {
             description.setHtmlText(details.description_html!!)
         } else description.text = getString(R.string.no_information)
@@ -77,6 +86,26 @@ class PagerProjectOverview : BaseFragment() {
         buttonProfile.setOnClickListener {
             employerViewModel.getEmployerDetails(details.employer!!.id)
         }
+    }
+
+    private fun initSkills(skills: List<ProjectDetail.Data.Attributes.Skill>) {
+        adapter = RendererRecyclerViewAdapter()
+        adapter.enableDiffUtil(true)
+        adapter.registerRenderer(
+            ViewRenderer(
+                R.layout.item_project_skill_list,
+                ProjectDetail.Data.Attributes.Skill::class.java,
+                BaseViewRenderer.Binder { model: ProjectDetail.Data.Attributes.Skill, finder: ViewFinder, payloads: List<Any?>? ->
+                    finder
+                        .setText(R.id.name, model.name)
+                        .setOnClickListener {
+                            handleError("Not implemented yet :(")
+                        }
+                }
+            )
+        )
+        skillList.adapter = adapter
+        adapter.setItems(skills)
     }
 
     companion object {
