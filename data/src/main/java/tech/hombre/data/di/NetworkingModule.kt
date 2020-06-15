@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 val networkingModule = module {
     single { GsonConverterFactory.create() as Converter.Factory }
-    single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
+    if (BuildConfig.DEBUG) single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
     single {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) addInterceptor(get())
@@ -33,6 +33,8 @@ val networkingModule = module {
                 )
             }
                 .callTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
         }.build()
     }
     single {

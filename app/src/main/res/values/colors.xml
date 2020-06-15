@@ -11,6 +11,7 @@
     <color name="grey">#E4E4E4</color>
     <color name="transparent">#00000000</color>
     <color name="htransparent">#F5FFFFFF</color>
+    <color name="htsransparent">#09000000</color>
 
     <color name="grade">#999</color>
     <color name="ratingBarBackground">#4E999999</color>
@@ -59,7 +60,7 @@
     <color name="thumb_up">#43A047</color>
     <color name="thumb_down">#E53935</color>
 
-    <color name="seekbar_accent">#6cc788</color>
+    <color name="seekbar_accent">#008577</color>
     <color name="seekbar_accent_disabled">#9255725D</color>
     <color name="seekbar_accent_negative">#d9534f</color>
     <color name="seekbar_accent_negative2">#AF3733</color>

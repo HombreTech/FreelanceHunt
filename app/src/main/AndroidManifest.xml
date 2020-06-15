@@ -19,7 +19,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.login.view.LoginActivity"
-            android:configChanges="keyboard|orientation|screenSize"
+            android:configChanges="keyboard"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

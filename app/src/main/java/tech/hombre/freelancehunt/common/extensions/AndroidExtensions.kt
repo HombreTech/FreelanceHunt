@@ -5,7 +5,9 @@ import android.os.Build.VERSION.SDK_INT
 import android.text.format.DateUtils.SECOND_IN_MILLIS
 import android.text.format.DateUtils.getRelativeTimeSpanString
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.ArrayRes
 import androidx.annotation.IdRes
@@ -184,7 +186,6 @@ inline fun View.onClick(crossinline onClick: () -> Unit) {
 }
 
 fun FragmentManager.switch(containerId: Int, newFrag: Fragment, tag: String) {
-    println(tag)
     var current = findFragmentByTag(tag)
     beginTransaction()
         .apply {
@@ -222,6 +223,16 @@ fun Int.getEnding(context: Context, @ArrayRes endsId: Int): String {
     val a = (this % 100 in 5..19)
     val b = cases[min(this % 10, 5)]
     return this.toString() + " " + ends[if (a) 2 else b]
+}
+
+fun EditText.onDone(callback: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            callback.invoke()
+            true
+        }
+        false
+    }
 }
 
 inline fun ViewModel.launch(

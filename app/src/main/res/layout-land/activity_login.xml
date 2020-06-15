@@ -15,9 +15,9 @@
         android:layout_height="match_parent" />
 
     <androidx.cardview.widget.CardView
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".75"
         android:id="@+id/cardView"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".6"
         app:cardBackgroundColor="@color/htransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -33,35 +33,29 @@
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/icon"
-                android:layout_width="144dp"
-                android:layout_height="144dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/logo"
-                 />
+            android:padding="@dimen/padding_standart"
+            android:orientation="horizontal">
 
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/authCodeHint"
                 style="@style/TextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
+                android:layout_gravity="center"
                 android:autoLink="web"
                 android:gravity="center_horizontal"
                 android:text="@string/login_hint"
                 android:textSize="20sp" />
 
             <LinearLayout
+                android:layout_weight="3"
                 android:id="@+id/codeView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:padding="@dimen/padding_middle"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -103,8 +97,8 @@
                     android:elevation="6dp"
                     android:stateListAnimator="@null"
                     android:text="@string/signin"
-                    android:layout_marginBottom="@dimen/padding_standart"
                     android:translationZ="5dp"
+                    android:layout_marginBottom="@dimen/padding_middle"
                     android:visibility="visible" />
 
             </LinearLayout>

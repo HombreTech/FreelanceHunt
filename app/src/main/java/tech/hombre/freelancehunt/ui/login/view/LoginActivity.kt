@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.login.view
 
 import android.os.Bundle
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
@@ -26,15 +27,10 @@ class LoginActivity : BaseActivity() {
 
         if (!isLoggedUser()) {
             subscribeToData()
-
+            token.onDone { signIn() }
             doLogin.onClick {
-                val token = token.text.toString()
-                if (token.isNotEmpty()) {
-                    hideInputs()
-                    viewModel.checkTokenByMyProfile(token)
-                } else showError(getString(R.string.token_is_empty))
+                signIn()
             }
-
         } else {
             val type = (intent.getSerializableExtra(AppNavigator.SCREEN_TYPE) ?: ScreenType.MAIN) as ScreenType
             val fromNotification = intent.getBooleanExtra(EXTRA_1, false)
@@ -42,6 +38,14 @@ class LoginActivity : BaseActivity() {
             finishAffinity()
         }
 
+    }
+
+    private fun signIn() {
+        val token = token.text.toString()
+        if (token.isNotEmpty()) {
+            hideInputs()
+            viewModel.checkTokenByMyProfile(token)
+        } else showError(getString(R.string.token_is_empty))
     }
 
     private fun hideInputs() {
