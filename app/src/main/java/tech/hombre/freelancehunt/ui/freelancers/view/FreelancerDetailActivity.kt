@@ -1,7 +1,6 @@
 package tech.hombre.freelancehunt.ui.freelancers.view
 
 import android.graphics.PorterDuff
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,8 +28,6 @@ import tech.hombre.freelancehunt.ui.menu.CreateThreadBottomDialogFragment
 class FreelancerDetailActivity : BaseActivity(),
     CreateThreadBottomDialogFragment.OnCreateThreadListener {
 
-    override fun isPrivate() = false
-
     private val viewModel: FreelancerDetailViewModel by viewModel()
 
     private val freelancerPublicViewModel: FreelancerPublicViewModel by viewModel()
@@ -41,22 +38,18 @@ class FreelancerDetailActivity : BaseActivity(),
 
     var freelancerUrl = ""
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setContentView(R.layout.activity_freelancer_detail)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if (savedInstanceState == null) {
-            intent?.extras?.let {
-                subscribeToData()
-                val locally = it.getBoolean(EXTRA_2, false)
-                if (!locally) {
-                    val profile: FreelancerDetail.Data? = it.getParcelable(EXTRA_1)
-                    initFreelancerDetails(profile!!)
-                } else {
-                    viewModel.getFreelancerDetails(it.getInt(EXTRA_1))
-                }
+        intent?.extras?.let {
+            subscribeToData()
+            val locally = it.getBoolean(EXTRA_2, false)
+            if (!locally) {
+                val profile: FreelancerDetail.Data? = it.getParcelable(EXTRA_1)
+                initFreelancerDetails(profile!!)
+            } else {
+                viewModel.getFreelancerDetails(it.getInt(EXTRA_1))
             }
         }
     }
@@ -184,6 +177,7 @@ class FreelancerDetailActivity : BaseActivity(),
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 containerScroller.scrollTo(0, 0)
                 tab?.position?.let {

@@ -1,5 +1,7 @@
 package tech.hombre.freelancehunt.ui.contest.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,8 +23,6 @@ import tech.hombre.freelancehunt.ui.contest.view.pager.PagerContestOverview
 
 class ContestDetailActivity : BaseActivity() {
 
-    override fun isPrivate() = false
-
     private val viewModel: ContestDetailViewModel by viewModel()
 
     private val contestPublicViewModel: ContestPublicViewModel by viewModel()
@@ -33,24 +33,19 @@ class ContestDetailActivity : BaseActivity() {
 
     var countries = listOf<Countries.Data>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setContentView(R.layout.activity_contest_detail)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if (savedInstanceState == null) {
-            contestId = intent?.extras?.getInt(EXTRA_1, -1) ?: -1
-        }
-        if (savedInstanceState == null) {
-            intent?.extras?.let {
-                subscribeToData()
-                val locally = it.getBoolean(EXTRA_2, false)
-                if (!locally) {
-                    val contest: ContestDetail.Data? = it.getParcelable(EXTRA_1)
-                    initContestDetails(contest!!)
-                } else {
-                    viewModel.getContestDetails(it.getInt(EXTRA_1))
-                }
+        intent?.extras?.let {
+            contestId = it.getInt(EXTRA_1, -1)
+            subscribeToData()
+            val locally = it.getBoolean(EXTRA_2, false)
+            if (!locally) {
+                val contest: ContestDetail.Data? = it.getParcelable(EXTRA_1)
+                initContestDetails(contest!!)
+            } else {
+                viewModel.getContestDetails(it.getInt(EXTRA_1))
             }
         }
     }
@@ -159,6 +154,16 @@ class ContestDetailActivity : BaseActivity() {
     private fun showNoInternetError() {
         hideLoading(progressBar)
         snackbar(getString(R.string.no_internet_error_message), contestActivityContainer)
+    }
+
+    companion object {
+
+        fun startActivity(context: Context, contextId: Int) {
+            val intent = Intent(context, ContestDetailActivity::class.java)
+            intent.putExtra(EXTRA_1, contextId)
+            intent.putExtra(EXTRA_2, true)
+            context.startActivity(intent)
+        }
     }
 
 }

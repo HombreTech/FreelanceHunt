@@ -9,7 +9,7 @@
     tools:context=".ui.login.view.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        app:srcCompat="@mipmap/logo"
+        app:srcCompat="@drawable/apiback"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -17,7 +17,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".6"
+        app:layout_constraintHeight_percent=".7"
         app:cardBackgroundColor="@color/htransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"

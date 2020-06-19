@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.ui.project.view
 
-import android.os.Bundle
+import android.content.Context
+import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.tabs.TabLayout
@@ -23,35 +24,30 @@ import tech.hombre.freelancehunt.ui.project.view.pager.PagerProjectOverview
 
 class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAddedListener {
 
-    override fun isPrivate() = false
-
     private val viewModel: ProjectDetailViewModel by viewModel()
 
     private val projectPublicViewModel: ProjectPublicViewModel by viewModel()
 
     var countries = listOf<Countries.Data>()
 
-    var projectUrl = ""
+    private var projectUrl = ""
 
-    var statusId = 0
+    private var statusId = 0
 
-    var isOnlyForPlus = false
+    private var isOnlyForPlus = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setContentView(R.layout.activity_project_detail)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if (savedInstanceState == null) {
-            intent?.extras?.let {
-                subscribeToData()
-                val locally = it.getBoolean(EXTRA_2, false)
-                if (!locally) {
-                    val project: ProjectDetail.Data? = it.getParcelable(EXTRA_1)
-                    initProjectDetails(project!!)
-                } else {
-                    viewModel.getProjectDetails("projects/${it.getInt(EXTRA_1)}")
-                }
+        intent?.extras?.let {
+            subscribeToData()
+            val locally = it.getBoolean(EXTRA_2, false)
+            if (!locally) {
+                val project: ProjectDetail.Data? = it.getParcelable(EXTRA_1)
+                initProjectDetails(project!!)
+            } else {
+                viewModel.getProjectDetails("projects/${it.getInt(EXTRA_1)}")
             }
         }
     }
@@ -245,6 +241,16 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
             comment,
             isHidden
         )
+    }
+
+    companion object {
+
+        fun startActivity(context: Context, projectId: Int) {
+            val intent = Intent(context, ProjectDetailActivity::class.java)
+            intent.putExtra(EXTRA_1, projectId)
+            intent.putExtra(EXTRA_2, true)
+            context.startActivity(intent)
+        }
     }
 
 

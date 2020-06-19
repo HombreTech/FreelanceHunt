@@ -1,24 +1,10 @@
 package tech.hombre.freelancehunt.ui.employers.view
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_employer_detail.*
-import kotlinx.android.synthetic.main.activity_employer_detail.avatar
-import kotlinx.android.synthetic.main.activity_employer_detail.birthdate
-import kotlinx.android.synthetic.main.activity_employer_detail.buttonMessage
-import kotlinx.android.synthetic.main.activity_employer_detail.isplus
-import kotlinx.android.synthetic.main.activity_employer_detail.location
-import kotlinx.android.synthetic.main.activity_employer_detail.locationIcon
-import kotlinx.android.synthetic.main.activity_employer_detail.login
-import kotlinx.android.synthetic.main.activity_employer_detail.name
-import kotlinx.android.synthetic.main.activity_employer_detail.rating
-import kotlinx.android.synthetic.main.activity_employer_detail.verified
-import kotlinx.android.synthetic.main.activity_employer_detail.visitedAt
-import kotlinx.android.synthetic.main.activity_employer_detail.votedown
-import kotlinx.android.synthetic.main.activity_employer_detail.voteup
 import kotlinx.android.synthetic.main.placeholder_employer.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.EmployerDetail
@@ -39,8 +25,6 @@ import tech.hombre.freelancehunt.ui.menu.CreateThreadBottomDialogFragment
 class EmployerDetailActivity : BaseActivity(),
     CreateThreadBottomDialogFragment.OnCreateThreadListener {
 
-    override fun isPrivate() = false
-
     private val viewModel: EmployerDetailViewModel by viewModel()
 
     private val employerPublicViewModel: EmployerPublicViewModel by viewModel()
@@ -51,21 +35,18 @@ class EmployerDetailActivity : BaseActivity(),
 
     var employerUrl = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setContentView(R.layout.activity_employer_detail)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if (savedInstanceState == null) {
-            intent?.extras?.let {
-                subscribeToData()
-                val locally = it.getBoolean(EXTRA_2, false)
-                if (!locally) {
-                    val profile: EmployerDetail.Data? = it.getParcelable(EXTRA_1)
-                    initEmployerDetails(profile!!)
-                } else {
-                    viewModel.getEmployerDetails(it.getInt(EXTRA_1))
-                }
+        intent?.extras?.let {
+            subscribeToData()
+            val locally = it.getBoolean(EXTRA_2, false)
+            if (!locally) {
+                val profile: EmployerDetail.Data? = it.getParcelable(EXTRA_1)
+                initEmployerDetails(profile!!)
+            } else {
+                viewModel.getEmployerDetails(it.getInt(EXTRA_1))
             }
         }
     }

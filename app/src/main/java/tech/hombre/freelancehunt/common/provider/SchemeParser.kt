@@ -3,15 +3,12 @@ package tech.hombre.freelancehunt.common.provider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.routing.AppNavigator
+import tech.hombre.freelancehunt.ui.contest.view.ContestDetailActivity
+import tech.hombre.freelancehunt.ui.project.view.ProjectDetailActivity
+import tech.hombre.freelancehunt.ui.threads.view.ThreadMessagesActivity
 
-
-object SchemeParser : KoinComponent {
-
-    val appNavigator: AppNavigator by inject()
+object SchemeParser {
 
     fun launchUri(context: Context, url: String) {
         val pattern = Regex("//freelancehunt.com.*?/(.*?)/.*?(\\d+)")
@@ -20,9 +17,9 @@ object SchemeParser : KoinComponent {
             val type = results[1]
             val id = results[2].toInt()
             when (type) {
-                "project" -> appNavigator.showProjectDetails(id)
-                "contest" -> appNavigator.showContestDetails(id)
-                "mailbox" -> appNavigator.showThread(id, url)
+                "project" -> ProjectDetailActivity.startActivity(context, id)
+                "contest" -> ContestDetailActivity.startActivity(context, id)
+                "mailbox" -> ThreadMessagesActivity.startActivity(context, id, url)
                 else -> notImplementedUrl(context, url)
             }
         } else openUrl(context, url)

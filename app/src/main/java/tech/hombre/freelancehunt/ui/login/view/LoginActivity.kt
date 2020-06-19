@@ -16,15 +16,13 @@ import tech.hombre.freelancehunt.ui.login.presentation.LoginViewModel
 
 class LoginActivity : BaseActivity() {
 
-    override fun isPrivate() = false
+    override val isPublic = true
 
     private val viewModel: LoginViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setTheme(R.style.WelcomeTheme)
         setContentView(R.layout.activity_login)
-
         if (!isLoggedUser()) {
             subscribeToData()
             token.onDone { signIn() }

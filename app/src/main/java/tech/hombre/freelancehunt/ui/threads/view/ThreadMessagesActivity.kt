@@ -1,8 +1,7 @@
 package tech.hombre.freelancehunt.ui.threads.view
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,8 +9,6 @@ import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.activity_thread_messages.*
 import kotlinx.android.synthetic.main.appbar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
-import org.sufficientlysecure.htmltextview.HtmlTextView
 import tech.hombre.domain.model.ThreadMessageList
 import tech.hombre.domain.model.ThreadMessageMy
 import tech.hombre.domain.model.ThreadMessageOther
@@ -25,11 +22,8 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadMessagesViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ThreadMessagesActivity : BaseActivity() {
-
-    override fun isPrivate() = false
 
     private val viewModel: ThreadMessagesViewModel by viewModel()
 
@@ -48,20 +42,18 @@ class ThreadMessagesActivity : BaseActivity() {
     // TODO to preferences
     private val delay = 15000L
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setContentView(R.layout.activity_thread_messages)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if (savedInstanceState == null) {
-            threadId = intent?.extras?.getInt(EXTRA_1, -1) ?: -1
-            threadUrl = intent?.extras?.getString(EXTRA_2, "") ?: ""
+        intent?.extras?.let {
+            threadId = it.getInt(EXTRA_1, -1)
+            threadUrl = it.getString(EXTRA_2, "") ?: ""
+            subscribeToData()
+            initMessagesList()
+            viewModel.getMessages(threadId)
+            initViews()
         }
-
-        subscribeToData()
-        initMessagesList()
-        viewModel.getMessages(threadId)
-        initViews()
     }
 
     private fun initViews() {
@@ -226,11 +218,11 @@ class ThreadMessagesActivity : BaseActivity() {
 
     companion object {
 
-        fun startActivity(activity: Activity, threadId: Int, threadUrl: String) {
-            val intent = Intent(activity, ThreadMessagesActivity::class.java)
+        fun startActivity(context: Context, threadId: Int, threadUrl: String) {
+            val intent = Intent(context, ThreadMessagesActivity::class.java)
             intent.putExtra(EXTRA_1, threadId)
             intent.putExtra(EXTRA_2, threadUrl)
-            activity.startActivity(intent)
+            context.startActivity(intent)
         }
     }
 

@@ -9,7 +9,7 @@
     tools:context=".ui.login.view.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        app:srcCompat="@mipmap/logo"
+        app:srcCompat="@drawable/apiback"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

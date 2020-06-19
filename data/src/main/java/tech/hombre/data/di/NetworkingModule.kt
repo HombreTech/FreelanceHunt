@@ -15,8 +15,8 @@ import tech.hombre.data.networking.*
 import java.util.concurrent.TimeUnit
 
 val networkingModule = module {
-    //single { GsonConverterFactory.create(GsonBuilder().setLenient().create()) as Converter.Factory }
-    single { GsonConverterFactory.create() as Converter.Factory }
+    single { GsonConverterFactory.create(GsonBuilder().setLenient().create()) as Converter.Factory }
+    //single { GsonConverterFactory.create() as Converter.Factory }
     if (BuildConfig.DEBUG) single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
     single {
         OkHttpClient.Builder().apply {

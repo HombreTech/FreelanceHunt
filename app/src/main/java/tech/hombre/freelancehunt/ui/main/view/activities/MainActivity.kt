@@ -45,16 +45,13 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity() {
 
-    override fun isPrivate() = true
-
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
     private val viewModel: MainViewModel by viewModel()
 
     private val sharedViewModelMain: MainPublicViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun viewReady() {
         setContentView(R.layout.activity_container)
         initViews()
         subscribeToData()

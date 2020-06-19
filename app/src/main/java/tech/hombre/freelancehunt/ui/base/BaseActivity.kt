@@ -29,18 +29,19 @@ import tech.hombre.freelancehunt.common.extensions.toast
 import tech.hombre.freelancehunt.common.extensions.visible
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
+import tech.hombre.freelancehunt.ui.login.view.LoginActivity
 import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
 import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
 
 abstract class BaseActivity : AppCompatActivity() {
-
-    protected abstract fun isPrivate(): Boolean
 
     protected val appNavigator: AppNavigator by inject { parametersOf(this) }
 
     protected val appFragmentNavigator: AppFragmentNavigator by inject { parametersOf(this) }
 
     protected val appPreferences: LocalProperties by inject { parametersOf(this) }
+
+    protected open val isPublic = false
 
     fun showError(errorMessage: String?) =
         toast(errorMessage ?: EMPTY_STRING)
@@ -99,8 +100,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (isPrivate() && !validateAuth()) return
+        if (!isPublic && !validateAuth()) {
+            return
+        } else viewReady()
     }
+
+    abstract fun viewReady()
 
     fun isLoggedUser() =
         appPreferences.getCurrentUserProfile() != null && appPreferences.getAccessToken()
