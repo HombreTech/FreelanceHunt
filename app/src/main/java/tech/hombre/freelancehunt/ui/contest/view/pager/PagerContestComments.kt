@@ -16,6 +16,7 @@ import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
@@ -52,39 +53,49 @@ class PagerContestComments : BaseFragment() {
                 R.layout.item_contest_comments_list,
                 ContestComment.Data::class.java,
                 BaseViewRenderer.Binder { model: ContestComment.Data, finder: ViewFinder, payloads: List<Any?>? ->
-                    finder
-                        .find<CardView>(R.id.mainView) {
-                            it.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                                marginStart = if (model.attributes.level <= 3) (model.attributes.level - 1) * 50 else 150
+                    if (model.attributes.is_deleted) {
+                        finder
+                            .setGone(R.id.clickableView, true)
+                            .setGone(R.id.deletedComment, false)
+                    } else
+                        finder
+                            .setGone(R.id.deletedComment, true)
+                            .setGone(R.id.clickableView, false)
+                            .find<CardView>(R.id.mainView) {
+                                it.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                                    marginStart =
+                                        if (model.attributes.level <= 3) (model.attributes.level - 1) * 50 else 150
+                                }
                             }
-                        }
-                        .find(
-                            R.id.avatar,
-                            ViewProvider<CustomImageView> { avatar ->
-                                avatar.setUrl(
-                                    model.attributes.author.avatar.small.url,
-                                    isCircle = true
-                                )
-                            })
-                        .setText(
-                            R.id.login,
-                            model.attributes.author.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name })
-                        .setText(
-                            R.id.postedAt,
-                            model.attributes.posted_at.parseFullDate(true).getTimeAgo()
-                        )
-                        .setText(R.id.comment, model.attributes.message)
-                        .find<TextView>(R.id.like) {
-                            if (model.attributes.likes > 0) {
-                                it.text = model.attributes.likes.toString()
-                                it.visible()
-                            } else it.gone()
-                        }
-                        .setOnClickListener(R.id.clickableView) {
-                            if (model.attributes.author.type == UserType.EMPLOYER.type) viewModel.getEmployerDetails(
-                                model.attributes.author.id
-                            ) else viewModel.getFreelancerDetails(model.attributes.author.id)
-                        }
+                            .find(
+                                R.id.avatar,
+                                ViewProvider<CustomImageView> { avatar ->
+                                    avatar.setUrl(
+                                        model.attributes.author.avatar.small.url,
+                                        isCircle = true
+                                    )
+                                })
+                            .setText(
+                                R.id.login,
+                                model.attributes.author.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name })
+                            .setText(
+                                R.id.postedAt,
+                                model.attributes.posted_at.parseFullDate(true).getTimeAgo()
+                            )
+                            .find<CustomHtmlTextView>(R.id.comment) {
+                                it.setHtmlText(model.attributes.message)
+                            }
+                            .find<TextView>(R.id.like) {
+                                if (model.attributes.likes > 0) {
+                                    it.text = model.attributes.likes.toString()
+                                    it.visible()
+                                } else it.gone()
+                            }
+                            .setOnClickListener(R.id.clickableView) {
+                                if (model.attributes.author.type == UserType.EMPLOYER.type) viewModel.getEmployerDetails(
+                                    model.attributes.author.id
+                                ) else viewModel.getFreelancerDetails(model.attributes.author.id)
+                            }
                 }
             )
         )
