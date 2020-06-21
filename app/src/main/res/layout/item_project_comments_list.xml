@@ -14,6 +14,16 @@
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
 
+        <TextView
+            android:id="@+id/deletedComment"
+            style="@style/TextStyle.Hidden"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding_middle"
+            android:gravity="center"
+            android:text="@string/comment_is_deleted"
+            android:visibility="gone" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clickableView"
             android:layout_width="match_parent"

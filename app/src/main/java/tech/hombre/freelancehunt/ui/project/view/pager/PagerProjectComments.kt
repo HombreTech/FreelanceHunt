@@ -52,7 +52,13 @@ class PagerProjectComments : BaseFragment() {
                 R.layout.item_project_comments_list,
                 ProjectComment.Data::class.java,
                 BaseViewRenderer.Binder { model: ProjectComment.Data, finder: ViewFinder, payloads: List<Any?>? ->
-                    finder
+                    if (model.attributes.is_deleted) {
+                        finder
+                            .setGone(R.id.clickableView, true)
+                            .setGone(R.id.deletedComment, false)
+                    } else finder
+                        .setGone(R.id.deletedComment, true)
+                        .setGone(R.id.clickableView, false)
                         .find<CardView>(R.id.mainView) {
                             it.updateLayoutParams<ConstraintLayout.LayoutParams> {
                                 marginStart = (model.attributes.level - 1) * 50
