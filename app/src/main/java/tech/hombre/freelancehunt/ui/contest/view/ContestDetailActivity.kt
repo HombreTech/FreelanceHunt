@@ -63,6 +63,7 @@ class ContestDetailActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> shareUrl(this, contestUrl)
+            R.id.action_open -> openUrl(this, contestUrl)
         }
         return super.onOptionsItemSelected(item)
     }

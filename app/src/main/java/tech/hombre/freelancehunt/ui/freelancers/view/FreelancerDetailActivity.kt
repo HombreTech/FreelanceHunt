@@ -67,6 +67,7 @@ class FreelancerDetailActivity : BaseActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> shareUrl(this, freelancerUrl)
+            R.id.action_open -> openUrl(this, freelancerUrl)
         }
         return super.onOptionsItemSelected(item)
     }

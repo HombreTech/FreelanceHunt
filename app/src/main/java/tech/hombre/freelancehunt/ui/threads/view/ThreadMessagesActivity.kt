@@ -85,6 +85,7 @@ class ThreadMessagesActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> shareUrl(this, threadUrl)
+            R.id.action_open -> openUrl(this, threadUrl)
         }
         return super.onOptionsItemSelected(item)
     }

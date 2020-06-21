@@ -64,6 +64,7 @@ class EmployerDetailActivity : BaseActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> shareUrl(this, employerUrl)
+            R.id.action_open -> openUrl(this, employerUrl)
         }
         return super.onOptionsItemSelected(item)
     }

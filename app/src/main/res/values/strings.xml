@@ -134,4 +134,5 @@
     <string name="copyright">© Kokhan Ilya, 2020</string>
     <string name="madeinchina">Made in Belarus</string>
     <string name="comment_is_deleted">Комментарий удален</string>
+    <string name="open_in_browser">Open in browser</string>
 </resources>

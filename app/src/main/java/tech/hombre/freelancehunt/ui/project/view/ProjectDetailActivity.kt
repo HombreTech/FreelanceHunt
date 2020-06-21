@@ -65,6 +65,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> shareUrl(this, projectUrl)
+            R.id.action_open -> openUrl(this, projectUrl)
         }
         return super.onOptionsItemSelected(item)
     }
