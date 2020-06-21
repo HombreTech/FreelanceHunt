@@ -13,6 +13,7 @@ import tech.hombre.domain.model.FeedList
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.FeedType
 import tech.hombre.freelancehunt.common.extensions.*
+import tech.hombre.freelancehunt.common.provider.SchemeParser
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
@@ -107,11 +108,18 @@ class FeedFragment : BaseFragment() {
                                 model.attributes.is_new = false
                                 adapter.notifyItemChanged(items.data.indexOf(model))
                             }
-                            if (!notForMe) {
-                                if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
-                            } else handleError(
-                                getString(R.string.only_for_plus)
-                            )
+
+                             if (type == FeedType.UNKNOWN && model.attributes.from?.id == 4) {
+                                 "<a href=\"(.*?)\".*".toRegex().find(model.attributes.message)?.groupValues?.let {
+                                     SchemeParser.launchUri(requireContext(), it[1])
+                                 }
+                             } else {
+                                 if (!notForMe) {
+                                     if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
+                                 } else handleError(
+                                     getString(R.string.only_for_plus)
+                                 )
+                             }
                         }
                 }
             )
