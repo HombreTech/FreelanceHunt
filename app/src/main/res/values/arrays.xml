@@ -78,4 +78,14 @@
         <item>Direct pay</item>
     </string-array>
 
+    <string-array name="pref_language_entries">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>ru</item>
+        <item>en</item>
+    </string-array>
+
 </resources>

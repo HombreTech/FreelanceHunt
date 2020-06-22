@@ -132,4 +132,10 @@
     <string name="open_in_browser">Открыть в браузере</string>
     <string name="premium_caption">Возможность проверки обновлений чаще, чем раз в час, доступна в Premium-версии приложения. Оплатив Premium, Вы разблокируете ограничение, а главное поддержите меня как разработчика.\nПерейти к диалогу покупки?</string>
     <string name="billing_not_ready">Недоступно на Вашем устройстве</string>
+    <string name="pref_app_title">Приложение</string>
+    <string name="pref_language">Язык</string>
+    <string name="about_project">О проекте</string>
+    <string name="bids">Ставки</string>
+    <string name="comments">Обсуждение</string>
+    <string name="about_contest">О конкурсе</string>
 </resources>

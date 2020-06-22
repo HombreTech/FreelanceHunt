@@ -307,19 +307,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/overview"
-                android:text="Профиль" />
+                android:text="@string/profile" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/bid"
-                android:text="Ставки" />
+                android:text="@string/bids" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/reviews"
-                android:text="Отзывы" />
+                android:text="@string/reviews" />
 
         </com.google.android.material.tabs.TabLayout>
 

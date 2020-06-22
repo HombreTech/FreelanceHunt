@@ -2,7 +2,23 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
-        android:key="pref_key_storage_settings"
+        android:key="pref_key_app_settings"
+        android:title="@string/pref_app_title">
+
+        <ListPreference
+            app:icon="@drawable/lang"
+            android:defaultValue="@string/pref_language_default"
+            android:dialogTitle="@string/pref_language"
+            android:entries="@array/pref_language_entries"
+            android:entryValues="@array/pref_language_values"
+            android:key="KEY_APP_LANGUAGE"
+            android:summary="%s"
+            android:title="@string/pref_language" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_notification_settings"
         android:title="@string/pref_notification_title">
         <CheckBoxPreference
             android:defaultValue="true"

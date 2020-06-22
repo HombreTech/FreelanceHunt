@@ -215,19 +215,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/overview_project"
-                android:text="О проекте" />
+                android:text="@string/about_project" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/bid"
-                android:text="Ставки" />
+                android:text="@string/bids" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/reviews"
-                android:text="Обсуждение" />
+                android:text="@string/comments" />
 
         </com.google.android.material.tabs.TabLayout>
 

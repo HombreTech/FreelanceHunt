@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.main.view.fragments
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.annotation.Keep
@@ -13,6 +14,7 @@ import androidx.work.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import tech.hombre.data.local.LocalProperties
+import tech.hombre.data.local.LocalProperties.Companion.KEY_APP_LANGUAGE
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_FEED
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_INTERVAL
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_MESSAGES
@@ -23,6 +25,7 @@ import tech.hombre.freelancehunt.common.SKU_PREMIUM
 import tech.hombre.freelancehunt.framework.billing.BillingClientModule
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
+import tech.hombre.freelancehunt.ui.login.view.LoginActivity
 import java.util.concurrent.TimeUnit
 
 
@@ -82,6 +85,14 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                 }
                 KEY_WORKER_UNMETERED -> {
                     recreateTasks(true, true)
+                }
+                KEY_APP_LANGUAGE -> {
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    with(intent) {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    }
+                    startActivity(intent)
+                    activity?.finish()
                 }
                 else -> {
                 }
