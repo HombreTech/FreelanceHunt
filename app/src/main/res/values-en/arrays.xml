@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ending_applications">
+        <item>application</item>
+        <item>applications</item>
+        <item>applications</item>
+    </string-array>
+
+    <string-array name="ending_messages">
+        <item>message</item>
+        <item>messages</item>
+        <item>messages</item>
+    </string-array>
+
+    <string-array name="ending_days">
+        <item>day</item>
+        <item>days</item>
+        <item>days</item>
+    </string-array>
+
+    <string-array name="ending_weeks">
+        <item>week</item>
+        <item>weeks</item>
+        <item>weeks</item>
+    </string-array>
+
+    <string-array name="ending_month">
+        <item>month</item>
+        <item>month</item>
+        <item>months</item>
+    </string-array>
+
+    <string-array name="ending_years">
+        <item>year</item>
+        <item>years</item>
+        <item>years</item>
+    </string-array>
+
+    <string-array name="ending_hours">
+        <item>hour</item>
+        <item>hours</item>
+        <item>hours</item>
+    </string-array>
+
+    <string-array name="ending_minutes">
+        <item>minute</item>
+        <item>minutes</item>
+        <item>minutes</item>
+    </string-array>
+
+    <string-array name="pref_notifications_period_entries">
+        <item>Every 15 minutes</item>
+        <item>Every half hour</item>
+        <item>Once an hour</item>
+        <item>Every two hours</item>
+        <item>Twice a day</item>
+        <item>Once a day</item>
+    </string-array>
+
+    <string-array name="pref_notifications_interval_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+
+    <string-array name="cost_entries">
+        <item>₴ (UAH)</item>
+        <item>₽ (RUR)</item>
+    </string-array>
+
+    <string-array name="safe_entries">
+        <item>Customer pays commission</item>
+        <item>I pay the commission</item>
+        <item>Commission is divided in half</item>
+        <item>Direct pay</item>
+    </string-array>
+
+</resources>
