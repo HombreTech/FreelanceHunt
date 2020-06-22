@@ -27,6 +27,9 @@
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
+        <item name="dialogTheme">@style/DialogThemeLight</item>
+        <item name="alertDialogTheme">@style/DialogThemeLight</item>
+
     </style>
 
     <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">

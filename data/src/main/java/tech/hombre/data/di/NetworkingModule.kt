@@ -11,7 +11,6 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import tech.hombre.data.BuildConfig
-import tech.hombre.data.common.utils.getCurrentLocaleLang
 import tech.hombre.data.networking.*
 import java.util.concurrent.TimeUnit
 
@@ -34,7 +33,7 @@ val networkingModule = module {
                         "Authorization",
                         if (!apiToken.isNullOrEmpty()) "Bearer $apiToken" else ""
                     )
-                        .addHeader("Accept-Language", getCurrentLocaleLang(androidContext()))
+                        .addHeader("Accept-Language", prefs.getString("KEY_APP_LANGUAGE", "ru"))
                         .build()
                 )
             }
