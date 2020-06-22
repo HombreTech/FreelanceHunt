@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ending_applications">
+        <item>участник</item>
+        <item>участника</item>
+        <item>участников</item>
+    </string-array>
+
+    <string-array name="ending_messages">
+        <item>сообщение</item>
+        <item>сообщения</item>
+        <item>сообщений</item>
+    </string-array>
+
+    <string-array name="ending_days">
+        <item>день</item>
+        <item>дня</item>
+        <item>дней</item>
+    </string-array>
+
+    <string-array name="ending_weeks">
+        <item>неделя</item>
+        <item>недели</item>
+        <item>недель</item>
+    </string-array>
+
+    <string-array name="ending_month">
+        <item>месяц</item>
+        <item>месяца</item>
+        <item>месяцев</item>
+    </string-array>
+
+    <string-array name="ending_years">
+        <item>год</item>
+        <item>года</item>
+        <item>лет</item>
+    </string-array>
+
+    <string-array name="ending_hours">
+        <item>час</item>
+        <item>часа</item>
+        <item>часов</item>
+    </string-array>
+
+    <string-array name="ending_minutes">
+        <item>минута</item>
+        <item>минуты</item>
+        <item>минут</item>
+    </string-array>
+
+    <string-array name="pref_notifications_period_entries">
+        <item>Каждые 15 минут</item>
+        <item>Каждые полчаса</item>
+        <item>Раз в час</item>
+        <item>Каждые два часа</item>
+        <item>Два раза в день</item>
+        <item>Один раз в день</item>
+    </string-array>
+
+    <string-array name="pref_notifications_interval_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+
+    <string-array name="cost_entries">
+        <item>₴ (гривна)</item>
+        <item>₽ (рубль)</item>
+    </string-array>
+
+    <string-array name="safe_entries">
+        <item>Комиссию оплачивает заказчик</item>
+        <item>Комиссию оплачиваю я</item>
+        <item>Комиссия делится пополам</item>
+        <item>Прямой расчет</item>
+    </string-array>
+
+</resources>
