@@ -11,8 +11,10 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import tech.hombre.data.BuildConfig
+import tech.hombre.data.common.utils.getCurrentLocaleLang
 import tech.hombre.data.networking.*
 import java.util.concurrent.TimeUnit
+
 
 val networkingModule = module {
     single { GsonConverterFactory.create(GsonBuilder().setLenient().create()) as Converter.Factory }
@@ -31,7 +33,9 @@ val networkingModule = module {
                     it.request().newBuilder().addHeader(
                         "Authorization",
                         if (!apiToken.isNullOrEmpty()) "Bearer $apiToken" else ""
-                    ).build()
+                    )
+                        .addHeader("Accept-Language", getCurrentLocaleLang(androidContext()))
+                        .build()
                 )
             }
                 .callTimeout(10, TimeUnit.SECONDS)

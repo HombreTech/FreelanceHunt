@@ -1,0 +1,87 @@
+package tech.hombre.freelancehunt.framework.billing
+
+import android.app.Activity
+import android.app.Application
+import com.android.billingclient.api.*
+import com.android.billingclient.api.Purchase.PurchasesResult
+import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.IS_PREMIUM
+import tech.hombre.freelancehunt.common.SKU_PREMIUM
+import tech.hombre.freelancehunt.common.extensions.toast
+
+
+class BillingClientModule(appContext: Application) {
+
+    private val skuList = arrayListOf<String>(SKU_PREMIUM)
+
+    private val skuDetailsList = arrayListOf<SkuDetails>()
+
+    private var purchasesList: List<Purchase?>? = listOf<Purchase>()
+
+    private val purchaseUpdateListener =
+        PurchasesUpdatedListener { billingResult, purchases ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+                purchasesList = purchases
+                setPremiumActions()
+            }
+        }
+
+    private fun setPremiumActions() {
+        IS_PREMIUM = purchasesList?.any { it?.sku == SKU_PREMIUM } ?: false
+    }
+
+    private var billingClient = BillingClient.newBuilder(appContext)
+        .setListener(purchaseUpdateListener)
+        .enablePendingPurchases()
+        .build()
+
+    fun init() {
+        billingClient.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    getSku()
+                    purchasesList = getPurchases()
+                    setPremiumActions()
+                }
+            }
+
+            override fun onBillingServiceDisconnected() {
+            }
+        })
+    }
+
+    fun getSku() {
+        val params = SkuDetailsParams.newBuilder()
+        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
+        billingClient.querySkuDetailsAsync(
+            params.build()
+        ) { responseCode, skuDetails ->
+            if (responseCode.responseCode == 0) {
+                skuDetails?.forEach {
+                    skuDetailsList.add(it)
+                }
+            }
+        }
+    }
+
+    private fun getPurchases(): List<Purchase?>? {
+        val purchasesResult: PurchasesResult =
+            billingClient.queryPurchases(BillingClient.SkuType.INAPP)
+        return purchasesResult.purchasesList
+    }
+
+    fun launchBilling(activity: Activity, sku: String) {
+        try {
+            if (!billingClient.isReady) {
+                toast(activity.getString(R.string.billing_not_ready))
+                return
+            }
+            val flowParams = BillingFlowParams.newBuilder()
+                .setSkuDetails(skuDetailsList.first { it.sku == sku })
+                .build()
+            billingClient.launchBillingFlow(activity, flowParams)
+        } catch (e: Exception) {
+            toast(e.message ?: "Launch billing error")
+        }
+    }
+}

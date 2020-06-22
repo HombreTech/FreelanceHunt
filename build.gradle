@@ -11,6 +11,7 @@ buildscript {
         architectureComponents = ARHITECTURECOMPONENTS_VERSION
         workVersion = WORK_VERSION
         preferencesVersion = PREFERENCES_VERSION
+        billingVersion = BILLING_VERSION
     }
     repositories {
         google()

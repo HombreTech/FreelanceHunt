@@ -75,6 +75,7 @@ class MainActivity : BaseActivity() {
             CoroutineScope(Dispatchers.Default).launch {
                 setupTasks()
             }
+        billingClient.init()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

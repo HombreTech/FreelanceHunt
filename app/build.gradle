@@ -114,4 +114,6 @@ dependencies {
 
     implementation "androidx.preference:preference:$preferencesVersion"
 
+    implementation "com.android.billingclient:billing-ktx:$billingVersion"
+
 }
