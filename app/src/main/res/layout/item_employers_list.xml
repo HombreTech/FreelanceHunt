@@ -9,7 +9,7 @@
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="?card_background"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
@@ -41,7 +41,6 @@
                 app:layout_constraintTop_toTopOf="@id/serviceOn" />
 
             <TextView
-                android:elevation="8dp"
                 android:id="@+id/rating"
                 style="@style/TextStyle.Rating"
                 android:layout_width="wrap_content"
@@ -49,6 +48,7 @@
                 android:background="@drawable/back_premium"
                 android:drawableStart="@drawable/star"
                 android:drawablePadding="@dimen/padding_small"
+                android:elevation="8dp"
                 android:ellipsize="end"
                 android:textColor="?textColorPrimary"
                 tools:text="373" />
@@ -72,9 +72,9 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/thumb_down"
                 android:drawablePadding="@dimen/padding_small"
-                android:paddingEnd="@dimen/padding_small"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:paddingEnd="@dimen/padding_small"
                 android:textColor="?textColorSecondary"
                 tools:text="0" />
 
@@ -135,6 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:textColor="?textColorSecondary"
                 tools:text="Илья Кохан" />
 
             <androidx.constraintlayout.widget.Barrier
@@ -152,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:layout_marginBottom="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/flow2"
                 app:layout_constraintTop_toBottomOf="@id/barrier2"
@@ -173,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
                 android:layout_marginBottom="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="@id/votedown"
                 app:layout_constraintStart_toEndOf="@id/locationIcon"
                 app:layout_constraintTop_toBottomOf="@id/comment"

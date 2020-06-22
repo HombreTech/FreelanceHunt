@@ -140,8 +140,7 @@
         android:textColor="?textColorPrimary"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/_flow"
-        app:layout_constraintTop_toBottomOf="@id/_flow"
-        />
+        app:layout_constraintTop_toBottomOf="@id/_flow" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/_verified"

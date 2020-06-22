@@ -145,5 +145,10 @@
     <string name="bids">Bids</string>
     <string name="about_contest">About</string>
     <string name="comments">Comments</string>
-
+    <string name="pref_theme_default" translatable="false">light</string>
+    <string name="pref_theme">Theme</string>
+    <string name="telegram" translatable="false">Telegram</string>
+    <string name="web" translatable="false">Web</string>
+    <string name="email_" translatable="false">Email</string>
+    <string name="github" translatable="false">Github</string>
 </resources>

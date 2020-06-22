@@ -8,7 +8,7 @@
         <corners
             android:bottomRightRadius="30dp"
             android:topRightRadius="30dp" />
-        <solid android:color="@color/menu_item" />
+        <solid android:color="?menuItemColor" />
         <padding android:bottom="6dp" />
     </shape>
 </inset>

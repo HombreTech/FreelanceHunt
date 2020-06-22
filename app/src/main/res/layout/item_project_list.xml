@@ -9,7 +9,7 @@
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="?card_background"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
@@ -31,6 +31,7 @@
                 android:layout_marginStart="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:ellipsize="end"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/flow"
@@ -80,8 +81,7 @@
                 android:drawableStart="@drawable/safe"
                 android:drawablePadding="@dimen/padding_small"
                 android:text="@string/safe"
-                android:textColor="?textColorPrimary"
-                />
+                android:textColor="?textColorPrimary" />
 
             <TextView
                 android:id="@+id/isremote"
@@ -104,6 +104,7 @@
                 android:layout_marginTop="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:layout_marginBottom="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/name"
                 app:layout_constraintTop_toBottomOf="@id/name"
@@ -126,6 +127,7 @@
                 android:layout_marginStart="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:ellipsize="end"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/avatar"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/avatar"
@@ -141,6 +143,7 @@
                 android:drawableStart="@drawable/bid"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -149,7 +152,6 @@
 
             <TextView
                 android:id="@+id/budget"
-                app:layout_constraintEnd_toStartOf="@id/bidCount"
                 style="@style/TextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -157,8 +159,10 @@
                 android:drawableStart="@drawable/purse"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/login"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/bidCount"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintTop_toTopOf="@id/login"
                 tools:text="8 500 ₴" />

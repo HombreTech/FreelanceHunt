@@ -5,27 +5,66 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@drawable/app_background</item>
+        <item name="android:windowBackground">@color/lightWindowBackground</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="statusBarBackground">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
 
-        <item name="iconColor">@color/colorPrimaryDark</item>
-        <item name="textColorPrimary">#FFFFFF</item>
-        <item name="textColorSecondary">#676767</item>
+        <item name="iconColor">#007363</item>
+        <item name="drawerHeaderColor">@color/colorPrimary</item>
+
+        <item name="textColorPrimary">@color/textColorPrimary</item>
+        <item name="textColorSecondary">@color/textColorSecondary</item>
         <item name="menuItemTextColor">#2E2E2E</item>
+        <item name="card_background">#FFFFFFFF</item>
 
         <item name="popupTheme">@style/popupTheme</item>
+        <item name="menuItemColor">@color/menu_item</item>
+        <item name="menuIconUnactive">@color/menu_icon_unactive</item>
+        <item name="menuIconActive">@color/menu_icon_active</item>
+        <item name="bottomNavColor">@color/bottomNavColor</item>
+        <item name="placeholder">@color/placeholder</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
     </style>
 
-    <style name="AppThemeDark" parent="Theme.MaterialComponents">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@drawable/app_background</item>
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
 
-        <item name="iconColor">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#2D3035</item>
+        <item name="colorPrimaryDark">#26282C</item>
+        <item name="colorAccent">#00574B</item>
+
+        <item name="android:windowBackground">@color/darkWindowBackground</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="statusBarBackground">?colorPrimary</item>
+        <item name="android:navigationBarColor">?colorPrimaryDark</item>
+
+        <item name="iconColor">#D5D5D5</item>
+        <item name="drawerHeaderColor">#00574B</item>
+
+        <item name="textColorPrimary">@color/textColorPrimaryDark</item>
+        <item name="textColorSecondary">@color/textColorSecondaryDark</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimaryDark</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryDark</item>
+
+        <item name="menuItemTextColor">#eee</item>
+        <item name="card_background">#2D3035</item>
+
+        <item name="popupTheme">@style/popupThemeDark</item>
+        <item name="menuItemColor">@color/menu_item_dark</item>
+        <item name="menuIconUnactive">@color/menu_icon_unactive_dark</item>
+        <item name="menuIconActive">@color/menu_icon_active_dark</item>
+        <item name="bottomNavColor">@color/bottomNavColorDark</item>
+
+        <item name="placeholder">@color/placeholder_dark</item>
+
+        <item name="dialogTheme">@style/DialogThemeDark</item>
+        <item name="alertDialogTheme">@style/DialogThemeDark</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogDarkTheme</item>
+
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -35,11 +74,10 @@
         <item name="android:navigationBarColor">?colorPrimary</item>
     </style>
 
-
     <style name="WelcomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
-        <item name="android:windowBackground">@drawable/app_background</item>
+        <item name="android:windowBackground">@color/lightWindowBackground</item>
         <item name="colorControlNormal">?colorAccent</item>
     </style>
 
@@ -50,8 +88,5 @@
         <item name="android:homeAsUpIndicator">@drawable/back_arrow</item>
     </style>
 
-    <style name="popupTheme" parent="Theme.AppCompat.Light">
-        <item name="android:textColor">?menuItemTextColor</item>
-    </style>
 
 </resources>

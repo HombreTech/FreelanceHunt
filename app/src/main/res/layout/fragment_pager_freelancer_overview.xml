@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <androidx.core.widget.NestedScrollView
-        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_middle"
-                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardBackgroundColor="?card_background"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="false">
@@ -36,12 +36,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_middle"
                         android:text="@string/verification_data"
+                        android:textColor="?iconColor"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0.9dp"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="?iconColor"
                         app:layout_constraintBottom_toBottomOf="@id/verificationData"
                         app:layout_constraintEnd_toEndOf="@+id/verificationData"
                         app:layout_constraintStart_toStartOf="@+id/verificationData" />
@@ -217,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_middle"
-                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardBackgroundColor="?card_background"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="false">
@@ -234,13 +235,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_middle"
                         android:text="@string/summary"
+                        android:textColor="?iconColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0.9dp"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="?iconColor"
                         app:layout_constraintBottom_toBottomOf="@id/summaryTitle"
                         app:layout_constraintEnd_toEndOf="@+id/summaryTitle"
                         app:layout_constraintStart_toStartOf="@+id/summaryTitle" />
@@ -252,6 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_middle"
                         android:padding="@dimen/padding_middle"
+                        android:textColor="?textColorSecondary"
                         app:layout_constraintTop_toBottomOf="@id/summaryTitle" />
 
 
@@ -263,7 +266,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_middle"
-                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardBackgroundColor="?card_background"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="false">
@@ -280,13 +283,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_middle"
                         android:text="@string/skills"
+                        android:textColor="?iconColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0.9dp"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="?iconColor"
                         app:layout_constraintBottom_toBottomOf="@id/skillsTitle"
                         app:layout_constraintEnd_toEndOf="@+id/skillsTitle"
                         app:layout_constraintStart_toStartOf="@+id/skillsTitle" />
@@ -298,9 +302,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_middle"
                         android:padding="@dimen/padding_middle"
+                        app:layout_constraintTop_toBottomOf="@id/skillsTitle"
                         tools:itemCount="5"
-                        tools:listitem="@layout/item_skill_list"
-                        app:layout_constraintTop_toBottomOf="@id/skillsTitle" />
+                        tools:listitem="@layout/item_skill_list" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

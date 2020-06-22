@@ -87,3 +87,8 @@ enum class BidStatus(val status: String?) {
     REJECTED("rejected"),
 }
 
+enum class ThemeType(val theme: String) {
+    LIGHT("light"),
+    DARK("dark")
+}
+

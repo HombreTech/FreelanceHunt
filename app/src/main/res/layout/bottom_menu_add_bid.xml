@@ -17,7 +17,7 @@
         android:drawablePadding="@dimen/padding_middle"
         android:text="@string/new_bid"
         android:textAllCaps="true"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="?textColorSecondary"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
                 android:gravity="end"
                 android:paddingEnd="@dimen/padding_middle"
                 android:text="@string/cost"
-                android:textColor="?android:textColorPrimary" />
+                android:textColor="?textColorSecondary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -63,11 +63,14 @@
                     android:layout_weight="1"
                     android:hint="100"
                     android:inputType="number"
-                    android:textAppearance="@style/TextStyle.Title.Sub" />
+                    android:textAppearance="@style/TextStyle.Title.Sub"
+                    android:textColor="?textColorSecondary"
+                    android:textColorHint="?textColorSecondary" />
 
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/costType"
+                    style="@style/spinnerStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/spinner"
@@ -90,12 +93,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="end"
-                android:text="@string/safe"
                 android:paddingEnd="@dimen/padding_middle"
-                android:textColor="?android:textColorPrimary" />
+                android:text="@string/safe"
+                android:textColor="?textColorSecondary" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/safeType"
+                style="@style/spinnerStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -118,9 +122,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="@string/days_bid"
                 android:paddingEnd="@dimen/padding_middle"
-                android:textColor="?android:textColorPrimary" />
+                android:text="@string/days_bid"
+                android:textColor="?textColorSecondary" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/days"
@@ -129,7 +133,9 @@
                 android:layout_weight="1"
                 android:hint="1"
                 android:inputType="number"
-                android:textAppearance="@style/TextStyle.Title.Sub" />
+                android:textAppearance="@style/TextStyle.Title.Sub"
+                android:textColor="?textColorSecondary"
+                android:textColorHint="?textColorSecondary" />
 
         </TableRow>
     </TableLayout>
@@ -140,7 +146,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comment"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/addBidTitle"
         app:layout_constraintStart_toStartOf="@id/addBidTitle"
         app:layout_constraintTop_toBottomOf="@id/params" />
@@ -153,6 +159,8 @@
         android:lines="3"
         android:paddingTop="0dp"
         android:textAppearance="@style/TextStyle.Chat.Text"
+        android:textColor="?textColorSecondary"
+        android:textColorHint="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/addBidTitle"
         app:layout_constraintStart_toStartOf="@id/addBidTitle"
         app:layout_constraintTop_toBottomOf="@id/commentTitle" />
@@ -166,6 +174,7 @@
         android:enabled="false"
         android:text="@string/hide_bid"
         android:textAppearance="@style/TextStyle.Title.Sub"
+        android:textColor="?textColorSecondary"
         app:buttonTint="?colorPrimary"
         app:layout_constraintStart_toStartOf="@id/commentTitle"
         app:layout_constraintTop_toBottomOf="@id/comment" />
@@ -177,8 +186,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add"
+        android:textColor="?textColorSecondary"
         app:icon="@drawable/bid"
         app:iconPadding="@dimen/padding_middle"
+        app:iconTint="?iconColor"
         app:layout_constraintEnd_toEndOf="@id/addBidTitle"
         app:layout_constraintTop_toBottomOf="@id/hiddenBid" />
 

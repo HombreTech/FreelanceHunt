@@ -31,7 +31,6 @@ import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.billing.BillingClientModule
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
-import tech.hombre.freelancehunt.ui.login.view.LoginActivity
 import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
 import tech.hombre.freelancehunt.ui.main.view.fragments.MainFragment
 
@@ -103,6 +102,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppHelper.updateTheme(this, appPreferences.getAppTheme())
         AppHelper.updateAppLanguage(this, appPreferences.getAppLanguage())
         super.onCreate(savedInstanceState)
         if (!isPublic && !validateAuth()) {

@@ -18,7 +18,7 @@
         android:gravity="center_vertical"
         android:text="@string/create_thread"
         android:textAllCaps="true"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="?textColorSecondary"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +33,8 @@
         android:imeOptions="actionNext"
         android:inputType="text"
         android:textAppearance="@style/TextStyle.Chat.Text"
+        android:textColor="?textColorSecondary"
+        android:textColorHint="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/createThreadTitle"
         app:layout_constraintStart_toStartOf="@id/createThreadTitle"
         app:layout_constraintTop_toBottomOf="@id/createThreadTitle" />
@@ -45,6 +47,8 @@
         android:lines="4"
         android:paddingTop="0dp"
         android:textAppearance="@style/TextStyle.Chat.Text"
+        android:textColor="?textColorSecondary"
+        android:textColorHint="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/createThreadTitle"
         app:layout_constraintStart_toStartOf="@id/createThreadTitle"
         app:layout_constraintTop_toBottomOf="@id/subject" />
@@ -56,8 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send"
+        android:textColor="?textColorSecondary"
         app:icon="@drawable/send"
         app:iconPadding="@dimen/padding_middle"
+        app:iconTint="?iconColor"
         app:layout_constraintEnd_toEndOf="@id/createThreadTitle"
         app:layout_constraintTop_toBottomOf="@id/message" />
 

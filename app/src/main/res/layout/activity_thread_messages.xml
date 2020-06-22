@@ -30,7 +30,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_thread_message_my" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -38,7 +39,7 @@
                 android:id="@+id/editorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="?colorPrimary"
                 android:elevation="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -71,7 +72,7 @@
                     android:padding="@dimen/padding_middle"
                     android:scrollbars="vertical"
                     android:textAppearance="@style/TextStyle.Editor"
-                    android:textColor="@color/white"
+                    android:textColor="?textColorSecondary"
                     android:textColorHint="@color/grey"
                     tools:ignore="ScrollViewSize" />
 

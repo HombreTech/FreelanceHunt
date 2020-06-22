@@ -12,7 +12,6 @@ Another one Freelancehunt.com client app.
     - About
     - Bids
     - Comments
-  - Cached
 - **Contests**
   - List of employers contests ```Cached```
   -  My contests ```for employers```
@@ -37,9 +36,9 @@ Another one Freelancehunt.com client app.
 - **Bids**
   - My bids list ```for freelancers```
   - Add / Revoke / Reject / Choose winner bid
-- **Notifications**
-  - New feed events
-  - New messages
+- **Customization**
+  - Feed/Messages notifications
+  - Dark/Light theme
 
 ## Third party libraries
 

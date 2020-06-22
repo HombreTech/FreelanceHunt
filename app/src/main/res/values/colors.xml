@@ -12,12 +12,14 @@
     <color name="transparent">#00000000</color>
     <color name="htransparent">#F5FFFFFF</color>
     <color name="htsransparent">#09000000</color>
-
+    <color name="lightWindowBackground">#FAFAFA</color>
+    <color name="darkWindowBackground">#22252A</color>
     <color name="grade">#999</color>
     <color name="ratingBarBackground">#4E999999</color>
     <color name="message_my">#008577</color>
 
-    <color name="placeholder_dark">#CACACA</color>
+    <color name="placeholder">#C3CACACA</color>
+    <color name="placeholder_dark">#A89E9E9E</color>
 
     <color name="toolbar_icon">#FBFBFB</color>
     <color name="toolbar_subicon">#B9FFFFFF</color>
@@ -57,8 +59,12 @@
 
 
     <color name="menu_item">#67008577</color>
+    <color name="menu_item_dark">#67676767</color>
     <color name="menu_icon_unactive">#555555</color>
     <color name="menu_icon_active">#00574B</color>
+
+    <color name="menu_icon_unactive_dark">#A8B1B1B1</color>
+    <color name="menu_icon_active_dark">#B9FFFFFF</color>
 
     <color name="thumb_up">#43A047</color>
     <color name="thumb_down">#E53935</color>
@@ -67,6 +73,15 @@
     <color name="seekbar_accent_disabled">#9255725D</color>
     <color name="seekbar_accent_negative">#d9534f</color>
     <color name="seekbar_accent_negative2">#AF3733</color>
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColorSecondary">#616161</color>
+
+    <color name="textColorPrimaryDark">#eee</color>
+    <color name="textColorSecondaryDark">#9E9E9E</color>
+
+    <color name="bottomNavColor">#008577</color>
+    <color name="bottomNavColorDark">#4C4C4C</color>
 
 
 </resources>

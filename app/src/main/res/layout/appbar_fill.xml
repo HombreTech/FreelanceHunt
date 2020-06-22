@@ -22,11 +22,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            tools:subtitle="ilyakokhan"
-            app:titleTextAppearance="@style/TextStyle.Appbar.Title"
-            app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
             app:contentInsetStartWithNavigation="0dp"
+            app:layout_collapseMode="pin"
+            app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
+            app:titleTextAppearance="@style/TextStyle.Appbar.Title"
+            tools:subtitle="ilyakokhan"
             tools:title="Просмотр профиля">
 
             <androidx.core.widget.ContentLoadingProgressBar

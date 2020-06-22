@@ -5,7 +5,7 @@
     android:id="@+id/bidsContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cardview_light_background"
+    android:background="?card_background"
     android:orientation="vertical">
 
     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -20,21 +20,24 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="active" />
+            android:text="active"
+            android:textColor="?textColorSecondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bidsRevoked"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="revoked" />
+            android:text="revoked"
+            android:textColor="?textColorSecondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bidsRejected"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="rejected" />
+            android:text="rejected"
+            android:textColor="?textColorSecondary" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

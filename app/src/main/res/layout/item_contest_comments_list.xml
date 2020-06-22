@@ -9,7 +9,7 @@
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="?card_background"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
@@ -25,14 +25,14 @@
             android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:visibility="visible"
             android:id="@+id/clickableView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:paddingBottom="@dimen/padding_middle">
+            android:paddingBottom="@dimen/padding_middle"
+            android:visibility="visible">
 
             <tech.hombre.freelancehunt.common.widgets.CustomImageView
                 android:id="@+id/avatar"
@@ -49,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/avatar"
                 app:layout_constraintStart_toEndOf="@id/avatar"
                 app:layout_constraintTop_toTopOf="@id/avatar"
@@ -63,6 +64,7 @@
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/avatar"
                 app:layout_constraintEnd_toEndOf="@id/comment"
                 app:layout_constraintTop_toTopOf="@id/avatar"
@@ -76,6 +78,7 @@
                 android:layout_marginTop="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:autoLink="all"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/avatar"
                 app:layout_constraintTop_toBottomOf="@id/avatar"
@@ -84,18 +87,19 @@
             <TextView
                 android:id="@+id/like"
                 style="@style/TextStyle.Type.Bold"
-                android:layout_marginEnd="@dimen/padding_middle"
-                android:layout_marginTop="@dimen/padding_small"
-                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginEnd="@dimen/padding_middle"
                 android:drawableStart="@drawable/type_like"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:textColor="?textColorSecondary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/comment"
-                android:visibility="gone"
-                tools:visibility="visible"
-                tools:text="1" />
+                tools:text="1"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_middle"
-                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardBackgroundColor="?card_background"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="false">
@@ -39,6 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_middle"
                         android:text="@string/verification_data"
+                        android:textColor="?iconColor"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <View
@@ -46,7 +47,7 @@
                         android:layout_height="0.9dp"
                         android:layout_marginStart="@dimen/padding_small"
                         android:layout_marginEnd="@dimen/padding_small"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="?iconColor"
                         app:layout_constraintBottom_toBottomOf="@id/verificationData"
                         app:layout_constraintEnd_toEndOf="@+id/verificationData"
                         app:layout_constraintStart_toStartOf="@+id/verificationData" />
@@ -222,7 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_middle"
-                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardBackgroundColor="?card_background"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="false">
@@ -240,6 +241,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_middle"
                         android:text="@string/summary"
+                        android:textColor="?iconColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -248,7 +250,7 @@
                         android:layout_height="0.9dp"
                         android:layout_marginStart="@dimen/padding_small"
                         android:layout_marginEnd="@dimen/padding_small"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="?iconColor"
                         app:layout_constraintBottom_toBottomOf="@id/summaryTitle"
                         app:layout_constraintEnd_toEndOf="@+id/summaryTitle"
                         app:layout_constraintStart_toStartOf="@+id/summaryTitle" />
@@ -261,6 +263,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_middle"
                         android:padding="@dimen/padding_middle"
+                        android:textColor="?textColorSecondary"
                         app:layout_constraintTop_toBottomOf="@id/summaryTitle"
                         tools:text="Text" />
 

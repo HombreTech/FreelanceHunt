@@ -71,6 +71,8 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     fun getAppLanguage(): String = sharedPreferences.getString(KEY_APP_LANGUAGE, "ru")
 
+    fun getAppTheme(): String = sharedPreferences.getString(KEY_APP_THEME, "light")
+
     companion object {
         const val KEY_API_TOKEN = "KEY_API_TOKEN"
         const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
@@ -82,6 +84,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         const val KEY_WORKER_MESSAGES = "KEY_WORKER_MESSAGES"
         const val KEY_WORKER_INTERVAL = "KEY_WORKER_INTERVAL"
         const val KEY_APP_LANGUAGE = "KEY_APP_LANGUAGE"
+        const val KEY_APP_THEME = "KEY_APP_THEME"
         const val KEY_WORKER_UNMETERED = "KEY_WORKER_UNMETERED"
     }
 

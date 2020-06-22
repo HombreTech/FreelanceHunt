@@ -15,6 +15,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import tech.hombre.data.local.LocalProperties
 import tech.hombre.data.local.LocalProperties.Companion.KEY_APP_LANGUAGE
+import tech.hombre.data.local.LocalProperties.Companion.KEY_APP_THEME
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_FEED
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_INTERVAL
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_MESSAGES
@@ -22,6 +23,7 @@ import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_UNMETERED
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.IS_PREMIUM
 import tech.hombre.freelancehunt.common.SKU_PREMIUM
+import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.billing.BillingClientModule
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
@@ -78,7 +80,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                         if (IS_PREMIUM) {
                             recreateTasks(true, true)
                         } else {
-                            resetWorkerInterval()
+                            resetWorkerInterval(true)
                             premiumDialog()
                         }
                     }
@@ -87,18 +89,25 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                     recreateTasks(true, true)
                 }
                 KEY_APP_LANGUAGE -> {
-                    val intent = Intent(requireContext(), LoginActivity::class.java)
-                    with(intent) {
-                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    }
-                    startActivity(intent)
-                    activity?.finish()
+                    recreateActivity()
+                }
+                KEY_APP_THEME -> {
+                    recreateActivity()
                 }
                 else -> {
                 }
             }
 
         }
+    }
+
+    private fun recreateActivity() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        with(intent) {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+        startActivity(intent)
+        activity?.finish()
     }
 
     private fun recreateTasks(feed: Boolean, messages: Boolean) {
@@ -129,7 +138,12 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
     }
 
     private fun premiumDialog() {
-        with(AlertDialog.Builder(requireContext())) {
+        with(
+            AlertDialog.Builder(
+                requireContext(),
+                AppHelper.getDialogTheme(appPreferences.getAppTheme())
+            )
+        ) {
             setTitle(getString(R.string.freelancehunt_premium))
             setMessage(getString(R.string.premium_caption))
             setPositiveButton(android.R.string.yes) { dialog: DialogInterface, _: Int ->
@@ -141,11 +155,15 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
         }
     }
 
-    private fun resetWorkerInterval() {
+    private fun resetWorkerInterval(reset: Boolean) {
+        if (reset) preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(
+            this
+        )
         appPreferences.resetWorkerInterval()
         val intervalList =
             preferenceManager.findPreference<Preference>(KEY_WORKER_INTERVAL) as ListPreference?
         intervalList?.value = appPreferences.getWorkerInterval().toString()
+        if (reset) preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     companion object {

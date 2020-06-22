@@ -34,6 +34,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
                     app:contentInsetStartWithNavigation="0dp"
                     app:layout_collapseMode="pin"
                     app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
@@ -67,7 +68,7 @@
                             android:id="@+id/reviewView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/cardview_light_background"
+                            app:cardBackgroundColor="?card_background"
                             app:cardCornerRadius="@dimen/card_radius"
                             app:cardElevation="0dp"
                             app:cardUseCompatPadding="false"
@@ -192,7 +193,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?card_background"
+            app:tabIconTint="@color/tab_icon_background"
+            app:tabIndicatorColor="?iconColor"
+            app:tabSelectedTextColor="?menuIconActive"
+            app:tabTextColor="?menuIconUnactive">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

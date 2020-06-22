@@ -34,6 +34,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
                     app:contentInsetStartWithNavigation="0dp"
                     app:layout_collapseMode="pin"
                     app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
@@ -66,21 +67,21 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/cardview_light_background"
+                            app:cardBackgroundColor="?card_background"
                             app:cardCornerRadius="@dimen/card_radius"
                             app:cardElevation="0dp"
                             app:cardUseCompatPadding="false">
 
-                            <include layout="@layout/placeholder_freelancer"/>
+                            <include layout="@layout/placeholder_freelancer" />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/content"
-                                android:visibility="invisible"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/padding_middle"
                                 android:paddingStart="@dimen/padding_middle"
-                                android:paddingEnd="@dimen/padding_middle">
+                                android:paddingEnd="@dimen/padding_middle"
+                                android:visibility="invisible">
 
                                 <tech.hombre.freelancehunt.common.widgets.CustomImageView
                                     android:id="@+id/avatar"
@@ -99,6 +100,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/padding_middle"
                                     android:text="@string/message"
+                                    android:textColor="?textColorSecondary"
                                     android:visibility="gone"
                                     app:layout_constraintEnd_toEndOf="@id/avatar"
                                     app:layout_constraintStart_toStartOf="@id/avatar"
@@ -130,6 +132,7 @@
                                     android:layout_marginStart="@dimen/padding_middle"
                                     android:layout_marginTop="@dimen/padding_standart"
                                     android:layout_marginEnd="@dimen/padding_middle"
+                                    android:textColor="?textColorSecondary"
                                     tools:text="Илья К." />
 
                                 <TextView
@@ -138,6 +141,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="0dp"
+                                    android:textColor="?textColorSecondary"
                                     app:layout_constraintEnd_toEndOf="@id/flowlogin"
                                     app:layout_constraintStart_toStartOf="@id/name"
                                     app:layout_constraintTop_toBottomOf="@id/flowlogin"
@@ -251,6 +255,7 @@
                                     android:layout_marginStart="@dimen/padding_small"
                                     android:layout_marginTop="@dimen/padding_middle"
                                     android:layout_marginEnd="@dimen/padding_middle"
+                                    android:textColor="?textColorSecondary"
                                     app:layout_constraintEnd_toStartOf="@id/avatar"
                                     app:layout_constraintStart_toEndOf="@id/locationIcon"
                                     app:layout_constraintTop_toBottomOf="@id/status"
@@ -266,6 +271,7 @@
                                     android:drawableStart="@drawable/birthday"
                                     android:drawablePadding="@dimen/padding_small"
                                     android:gravity="center_vertical"
+                                    android:textColor="?textColorSecondary"
                                     app:layout_constraintEnd_toStartOf="@id/avatar"
                                     app:layout_constraintStart_toStartOf="@id/rating"
                                     app:layout_constraintTop_toBottomOf="@id/location"
@@ -281,6 +287,7 @@
                                     android:drawableStart="@drawable/date"
                                     android:drawablePadding="@dimen/padding_small"
                                     android:gravity="center_vertical"
+                                    android:textColor="?textColorSecondary"
                                     app:layout_constraintEnd_toStartOf="@id/avatar"
                                     app:layout_constraintStart_toStartOf="@id/rating"
                                     app:layout_constraintTop_toBottomOf="@id/birthdate"
@@ -301,7 +308,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?card_background"
+            app:tabIconTint="@color/tab_icon_background"
+            app:tabIndicatorColor="?iconColor"
+            app:tabSelectedTextColor="?menuIconActive"
+            app:tabTextColor="?menuIconUnactive">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

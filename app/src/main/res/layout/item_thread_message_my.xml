@@ -36,14 +36,14 @@
 
         <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
             android:id="@+id/text"
-            android:textIsSelectable="true"
             style="@style/TextStyle.Chat.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:textColor="?textColorPrimary"
-            android:textSize="17sp"
             android:textColorLink="@color/white"
+            android:textIsSelectable="true"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"

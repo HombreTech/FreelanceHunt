@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="false"
     android:theme="@style/ActionBarTheme">
 
@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:titleTextAppearance="@style/TextStyle.Appbar.Title"
-        app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
         app:contentInsetStartWithNavigation="0dp"
+        app:subtitleTextAppearance="@style/TextStyle.Appbar.Subtitle"
+        app:titleTextAppearance="@style/TextStyle.Appbar.Title"
         tools:title="@string/app_name">
 
         <androidx.core.widget.ContentLoadingProgressBar

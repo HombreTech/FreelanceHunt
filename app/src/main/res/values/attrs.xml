@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <attr format="color|reference" name="card_background" />
     <attr name="iconColor" format="color|reference" />
     <attr name="textColorPrimary" format="color|reference" />
     <attr name="textColorSecondary" format="color|reference" />
     <attr name="menuItemTextColor" format="color|reference" />
+    <attr name="menuItemColor" format="color|reference" />
+    <attr name="drawerHeaderColor" format="color|reference" />
+    <attr name="menuIconUnactive" format="color|reference" />
+    <attr name="menuIconActive" format="color|reference" />
+    <attr name="bottomNavColor" format="color|reference" />
+    <attr name="placeholder" format="color|reference" />
 
 </resources>

@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?selectableItemBackground"
-    android:padding="@dimen/padding_middle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:padding="@dimen/padding_middle">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
@@ -15,9 +15,9 @@
         android:layout_marginTop="@dimen/padding_middle"
         android:layout_marginBottom="@dimen/padding_middle"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/title"
@@ -26,10 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_standart"
         android:layout_marginEnd="@dimen/padding_middle"
+        android:textColor="?textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toTopOf="@id/icon"
-        app:layout_constraintBottom_toBottomOf="@id/icon"
         tools:text="Удалить" />
 
 

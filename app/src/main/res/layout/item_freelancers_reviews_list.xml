@@ -9,7 +9,7 @@
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="?card_background"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/thumb_up"
                 android:drawablePadding="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toStartOf="@id/publishedAt"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Project with pending review" />
@@ -40,6 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="@id/grades"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/projectName"
@@ -53,6 +55,7 @@
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="@id/grades"
                 app:layout_constraintTop_toTopOf="@id/projectName"
                 tools:text="Час назад" />
@@ -265,6 +268,7 @@
                 android:clickable="true"
                 android:ellipsize="end"
                 android:focusable="true"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/avatar"
                 app:layout_constraintEnd_toStartOf="@id/budget"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -280,6 +284,7 @@
                 android:drawableStart="@drawable/bid"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/avatar"
                 app:layout_constraintEnd_toEndOf="@id/grades"
                 app:layout_constraintTop_toTopOf="@id/avatar"

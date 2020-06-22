@@ -5,7 +5,7 @@
     android:id="@+id/overviewActivityContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cardview_light_background"
+    android:background="?card_background"
     android:paddingStart="@dimen/padding_middle"
     android:paddingEnd="@dimen/padding_middle"
     android:paddingBottom="@dimen/padding_standart">
@@ -15,17 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_middle"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="5"
-        tools:listitem="@layout/item_project_skill_list"
-        app:layout_constraintTop_toTopOf="parent"/>
+        tools:listitem="@layout/item_project_skill_list" />
 
     <tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
         android:id="@+id/description"
         style="@style/TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColor="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skillList"
@@ -46,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_standart"
+        android:textColor="?textColorSecondary"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
         tools:text="Илья К." />
@@ -56,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
+        android:textColor="?textColorSecondary"
         app:layout_constraintStart_toStartOf="@id/name"
         app:layout_constraintTop_toBottomOf="@id/name"
         tools:text="ilyakokhan" />
@@ -67,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_middle"
         android:text="@string/profile"
+        android:textColor="?textColorSecondary"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/avatar" />

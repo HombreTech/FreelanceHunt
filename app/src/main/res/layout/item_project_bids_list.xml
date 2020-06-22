@@ -9,7 +9,7 @@
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="?card_background"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
@@ -62,6 +62,7 @@
                 style="@style/TextStyle.Heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?textColorSecondary"
                 tools:text="Илья К." />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -92,6 +93,7 @@
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/flowlogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/flowlogin"
@@ -163,36 +165,34 @@
                 app:flow_verticalBias="0"
                 app:flow_wrapMode="chain"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/flowlogin"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flowlogin" />
 
             <TextView
                 android:id="@+id/safe"
                 style="@style/TextStyle.Type.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/back_safe"
                 android:layout_marginTop="@dimen/padding_middle"
+                android:background="@drawable/back_safe"
                 android:drawableStart="@drawable/safe"
                 android:drawablePadding="@dimen/padding_small"
-                app:layout_constraintStart_toStartOf="@id/flowlogin"
                 android:text="@string/safe"
                 android:textColor="?textColorPrimary"
-                app:layout_constraintTop_toBottomOf="@id/flowlogin"
-                />
+                app:layout_constraintStart_toStartOf="@id/flowlogin"
+                app:layout_constraintTop_toBottomOf="@id/flowlogin" />
 
             <TextView
                 android:id="@+id/status"
                 style="@style/TextStyle.Type.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_middle"
+                android:background="@drawable/back_bid_status"
                 android:drawableStart="@drawable/bid_small"
                 android:drawablePadding="@dimen/padding_small"
-                android:background="@drawable/back_bid_status"
-                android:layout_marginTop="@dimen/padding_middle"
-                tools:text="Отозвана"
                 android:textColor="?textColorPrimary"
-                />
+                tools:text="Отозвана" />
 
             <TextView
                 android:id="@+id/comment"
@@ -202,6 +202,7 @@
                 android:layout_marginTop="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:autoLink="web|email|phone"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/avatar"
                 app:layout_constraintTop_toBottomOf="@id/safe"
@@ -231,6 +232,7 @@
                 android:drawableStart="@drawable/calendar"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 tools:text="2 дня" />
 
             <TextView
@@ -241,6 +243,7 @@
                 android:drawableStart="@drawable/bid"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center"
+                android:textColor="?textColorSecondary"
                 tools:text="8300 ₴" />
 
             <TextView
@@ -253,6 +256,7 @@
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center_vertical"
                 android:text="@string/winner"
+                android:textColor="?iconColor"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/flow"
                 app:layout_constraintEnd_toEndOf="parent"

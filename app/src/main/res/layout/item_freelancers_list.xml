@@ -9,7 +9,7 @@
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="?card_background"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
@@ -81,7 +81,6 @@
                 app:layout_constraintTop_toTopOf="@id/flow2" />
 
             <TextView
-                android:elevation="8dp"
                 android:id="@+id/rating"
                 style="@style/TextStyle.Rating"
                 android:layout_width="wrap_content"
@@ -89,6 +88,7 @@
                 android:background="@drawable/back_premium"
                 android:drawableStart="@drawable/star"
                 android:drawablePadding="@dimen/padding_small"
+                android:elevation="8dp"
                 android:ellipsize="end"
                 android:textColor="?textColorPrimary"
                 tools:text="373" />
@@ -112,11 +112,11 @@
                 style="@style/TextStyle.Vote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/padding_small"
                 android:drawableStart="@drawable/thumb_down"
                 android:drawablePadding="@dimen/padding_small"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:paddingEnd="@dimen/padding_small"
                 android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rating"
@@ -154,6 +154,7 @@
                 style="@style/TextStyle.Heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?textColorSecondary"
                 tools:text="Илья Кохан" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -182,6 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/padding_middle"
                 android:layout_marginBottom="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/flow3"
                 app:layout_constraintTop_toBottomOf="@id/flow3"
@@ -203,6 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
                 android:layout_marginBottom="@dimen/padding_middle"
+                android:textColor="?textColorSecondary"
                 app:layout_constraintEnd_toEndOf="@id/skill"
                 app:layout_constraintStart_toEndOf="@id/locationIcon"
                 app:layout_constraintTop_toBottomOf="@id/skill"

@@ -6,13 +6,14 @@
 
     <TextView
         style="@style/TextStyle.Heading"
-        android:layout_marginTop="@dimen/padding_standart"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/padding_standart"
         android:gravity="center_horizontal"
-        android:text="Not implemented yet :(\nAPI requered" />
+        android:text="Not implemented yet :(\nAPI requered"
+        android:textColor="?textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
