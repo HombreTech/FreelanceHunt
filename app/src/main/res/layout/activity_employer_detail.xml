@@ -101,7 +101,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/padding_middle"
                                     android:text="@string/message"
-                                    android:textColor="?textColorSecondary"
+                                    android:textColor="?iconColor"
                                     android:visibility="gone"
                                     app:layout_constraintEnd_toEndOf="@id/avatar"
                                     app:layout_constraintStart_toStartOf="@id/avatar"
