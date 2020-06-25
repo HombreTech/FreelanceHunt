@@ -152,4 +152,7 @@
     <string name="email_" translatable="false">Email</string>
     <string name="github" translatable="false">Github</string>
     <string name="my_projects">My projects</string>
+    <string name="my_workspaces">Workspaces</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="not_confirmed">Not Confirmed</string>
 </resources>

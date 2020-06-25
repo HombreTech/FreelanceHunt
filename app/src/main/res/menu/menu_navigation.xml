@@ -35,6 +35,10 @@
             android:id="@+id/menu_contests"
             android:icon="@drawable/contests"
             android:title="@string/my_contests" />
+        <item
+            android:id="@+id/menu_workspaces"
+            android:icon="@drawable/briefcase"
+            android:title="@string/my_workspaces" />
     </group>
 
     <group

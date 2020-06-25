@@ -40,6 +40,7 @@ import tech.hombre.freelancehunt.ui.main.view.fragments.SettingFragment
 import tech.hombre.freelancehunt.ui.my.bids.view.MyBidsFragment
 import tech.hombre.freelancehunt.ui.my.contests.view.MyContestsFragment
 import tech.hombre.freelancehunt.ui.my.projects.view.MyProjectsFragment
+import tech.hombre.freelancehunt.ui.my.workspaces.view.MyWorkspacesFragment
 import tech.hombre.freelancehunt.ui.threads.view.ThreadsFragment
 import java.util.concurrent.TimeUnit
 
@@ -114,8 +115,10 @@ class MainActivity : BaseActivity() {
         drawer.addDrawerListener(drawerToggle)
         navigation.menu.findItem(R.id.menu_contests).isVisible =
             appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
-        navigation.menu.findItem(R.id.menu_bids).isVisible = appPreferences.getCurrentUserType() == UserType.FREELANCER.type
-        navigation.menu.findItem(R.id.menu_projects).isVisible = appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
+        navigation.menu.findItem(R.id.menu_bids).isVisible =
+            appPreferences.getCurrentUserType() == UserType.FREELANCER.type
+        navigation.menu.findItem(R.id.menu_projects).isVisible =
+            appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
         navigation.setNavigationItemSelectedListener {
             if (navigation.checkedItem != it) {
                 when (it.itemId) {
@@ -165,6 +168,11 @@ class MainActivity : BaseActivity() {
                         R.id.fragmentContainer,
                         MyProjectsFragment.newInstance(),
                         MyProjectsFragment.TAG
+                    )
+                    R.id.menu_workspaces -> supportFragmentManager.switch(
+                        R.id.fragmentContainer,
+                        MyWorkspacesFragment.newInstance(),
+                        MyWorkspacesFragment.TAG
                     )
                 }
                 if (it.itemId != R.id.menu_profile) {

@@ -33,6 +33,8 @@ import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCase
 import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCaseImpl
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCase
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCaseImpl
+import tech.hombre.domain.interaction.myworkspaces.GetMyWorkspacesListUseCase
+import tech.hombre.domain.interaction.myworkspaces.GetMyWorkspacesListUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCase
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.bids.*
@@ -73,4 +75,5 @@ val interactionModule = module {
     factory<SendThreadMessageUseCase> { SendThreadMessageUseCaseImpl(get()) }
     factory<CreateThreadUseCase> { CreateThreadUseCaseImpl(get()) }
     factory<GetMyProjectsListUseCase> { GetMyProjectsListUseCaseImpl(get()) }
+    factory<GetMyWorkspacesListUseCase> { GetMyWorkspacesListUseCaseImpl(get()) }
 }

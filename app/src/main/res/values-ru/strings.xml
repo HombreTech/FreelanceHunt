@@ -140,4 +140,7 @@
     <string name="about_contest">О конкурсе</string>
     <string name="pref_theme">Тема</string>
     <string name="my_projects">Мои проекты</string>
+    <string name="my_workspaces">Рабочая область</string>
+    <string name="confirmed">Утвержден</string>
+    <string name="not_confirmed">Не утвержден</string>
 </resources>
