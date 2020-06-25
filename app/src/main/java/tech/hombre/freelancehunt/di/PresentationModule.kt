@@ -18,6 +18,7 @@ import tech.hombre.freelancehunt.ui.login.presentation.LoginViewModel
 import tech.hombre.freelancehunt.ui.main.presentation.*
 import tech.hombre.freelancehunt.ui.my.bids.presentation.MyBidsViewModel
 import tech.hombre.freelancehunt.ui.my.contests.presentation.MyContestsViewModel
+import tech.hombre.freelancehunt.ui.my.projects.presentation.MyProjectsViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectBidsViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectCommentsViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
@@ -52,5 +53,6 @@ val presentationModule = module {
     viewModel { ContestPublicViewModel() }
     viewModel { ContestOverviewViewModel(get()) }
     viewModel { MyContestsViewModel(get(), get()) }
+    viewModel { MyProjectsViewModel(get(), get()) }
 
 }

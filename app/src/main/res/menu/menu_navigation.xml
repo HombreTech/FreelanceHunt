@@ -28,6 +28,10 @@
             android:icon="@drawable/bids"
             android:title="@string/my_bids" />
         <item
+            android:id="@+id/menu_projects"
+            android:icon="@drawable/project"
+            android:title="@string/my_projects" />
+        <item
             android:id="@+id/menu_contests"
             android:icon="@drawable/contests"
             android:title="@string/my_contests" />

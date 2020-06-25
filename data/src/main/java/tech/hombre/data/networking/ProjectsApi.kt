@@ -10,6 +10,9 @@ interface ProjectsApi {
     suspend fun getProjectsList(@Url url: String): Response<ProjectsListResponse>
 
     @GET
+    suspend fun getMyProjectsList(@Url url: String): Response<MyProjectsListResponse>
+
+    @GET
     suspend fun getProjectDetail(@Url url: String): Response<ProjectDetailResponse>
 
     @GET("projects/{projectId}/bids")

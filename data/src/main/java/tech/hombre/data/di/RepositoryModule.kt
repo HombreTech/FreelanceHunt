@@ -22,6 +22,7 @@ import tech.hombre.data.repository.freelancerslist.FreelancerReviewsRepositoryIm
 import tech.hombre.data.repository.freelancerslist.FreelancersRepositoryImpl
 import tech.hombre.data.repository.mycontests.MyContestsListRepositoryImpl
 import tech.hombre.data.repository.myprofile.MyProfileRepositoryImpl
+import tech.hombre.data.repository.myprojectslist.MyProjectsListRepositoryImpl
 import tech.hombre.data.repository.projectslist.*
 import tech.hombre.data.repository.threadslist.CreateThreadRepositoryImpl
 import tech.hombre.data.repository.threadslist.SendThreadMessageRepositoryImpl
@@ -58,4 +59,5 @@ val repositoryModule = module {
     factory<ProjectChooseBidRepository> { ProjectChooseBidRepositoryImpl(get()) }
     factory<SendThreadMessageRepository> { SendThreadMessageRepositoryImpl(get()) }
     factory<CreateThreadRepository> { CreateThreadRepositoryImpl(get()) }
+    factory<MyProjectsListRepository> { MyProjectsListRepositoryImpl(get()) }
 }

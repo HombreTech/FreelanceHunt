@@ -15,4 +15,7 @@ interface FeedListDao {
 
     @Query("SELECT * FROM $FEED_LIST_TABLE_NAME WHERE url = :url ORDER BY id DESC LIMIT 1")
     suspend fun getFeedList(url: String): FeedListEntity
+
+    @Query("DELETE FROM $FEED_LIST_TABLE_NAME")
+    fun reset()
 }
