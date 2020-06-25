@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.my.bids.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import tech.hombre.domain.interaction.mybids.GetMyBidsListUseCase
+import tech.hombre.domain.interaction.projectslist.bids.RevokeProjectBidsUseCase
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCase
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectDetail
@@ -14,7 +15,8 @@ import tech.hombre.freelancehunt.ui.base.Success
 import tech.hombre.freelancehunt.ui.base.ViewState
 
 class MyBidsViewModel(private val getMyBidsList: GetMyBidsListUseCase,
-                      private val getProjectDetail: GetProjectDetailUseCase) :
+                      private val getProjectDetail: GetProjectDetailUseCase,
+                      private val revokeProjectBid: RevokeProjectBidsUseCase) :
     BaseViewModel<MyBidsList>() {
 
     lateinit var pagination: MyBidsList.Links
@@ -22,6 +24,10 @@ class MyBidsViewModel(private val getMyBidsList: GetMyBidsListUseCase,
     val _projectDetails = MutableLiveData<ViewState<ProjectDetail>>()
     val projectDetails: LiveData<ViewState<ProjectDetail>>
         get() = _projectDetails
+
+    val _bidAction = MutableLiveData<ViewState<Pair<Int, String>>>()
+    val bidAction: LiveData<ViewState<Pair<Int, String>>>
+        get() = _bidAction
 
     fun getMyBids(url: String = "my/bids") = executeUseCase {
         getMyBidsList(url)
@@ -36,5 +42,13 @@ class MyBidsViewModel(private val getMyBidsList: GetMyBidsListUseCase,
         getProjectDetail(url)
             .onSuccess { _projectDetails.value = Success(it) }
             .onFailure { _projectDetails.value = Error(it.throwable) }
+    }
+
+    fun revokeProjectBids(projectId: Int, bidId: Int) = executeUseCase{
+        revokeProjectBid(projectId, bidId)
+            .onSuccess {
+                _bidAction.value = Success(Pair(bidId, "revoked"))
+            }
+            .onFailure { _viewState.value = Error(it.throwable) }
     }
 }

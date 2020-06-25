@@ -7,18 +7,22 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_threads.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.BidStatus
+import tech.hombre.freelancehunt.common.ProjectStatus
+import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.ListMenuBottomDialogFragment
+import tech.hombre.freelancehunt.ui.menu.model.MenuItem
 import tech.hombre.freelancehunt.ui.my.bids.presentation.MyBidsViewModel
-import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
 
-class MyBidsFragment : BaseFragment() {
+class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener {
 
     private val viewModel: MyBidsViewModel by viewModel()
 
@@ -36,6 +40,7 @@ class MyBidsFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.bidAction.subscribe(this, ::handleBidAction)
         viewModel.projectDetails.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
@@ -56,6 +61,21 @@ class MyBidsFragment : BaseFragment() {
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
         }
+    }
+
+    private fun handleBidAction(viewState: ViewState<Pair<Int, String>>) {
+        hideLoading()
+        when (viewState) {
+            is Success -> {
+                updateBid(viewState.data)
+            }
+        }
+    }
+
+    private fun updateBid(result: Pair<Int, String>) {
+        val position = items.indexOf(items.find { it.id == result.first })
+        items[position].attributes.status = result.second
+        adapter.notifyItemChanged(position)
     }
 
     private fun handleError(error: String) {
@@ -116,7 +136,28 @@ class MyBidsFragment : BaseFragment() {
                             model.attributes.days.getEnding(requireContext(), R.array.ending_days)
                         )
                         .setOnClickListener(R.id.clickableView) {
-                            viewModel.getProjectDetails(model.attributes.project.self)
+
+                            val bidStatus = getBidStatus(model.attributes.status)
+                            val isRevoked = bidStatus == BidStatus.REVOKED
+
+                            val openForBids =
+                                getProjectStatus(model.attributes.project.status.id) == ProjectStatus.OPEN_FOR_PROPOSALS
+                            if (!openForBids && appPreferences.getCurrentUserType() != UserType.FREELANCER.type) {
+                                viewModel.getProjectDetails(model.attributes.project.self)
+                                return@setOnClickListener
+                            }
+                            if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type) {
+                                if (model.attributes.freelancer.id == appPreferences.getCurrentUserId() && openForBids) {
+                                    BottomMenuBuilder(
+                                        childFragmentManager,
+                                        ListMenuBottomDialogFragment.TAG
+                                    ).buildMenuForFreelancerBid(
+                                        model.attributes.project.id,
+                                        model.id,
+                                        isRevoked
+                                    )
+                                } else viewModel.getProjectDetails(model.attributes.project.self)
+                            } else viewModel.getProjectDetails(model.attributes.project.self)
                         }
                 }
             )
@@ -151,6 +192,13 @@ class MyBidsFragment : BaseFragment() {
 
         items.addAll(freelancersList.data)
         adapter.setItems(items)
+    }
+
+    override fun onMenuItemSelected(projectId: Int, bidId: Int, position: Int, model: MenuItem) {
+        when (model.tag) {
+            "revoke" -> viewModel.revokeProjectBids(projectId, bidId)
+            "restore" -> { }
+        }
     }
 
     companion object {

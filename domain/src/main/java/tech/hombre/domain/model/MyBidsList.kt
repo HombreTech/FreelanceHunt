@@ -17,7 +17,7 @@ data class MyBidsList(
             val safe_type: String? = "",
             val budget: Budget = Budget(),
             val comment: String = "",
-            val status: String = "",
+            var status: String = "",
             val is_hidden: Boolean = false,
             val is_winner: Boolean = false,
             val freelancer: Freelancer = Freelancer(),
