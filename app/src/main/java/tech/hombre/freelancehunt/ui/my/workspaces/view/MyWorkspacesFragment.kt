@@ -58,7 +58,9 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
         hideLoading()
         when (viewState) {
             is Success -> {
-
+                items.clear()
+                adapter.setItems(items)
+                viewModel.getMyWorkspacesLists()
             }
         }
     }
