@@ -213,7 +213,11 @@ class NewProjectActivity : BaseActivity() {
     private fun handleViewState(viewState: ViewState<ProjectDetail>) {
         when (viewState) {
             is Loading -> showLoading(progressBar)
-            is Success -> appNavigator.showProjectDetails(viewState.data.data)
+            is Success -> {
+                hideLoading(progressBar)
+                finish()
+                appNavigator.showProjectDetails(viewState.data.data)
+            }
             is Error -> {
                 handleError(viewState.error.localizedMessage)
                 finish()
