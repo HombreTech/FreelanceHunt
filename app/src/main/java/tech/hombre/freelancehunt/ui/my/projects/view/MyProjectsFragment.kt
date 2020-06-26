@@ -30,6 +30,10 @@ class MyProjectsFragment : BaseFragment() {
         initList()
         subscribeToData()
         viewModel.getMyProjectsLists()
+
+        addProjectButton.setOnClickListener {
+            appNavigator.showNewProjectDialog()
+        }
     }
 
     private fun subscribeToData() {

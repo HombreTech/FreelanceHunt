@@ -31,4 +31,5 @@ interface Navigator {
 
     fun showThread(threadId: Int, threadUrl: String)
 
+    fun showNewProjectDialog(freelancerId: Int = 0, isPersonal: Boolean = false)
 }

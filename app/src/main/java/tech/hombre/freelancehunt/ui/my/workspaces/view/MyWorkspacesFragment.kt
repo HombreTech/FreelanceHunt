@@ -28,7 +28,7 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
 
     private val viewModel: MyWorkspacesViewModel by viewModel()
 
-    override fun getLayout() = R.layout.fragment_my_projects
+    override fun getLayout() = R.layout.fragment_my_workspaces
 
     lateinit var adapter: RendererRecyclerViewAdapter
 

@@ -59,4 +59,5 @@ val networkingModule = module {
     single { get<Retrofit>().create(BidsApi::class.java) }
     single { get<Retrofit>().create(EmployersApi::class.java) }
     single { get<Retrofit>().create(WorkspacesApi::class.java) }
+    single { get<Retrofit>().create(SkillsApi::class.java) }
 }

@@ -72,10 +72,16 @@
     </string-array>
 
     <string-array name="safe_entries">
-        <item>Customer pays commission</item>
+        <item>Employer pays commission</item>
         <item>I pay the commission</item>
         <item>Commission is divided in half</item>
         <item>Direct pay</item>
+    </string-array>
+
+    <string-array name="project_safe_entries">
+        <item>I pay the commission</item>
+        <item>Freelancer pays commission</item>
+        <item>Commission is divided in half</item>
     </string-array>
 
     <string-array name="pref_language_entries">

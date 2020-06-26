@@ -311,6 +311,20 @@
 
             </androidx.cardview.widget.CardView>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonJob"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/padding_middle"
+                android:layout_marginBottom="@dimen/padding_middle"
+                app:icon="@drawable/briefcase"
+                android:text="@string/offer_job"
+                android:textColor="?iconColor"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -164,4 +164,14 @@
     <string name="propose">Предложить</string>
     <string name="go_to_mailbox">Перейти к переписке</string>
     <string name="submit">Подтвердить</string>
+    <string name="offer_job">Предложить работу</string>
+    <string name="project_title">Название проекта</string>
+    <string name="project_description">Описание</string>
+    <string name="project_description_hint">Описание должно быть достаточно подробным, чтобы заинтересовать фрилансеров и дать им возможность оценить объем и стоимость работы.\nВнимание: быстрый зароботок, реклама сайтов, дубликаты и явно неподходящие по тематике проекты будут беспощадно удаляться!\n\nЧто именно нужно сделать и для каких целей будет использоваться работа?\nНа каких пользователей ориентирован ваш продукт?\nПо каким критериям вы будете оценивать успешный результат?</string>
+    <string name="budget">Бюджет</string>
+    <string name="categories">Категории</string>
+    <string name="end_date">Выполнить до</string>
+    <string name="create_project">Создать проект</string>
+    <string name="select_category">Выбор категории</string>
+    <string name="select">Выбрать</string>
 </resources>

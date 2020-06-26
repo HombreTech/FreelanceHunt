@@ -176,4 +176,14 @@
     <string name="propose">Propose</string>
     <string name="go_to_mailbox">Go to mailbox</string>
     <string name="submit">Submit</string>
+    <string name="offer_job">Offer a job</string>
+    <string name="project_title">Project title</string>
+    <string name="project_description">Description</string>
+    <string name="project_description_hint">The description should be detailed enough to interest freelancers and enable them to evaluate the amount and cost of work.\nAttention: quick earnings, site advertising, duplicates and obviously inappropriate projects will be mercilessly deleted!\n\nWhat exactly do you need to do and for what purpose will the work be used?\nWhat users will your product focus on?\nWhat criteria will you evaluate as successful result?</string>
+    <string name="budget">Budget</string>
+    <string name="categories">Categories</string>
+    <string name="end_date">End before</string>
+    <string name="create_project">Create project</string>
+    <string name="select_category">Select category</string>
+    <string name="select">Select</string>
 </resources>

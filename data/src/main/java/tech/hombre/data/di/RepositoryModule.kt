@@ -25,6 +25,7 @@ import tech.hombre.data.repository.myprofile.MyProfileRepositoryImpl
 import tech.hombre.data.repository.myprojectslist.MyProjectsListRepositoryImpl
 import tech.hombre.data.repository.myworkspaces.*
 import tech.hombre.data.repository.projectslist.*
+import tech.hombre.data.repository.skills.SkillsRepositoryImpl
 import tech.hombre.data.repository.threadslist.CreateThreadRepositoryImpl
 import tech.hombre.data.repository.threadslist.SendThreadMessageRepositoryImpl
 import tech.hombre.data.repository.threadslist.ThreadMessageListRepositoryImpl
@@ -71,4 +72,7 @@ val repositoryModule = module {
     factory<WorkspaceCompleteRepository> { WorkspaceCompleteRepositoryImpl(get()) }
     factory<WorkspaceIncompleteRepository> { WorkspaceIncompleteRepositoryImpl(get()) }
     factory<WorkspaceReviewRepository> { WorkspaceReviewRepositoryImpl(get()) }
+    factory<NewProjectRepository> { NewProjectRepositoryImpl(get()) }
+    factory<NewPersonalProjectRepository> { NewPersonalProjectRepositoryImpl(get()) }
+    factory<SkillsRepository> { SkillsRepositoryImpl(get(), get()) }
 }

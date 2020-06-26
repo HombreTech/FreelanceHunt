@@ -195,6 +195,7 @@ class MainActivity : BaseActivity() {
         viewModel.checkTokenByMyProfile(appPreferences.getAccessToken())
         viewModel.checkFeed()
         viewModel.refreshCountriesList()
+        viewModel.refreshSkillsList()
     }
 
     private fun handleViewState(viewState: ViewState<MyProfile.Data.Attributes>) {

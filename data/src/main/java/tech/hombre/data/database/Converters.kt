@@ -53,13 +53,24 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromCountriesToJson(contests: Countries?): String {
-        return contests?.let { gson.toJson(it) } ?: ""
+    fun fromCountriesToJson(countries: Countries?): String {
+        return countries?.let { gson.toJson(it) } ?: ""
     }
 
     @TypeConverter
     fun fromJsonToCountries(json: String): Countries {
         val type = object : TypeToken<Countries>() {}.type
+        return gson.fromJson(json, type)
+    }
+
+    @TypeConverter
+    fun fromSkillsToJson(skills: SkillList?): String {
+        return skills?.let { gson.toJson(it) } ?: ""
+    }
+
+    @TypeConverter
+    fun fromJsonToSkills(json: String): SkillList {
+        val type = object : TypeToken<SkillList>() {}.type
         return gson.fromJson(json, type)
     }
 }

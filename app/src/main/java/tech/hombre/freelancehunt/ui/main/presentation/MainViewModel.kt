@@ -5,8 +5,8 @@ import tech.hombre.data.BuildConfig
 import tech.hombre.domain.interaction.countries.GetCountriesUseCase
 import tech.hombre.domain.interaction.feedlist.GetFeedListUseCase
 import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCase
+import tech.hombre.domain.interaction.skills.GetSkillsUseCase
 import tech.hombre.domain.interaction.threadslist.GetThreadsListUseCase
-import tech.hombre.domain.model.FeedList
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.domain.model.onFailure
 import tech.hombre.domain.model.onSuccess
@@ -19,7 +19,8 @@ class MainViewModel(
     private val getMyProfile: GetMyProfileUseCase,
     private val getThreadsList: GetThreadsListUseCase,
     private val getFeedList: GetFeedListUseCase,
-    private val getCountries: GetCountriesUseCase
+    private val getCountries: GetCountriesUseCase,
+    private val getSkills: GetSkillsUseCase
 ) :
     BaseViewModel<MyProfile.Data.Attributes>() {
 
@@ -35,6 +36,12 @@ class MainViewModel(
 
     fun refreshCountriesList() = executeUseCase {
         getCountries("")
+            .onSuccess {}
+            .onFailure { _viewState.value = Error(it.throwable) }
+    }
+
+    fun refreshSkillsList() = executeUseCase {
+        getSkills("")
             .onSuccess {}
             .onFailure { _viewState.value = Error(it.throwable) }
     }

@@ -31,7 +31,7 @@ class ChooseBidBottomDialogFragment : BaseBottomDialogFragment() {
                     listener?.onBidChoose(
                         projectId,
                         bidId,
-                        comment.text.toString()
+                        comment.savedText.toString()
                     )
                     dismiss()
                 } else {
@@ -44,7 +44,7 @@ class ChooseBidBottomDialogFragment : BaseBottomDialogFragment() {
     }
 
     private fun correctInputs(): Boolean {
-        return true
+        return comment.savedText.isNotEmpty()
     }
 
     interface OnChooseBidListener {

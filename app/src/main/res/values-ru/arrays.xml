@@ -78,6 +78,12 @@
         <item>Прямой расчет</item>
     </string-array>
 
+    <string-array name="project_safe_entries">
+        <item>Комиссию оплачиваю я</item>
+        <item>Комиссию оплачивает фрилансер</item>
+        <item>Комиссия делится пополам</item>
+    </string-array>
+
     <string-array name="pref_theme_entries">
         <item>Светлая</item>
         <item>Темная</item>

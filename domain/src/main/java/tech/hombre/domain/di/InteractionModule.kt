@@ -34,13 +34,14 @@ import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCaseImpl
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCase
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCaseImpl
 import tech.hombre.domain.interaction.myworkspaces.*
-import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCase
-import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCaseImpl
+import tech.hombre.domain.interaction.projectslist.*
 import tech.hombre.domain.interaction.projectslist.bids.*
 import tech.hombre.domain.interaction.projectslist.comments.GetProjectCommentsUseCase
 import tech.hombre.domain.interaction.projectslist.comments.GetProjectCommentsUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCase
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCaseImpl
+import tech.hombre.domain.interaction.skills.GetSkillsUseCase
+import tech.hombre.domain.interaction.skills.GetSkillsUseCaseImpl
 import tech.hombre.domain.interaction.threadslist.GetThreadsListUseCase
 import tech.hombre.domain.interaction.threadslist.GetThreadsListUseCaseImpl
 import tech.hombre.domain.interaction.threadslist.messages.*
@@ -84,4 +85,7 @@ val interactionModule = module {
     factory<WorkspaceCompleteUseCase> { WorkspaceCompleteUseCaseImpl(get()) }
     factory<WorkspaceIncompleteUseCase> { WorkspaceIncompleteUseCaseImpl(get()) }
     factory<WorkspaceReviewUseCase> { WorkspaceReviewUseCaseImpl(get()) }
+    factory<NewProjectUseCase> { NewProjectUseCaseImpl(get()) }
+    factory<NewPersonalProjectUseCase> { NewPersonalProjectUseCaseImpl(get()) }
+    factory<GetSkillsUseCase> { GetSkillsUseCaseImpl(get()) }
 }

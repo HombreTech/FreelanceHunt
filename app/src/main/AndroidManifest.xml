@@ -66,6 +66,13 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".ui.project.view.NewProjectActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/new_project"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".ui.base.LinksParserActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:noHistory="true"

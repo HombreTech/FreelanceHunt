@@ -26,4 +26,16 @@ interface ProjectsApi {
     suspend fun addProjectBid(
         @Path("projectId") projectId: Int, @Body data: AddBidBody
     ): Response<ProjectAddBidResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects")
+    suspend fun newPublicProject(
+        @Body data: NewPublicProjectBody
+    ): Response<ProjectDetailResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects")
+    suspend fun newPersonalProject(
+        @Body data: NewPersonalProjectBody
+    ): Response<ProjectDetailResponse>
 }

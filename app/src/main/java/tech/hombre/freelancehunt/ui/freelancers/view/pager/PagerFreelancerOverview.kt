@@ -8,10 +8,11 @@ import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapte
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
 import kotlinx.android.synthetic.main.fragment_pager_freelancer_overview.*
-import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import tech.hombre.domain.model.FreelancerDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.UserType
+import tech.hombre.freelancehunt.common.extensions.visible
 import tech.hombre.freelancehunt.ui.base.BaseFragment
 
 
@@ -50,6 +51,13 @@ class PagerFreelancerOverview : BaseFragment() {
         } else summary.text = getString(R.string.no_information)
 
         initSkills(details.attributes.skills)
+
+        if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) {
+            buttonJob.visible()
+            buttonJob.setOnClickListener {
+                appNavigator.showNewProjectDialog(details.id, true)
+            }
+        }
     }
 
     private fun initSkills(skills: List<FreelancerDetail.Data.Attributes.Skill>) {
