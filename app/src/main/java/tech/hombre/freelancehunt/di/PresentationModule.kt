@@ -55,6 +55,6 @@ val presentationModule = module {
     viewModel { ContestOverviewViewModel(get()) }
     viewModel { MyContestsViewModel(get(), get()) }
     viewModel { MyProjectsViewModel(get(), get()) }
-    viewModel { MyWorkspacesViewModel(get()) }
+    viewModel { MyWorkspacesViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
 
 }

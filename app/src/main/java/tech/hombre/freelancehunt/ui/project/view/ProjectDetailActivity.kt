@@ -39,6 +39,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
     override fun viewReady() {
         setContentView(R.layout.activity_project_detail)
         setSupportActionBar(toolbar)
+        setTitle(R.string.project_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent?.extras?.let {
             subscribeToData()
@@ -145,6 +146,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
                 1 -> {
                     if (details.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active == true)
                         BottomMenuBuilder(
+                            this,
                             supportFragmentManager,
                             AddBidBottomDialogFragment.TAG
                         ).buildMenuForAddBid(
@@ -153,6 +155,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
                         )
                     else if (!details.attributes.is_only_for_plus) {
                         BottomMenuBuilder(
+                            this,
                             supportFragmentManager,
                             AddBidBottomDialogFragment.TAG
                         ).buildMenuForAddBid(

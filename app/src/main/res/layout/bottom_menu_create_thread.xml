@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send"
-        android:textColor="?textColorSecondary"
+        android:textColor="?iconColor"
         app:icon="@drawable/send"
         app:iconPadding="@dimen/padding_middle"
         app:iconTint="?iconColor"

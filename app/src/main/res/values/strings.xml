@@ -155,4 +155,25 @@
     <string name="my_workspaces">Workspaces</string>
     <string name="confirmed">Confirmed</string>
     <string name="not_confirmed">Not Confirmed</string>
+    <string name="confirm">Confirm conditions</string>
+    <string name="propose_conditions">Propose conditions</string>
+    <string name="reject_conditions">Reject conditions</string>
+    <string name="extend_project">Extend project</string>
+    <string name="request_arbitrage">Request arbitrage</string>
+    <string name="close_project_completed">Close project as completed</string>
+    <string name="close_project_incompleted">Close project as incompleted</string>
+    <string name="close_project">Close project</string>
+    <string name="close_project_without_review">Close project without review</string>
+    <string name="project_write_review">Write a response review</string>
+    <string name="new_conditions">New conditions</string>
+    <string name="propose_comment_min">Propose comment must be not empty</string>
+    <string name="close_project_comment_hint">The closing comment will be publicly available, but will not be taken into account when calculating the freelancer rating</string>
+    <string name="request_arbitrage_comment_hint">Try to clearly and concretely state the essence of the claim, pointing out the real facts that can be verified by correspondence and investments in the work area</string>
+    <string name="close">Close</string>
+    <string name="project_ended">Complete</string>
+    <string name="complete_project_review">Review for freelancer</string>
+    <string name="review_project_review">Review for employer</string>
+    <string name="propose">Propose</string>
+    <string name="go_to_mailbox">Go to mailbox</string>
+    <string name="submit">Submit</string>
 </resources>

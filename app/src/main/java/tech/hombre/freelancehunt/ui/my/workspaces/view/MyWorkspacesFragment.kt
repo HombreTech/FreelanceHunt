@@ -7,17 +7,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_my_projects.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import tech.hombre.domain.model.WorkspaceDetail
-import tech.hombre.domain.model.WorkspacesList
+import tech.hombre.domain.model.*
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
+import tech.hombre.freelancehunt.ui.base.Success
 import tech.hombre.freelancehunt.ui.base.ViewState
+import tech.hombre.freelancehunt.ui.menu.*
+import tech.hombre.freelancehunt.ui.menu.model.MenuItem
 import tech.hombre.freelancehunt.ui.my.workspaces.presentation.MyWorkspacesViewModel
 
-class MyWorkspacesFragment : BaseFragment() {
+class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener,
+    ProposeConditionsBottomDialogFragment.OnConditionsListener,
+    SimpleInputBottomDialogFragment.OnDialogSubmitListener,
+    CompleteWorkspaceBottomDialogFragment.OnCompleteDialogSubmitListener,
+    ReviewWorkspaceBottomDialogFragment.OnReviewDialogSubmitListener {
 
     private val viewModel: MyWorkspacesViewModel by viewModel()
 
@@ -35,6 +42,7 @@ class MyWorkspacesFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.workspaceAction.subscribe(this, ::handleWorkspaceAction)
     }
 
     private fun handleViewState(viewState: ViewState<WorkspacesList>) {
@@ -43,6 +51,15 @@ class MyWorkspacesFragment : BaseFragment() {
             is Success -> initMyWorkspacesList(viewState.data)
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
+        }
+    }
+
+    private fun handleWorkspaceAction(viewState: ViewState<Pair<Int, String>>) {
+        hideLoading()
+        when (viewState) {
+            is Success -> {
+
+            }
         }
     }
 
@@ -67,6 +84,10 @@ class MyWorkspacesFragment : BaseFragment() {
                     finder
                         .setText(R.id.name, model.attributes.project.name)
                         .setText(R.id.status, model.attributes.project.status.name)
+                        .setText(R.id.safe, getTitleBySafeType(
+                            requireContext(),
+                            SafeType.values().find { it.type == model.attributes.project.safe_type }
+                                ?: SafeType.DIRECT_PAYMENT))
                         .setText(
                             R.id.budget,
                             if (model.attributes.project.budget != null) "${model.attributes.project.budget!!.amount} ${currencyToChar(
@@ -101,12 +122,18 @@ class MyWorkspacesFragment : BaseFragment() {
                             R.id.loginFreelancer,
                             model.attributes.freelancer?.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name }
                                 ?: "N/A")
-                        .setText(R.id.budgetConfirmedEmployer, if (model.attributes.project.budget != null) "${model.attributes.project.budget!!.amount} ${currencyToChar(
-                            model.attributes.project.budget!!.currency
-                        )}" else "")
-                        .setText(R.id.budgetConfirmedFreelancer, if (model.attributes.project.budget != null) "${model.attributes.project.budget!!.amount} ${currencyToChar(
-                            model.attributes.project.budget!!.currency
-                        )}" else "")
+                        .setText(
+                            R.id.budgetConfirmedEmployer,
+                            if (model.attributes.project.budget != null) "${model.attributes.project.budget!!.amount} ${currencyToChar(
+                                model.attributes.project.budget!!.currency
+                            )}" else ""
+                        )
+                        .setText(
+                            R.id.budgetConfirmedFreelancer,
+                            if (model.attributes.project.budget != null) "${model.attributes.project.budget!!.amount} ${currencyToChar(
+                                model.attributes.project.budget!!.currency
+                            )}" else ""
+                        )
 
                         .find(R.id.confirmedEmployer, ViewProvider<TextView> { textView ->
                             if (model.attributes.conditions.confirmed_by.employer) {
@@ -145,7 +172,19 @@ class MyWorkspacesFragment : BaseFragment() {
                             appNavigator.showFreelancerDetails(model.attributes.freelancer.id)
                         }
                         .setOnClickListener(R.id.clickableView) {
-
+                            val projectStatus = getProjectStatus(model.attributes.project.status.id)
+                            val isConfirmed = if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) model.attributes.conditions.confirmed_by.employer else model.attributes.conditions.confirmed_by.freelancer
+                            BottomMenuBuilder(
+                                requireContext(),
+                                childFragmentManager,
+                                ListMenuBottomDialogFragment.TAG
+                            ).buildMenuForWorkspace(
+                                model.id,
+                                isConfirmed,
+                                projectStatus,
+                                SafeType.values().find { it.type == model.attributes.project.safe_type } == SafeType.DIRECT_PAYMENT,
+                                appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
+                            )
                         }
                 }
             )
@@ -183,6 +222,111 @@ class MyWorkspacesFragment : BaseFragment() {
         adapter.setItems(items)
     }
 
+    override fun onMenuItemSelected(
+        primaryId: Int,
+        secondaryId: Int,
+        position: Int,
+        model: MenuItem
+    ) {
+        when (model.tag) {
+            "accept" -> {
+                viewModel.acceptCondition(primaryId)
+            }
+            "reject" -> {
+                viewModel.rejectCondition(primaryId)
+            }
+            "propose" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    ProposeConditionsBottomDialogFragment.TAG
+                ).buildMenuForProposeConditions(primaryId)
+            }
+            "extend" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    SimpleInputBottomDialogFragment.TAG
+                ).buildMenuForExtendWorkspace(primaryId)
+            }
+            "arbitrage" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    SimpleInputBottomDialogFragment.TAG
+                ).buildMenuForRequestArbitrage(primaryId)
+            }
+            "complete" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    CompleteWorkspaceBottomDialogFragment.TAG
+                ).buildMenuForCompleteWorkspace(primaryId)
+            }
+            "incomplete" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    CompleteWorkspaceBottomDialogFragment.TAG
+                ).buildMenuForIncompleteWorkspace(primaryId)
+            }
+            "close_without_review" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    SimpleInputBottomDialogFragment.TAG
+                ).buildMenuForCloseWorkspace(primaryId)
+            }
+            "write_review" -> {
+                BottomMenuBuilder(
+                    requireContext(),
+                    childFragmentManager,
+                    ReviewWorkspaceBottomDialogFragment.TAG
+                ).buildMenuForReviewWorkspace(primaryId)
+            }
+            "mailbox" -> {
+                items.find { it.id == primaryId }?.let {
+                    val threadId = it.id
+                    val threadUrl = it.links.thread
+                    appNavigator.showThread(threadId, threadUrl)
+                }
+
+            }
+        }
+    }
+
+    override fun onConditionsChanged(
+        id: Int,
+        days: Int,
+        budget: MyBidsList.Data.Attributes.Budget,
+        safeType: SafeType,
+        comment: String
+    ) {
+        viewModel.proposeCondition(id, days, budget, safeType, comment)
+    }
+
+    override fun onDialogSubmit(type: Int, primaryId: Int, text: String, digit: Int?) {
+        when (type) {
+            SIMPLE_DIALOG_REQUEST_ARBITRAGE -> viewModel.requestArbitrages(primaryId, text)
+            SIMPLE_DIALOG_CLOSE_WORKSPACE -> viewModel.closeWorkspaces(primaryId, text)
+            SIMPLE_DIALOG_EXTEND_WORKSPACE -> viewModel.extendCondition(primaryId, digit!!)
+        }
+    }
+
+    override fun onCompleteDialogSubmit(
+        primaryId: Int,
+        isComplete: Boolean,
+        review: String,
+        grades: CompleteGrades
+    ) =
+        if (isComplete) {
+            viewModel.completeWorkspaces(primaryId, grades, review)
+        } else {
+            viewModel.incompleteWorkspaces(primaryId, grades, review)
+        }
+
+    override fun onReviewDialogSubmit(primaryId: Int, review: String, grades: ReviewGrades) =
+        viewModel.reviewWorkspaces(primaryId, grades, review)
 
     companion object {
         @Keep

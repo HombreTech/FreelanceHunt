@@ -33,8 +33,7 @@ import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCase
 import tech.hombre.domain.interaction.myprofile.GetMyProfileUseCaseImpl
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCase
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCaseImpl
-import tech.hombre.domain.interaction.myworkspaces.GetMyWorkspacesListUseCase
-import tech.hombre.domain.interaction.myworkspaces.GetMyWorkspacesListUseCaseImpl
+import tech.hombre.domain.interaction.myworkspaces.*
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCase
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCaseImpl
 import tech.hombre.domain.interaction.projectslist.bids.*
@@ -76,4 +75,13 @@ val interactionModule = module {
     factory<CreateThreadUseCase> { CreateThreadUseCaseImpl(get()) }
     factory<GetMyProjectsListUseCase> { GetMyProjectsListUseCaseImpl(get()) }
     factory<GetMyWorkspacesListUseCase> { GetMyWorkspacesListUseCaseImpl(get()) }
+    factory<ProposeConditionsUseCase> { ProposeConditionsUseCaseImpl(get()) }
+    factory<AcceptConditionsUseCase> { AcceptConditionsUseCaseImpl(get()) }
+    factory<ExtendConditionsUseCase> { ExtendConditionsUseCaseImpl(get()) }
+    factory<RejectConditionsUseCase> { RejectConditionsUseCaseImpl(get()) }
+    factory<RequestArbitrageUseCase> { RequestArbitrageUseCaseImpl(get()) }
+    factory<WorkspaceCloseUseCase> { WorkspaceCloseUseCaseImpl(get()) }
+    factory<WorkspaceCompleteUseCase> { WorkspaceCompleteUseCaseImpl(get()) }
+    factory<WorkspaceIncompleteUseCase> { WorkspaceIncompleteUseCaseImpl(get()) }
+    factory<WorkspaceReviewUseCase> { WorkspaceReviewUseCaseImpl(get()) }
 }

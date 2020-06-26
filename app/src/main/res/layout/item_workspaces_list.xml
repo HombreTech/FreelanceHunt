@@ -48,18 +48,32 @@
                 tools:text="Утверждение условий" />
 
             <TextView
+                android:id="@+id/safe"
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_middle"
+                android:drawableStart="@drawable/safe_tinted"
+                android:drawablePadding="@dimen/padding_small"
+                android:textColor="?textColorSecondary"
+                android:text="@string/safe"
+                app:layout_constraintStart_toStartOf="@id/name"
+                app:layout_constraintTop_toBottomOf="@id/status" />
+
+            <TextView
                 android:id="@+id/budget"
                 style="@style/TextStyle.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_small"
-                android:layout_marginTop="@dimen/padding_middle"
+                android:layout_marginStart="@dimen/padding_middle"
                 android:drawableStart="@drawable/purse"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center_vertical"
                 android:textColor="?textColorSecondary"
-                app:layout_constraintStart_toStartOf="@id/name"
-                app:layout_constraintTop_toBottomOf="@id/status"
+                app:layout_constraintBottom_toBottomOf="@id/safe"
+                app:layout_constraintStart_toEndOf="@id/safe"
+                app:layout_constraintTop_toTopOf="@id/safe"
                 tools:text="2300 ₴" />
 
             <TextView
@@ -77,14 +91,23 @@
                 app:layout_constraintTop_toTopOf="@id/budget"
                 tools:text="2 дня" />
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="0.9dp"
+                android:background="?iconColor"
+                android:layout_marginTop="@dimen/padding_middle"
+                app:layout_constraintTop_toBottomOf="@id/expiredAt"
+                app:layout_constraintEnd_toEndOf="@id/name"
+                app:layout_constraintStart_toStartOf="@id/name" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
-                android:layout_marginTop="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_small"
                 android:padding="@dimen/padding_middle"
-                app:layout_constraintTop_toBottomOf="@id/expiredAt">
+                app:layout_constraintTop_toBottomOf="@id/divider">
 
                 <tech.hombre.freelancehunt.common.widgets.CustomImageView
                     android:id="@+id/avatarEmployer"
@@ -96,11 +119,11 @@
                 <TextView
                     android:id="@+id/loginEmployer"
                     style="@style/TextStyle.Title"
-                    android:background="?selectableItemBackground"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/padding_middle"
                     android:layout_marginEnd="@dimen/padding_middle"
+                    android:background="?selectableItemBackground"
                     android:ellipsize="end"
                     android:textColor="?textColorSecondary"
                     app:layout_constraintBottom_toBottomOf="@id/avatarEmployer"
@@ -165,11 +188,11 @@
                 <TextView
                     android:id="@+id/loginFreelancer"
                     style="@style/TextStyle.Title"
-                    android:background="?selectableItemBackground"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/padding_middle"
                     android:layout_marginEnd="@dimen/padding_middle"
+                    android:background="?selectableItemBackground"
                     android:ellipsize="end"
                     android:textColor="?textColorSecondary"
                     app:layout_constraintBottom_toBottomOf="@id/avatarFreelancer"

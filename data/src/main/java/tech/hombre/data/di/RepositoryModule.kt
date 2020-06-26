@@ -23,7 +23,7 @@ import tech.hombre.data.repository.freelancerslist.FreelancersRepositoryImpl
 import tech.hombre.data.repository.mycontests.MyContestsListRepositoryImpl
 import tech.hombre.data.repository.myprofile.MyProfileRepositoryImpl
 import tech.hombre.data.repository.myprojectslist.MyProjectsListRepositoryImpl
-import tech.hombre.data.repository.myworkspaces.MyWorkspacesListRepositoryImpl
+import tech.hombre.data.repository.myworkspaces.*
 import tech.hombre.data.repository.projectslist.*
 import tech.hombre.data.repository.threadslist.CreateThreadRepositoryImpl
 import tech.hombre.data.repository.threadslist.SendThreadMessageRepositoryImpl
@@ -62,4 +62,13 @@ val repositoryModule = module {
     factory<CreateThreadRepository> { CreateThreadRepositoryImpl(get()) }
     factory<MyProjectsListRepository> { MyProjectsListRepositoryImpl(get()) }
     factory<MyWorkspacesListRepository> { MyWorkspacesListRepositoryImpl(get()) }
+    factory<ProposeConditionsRepository> { ProposeConditionsRepositoryImpl(get()) }
+    factory<AcceptConditionsRepository> { AcceptConditionsRepositoryImpl(get()) }
+    factory<ExtendConditionsRepository> { ExtendConditionsRepositoryImpl(get()) }
+    factory<RejectConditionsRepository> { RejectConditionsRepositoryImpl(get()) }
+    factory<RequestArbitrageRepository> { RequestArbitrageRepositoryImpl(get()) }
+    factory<WorkspaceCloseRepository> { WorkspaceCloseRepositoryImpl(get()) }
+    factory<WorkspaceCompleteRepository> { WorkspaceCompleteRepositoryImpl(get()) }
+    factory<WorkspaceIncompleteRepository> { WorkspaceIncompleteRepositoryImpl(get()) }
+    factory<WorkspaceReviewRepository> { WorkspaceReviewRepositoryImpl(get()) }
 }

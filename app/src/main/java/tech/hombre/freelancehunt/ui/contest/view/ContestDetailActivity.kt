@@ -36,6 +36,7 @@ class ContestDetailActivity : BaseActivity() {
     override fun viewReady() {
         setContentView(R.layout.activity_contest_detail)
         setSupportActionBar(toolbar)
+        setTitle(R.string.contest_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent?.extras?.let {
             contestId = it.getInt(EXTRA_1, -1)

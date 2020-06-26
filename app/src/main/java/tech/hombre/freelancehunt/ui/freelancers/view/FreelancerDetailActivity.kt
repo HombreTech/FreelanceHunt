@@ -41,6 +41,7 @@ class FreelancerDetailActivity : BaseActivity(),
     override fun viewReady() {
         setContentView(R.layout.activity_freelancer_detail)
         setSupportActionBar(toolbar)
+        setTitle(R.string.freelancer_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent?.extras?.let {
             subscribeToData()
@@ -157,6 +158,7 @@ class FreelancerDetailActivity : BaseActivity(),
             if (getFreelancerStatus(details.attributes.status.id) != FreelancerStatus.TEMP_NOT_WORK) {
                 buttonMessage.setOnClickListener {
                     BottomMenuBuilder(
+                        this,
                         supportFragmentManager,
                         CreateThreadBottomDialogFragment.TAG
                     ).buildMenuForCreateThread(profileId)

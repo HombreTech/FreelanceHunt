@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            style="@style/TextStyle.Heading.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_middle"
+            android:layout_marginTop="@dimen/padding_standart"
+            android:layout_marginEnd="@dimen/padding_middle"
+            android:drawableStart="@drawable/handshake"
+            android:drawablePadding="@dimen/padding_middle"
+            android:textAllCaps="true"
+            android:textColor="?textColorSecondary"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/project_write_review" />
+
+        <TableLayout
+            android:id="@+id/grades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_middle"
+            android:stretchColumns="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogTitle">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/gradesPay"
+                        style="@style/TextStyle.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_grade"
+                        android:text="Оплата"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/payValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="10"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextStyle.Title"
+                    android:textColor="?iconColor"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/gradeRequirements"
+                        style="@style/TextStyle.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_grade"
+                        android:text="Постановка задачи"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/requirementsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="10"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextStyle.Title"
+                    android:textColor="?iconColor"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/gradeDefinition"
+                        style="@style/TextStyle.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_grade"
+                        android:text="Четкость требований"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/definitionValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="10"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextStyle.Title"
+                    android:textColor="?iconColor"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/gradeСonnectivity"
+                        style="@style/TextStyle.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_grade"
+                        android:text="Контактность"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/connectivityValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="10"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextStyle.Title"
+                    android:textColor="?iconColor"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <tech.hombre.freelancehunt.common.widgets.EditorEditText
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:hint="@string/review_project_review"
+            android:lines="3"
+            android:paddingTop="0dp"
+            android:textAppearance="@style/TextStyle.Chat.Text"
+            android:textColor="?textColorSecondary"
+            app:layout_constraintEnd_toEndOf="@id/dialogTitle"
+            app:layout_constraintStart_toStartOf="@id/dialogTitle"
+            app:layout_constraintTop_toBottomOf="@id/grades" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSubmit"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/handshake"
+            android:drawablePadding="@dimen/padding_middle"
+            android:text="@string/send"
+            android:textColor="?iconColor"
+            app:layout_constraintEnd_toEndOf="@id/dialogTitle"
+            app:layout_constraintTop_toBottomOf="@id/text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

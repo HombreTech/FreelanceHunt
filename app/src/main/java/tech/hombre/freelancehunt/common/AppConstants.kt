@@ -7,12 +7,18 @@ var IS_PREMIUM = false
 const val EXTRA_1 = "EXTRA_1"
 const val EXTRA_2 = "EXTRA_2"
 const val EXTRA_3 = "EXTRA_3"
+const val EXTRA_4 = "EXTRA_4"
+
 const val SKU_PREMIUM = "premium"
 
 const val CHANNEL_ID = "freelancehunt_channel_1"
 const val NOTIFY_MESSAGE_ID = 9042
 const val NOTIFY_FEED_ID = 9043
 const val MAX_LINES = 3
+
+const val SIMPLE_DIALOG_REQUEST_ARBITRAGE = 1
+const val SIMPLE_DIALOG_CLOSE_WORKSPACE = 2
+const val SIMPLE_DIALOG_EXTEND_WORKSPACE = 3
 
 enum class UserType(val type: String) {
     EMPLOYER("employer"),

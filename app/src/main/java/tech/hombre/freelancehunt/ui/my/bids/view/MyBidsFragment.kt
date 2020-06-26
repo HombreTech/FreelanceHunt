@@ -149,6 +149,7 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
                             if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type) {
                                 if (model.attributes.freelancer.id == appPreferences.getCurrentUserId() && openForBids) {
                                     BottomMenuBuilder(
+                                        requireContext(),
                                         childFragmentManager,
                                         ListMenuBottomDialogFragment.TAG
                                     ).buildMenuForFreelancerBid(
@@ -194,9 +195,9 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
         adapter.setItems(items)
     }
 
-    override fun onMenuItemSelected(projectId: Int, bidId: Int, position: Int, model: MenuItem) {
+    override fun onMenuItemSelected(primaryId: Int, secondaryId: Int, position: Int, model: MenuItem) {
         when (model.tag) {
-            "revoke" -> viewModel.revokeProjectBids(projectId, bidId)
+            "revoke" -> viewModel.revokeProjectBids(primaryId, secondaryId)
             "restore" -> { }
         }
     }

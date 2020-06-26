@@ -62,8 +62,8 @@ class ListMenuBottomDialogFragment : BaseBottomDialogFragment() {
 
     interface BottomListMenuListener {
         fun onMenuItemSelected(
-            projectId: Int,
-            bidId: Int,
+            primaryId: Int,
+            secondaryId: Int,
             position: Int,
             model: MenuItem
         )
@@ -87,12 +87,12 @@ class ListMenuBottomDialogFragment : BaseBottomDialogFragment() {
         @Keep
         val TAG = ListMenuBottomDialogFragment::class.java.simpleName
 
-        fun newInstance(projectId: Int, bidId: Int, items: ArrayList<MenuItem>): ListMenuBottomDialogFragment {
+        fun newInstance(primaryId: Int, secondaryId: Int, items: ArrayList<MenuItem>): ListMenuBottomDialogFragment {
             val fragment = ListMenuBottomDialogFragment()
             val extra = Bundle()
             extra.putParcelableArrayList(EXTRA_1, items)
-            extra.putInt(EXTRA_2, projectId)
-            extra.putInt(EXTRA_3, bidId)
+            extra.putInt(EXTRA_2, primaryId)
+            extra.putInt(EXTRA_3, secondaryId)
             fragment.arguments = extra
             return fragment
         }

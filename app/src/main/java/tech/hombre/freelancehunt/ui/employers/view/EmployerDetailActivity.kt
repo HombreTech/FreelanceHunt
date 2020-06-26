@@ -38,6 +38,7 @@ class EmployerDetailActivity : BaseActivity(),
     override fun viewReady() {
         setContentView(R.layout.activity_employer_detail)
         setSupportActionBar(toolbar)
+        setTitle(R.string.employer_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent?.extras?.let {
             subscribeToData()
@@ -145,6 +146,7 @@ class EmployerDetailActivity : BaseActivity(),
             buttonMessage.visible()
             buttonMessage.setOnClickListener {
                 BottomMenuBuilder(
+                    this,
                     supportFragmentManager,
                     CreateThreadBottomDialogFragment.TAG
                 ).buildMenuForCreateThread(profileId)

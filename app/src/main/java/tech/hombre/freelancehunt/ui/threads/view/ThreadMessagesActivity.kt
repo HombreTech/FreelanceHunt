@@ -45,6 +45,7 @@ class ThreadMessagesActivity : BaseActivity() {
     override fun viewReady() {
         setContentView(R.layout.activity_thread_messages)
         setSupportActionBar(toolbar)
+        setTitle(R.string.thread_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent?.extras?.let {
             threadId = it.getInt(EXTRA_1, -1)

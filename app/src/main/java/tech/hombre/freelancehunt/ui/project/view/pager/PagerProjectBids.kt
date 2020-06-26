@@ -2,8 +2,6 @@ package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.TextView
 import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
@@ -151,6 +149,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                                 if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type) {
                                     if (model.attributes.freelancer.id == appPreferences.getCurrentUserId() && openForBids) {
                                         BottomMenuBuilder(
+                                            requireContext(),
                                             childFragmentManager,
                                             ListMenuBottomDialogFragment.TAG
                                         ).buildMenuForFreelancerBid(
@@ -161,6 +160,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                                     } else freelancerViewModel.getFreelancerDetails(model.attributes.freelancer.id)
                                 } else if (employerId == appPreferences.getCurrentUserId() && openForBids) {
                                     BottomMenuBuilder(
+                                        requireContext(),
                                         childFragmentManager,
                                         ListMenuBottomDialogFragment.TAG
                                     ).buildMenuForEmployerBid(
@@ -277,16 +277,17 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         viewModel.chooseProjectBids(projectId, bidId, comment)
     }
 
-    override fun onMenuItemSelected(projectId: Int, bidId: Int, position: Int, model: MenuItem) {
+    override fun onMenuItemSelected(primaryId: Int, secondaryId: Int, position: Int, model: MenuItem) {
         when (model.tag) {
-            "revoke" -> viewModel.revokeProjectBids(projectId, bidId)
-            "reject" -> viewModel.rejectProjectBids(projectId, bidId)
+            "revoke" -> viewModel.revokeProjectBids(primaryId, secondaryId)
+            "reject" -> viewModel.rejectProjectBids(primaryId, secondaryId)
             "restore" -> {
             }
             "choose" -> BottomMenuBuilder(
+                requireContext(),
                 childFragmentManager,
                 ChooseBidBottomDialogFragment.TAG
-            ).buildMenuForChooseBid(projectId, bidId)
+            ).buildMenuForChooseBid(primaryId, secondaryId)
         }
     }
 

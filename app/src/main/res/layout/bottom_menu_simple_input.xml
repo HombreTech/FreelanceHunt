@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/padding_standart">
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        style="@style/TextStyle.Heading.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:layout_marginTop="@dimen/padding_standart"
+        android:layout_marginEnd="@dimen/padding_middle"
+        android:drawableStart="@drawable/briefcase_edit"
+        android:drawablePadding="@dimen/padding_middle"
+        android:textAllCaps="true"
+        android:textColor="?textColorSecondary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+
+        <tech.hombre.freelancehunt.common.widgets.EditorEditText
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:lines="3"
+            android:paddingTop="0dp"
+            android:visibility="visible"
+            android:textAppearance="@style/TextStyle.Chat.Text"
+            android:textColor="?textColorSecondary"
+            app:layout_constraintEnd_toEndOf="@id/dialogTitle"
+            app:layout_constraintStart_toStartOf="@id/dialogTitle"
+            app:layout_constraintTop_toBottomOf="@id/dialogTitle"
+            tools:hint="@string/choose_comment_hint" />
+
+        <LinearLayout
+            android:id="@+id/digitInputView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/dialogTitle"
+            app:layout_constraintStart_toStartOf="@id/dialogTitle"
+            app:layout_constraintTop_toBottomOf="@id/text">
+
+            <TextView
+                android:id="@+id/daysTitle"
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:paddingEnd="@dimen/padding_middle"
+                android:text="@string/days_bid"
+                android:textColor="?textColorSecondary" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/digit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="1"
+                android:inputType="number"
+                android:textAppearance="@style/TextStyle.Title.Sub"
+                android:textColor="?textColorSecondary"
+                android:textColorHint="?textColorSecondary" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonChooseBid"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:textColor="?iconColor"
+            app:icon="@drawable/check"
+            app:iconPadding="@dimen/padding_middle"
+            app:iconTint="?iconColor"
+            app:layout_constraintEnd_toEndOf="@id/dialogTitle"
+            app:layout_constraintTop_toBottomOf="@id/digitInputView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
