@@ -244,6 +244,9 @@ class NewProjectActivity : BaseActivity() {
         snackbar(getString(R.string.no_internet_error_message), newProjectContainer)
     }
 
+    override fun onBackPressed() {
+        if (canExit()) super.onBackPressed()
+    }
 
     companion object {
 

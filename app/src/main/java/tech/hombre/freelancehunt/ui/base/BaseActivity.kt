@@ -86,7 +86,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    private fun canExit(): Boolean {
+    fun canExit(): Boolean {
         if (backPressTimer + 2000 > System.currentTimeMillis()) {
             return true
         } else {
