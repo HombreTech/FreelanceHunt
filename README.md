@@ -7,6 +7,7 @@ Another one Freelancehunt.com client app.
 - **Feed**
   - List of user feed updates ```Cached```
 - **Projects**
+  - Add public/personal project
   - List of employers projects ```Cached```
   - Overview
     - About
