@@ -18,8 +18,10 @@ import tech.hombre.freelancehunt.common.CurrencyType
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.extensions.gone
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.extensions.visible
 import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.project.presentation.NewProjectViewModel
@@ -142,7 +144,10 @@ class NewProjectActivity : BaseActivity() {
             picker.show()
         }
 
-        isForPlus.isEnabled = appPreferences.getCurrentUserProfile()?.is_plus_active ?: false
+        if (!isPersonal) {
+            plusView.visible()
+            isForPlus.isEnabled = appPreferences.getCurrentUserProfile()?.is_plus_active ?: false
+        } else plusView.gone()
 
         val calendar: Calendar = Calendar.getInstance()
         val yy: Int = calendar.get(Calendar.YEAR)
