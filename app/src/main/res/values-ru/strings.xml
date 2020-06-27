@@ -185,4 +185,5 @@
     <string name="type_invited_project">пригласил вас в персональный проект</string>
     <string name="new_personal_project">Персональный проект</string>
     <string name="type_forum_message">сообщение в форуме проекта</string>
+    <string name="added">Добавлено&#160;</string>
 </resources>

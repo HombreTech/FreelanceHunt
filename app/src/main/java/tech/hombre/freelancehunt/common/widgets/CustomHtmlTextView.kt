@@ -24,7 +24,7 @@ class CustomHtmlTextView @JvmOverloads constructor(
         val getter = HtmlHttpImageGetter(this, null, fillWidth).apply {
             enableCompressImage(true, 70)
         }
-      
+
         setHtml(text.replace("<!--(.*?)-->".toRegex(RegexOption.DOT_MATCHES_ALL), "$1"), getter)
     }
 }

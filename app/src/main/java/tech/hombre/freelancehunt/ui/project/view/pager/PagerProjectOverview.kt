@@ -12,6 +12,8 @@ import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.extensions.getTimeAgo
+import tech.hombre.freelancehunt.common.extensions.parseFullDate
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.ui.base.*
@@ -75,7 +77,19 @@ class PagerProjectOverview : BaseFragment() {
         initSkills(details.skills)
 
         if (details.description_html != null) {
-            description.setHtmlText(details.description_html!!)
+            val desc = StringBuilder()
+            desc.append(details.description_html!!)
+
+            details.updates.forEach { update ->
+                desc.append("<b><i>")
+                desc.append(getString(R.string.added))
+                desc.append(update.published_at.parseFullDate(true).getTimeAgo())
+                desc.append("</b></i>")
+                desc.append("\n")
+                desc.append(update.description_html)
+            }
+
+            description.setHtmlText(desc.toString())
         } else description.text = getString(R.string.no_information)
 
         avatar.setUrl(details.employer!!.avatar.large.url, isCircle = true)

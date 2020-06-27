@@ -4,17 +4,18 @@ import android.os.Bundle
 import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.Countries
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.extensions.getTimeAgo
+import tech.hombre.freelancehunt.common.extensions.parseFullDate
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestOverviewViewModel
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestPublicViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PagerContestOverview : BaseFragment() {
@@ -65,7 +66,19 @@ class PagerContestOverview : BaseFragment() {
 
     private fun initOverview(details: ContestDetail.Data.Attributes) {
         if (details.description_html != null) {
-            description.setHtmlText(details.description_html!!)
+            val desc = StringBuilder()
+            desc.append(details.description_html!!)
+
+            details.updates.forEach { update ->
+                desc.append("<b><b><i>")
+                desc.append(getString(R.string.added))
+                desc.append(update.published_at.parseFullDate(true).getTimeAgo())
+                desc.append("</b></i>")
+                desc.append("\n")
+                desc.append(update.description_html)
+            }
+
+            description.setHtmlText(desc.toString())
         } else description.text = getString(R.string.no_information)
 
         avatar.setUrl(details.employer.avatar.large.url, isCircle = true)
