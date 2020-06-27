@@ -65,7 +65,7 @@ class UpdateProjectActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_open -> openUrl(this, "https://freelancehunt.com/project/add")
+            R.id.action_open -> openUrl(this, "https://freelancehunt.com/project/update/$projectId")
         }
         return super.onOptionsItemSelected(item)
     }

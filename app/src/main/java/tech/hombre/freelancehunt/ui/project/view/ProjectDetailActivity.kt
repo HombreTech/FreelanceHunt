@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_project_detail.*
+import kotlinx.android.synthetic.main.placeholder_project.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.MyBidsList
@@ -114,6 +116,9 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
     private fun initProjectDetails(details: ProjectDetail.Data) {
         hideLoading(progressBar)
+
+        preview.visibility = View.INVISIBLE
+        content.visible()
 
         projectUrl = details.links.self.web
 

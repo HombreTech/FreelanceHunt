@@ -76,10 +76,13 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
+                            <include layout="@layout/placeholder_project" />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/content"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:visibility="invisible"
                                 android:padding="@dimen/padding_middle">
 
                                 <androidx.constraintlayout.helper.widget.Flow

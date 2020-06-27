@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preview"
+    tools:showIn="@layout/activity_project_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:padding="@dimen/padding_middle">
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow_"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="isplus_,premium_,safe_,isremote_"
+        app:flow_horizontalBias="0"
+        app:flow_horizontalGap="@dimen/padding_small"
+        app:flow_horizontalStyle="packed"
+        app:flow_verticalBias="0"
+        app:flow_wrapMode="chain"
+        app:layout_constraintEnd_toEndOf="@id/name_"
+        app:layout_constraintStart_toStartOf="@id/name_"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/isplus_"
+        style="@style/TextStyle.Type"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/placeholder_dark"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/premium_"
+        style="@style/TextStyle.Type.Bold"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/placeholder_dark"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/safe_"
+        style="@style/TextStyle.Type.Bold"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/placeholder_dark"
+        />
+
+    <TextView
+        android:id="@+id/isremote_"
+        style="@style/TextStyle.Type.Bold"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/placeholder_dark"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/name_"
+        style="@style/TextStyle.Heading.Large"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_middle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flow_"
+        android:background="@drawable/placeholder_dark" />
+
+    <TextView
+        android:id="@+id/status_"
+        style="@style/TextStyle.Vote"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_middle"
+        android:background="@drawable/placeholder_dark"
+        app:layout_constraintStart_toStartOf="@id/name_"
+        app:layout_constraintTop_toBottomOf="@id/name_"
+         />
+
+    <TextView
+        android:id="@+id/budget_"
+        style="@style/TextStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_middle"
+        android:drawableStart="@drawable/purse"
+        android:drawablePadding="@dimen/padding_small"
+        android:gravity="center_vertical"
+        android:textColor="?textColorSecondary"
+        app:layout_constraintStart_toStartOf="@id/name_"
+        app:layout_constraintTop_toBottomOf="@id/status_"
+        android:text="0 ₴" />
+
+    <TextView
+        android:id="@+id/expiredAt_"
+        style="@style/TextStyle.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:drawableStart="@drawable/calendar"
+        android:drawablePadding="@dimen/padding_small"
+        android:textColor="?textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/budget_"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/budget_"
+        app:layout_constraintTop_toTopOf="@id/budget_"
+        android:text="0 days" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
