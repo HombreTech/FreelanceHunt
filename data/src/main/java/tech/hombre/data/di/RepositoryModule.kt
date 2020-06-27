@@ -78,4 +78,6 @@ val repositoryModule = module {
     factory<ExtendProjectRepository> { ExtendProjectRepositoryImpl(get()) }
     factory<UpdateProjectRepository> { UpdateProjectRepositoryImpl(get()) }
     factory<AmendProjectRepository> { AmendProjectRepositoryImpl(get()) }
+    factory<CloseProjectRepository> { CloseProjectRepositoryImpl(get()) }
+    factory<ReopenProjectRepository> { ReopenProjectRepositoryImpl(get()) }
 }

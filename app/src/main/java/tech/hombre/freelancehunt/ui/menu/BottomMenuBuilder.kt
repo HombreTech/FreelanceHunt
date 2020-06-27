@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.menu
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import org.koin.core.KoinComponent
+import tech.hombre.domain.model.WorkspaceDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.ProjectStatus
 import tech.hombre.freelancehunt.common.SIMPLE_DIALOG_CLOSE_WORKSPACE
@@ -24,8 +25,8 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
     fun buildMenuForCreateThread(profileId: Int) =
         CreateThreadBottomDialogFragment.newInstance(profileId).show(fm, tag)
 
-    fun buildMenuForProposeConditions(workspaceId: Int) =
-        ProposeConditionsBottomDialogFragment.newInstance(workspaceId).show(fm, tag)
+    fun buildMenuForProposeConditions(workspaceId: Int, budget: WorkspaceDetail.Data.Attributes.Conditions.Budget, safe: String, days: Int) =
+        ProposeConditionsBottomDialogFragment.newInstance(workspaceId, budget, safe, days).show(fm, tag)
 
     fun buildMenuForExtendWorkspace(workspaceId: Int) =
         SimpleInputBottomDialogFragment.newInstance(
@@ -65,7 +66,13 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
         if (!isRevoked)
             items.add(MenuItem(context.getString(R.string.revoke), "revoke", R.drawable.remove))
         //else items.add(MenuItem(context.getString(R.string.restore), "restore", R.drawable.project))
-        items.add(MenuItem(context.getString(R.string.project_view), "view", R.drawable.overview_project))
+        items.add(
+            MenuItem(
+                context.getString(R.string.project_view),
+                "view",
+                R.drawable.overview_project
+            )
+        )
         if (items.isNotEmpty()) {
             ListMenuBottomDialogFragment.newInstance(
                 projectId,
@@ -130,7 +137,7 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
                 )
             )
         } else {
-            if (isEmployer && projectStatus == ProjectStatus.PROJECT_ONGOING) items.add(
+            if (isEmployer &&  (projectStatus == ProjectStatus.OPEN_FOR_PROPOSALS || projectStatus == ProjectStatus.PROJECT_ONGOING) && projectStatus != ProjectStatus.PENDING_PAYMENT_RESERVATION) items.add(
                 MenuItem(
                     context.getString(R.string.extend_project),
                     "extend",
@@ -195,16 +202,54 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
             ).show(fm, tag) else toast(context.getString(R.string.not_have_action))
     }
 
-    fun buildMenuForProject(projectId: Int, hasBids: Boolean) {
+    fun buildMenuForProject(
+        projectId: Int,
+        hasBids: Boolean,
+        status: ProjectStatus
+    ) {
         val items = arrayListOf<MenuItem>()
         if (!hasBids)
-            items.add(MenuItem(context.getString(R.string.update_project), "update", R.drawable.edit))
-        else
-            items.add(MenuItem(context.getString(R.string.update_project), "amend", R.drawable.edit))
+            items.add(
+                MenuItem(
+                    context.getString(R.string.update),
+                    "update",
+                    R.drawable.edit
+                )
+            )
+        else if (status == ProjectStatus.OPEN_FOR_PROPOSALS)
+            items.add(
+                MenuItem(
+                    context.getString(R.string.update),
+                    "amend",
+                    R.drawable.edit
+                )
+            )
 
         items.add(MenuItem(context.getString(R.string.extend_project), "extend", R.drawable.time))
 
-        items.add(MenuItem(context.getString(R.string.project_view), "view", R.drawable.overview_project))
+        if (status == ProjectStatus.OPEN_FOR_PROPOSALS)
+            items.add(
+                MenuItem(
+                    context.getString(R.string.close_project),
+                    "close",
+                    R.drawable.pause
+                )
+            ) else if (status == ProjectStatus.CLOSED_WITHOUT_COMPLETION)
+            items.add(
+                MenuItem(
+                    context.getString(R.string.reopen_project),
+                    "reopen",
+                    R.drawable.resume
+                )
+            )
+
+        items.add(
+            MenuItem(
+                context.getString(R.string.project_view),
+                "view",
+                R.drawable.overview_project
+            )
+        )
 
         if (items.isNotEmpty()) {
             ListMenuBottomDialogFragment.newInstance(

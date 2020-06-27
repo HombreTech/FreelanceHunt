@@ -20,6 +20,8 @@ data class ApiError(
     data class Info(
         @SerializedName("budget.amount")
         val amount: List<String> = listOf(),
-        val comment: List<String> = listOf()
+        val comment: List<String> = listOf(),
+        val description_html: List<String> = listOf(),
+        val expired_at: List<String> = listOf()
     )
 }

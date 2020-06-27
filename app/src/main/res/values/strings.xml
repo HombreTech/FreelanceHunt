@@ -110,6 +110,7 @@
     <string name="bit_a_bid">Add bid</string>
     <string name="safe_cost_minimal">Minimum safe budget should be at least 200₴ or 600₽</string>
     <string name="bid_comment_min">The minimum bid length must be at least 60 characters.</string>
+    <string name="project_description_min">The minimum description length must be at least 60 characters.</string>
     <string name="bid_add_success">Bid was added</string>
     <string name="revoke">Revoke</string>
     <string name="restore">Restore</string>
@@ -192,4 +193,6 @@
     <string name="update">Update</string>
     <string name="not_implemented">Not implemented yet.\nAPI requered</string>
     <string name="not_implemented_error">Not implemented yet :(</string>
+    <string name="reopen_project">Reopen project</string>
+    <string name="personal_project_for">Personal project for %s</string>
 </resources>

@@ -1,6 +1,8 @@
 package tech.hombre.domain.model
 
+import android.os.Parcelable
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import kotlinx.android.parcel.Parcelize
 
 
 data class WorkspaceDetail(
@@ -16,7 +18,7 @@ data class WorkspaceDetail(
         data class Attributes(
             val arbitrage_started_at: String? = "",
             val conditions: Conditions = Conditions(),
-            val development_ends_at: String = "",
+            val development_ends_at: String? = "",
             val employer: Employer = Employer(),
             val freelancer: Freelancer = Freelancer(),
             val project: Project = Project()
@@ -28,10 +30,11 @@ data class WorkspaceDetail(
                 val days: Int = 0,
                 val safe_type: String = ""
             ) {
+                @Parcelize
                 data class Budget(
                     val amount: Int = 0,
                     val currency: String = ""
-                )
+                ): Parcelable
 
                 data class ConfirmedBy(
                     val employer: Boolean = false,

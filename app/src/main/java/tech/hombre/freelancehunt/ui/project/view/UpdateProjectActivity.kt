@@ -177,7 +177,7 @@ class UpdateProjectActivity : BaseActivity() {
             if (correctInputs()) {
                 val currency = CurrencyType.values()[budgetType.selectedItemPosition]
                 val budget = MyBidsList.Data.Attributes.Budget(
-                    budgetValue.text.toString(),
+                    budgetValue.text.toString().toInt(),
                     currency.currency
                 )
                 val safe = SafeType.values()[safeType.selectedItemPosition]
@@ -226,7 +226,7 @@ class UpdateProjectActivity : BaseActivity() {
     }
 
     private fun correctInputs(): Boolean {
-        return description.savedText.isNotEmpty() && checkedSkills.any { it }
+        return description.savedText.isNotEmpty() && !budgetValue.text.isNullOrEmpty() && checkedSkills.any { it }
     }
 
     override fun onSupportNavigateUp(): Boolean {

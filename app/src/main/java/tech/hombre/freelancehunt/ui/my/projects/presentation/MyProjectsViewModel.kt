@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import tech.hombre.data.BuildConfig
 import tech.hombre.domain.interaction.myprojects.GetMyProjectsListUseCase
+import tech.hombre.domain.interaction.projectslist.CloseProjectUseCase
 import tech.hombre.domain.interaction.projectslist.ExtendProjectUseCase
+import tech.hombre.domain.interaction.projectslist.ReopenProjectUseCase
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCase
 import tech.hombre.domain.model.MyProjectsList
 import tech.hombre.domain.model.ProjectDetail
@@ -18,7 +20,9 @@ import tech.hombre.freelancehunt.ui.base.ViewState
 class MyProjectsViewModel(
     private val getMyContestsList: GetMyProjectsListUseCase,
     private val getProjectDetail: GetProjectDetailUseCase,
-    private val extendProject: ExtendProjectUseCase
+    private val extendProject: ExtendProjectUseCase,
+    private val closeProject: CloseProjectUseCase,
+    private val reopenProject: ReopenProjectUseCase
 ) :
     BaseViewModel<MyProjectsList>() {
 
@@ -28,8 +32,8 @@ class MyProjectsViewModel(
     val details: LiveData<ViewState<ProjectDetail>>
         get() = _details
 
-    val _action = MutableLiveData<ViewState<Pair<Int, ProjectDetail>>>()
-    val action: LiveData<ViewState<Pair<Int, ProjectDetail>>>
+    val _action = MutableLiveData<ViewState<Pair<Int, ProjectDetail?>>>()
+    val action: LiveData<ViewState<Pair<Int, ProjectDetail?>>>
         get() = _action
 
     fun getMyProjectsLists(url: String = BuildConfig.BASE_URL + "my/projects") = executeUseCase {
@@ -53,6 +57,22 @@ class MyProjectsViewModel(
         extendProject(projectId, expiredAt)
             .onSuccess {
                 _action.value = Success(Pair(projectId, it))
+            }
+            .onFailure { _action.value = Error(it.throwable) }
+    }
+
+    fun closeProjects(projectId: Int) = executeUseCase {
+        closeProject(projectId)
+            .onSuccess {
+                _action.value = Success(Pair(projectId, null))
+            }
+            .onFailure { _action.value = Error(it.throwable) }
+    }
+
+    fun reopenProjects(projectId: Int, expiredAt: String) = executeUseCase {
+        reopenProject(projectId, expiredAt)
+            .onSuccess {
+                _action.value = Success(Pair(projectId, null))
             }
             .onFailure { _action.value = Error(it.throwable) }
     }

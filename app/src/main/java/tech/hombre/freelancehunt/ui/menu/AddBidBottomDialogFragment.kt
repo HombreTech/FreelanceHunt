@@ -57,7 +57,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
     private fun correctInputs(): Boolean {
         cost = costValue.text.toString().toIntOrNull() ?: 0
         val currency = CurrencyType.values()[costType.selectedItemPosition]
-        budget = MyBidsList.Data.Attributes.Budget(cost.toString(), currency.currency)
+        budget = MyBidsList.Data.Attributes.Budget(cost, currency.currency)
         day = days.text.toString().toIntOrNull() ?: 0
         safe = SafeType.values()[safeType.selectedItemPosition]
         var costVerified = true

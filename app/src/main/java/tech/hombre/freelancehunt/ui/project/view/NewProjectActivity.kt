@@ -14,10 +14,7 @@ import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.domain.model.SkillList
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.CurrencyType
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.EXTRA_2
-import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.gone
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
@@ -52,6 +49,9 @@ class NewProjectActivity : BaseActivity() {
             subscribeToData()
             isPersonal = it.getBoolean(EXTRA_1, false)
             freelancerId = it.getInt(EXTRA_2, 0)
+            val freelancerLogin = it.getString(EXTRA_3, "")
+            if (isPersonal && freelancerLogin.isNotEmpty()) supportActionBar?.subtitle = String.format(getString(
+                            R.string.personal_project_for), freelancerLogin)
             initViews()
         }
     }
@@ -161,7 +161,7 @@ class NewProjectActivity : BaseActivity() {
             if (correctInputs()) {
                 val currency = CurrencyType.values()[budgetType.selectedItemPosition]
                 val budget = MyBidsList.Data.Attributes.Budget(
-                    budgetValue.text.toString(),
+                    budgetValue.text.toString().toInt(),
                     currency.currency
                 )
                 val safe = SafeType.values()[safeType.selectedItemPosition]
@@ -200,7 +200,7 @@ class NewProjectActivity : BaseActivity() {
     }
 
     private fun correctInputs(): Boolean {
-        return endDate.isNotEmpty() && !projectTitle.text.isNullOrEmpty() && description.savedText.isNotEmpty() && checkedSkills.any { it }
+        return endDate.isNotEmpty() && !projectTitle.text.isNullOrEmpty() && !budgetValue.text.isNullOrEmpty() && description.savedText.isNotEmpty() && checkedSkills.any { it }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -250,10 +250,11 @@ class NewProjectActivity : BaseActivity() {
 
     companion object {
 
-        fun startActivity(context: Context, isPersonal: Int, freelancerId: Int) {
+        fun startActivity(context: Context, isPersonal: Int, freelancerId: Int, freelancerLogin: String = "") {
             val intent = Intent(context, NewProjectActivity::class.java)
             intent.putExtra(EXTRA_1, isPersonal)
             intent.putExtra(EXTRA_2, freelancerId)
+            intent.putExtra(EXTRA_3, freelancerLogin)
             context.startActivity(intent)
         }
     }

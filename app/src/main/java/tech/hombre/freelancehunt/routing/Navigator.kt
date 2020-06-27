@@ -34,7 +34,7 @@ interface Navigator {
 
     fun showThread(threadId: Int, threadUrl: String)
 
-    fun showNewProjectDialog(freelancerId: Int = 0, isPersonal: Boolean = false)
+    fun showNewProjectDialog(freelancerId: Int = 0, isPersonal: Boolean = false, freelancerLogin: String = "")
 
     fun showUpdateProjectDialog(projectId: Int, isAmend: Boolean, projectDetails: ProjectDetail.Data?)
 }

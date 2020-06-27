@@ -56,4 +56,15 @@ interface ProjectsApi {
     suspend fun amendProject(
         @Path("projectId") projectId: Int, @Body data: AmendProjectBody
     ): Response<ProjectDetailResponse>
+
+    @POST("projects/{projectId}/close")
+    suspend fun closeProject(
+        @Path("projectId") projectId: Int
+    ): Response<Unit>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects/{projectId}/reopen")
+    suspend fun reopenProject(
+        @Path("projectId") projectId: Int, @Body data: ExtendProjectBody
+    ): Response<Unit>
 }

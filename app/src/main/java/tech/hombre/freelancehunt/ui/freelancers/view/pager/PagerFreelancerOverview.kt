@@ -55,7 +55,7 @@ class PagerFreelancerOverview : BaseFragment() {
         if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) {
             buttonJob.visible()
             buttonJob.setOnClickListener {
-                appNavigator.showNewProjectDialog(details.id, true)
+                appNavigator.showNewProjectDialog(details.id, true, details.attributes.login)
             }
         }
     }

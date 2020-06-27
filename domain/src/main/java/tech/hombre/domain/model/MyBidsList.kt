@@ -27,7 +27,7 @@ data class MyBidsList(
         ) {
             data class Budget(
                 @SerializedName("amount")
-                val amount: String = "",
+                val amount: Int = 0,
                 @SerializedName("currency")
                 val currency: String = ""
             )

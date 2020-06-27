@@ -59,7 +59,7 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
         when (viewState) {
             is Success -> {
                 items.clear()
-                adapter.setItems(items)
+                //adapter.setItems(items)
                 viewModel.getMyWorkspacesLists()
             }
         }
@@ -98,7 +98,7 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                         )
                         .setText(
                             R.id.expiredAt,
-                            model.attributes.development_ends_at.parseFullDate(true).getTimeAgo()
+                            model.attributes.development_ends_at?.parseFullDate(true).getTimeAgo()
                         )
                         .find(
                             R.id.avatarEmployer,
@@ -175,7 +175,8 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                         }
                         .setOnClickListener(R.id.clickableView) {
                             val projectStatus = getProjectStatus(model.attributes.project.status.id)
-                            val isConfirmed = if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) model.attributes.conditions.confirmed_by.employer else model.attributes.conditions.confirmed_by.freelancer
+                            val isConfirmed =
+                                if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) model.attributes.conditions.confirmed_by.employer else model.attributes.conditions.confirmed_by.freelancer
                             BottomMenuBuilder(
                                 requireContext(),
                                 childFragmentManager,
@@ -184,7 +185,8 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                                 model.id,
                                 isConfirmed,
                                 projectStatus,
-                                SafeType.values().find { it.type == model.attributes.project.safe_type } == SafeType.DIRECT_PAYMENT,
+                                SafeType.values()
+                                    .find { it.type == model.attributes.project.safe_type } == SafeType.DIRECT_PAYMENT,
                                 appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
                             )
                         }
@@ -210,7 +212,7 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
 
         refresh.setOnRefreshListener {
             items.clear()
-            adapter.setItems(items)
+            //adapter.setItems(items)
             viewModel.getMyWorkspacesLists()
         }
     }
@@ -238,11 +240,20 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                 viewModel.rejectCondition(primaryId)
             }
             "propose" -> {
-                BottomMenuBuilder(
-                    requireContext(),
-                    childFragmentManager,
-                    ProposeConditionsBottomDialogFragment.TAG
-                ).buildMenuForProposeConditions(primaryId)
+                val item = items.find { it.id == primaryId }
+                item?.let {
+                    BottomMenuBuilder(
+                        requireContext(),
+                        childFragmentManager,
+                        ProposeConditionsBottomDialogFragment.TAG
+                    ).buildMenuForProposeConditions(
+                        primaryId,
+                        it.attributes.conditions.budget,
+                        it.attributes.conditions.safe_type,
+                        it.attributes.conditions.days
+                    )
+                }
+
             }
             "extend" -> {
                 BottomMenuBuilder(

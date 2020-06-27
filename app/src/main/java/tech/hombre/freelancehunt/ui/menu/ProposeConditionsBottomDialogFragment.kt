@@ -6,12 +6,10 @@ import android.os.Bundle
 import androidx.annotation.Keep
 import kotlinx.android.synthetic.main.bottom_menu_propose_conditions.*
 import tech.hombre.domain.model.MyBidsList
+import tech.hombre.domain.model.WorkspaceDetail
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.CurrencyType
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.ui.base.BaseBottomDialogFragment
-
 
 class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
 
@@ -25,11 +23,25 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
     private var budget = MyBidsList.Data.Attributes.Budget()
     private var safe: SafeType? = null
     private var comm = ""
-    private var isHiddenBid = false
 
     override fun viewReady() {
         arguments?.let {
             ids = it.getInt(EXTRA_1, -1)
+            val budget_con = it.getParcelable(EXTRA_2) as WorkspaceDetail.Data.Attributes.Conditions.Budget
+            val safe_type = it.getString(EXTRA_3)
+            safe = SafeType.values().find { it.type == safe_type }
+            budget = MyBidsList.Data.Attributes.Budget(budget_con.amount, budget_con.currency)
+            day = it.getInt(EXTRA_4, -1)
+
+            costValue.setText(budget.amount.toString())
+            costType.setSelection(
+                CurrencyType.values().find { it.currency == budget.currency }?.ordinal ?: 0
+            )
+            safeType.setSelection(
+                SafeType.values().find { it.type == safe!!.type }?.ordinal ?: 0
+            )
+            days.setText(day.toString())
+
             buttonAddConditions.setOnClickListener {
                 if (correctInputs()) {
                     listener?.onConditionsChanged(
@@ -52,7 +64,7 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
     private fun correctInputs(): Boolean {
         cost = costValue.text.toString().toIntOrNull() ?: 0
         val currency = CurrencyType.values()[costType.selectedItemPosition]
-        budget = MyBidsList.Data.Attributes.Budget(cost.toString(), currency.currency)
+        budget = MyBidsList.Data.Attributes.Budget(cost, currency.currency)
         day = days.text.toString().toIntOrNull() ?: 0
         safe = SafeType.values()[safeType.selectedItemPosition]
         var costVerified = true
@@ -106,10 +118,13 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
         @Keep
         val TAG = ProposeConditionsBottomDialogFragment::class.java.simpleName
 
-        fun newInstance(ids: Int): ProposeConditionsBottomDialogFragment {
+        fun newInstance(ids: Int, budget: WorkspaceDetail.Data.Attributes.Conditions.Budget, safe: String, days: Int): ProposeConditionsBottomDialogFragment {
             val fragment = ProposeConditionsBottomDialogFragment()
             val extra = Bundle()
             extra.putInt(EXTRA_1, ids)
+            extra.putParcelable(EXTRA_2, budget)
+            extra.putString(EXTRA_3, safe)
+            extra.putInt(EXTRA_4, days)
             fragment.arguments = extra
             return fragment
         }

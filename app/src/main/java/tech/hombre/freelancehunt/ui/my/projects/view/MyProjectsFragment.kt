@@ -9,6 +9,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProjectsList
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.ProjectStatus
 import tech.hombre.freelancehunt.common.SafeType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
@@ -71,13 +72,19 @@ class MyProjectsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomLi
         }
     }
 
-    private fun handleActionViewState(viewState: ViewState<Pair<Int, ProjectDetail>>) {
+    private fun handleActionViewState(viewState: ViewState<Pair<Int, ProjectDetail?>>) {
         when (viewState) {
             is Success -> {
                 hideLoading()
                 val position = items.indexOf(items.find { it.id == viewState.data.first })
-                items[position] = viewState.data.second.data
-                adapter.notifyItemChanged(position)
+                if (viewState.data.second == null) {
+                    items.clear()
+                    //adapter.setItems(items)
+                    viewModel.getMyProjectsLists()
+                } else {
+                    items[position] = viewState.data.second!!.data
+                    adapter.notifyItemChanged(position)
+                }
             }
         }
     }
@@ -138,7 +145,7 @@ class MyProjectsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomLi
                                 model.attributes.budget!!.currency
                             )}" else ""
                         )
-                        .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
+                        .setGone(R.id.isplus, !(model.attributes.is_only_for_plus ?: false))
                         .setOnClickListener(R.id.clickableView) {
                             BottomMenuBuilder(
                                 requireContext(),
@@ -146,7 +153,8 @@ class MyProjectsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomLi
                                 ListMenuBottomDialogFragment.TAG
                             ).buildMenuForProject(
                                 model.id,
-                                model.attributes.bid_count > 0
+                                model.attributes.bid_count > 0,
+                                ProjectStatus.values().find { it.id == model.attributes.status.id } ?: ProjectStatus.OPEN_FOR_PROPOSALS
                             )
                         }
                 }
@@ -206,6 +214,8 @@ class MyProjectsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomLi
             }
             "extend" -> {
                 val calendar: Calendar = Calendar.getInstance()
+                val item = items.find { it.id == primaryId }
+                calendar.time = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).parse(item?.attributes?.expired_at)
                 val yy: Int = calendar.get(Calendar.YEAR)
                 val mm: Int = calendar.get(Calendar.MONTH)
                 val dd: Int = calendar.get(Calendar.DAY_OF_MONTH)
@@ -231,6 +241,35 @@ class MyProjectsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomLi
                 picker.show()
             }
             "view" -> appNavigator.showProjectDetails(items.find { it.id == primaryId }!!)
+            "close" -> {
+                viewModel.closeProjects(primaryId)
+            }
+            "reopen" -> {
+                val calendar: Calendar = Calendar.getInstance()
+                val yy: Int = calendar.get(Calendar.YEAR)
+                val mm: Int = calendar.get(Calendar.MONTH)
+                val dd: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val picker = DatePickerDialog(
+                    requireContext(),
+                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+
+                        val calendar = Calendar.getInstance()
+                        calendar.set(year, month, dayOfMonth)
+
+                        val format =
+                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
+                        val endDate = format.format(calendar.time)
+
+                        viewModel.reopenProjects(primaryId, endDate)
+                    },
+                    yy,
+                    mm,
+                    dd
+                )
+                picker.datePicker.minDate = System.currentTimeMillis() - 1000
+                picker.show()
+            }
         }
     }
 

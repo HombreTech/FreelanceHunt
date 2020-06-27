@@ -91,4 +91,6 @@ val interactionModule = module {
     factory<ExtendProjectUseCase> { ExtendProjectUseCaseImpl(get()) }
     factory<UpdateProjectUseCase> { UpdateProjectUseCaseImpl(get()) }
     factory<AmendProjectUseCase> { AmendProjectUseCaseImpl(get()) }
+    factory<CloseProjectUseCase> { CloseProjectUseCaseImpl(get()) }
+    factory<ReopenProjectUseCase> { ReopenProjectUseCaseImpl(get()) }
 }

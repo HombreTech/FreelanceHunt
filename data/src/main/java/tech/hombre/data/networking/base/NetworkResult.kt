@@ -69,8 +69,29 @@ fun <T : DomainMapper<R>, R : Any> Response<T>.getData(): Result<R> {
         onSuccess { return Success(it.mapToDomainModel()) }
         onFailure {
             val error = this.errorBody()?.string()?.getApiError()
-            return if (error != null)
-                Failure(HttpError(Throwable(if (error.error.detail.isNullOrEmpty()) error.error.title else error.error.detail)))
+            return if (error != null) {
+                if (error.error.meta != null) {
+                    val result = StringBuilder()
+                    error.error.meta?.let {
+                        if (it.info.description_html.isNotEmpty()) {
+                            result.append(it.info.description_html.joinToString (separator = "\n") { it })
+                        }
+                        if (it.info.amount.isNotEmpty()) {
+                            if (result.isNotEmpty()) result.append("\n")
+                            result.append(it.info.amount.joinToString (separator = "\n") { it })
+                        }
+                        if (it.info.comment.isNotEmpty()) {
+                            if (result.isNotEmpty()) result.append("\n")
+                            result.append(it.info.comment.joinToString (separator = "\n") { it })
+                        }
+                        if (it.info.expired_at.isNotEmpty()) {
+                            if (result.isNotEmpty()) result.append("\n")
+                            result.append(it.info.expired_at.joinToString (separator = "\n") { it })
+                        }
+                    }
+                    Failure(HttpError(Throwable(result.toString())))
+                } else Failure(HttpError(Throwable(if (error.error.detail.isNullOrEmpty()) error.error.title else error.error.detail)))
+            }
             else
                 Failure(HttpError(Throwable(GENERAL_NETWORK_ERROR)))
         }

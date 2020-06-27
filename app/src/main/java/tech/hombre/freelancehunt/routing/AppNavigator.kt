@@ -90,10 +90,11 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
             putExtra(EXTRA_2, threadUrl)
         })
 
-    override fun showNewProjectDialog(freelancerId: Int, isPersonal: Boolean) =
+    override fun showNewProjectDialog(freelancerId: Int, isPersonal: Boolean, freelancerLogin: String) =
         navigateTo(getIntent<NewProjectActivity>().apply {
             putExtra(EXTRA_1, isPersonal)
             putExtra(EXTRA_2, freelancerId)
+            putExtra(EXTRA_3, freelancerLogin)
         })
 
 

@@ -76,12 +76,12 @@ data class MyProfile(
             )
 
             data class Contacts(
-                val skype: String = "",
-                val telegram: String = "",
-                val phone: String = "",
-                val wmid: String = "",
-                val email: String = "",
-                val website: String = ""
+                val skype: String? = "",
+                val telegram: String? = "",
+                val phone: String? = "",
+                val wmid: String? = "",
+                val email: String? = "",
+                val website: String? = ""
             )
 
             data class Status(
