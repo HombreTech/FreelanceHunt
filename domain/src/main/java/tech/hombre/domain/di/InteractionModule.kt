@@ -88,4 +88,7 @@ val interactionModule = module {
     factory<NewProjectUseCase> { NewProjectUseCaseImpl(get()) }
     factory<NewPersonalProjectUseCase> { NewPersonalProjectUseCaseImpl(get()) }
     factory<GetSkillsUseCase> { GetSkillsUseCaseImpl(get()) }
+    factory<ExtendProjectUseCase> { ExtendProjectUseCaseImpl(get()) }
+    factory<UpdateProjectUseCase> { UpdateProjectUseCaseImpl(get()) }
+    factory<AmendProjectUseCase> { AmendProjectUseCaseImpl(get()) }
 }

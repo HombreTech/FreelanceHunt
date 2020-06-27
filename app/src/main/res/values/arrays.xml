@@ -68,7 +68,7 @@
 
     <string-array name="cost_entries">
         <item>₴ (UAH)</item>
-        <item>₽ (RUR)</item>
+        <item>₽ (RUB)</item>
     </string-array>
 
     <string-array name="safe_entries">
@@ -82,6 +82,8 @@
         <item>I pay the commission</item>
         <item>Freelancer pays commission</item>
         <item>Commission is divided in half</item>
+        <item>Direct pay</item>
+        <item>Business safe</item>
     </string-array>
 
     <string-array name="pref_language_entries">

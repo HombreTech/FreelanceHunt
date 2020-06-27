@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_standart"
         android:gravity="center_horizontal"
-        android:text="Not implemented yet :(\nAPI requered"
+        android:text="@string/not_implemented"
         android:textColor="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -51,7 +51,8 @@ val presentationModule = module {
     viewModel { ContestPublicViewModel() }
     viewModel { ContestOverviewViewModel(get()) }
     viewModel { MyContestsViewModel(get(), get()) }
-    viewModel { MyProjectsViewModel(get(), get()) }
+    viewModel { MyProjectsViewModel(get(), get(), get()) }
     viewModel { MyWorkspacesViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { NewProjectViewModel(get(), get(), get()) }
+    viewModel { UpdateProjectViewModel(get(), get(), get()) }
 }

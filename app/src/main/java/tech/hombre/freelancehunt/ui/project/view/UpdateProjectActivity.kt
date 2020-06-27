@@ -7,55 +7,59 @@ import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
-import kotlinx.android.synthetic.main.activity_new_job.*
+import kotlinx.android.synthetic.main.activity_update_job.*
 import kotlinx.android.synthetic.main.appbar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.domain.model.SkillList
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.CurrencyType
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.EXTRA_2
-import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.*
+import tech.hombre.freelancehunt.common.extensions.gone
 import tech.hombre.freelancehunt.common.extensions.snackbar
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.ui.base.*
-import tech.hombre.freelancehunt.ui.project.presentation.NewProjectViewModel
+import tech.hombre.freelancehunt.ui.my.projects.presentation.MyProjectSharedViewModel
+import tech.hombre.freelancehunt.ui.project.presentation.UpdateProjectViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class NewProjectActivity : BaseActivity() {
+class UpdateProjectActivity : BaseActivity() {
 
-    private val viewModel: NewProjectViewModel by viewModel()
+    private val viewModel: UpdateProjectViewModel by viewModel()
+
+    private val sharedViewModel: MyProjectSharedViewModel by viewModel()
 
     private var skills = listOf<SkillList.Data>()
 
     var checkedSkills = booleanArrayOf()
 
-    private var freelancerId = 0
+    private var projectId = 0
 
-    private var isPersonal = false
+    private var isAmend = false
 
     private var endDate = ""
 
+    var projectDetails: ProjectDetail.Data? = null
+
     override fun viewReady() {
-        setContentView(R.layout.activity_new_job)
+        setContentView(R.layout.activity_update_job)
         setSupportActionBar(toolbar)
-        setTitle(R.string.new_project)
+        setTitle(R.string.update_project)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent?.extras?.let {
+            projectId = it.getInt(EXTRA_1, 0)
+            isAmend = it.getBoolean(EXTRA_2, false)
+            projectDetails = it.getParcelable<ProjectDetail.Data>(EXTRA_3)
             subscribeToData()
-            isPersonal = it.getBoolean(EXTRA_1, false)
-            freelancerId = it.getInt(EXTRA_2, 0)
-            initViews()
+            initViews(projectDetails)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_new_project, menu)
+        menuInflater.inflate(R.menu.menu_update_project, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -66,7 +70,35 @@ class NewProjectActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initViews() {
+    private fun initViews(projectDetails: ProjectDetail.Data?) {
+        if (projectDetails == null) {
+            handleError(getString(R.string.project_init_error))
+            return
+        }
+        val projectAttributes = projectDetails.attributes
+
+        if (isAmend) {
+            description.hint = getString(R.string.project_amend_description_hint)
+            description.setText("")
+            projectTitle.gone()
+            safeView.gone()
+            endDateView.gone()
+        } else {
+            projectTitle.setText(projectAttributes.name)
+            description.setText(projectAttributes.description_html)
+        }
+
+        budgetValue.setText((projectAttributes.budget?.amount ?: "").toString())
+
+        budgetType.setSelection(
+            CurrencyType.values().find { it.currency == projectAttributes.budget?.currency }?.ordinal ?: 0
+        )
+        safeType.setSelection(
+            SafeType.values().find { it.type == projectAttributes.safe_type }?.ordinal ?: 0
+        )
+
+        endDate = projectAttributes.expired_at
+
         description.setOnTouchListener { view, event ->
             view.parent.requestDisallowInterceptTouchEvent(true)
             when (event.action and MotionEvent.ACTION_MASK) {
@@ -89,18 +121,9 @@ class NewProjectActivity : BaseActivity() {
                     ) { dialog, which, isChecked ->
                         checkedSkills[which] = isChecked
 
+                        updateSkillsView()
 
-                        val checkedSize = checkedSkills.filter { it }.size
-                        if (checkedSize > 0) {
-                            var placeholder = ""
-                            checkedSkills.forEachIndexed { index, skill ->
-                                if (skill) {
-                                    placeholder += skills[index].name + ","
-                                }
-                            }
-                            skillsList.text =
-                                placeholder.removeRange(placeholder.length - 1, placeholder.length)
-                        } else skillsList.text = getString(R.string.select)
+
                     }
 
                 show()
@@ -142,15 +165,13 @@ class NewProjectActivity : BaseActivity() {
             picker.show()
         }
 
-        isForPlus.isEnabled = appPreferences.getCurrentUserProfile()?.is_plus_active ?: false
-
         val calendar: Calendar = Calendar.getInstance()
+        calendar.time = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).parse(endDate)
         val yy: Int = calendar.get(Calendar.YEAR)
         val mm: Int = calendar.get(Calendar.MONTH) + 1
         val dd: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
         endDateButton.text = String.format("%s/%s/%s", if (dd > 9) dd else "0$dd", if (mm > 9) mm else "0$mm", yy)
-        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
-        endDate = format.format(calendar.time)
 
         buttonSubmit.setOnClickListener {
             if (correctInputs()) {
@@ -167,25 +188,21 @@ class NewProjectActivity : BaseActivity() {
                     }
                 }
 
-                if (isPersonal)
-                    viewModel.addNewPersonalProject(
+                if (isAmend)
+                    viewModel.amendProjects(
+                        projectId,
+                        budget,
+                        description.savedText.toString(),
+                        checkedSkill
+                    ) else
+                    viewModel.updateProjects(
+                        projectId,
                         projectTitle.text.toString(),
-                        freelancerId,
-                        isPersonal,
                         budget,
                         safe.type ?: "employer",
                         description.savedText.toString(),
                         checkedSkill,
                         endDate
-                    ) else
-                    viewModel.addNewProject(
-                        projectTitle.text.toString(),
-                        budget,
-                        safe.type ?: "employer",
-                        description.savedText.toString(),
-                        checkedSkill,
-                        endDate,
-                        isForPlus.isChecked
                     )
 
             } else {
@@ -194,8 +211,22 @@ class NewProjectActivity : BaseActivity() {
         }
     }
 
+    private fun updateSkillsView() {
+        val checkedSize = checkedSkills.filter { it }.size
+        if (checkedSize > 0) {
+            var placeholder = ""
+            checkedSkills.forEachIndexed { index, skill ->
+                if (skill) {
+                    placeholder += skills[index].name + ","
+                }
+            }
+            skillsList.text =
+                placeholder.removeRange(placeholder.length - 1, placeholder.length)
+        } else skillsList.text = getString(R.string.select)
+    }
+
     private fun correctInputs(): Boolean {
-        return endDate.isNotEmpty() && !projectTitle.text.isNullOrEmpty() && description.savedText.isNotEmpty() && checkedSkills.any { it }
+        return description.savedText.isNotEmpty() && checkedSkills.any { it }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -208,6 +239,15 @@ class NewProjectActivity : BaseActivity() {
         viewModel.skills.subscribe(this, {
             skills = it
             checkedSkills = skills.map { false }.toBooleanArray()
+            projectDetails?.let {
+                skills.forEachIndexed { index, skill ->
+                    val source = it.attributes.skills.any { it.id == skill.id }
+                    if (source) {
+                        checkedSkills[index] = true
+                    }
+                }
+                updateSkillsView()
+            }
             hideLoading(progressBar)
         })
         viewModel.setSkills()
@@ -218,8 +258,8 @@ class NewProjectActivity : BaseActivity() {
             is Loading -> showLoading(progressBar)
             is Success -> {
                 hideLoading(progressBar)
+                sharedViewModel.sendAction(Pair(projectId, viewState.data))
                 finish()
-                appNavigator.showProjectDetails(viewState.data.data)
             }
             is Error -> {
                 handleError(viewState.error.localizedMessage)
@@ -242,10 +282,16 @@ class NewProjectActivity : BaseActivity() {
 
     companion object {
 
-        fun startActivity(context: Context, isPersonal: Int, freelancerId: Int) {
-            val intent = Intent(context, NewProjectActivity::class.java)
-            intent.putExtra(EXTRA_1, isPersonal)
-            intent.putExtra(EXTRA_2, freelancerId)
+        fun startActivity(
+            context: Context,
+            projectId: Int,
+            isAmend: Boolean,
+            projectDetails: ProjectDetail.Data?
+        ) {
+            val intent = Intent(context, UpdateProjectActivity::class.java)
+            intent.putExtra(EXTRA_1, projectId)
+            intent.putExtra(EXTRA_2, isAmend)
+            intent.putExtra(EXTRA_3, projectDetails)
             context.startActivity(intent)
         }
     }

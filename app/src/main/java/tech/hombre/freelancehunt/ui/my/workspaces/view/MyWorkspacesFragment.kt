@@ -292,7 +292,11 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                     val threadUrl = it.links.thread
                     appNavigator.showThread(threadId, threadUrl)
                 }
-
+            }
+            "view" -> {
+                items.find { it.id == primaryId }?.let {
+                    appNavigator.showProjectDetails(it.attributes.project.id)
+                }
             }
         }
     }

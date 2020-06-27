@@ -78,13 +78,13 @@ enum class SafeType(val type: String?) {
     EMPLOYER("employer"),
     DEVELOPER("developer"),
     SPLIT("split"),
-    DIRECT_PAYMENT("null"),
+    DIRECT_PAYMENT(null),
     EMPLOYER_CASHLESS("employer_cashless")
 }
 
 enum class CurrencyType(val currency: String) {
     UAH("UAH"),
-    RUR("RUR")
+    RUB("RUB")
 }
 
 enum class BidStatus(val status: String?) {

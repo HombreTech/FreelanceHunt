@@ -65,6 +65,7 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
         if (!isRevoked)
             items.add(MenuItem(context.getString(R.string.revoke), "revoke", R.drawable.remove))
         //else items.add(MenuItem(context.getString(R.string.restore), "restore", R.drawable.project))
+        items.add(MenuItem(context.getString(R.string.project_view), "view", R.drawable.overview_project))
         if (items.isNotEmpty()) {
             ListMenuBottomDialogFragment.newInstance(
                 projectId,
@@ -178,6 +179,14 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
                 )
             )
 
+        items.add(
+            MenuItem(
+                context.getString(R.string.project_view),
+                "view",
+                R.drawable.overview_project
+            )
+        )
+
         if (items.isNotEmpty())
             ListMenuBottomDialogFragment.newInstance(
                 workspaceId,
@@ -186,4 +195,24 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
             ).show(fm, tag) else toast(context.getString(R.string.not_have_action))
     }
 
+    fun buildMenuForProject(projectId: Int, hasBids: Boolean) {
+        val items = arrayListOf<MenuItem>()
+        if (!hasBids)
+            items.add(MenuItem(context.getString(R.string.update_project), "update", R.drawable.edit))
+        else
+            items.add(MenuItem(context.getString(R.string.update_project), "amend", R.drawable.edit))
+
+        items.add(MenuItem(context.getString(R.string.extend_project), "extend", R.drawable.time))
+
+        items.add(MenuItem(context.getString(R.string.project_view), "view", R.drawable.overview_project))
+
+        if (items.isNotEmpty()) {
+            ListMenuBottomDialogFragment.newInstance(
+                projectId,
+                0,
+                items
+            ).show(fm, tag)
+        } else toast(context.getString(R.string.not_have_action))
+
+    }
 }

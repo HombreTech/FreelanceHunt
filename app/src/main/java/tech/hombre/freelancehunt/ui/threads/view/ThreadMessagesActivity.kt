@@ -59,7 +59,7 @@ class ThreadMessagesActivity : BaseActivity() {
 
     private fun initViews() {
         attach.setOnClickListener {
-            handleError("Not implemented yet :(")
+            handleError(getString(R.string.not_implemented_error))
         }
         send.setOnClickListener {
             list.hideKeyboard()

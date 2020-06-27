@@ -63,7 +63,7 @@ class ProjectsFragment : BaseFragment() {
                         .setText(
                             R.id.login,
                             model.attributes.employer?.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name }
-                                ?: "N/A")
+                                ?: "-")
                         .setText(R.id.bidCount, model.attributes.bid_count.toString())
                         .setText(
                             R.id.budget,

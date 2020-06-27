@@ -9,7 +9,10 @@ interface Navigator {
 
     fun showLoginActivity()
 
-    fun showMainActivity(screenType: ScreenType = ScreenType.MAIN, fromNotification: Boolean = false)
+    fun showMainActivity(
+        screenType: ScreenType = ScreenType.MAIN,
+        fromNotification: Boolean = false
+    )
 
     fun showProfileActivity()
 
@@ -32,4 +35,6 @@ interface Navigator {
     fun showThread(threadId: Int, threadUrl: String)
 
     fun showNewProjectDialog(freelancerId: Int = 0, isPersonal: Boolean = false)
+
+    fun showUpdateProjectDialog(projectId: Int, isAmend: Boolean, projectDetails: ProjectDetail.Data?)
 }

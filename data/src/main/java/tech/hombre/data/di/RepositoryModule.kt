@@ -75,4 +75,7 @@ val repositoryModule = module {
     factory<NewProjectRepository> { NewProjectRepositoryImpl(get()) }
     factory<NewPersonalProjectRepository> { NewPersonalProjectRepositoryImpl(get()) }
     factory<SkillsRepository> { SkillsRepositoryImpl(get(), get()) }
+    factory<ExtendProjectRepository> { ExtendProjectRepositoryImpl(get()) }
+    factory<UpdateProjectRepository> { UpdateProjectRepositoryImpl(get()) }
+    factory<AmendProjectRepository> { AmendProjectRepositoryImpl(get()) }
 }

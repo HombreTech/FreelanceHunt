@@ -38,4 +38,22 @@ interface ProjectsApi {
     suspend fun newPersonalProject(
         @Body data: NewPersonalProjectBody
     ): Response<ProjectDetailResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects/{projectId}/extend")
+    suspend fun extendProject(
+        @Path("projectId") projectId: Int, @Body data: ExtendProjectBody
+    ): Response<ProjectDetailResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects/{projectId}")
+    suspend fun updateProject(
+        @Path("projectId") projectId: Int, @Body data: UpdateProjectBody
+    ): Response<ProjectDetailResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("projects/{projectId}/amend")
+    suspend fun amendProject(
+        @Path("projectId") projectId: Int, @Body data: AmendProjectBody
+    ): Response<ProjectDetailResponse>
 }

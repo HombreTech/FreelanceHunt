@@ -174,4 +174,9 @@
     <string name="create_project">Создать проект</string>
     <string name="select_category">Выбор категории</string>
     <string name="select">Выбрать</string>
+    <string name="update_project">Обновление проекта</string>
+    <string name="project_amend_description_hint">Дополнение для описания проекта, будет добавлено ниже основого описания.</string>
+    <string name="update">Обновить</string>
+    <string name="not_implemented">Раздел еще не реализован.\nТребуется расширение API на стороне сервера</string>
+    <string name="not_implemented_error">Еще не реализовано :(</string>
 </resources>

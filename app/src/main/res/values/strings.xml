@@ -186,4 +186,10 @@
     <string name="create_project">Create project</string>
     <string name="select_category">Select category</string>
     <string name="select">Select</string>
+    <string name="update_project">Update project</string>
+    <string name="project_init_error" translatable="false">Project details restore error</string>
+    <string name="project_amend_description_hint">Update for project description, will be added after initial description.</string>
+    <string name="update">Update</string>
+    <string name="not_implemented">Not implemented yet.\nAPI requered</string>
+    <string name="not_implemented_error">Not implemented yet :(</string>
 </resources>

@@ -1,5 +1,6 @@
 package tech.hombre.freelancehunt.ui.my.projects.view
 
+import android.app.DatePickerDialog
 import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -14,11 +15,19 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.ListMenuBottomDialogFragment
+import tech.hombre.freelancehunt.ui.menu.model.MenuItem
+import tech.hombre.freelancehunt.ui.my.projects.presentation.MyProjectSharedViewModel
 import tech.hombre.freelancehunt.ui.my.projects.presentation.MyProjectsViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class MyProjectsFragment : BaseFragment() {
+class MyProjectsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener {
 
     private val viewModel: MyProjectsViewModel by viewModel()
+
+    private val sharedViewModel: MyProjectSharedViewModel by viewModel()
 
     override fun getLayout() = R.layout.fragment_my_projects
 
@@ -38,6 +47,8 @@ class MyProjectsFragment : BaseFragment() {
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        viewModel.action.subscribe(this, ::handleActionViewState)
+        sharedViewModel.action.subscribe(this, ::handleActionViewState)
         viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
@@ -58,6 +69,24 @@ class MyProjectsFragment : BaseFragment() {
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
         }
+    }
+
+    private fun handleActionViewState(viewState: ViewState<Pair<Int, ProjectDetail>>) {
+        when (viewState) {
+            is Success -> {
+                hideLoading()
+                val position = items.indexOf(items.find { it.id == viewState.data.first })
+                items[position] = viewState.data.second.data
+                adapter.notifyItemChanged(position)
+            }
+        }
+    }
+
+    private fun handleActionViewState(viewState: Pair<Int, ProjectDetail>) {
+        hideLoading()
+        val position = items.indexOf(items.find { it.id == viewState.first })
+        items[position] = viewState.second.data
+        adapter.notifyItemChanged(position)
     }
 
     private fun handleError(error: String) {
@@ -101,7 +130,7 @@ class MyProjectsFragment : BaseFragment() {
                         .setText(
                             R.id.login,
                             model.attributes.employer?.let { if (it.first_name.isBlank()) it.login else it.first_name + " " + it.last_name }
-                                ?: "N/A")
+                                ?: "-")
                         .setText(R.id.bidCount, model.attributes.bid_count.toString())
                         .setText(
                             R.id.budget,
@@ -111,12 +140,14 @@ class MyProjectsFragment : BaseFragment() {
                         )
                         .setGone(R.id.isplus, !model.attributes.is_only_for_plus)
                         .setOnClickListener(R.id.clickableView) {
-                            if (model.attributes.is_only_for_plus && appPreferences.getCurrentUserProfile()?.is_plus_active == true) {
-                                appNavigator.showProjectDetails(model)
-                            } else if (!model.attributes.is_only_for_plus)
-                                appNavigator.showProjectDetails(model)
-                            else
-                                handleError(getString(R.string.only_for_plus))
+                            BottomMenuBuilder(
+                                requireContext(),
+                                childFragmentManager,
+                                ListMenuBottomDialogFragment.TAG
+                            ).buildMenuForProject(
+                                model.id,
+                                model.attributes.bid_count > 0
+                            )
                         }
                 }
             )
@@ -154,6 +185,54 @@ class MyProjectsFragment : BaseFragment() {
         adapter.setItems(items)
     }
 
+    override fun onMenuItemSelected(
+        primaryId: Int,
+        secondaryId: Int,
+        position: Int,
+        model: MenuItem
+    ) {
+        when (model.tag) {
+            "update" -> {
+                appNavigator.showUpdateProjectDialog(
+                    primaryId,
+                    false,
+                    items.find { it.id == primaryId })
+            }
+            "amend" -> {
+                appNavigator.showUpdateProjectDialog(
+                    primaryId,
+                    true,
+                    items.find { it.id == primaryId })
+            }
+            "extend" -> {
+                val calendar: Calendar = Calendar.getInstance()
+                val yy: Int = calendar.get(Calendar.YEAR)
+                val mm: Int = calendar.get(Calendar.MONTH)
+                val dd: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val picker = DatePickerDialog(
+                    requireContext(),
+                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+
+                        val calendar = Calendar.getInstance()
+                        calendar.set(year, month, dayOfMonth)
+
+                        val format =
+                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
+                        val endDate = format.format(calendar.time)
+
+                        viewModel.extendProjects(primaryId, endDate)
+                    },
+                    yy,
+                    mm,
+                    dd
+                )
+                picker.datePicker.minDate = System.currentTimeMillis() - 1000
+                picker.show()
+            }
+            "view" -> appNavigator.showProjectDetails(items.find { it.id == primaryId }!!)
+        }
+    }
 
     companion object {
         @Keep

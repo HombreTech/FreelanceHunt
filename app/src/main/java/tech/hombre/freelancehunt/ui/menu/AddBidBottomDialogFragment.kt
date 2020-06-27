@@ -57,7 +57,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
     private fun correctInputs(): Boolean {
         cost = costValue.text.toString().toIntOrNull() ?: 0
         val currency = CurrencyType.values()[costType.selectedItemPosition]
-        budget = MyBidsList.Data.Attributes.Budget(cost, currency.currency)
+        budget = MyBidsList.Data.Attributes.Budget(cost.toString(), currency.currency)
         day = days.text.toString().toIntOrNull() ?: 0
         safe = SafeType.values()[safeType.selectedItemPosition]
         var costVerified = true
@@ -67,7 +67,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
                     showError(getString(R.string.safe_cost_minimal))
                     return false
                 }
-                currency == CurrencyType.RUR && cost < 600 -> {
+                currency == CurrencyType.RUB && cost < 600 -> {
                     showError(getString(R.string.safe_cost_minimal))
                     return false
                 }

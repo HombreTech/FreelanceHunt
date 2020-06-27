@@ -179,13 +179,13 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         list.adapter = adapter
 
         bidsRevoked.setOnClickListener {
-            handleError("Not implemented yet :(")
+            handleError(getString(R.string.not_implemented_error))
         }
         bidsActive.setOnClickListener {
-            handleError("Not implemented yet :(")
+            handleError(getString(R.string.not_implemented_error))
         }
         bidsRejected.setOnClickListener {
-            handleError("Not implemented yet :(")
+            handleError(getString(R.string.not_implemented_error))
         }
 
     }

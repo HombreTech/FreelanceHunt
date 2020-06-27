@@ -8,7 +8,6 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
 import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
@@ -99,7 +98,7 @@ class PagerProjectOverview : BaseFragment() {
                     finder
                         .setText(R.id.name, model.name)
                         .setOnClickListener {
-                            handleError("Not implemented yet :(")
+                            handleError(getString(R.string.not_implemented_error))
                         }
                 }
             )
