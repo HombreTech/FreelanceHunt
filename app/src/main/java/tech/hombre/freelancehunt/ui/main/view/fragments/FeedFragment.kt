@@ -114,7 +114,11 @@ class FeedFragment : BaseFragment() {
                                      SchemeParser.launchUri(requireContext(), it[1])
                                  }
                              } else {
-                                 if (!notForMe) {
+                                 if (type == FeedType.PERSONAL_PROJECT){
+                                     "<a href=\"(.*?)\".*".toRegex().find(model.attributes.message)?.groupValues?.let {
+                                         SchemeParser.launchUri(requireContext(), it[1])
+                                     }
+                                 } else if (!notForMe) {
                                      if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
                                  } else handleError(
                                      getString(R.string.only_for_plus)

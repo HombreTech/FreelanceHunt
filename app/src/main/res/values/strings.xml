@@ -195,4 +195,7 @@
     <string name="not_implemented_error">Not implemented yet :(</string>
     <string name="reopen_project">Reopen project</string>
     <string name="personal_project_for">Personal project for %s</string>
+    <string name="type_invited_project">invited you to participate in a personal project</string>
+    <string name="new_personal_project">Personal project</string>
+    <string name="type_forum_message">added a message to the project forum</string>
 </resources>

@@ -10,11 +10,14 @@ import tech.hombre.freelancehunt.common.FeedType
 
 fun String.prepareFeedMessage(context: Context): String {
     return this
-        .replace("<a data-toggle=\\\"modal\\\".*?a>".toRegex(), "")
-        .replace("<.*?>".toRegex(), "")
+        .replace("<a data-toggle=\\\"modal\\\".*?a>".toRegex(RegexOption.DOT_MATCHES_ALL), "")
+        .replace("<a href=\"https:\\/\\/freelancehunt.com\\/mailbox.*>(.*?)<\\/a>".toRegex(RegexOption.DOT_MATCHES_ALL), "$1")
+        .replace("<.*?>".toRegex(RegexOption.DOT_MATCHES_ALL), "")
         .replace(context.getString(R.string.type_project), "")
         .replace(context.getString(R.string.type_work), "")
         .replace(context.getString(R.string.type_add_message), context.getString(R.string.message))
+        .replace(context.getString(R.string.type_forum_message), "")
+        .replace(context.getString(R.string.type_invited_project), "")
         .trim()
         .capitalize()
 }
@@ -24,7 +27,9 @@ fun feedTypeByMessage(context: Context, message: String): FeedType {
         message.contains(context.getString(R.string.type_project)) -> FeedType.PROJECT
         message.contains(context.getString(R.string.type_work)) -> FeedType.WORK
         message.contains(context.getString(R.string.type_like_message)) -> FeedType.LIKE
-        message.contains(context.getString(R.string.type_add_message)) -> FeedType.FORUM_MESSAGE
+        message.contains(context.getString(R.string.type_add_message)) -> FeedType.MESSAGE
+        message.contains(context.getString(R.string.type_invited_project)) -> FeedType.PERSONAL_PROJECT
+        message.contains(context.getString(R.string.type_forum_message)) -> FeedType.FORUM_MESSAGE
         else -> FeedType.UNKNOWN
     }
 }
@@ -35,7 +40,9 @@ fun getTypeIcon(type: FeedType): Int {
         FeedType.UNKNOWN -> R.drawable.type_unknown
         FeedType.PROJECT -> R.drawable.type_projects
         FeedType.WORK -> R.drawable.type_briefcase
+        FeedType.MESSAGE -> R.drawable.type_messages
         FeedType.FORUM_MESSAGE -> R.drawable.type_messages
+        FeedType.PERSONAL_PROJECT -> R.drawable.project_small
         else -> R.drawable.type_unknown
     }
 }
@@ -46,7 +53,9 @@ fun getTypeColor(type: FeedType): Int {
         FeedType.UNKNOWN -> R.color.typeUnknown
         FeedType.PROJECT -> R.color.typeProject
         FeedType.WORK -> R.color.typeWork
+        FeedType.MESSAGE -> R.color.typeForumMessage
         FeedType.FORUM_MESSAGE -> R.color.typeForumMessage
+        FeedType.PERSONAL_PROJECT -> R.color.typeWork
         else-> R.color.typeUnknown
     }
 }
@@ -57,7 +66,9 @@ fun getTypeLabel(type: FeedType): Int {
         FeedType.UNKNOWN -> R.string.other
         FeedType.PROJECT -> R.string.new_project
         FeedType.WORK -> R.string.new_work
+        FeedType.MESSAGE -> R.string.new_forum_message
         FeedType.FORUM_MESSAGE -> R.string.new_forum_message
+        FeedType.PERSONAL_PROJECT -> R.string.new_personal_project
         else -> R.string.other
     }
 }
