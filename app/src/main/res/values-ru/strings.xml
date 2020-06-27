@@ -186,4 +186,11 @@
     <string name="new_personal_project">Персональный проект</string>
     <string name="type_forum_message">сообщение в форуме проекта</string>
     <string name="added">Добавлено&#160;</string>
+    <string name="quality">Качество</string>
+    <string name="professionalism">Профессионализм</string>
+    <string name="connectivity">Контактность</string>
+    <string name="schedule">Сроки</string>
+    <string name="pay">Оплата</string>
+    <string name="requirements">Постановка задачи</string>
+    <string name="definition">Четкость требований</string>
 </resources>

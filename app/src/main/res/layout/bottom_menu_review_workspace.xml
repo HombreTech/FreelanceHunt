@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -56,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/back_grade"
-                        android:text="Оплата"
+                        android:text="@string/pay"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -92,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/back_grade"
-                        android:text="Постановка задачи"
+                        android:text="@string/requirements"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -128,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/back_grade"
-                        android:text="Четкость требований"
+                        android:text="@string/definition"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -164,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/back_grade"
-                        android:text="Контактность"
+                        android:text="@string/connectivity"
                         android:textColor="@color/white" />
                 </LinearLayout>
 

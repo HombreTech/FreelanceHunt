@@ -199,4 +199,11 @@
     <string name="new_personal_project">Personal project</string>
     <string name="type_forum_message">added a message to the project forum</string>
     <string name="added">Added&#160;</string>
+    <string name="quality">Quality</string>
+    <string name="professionalism">Professionalism</string>
+    <string name="connectivity">Connectivity</string>
+    <string name="schedule">Schedule</string>
+    <string name="pay">Pay</string>
+    <string name="requirements">Requirements</string>
+    <string name="definition">Definition</string>
 </resources>

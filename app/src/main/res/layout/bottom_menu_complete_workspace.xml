@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -57,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back_grade"
-                    android:text="Качество"
+                    android:text="@string/quality"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -94,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back_grade"
-                    android:text="Профессионализм"
+                    android:text="@string/professionalism"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -131,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back_grade"
-                    android:text="Стоимость"
+                    android:text="@string/cost"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -168,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back_grade"
-                    android:text="Контактность"
+                    android:text="@string/connectivity"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -205,7 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back_grade"
-                    android:text="Сроки"
+                    android:text="@string/schedule"
                     android:textColor="@color/white" />
             </LinearLayout>
 

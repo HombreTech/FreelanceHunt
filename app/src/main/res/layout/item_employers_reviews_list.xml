@@ -89,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/back_grade"
-                            android:text="Оплата"
+                            android:text="@string/pay"
                             android:textColor="@color/white" />
                     </LinearLayout>
 
@@ -124,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/back_grade"
-                            android:text="Постановка задачи"
+                            android:text="@string/requirements"
                             android:textColor="@color/white" />
 
                     </LinearLayout>
@@ -161,7 +161,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/back_grade"
-                            android:text="Четкость требований"
+                            android:text="@string/definition"
                             android:textColor="@color/white" />
                     </LinearLayout>
 
@@ -197,7 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/back_grade"
-                            android:text="Контактность"
+                            android:text="@string/connectivity"
                             android:textColor="@color/white" />
                     </LinearLayout>
 
