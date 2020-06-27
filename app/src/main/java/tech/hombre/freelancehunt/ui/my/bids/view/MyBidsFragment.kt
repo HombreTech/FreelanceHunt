@@ -199,6 +199,7 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
         when (model.tag) {
             "revoke" -> viewModel.revokeProjectBids(primaryId, secondaryId)
             "restore" -> { }
+            "view" -> appNavigator.showProjectDetails(primaryId)
         }
     }
 

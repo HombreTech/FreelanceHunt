@@ -179,15 +179,21 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         list.adapter = adapter
 
         bidsRevoked.setOnClickListener {
-            handleError(getString(R.string.not_implemented_error))
+            setFilter("revoked")
         }
         bidsActive.setOnClickListener {
-            handleError(getString(R.string.not_implemented_error))
+            setFilter("active")
         }
         bidsRejected.setOnClickListener {
-            handleError(getString(R.string.not_implemented_error))
+            setFilter("rejected")
         }
 
+    }
+
+    private fun setFilter(status: String) {
+        items.clear()
+        adapter.setItems(items)
+        viewModel.getProjectBids(projectId, status)
     }
 
     private fun subscribeToData() {

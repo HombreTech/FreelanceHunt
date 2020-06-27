@@ -16,7 +16,7 @@ interface ProjectsApi {
     suspend fun getProjectDetail(@Url url: String): Response<ProjectDetailResponse>
 
     @GET("projects/{projectId}/bids")
-    suspend fun getProjectBids(@Path("projectId") projectId: Int): Response<ProjectBidsResponse>
+    suspend fun getProjectBids(@Path("projectId") projectId: Int, @Query("filter[status]") status: String): Response<ProjectBidsResponse>
 
     @GET("projects/{projectId}/comments")
     suspend fun getProjectComments(@Path("projectId") projectId: Int): Response<ProjectCommentsResponse>

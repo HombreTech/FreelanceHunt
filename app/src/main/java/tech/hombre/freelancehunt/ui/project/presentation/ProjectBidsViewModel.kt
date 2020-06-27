@@ -31,8 +31,8 @@ class ProjectBidsViewModel(
     val bidAction: LiveData<ViewState<Pair<Int, String>>>
         get() = _bidAction
 
-    fun getProjectBids(projectId: Int) = executeUseCase {
-        getProjectBid(projectId)
+    fun getProjectBids(projectId: Int, status: String = "active") = executeUseCase {
+        getProjectBid(projectId, status)
             .onSuccess {
                 _viewState.value = Success(it)
             }

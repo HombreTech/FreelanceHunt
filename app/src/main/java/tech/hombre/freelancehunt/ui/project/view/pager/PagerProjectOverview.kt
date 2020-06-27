@@ -84,8 +84,8 @@ class PagerProjectOverview : BaseFragment() {
                 desc.append("<b><i>")
                 desc.append(getString(R.string.added))
                 desc.append(update.published_at.parseFullDate(true).getTimeAgo())
-                desc.append("</b></i>")
-                desc.append("\n")
+                desc.append("</i></b>")
+                desc.append("<br>")
                 desc.append(update.description_html)
             }
 
