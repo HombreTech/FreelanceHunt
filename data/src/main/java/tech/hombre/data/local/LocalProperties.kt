@@ -3,6 +3,7 @@ package tech.hombre.data.local
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import tech.hombre.data.common.extensions.getCurrentDefaultLanguage
 import tech.hombre.domain.model.MyProfile
 
 class LocalProperties(private val sharedPreferences: SharedPreferences) {
@@ -69,7 +70,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     fun getWorkerUnmeteredEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_UNMETERED, false)
 
-    fun getAppLanguage(): String = sharedPreferences.getString(KEY_APP_LANGUAGE, "ru")
+    fun getAppLanguage(): String = sharedPreferences.getString(KEY_APP_LANGUAGE, getCurrentDefaultLanguage())
 
     fun getAppTheme(): String = sharedPreferences.getString(KEY_APP_THEME, "light")
 

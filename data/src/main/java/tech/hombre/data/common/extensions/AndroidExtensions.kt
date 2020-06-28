@@ -1,11 +1,14 @@
 package tech.hombre.data.common.extensions
 
+import android.os.Build
+import android.os.LocaleList
 import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import tech.hombre.data.networking.GENERAL_NETWORK_ERROR
 import tech.hombre.domain.model.ApiError
+import java.util.*
 
 fun String.isJson(): Boolean {
     try {
@@ -38,3 +41,11 @@ fun String.getApiError(): ApiError {
 }
 
 fun Boolean.toInt() = if (this) 1 else 0
+
+fun getCurrentDefaultLanguage(): String? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        LocaleList.getDefault()[0].language
+    } else {
+        Locale.getDefault().language
+    }
+}

@@ -42,8 +42,10 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
         preferenceManager.sharedPreferencesName = "preferences"
         preferenceManager.sharedPreferencesMode = Context.MODE_PRIVATE
         setPreferencesFromResource(R.xml.preferences, rootKey)
-    }
 
+        val langList = preferenceManager.findPreference<Preference>(KEY_APP_LANGUAGE) as ListPreference?
+        langList?.value = appPreferences.getAppLanguage()
+    }
 
     override fun onResume() {
         super.onResume()
