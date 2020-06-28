@@ -11,7 +11,7 @@ import tech.hombre.freelancehunt.ui.threads.view.ThreadMessagesActivity
 object SchemeParser {
 
     fun launchUri(context: Context, url: String) {
-        val pattern = Regex("//freelancehunt.com.*?/(.*?)/.*?(\\d+)")
+        val pattern = Regex("//freelancehunt..*?.*?/(.*?)/.*?(\\d+)")
         val results = pattern.find(url)?.groupValues
         if (results != null) {
             val type = results[1]

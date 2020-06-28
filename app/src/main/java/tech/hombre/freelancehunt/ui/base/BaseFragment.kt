@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
 
     protected val appFragmentNavigator: AppFragmentNavigator by inject { parametersOf(this) }
 
-    protected val appNavigator: AppNavigator by inject { parametersOf(this) }
+    protected val appNavigator: AppNavigator by inject { parametersOf(activity) }
 
     protected val appPreferences: LocalProperties by inject { parametersOf(this) }
 

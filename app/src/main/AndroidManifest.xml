@@ -93,6 +93,10 @@
                     android:host="freelancehunt.com"
                     android:scheme="https" />
 
+                <data
+                    android:host="freelancehunt.work"
+                    android:scheme="https" />
+
                 <data android:pathPattern=".*\\/project.*" />
                 <data android:pathPattern=".*\\/contest.*" />
                 <data android:pathPattern=".*\\/mailbox.*" />
