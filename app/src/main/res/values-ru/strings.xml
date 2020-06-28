@@ -193,4 +193,7 @@
     <string name="pay">Оплата</string>
     <string name="requirements">Постановка задачи</string>
     <string name="definition">Четкость требований</string>
+    <string name="project_filter">Фильтр проектов</string>
+    <string name="is_only_my_skills">Только моя специализация</string>
+    <string name="apply">Применить</string>
 </resources>

@@ -73,6 +73,24 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     fun getAppTheme(): String = sharedPreferences.getString(KEY_APP_THEME, "light")
 
+    fun getProjectFilterOnlyMySkills(): Boolean = sharedPreferences.getBoolean(KEY_PROJECT_FILTER_MY_SKILLS, false)
+
+    private fun setProjectFilterOnlyMySkills(value: Boolean) = sharedPreferences.edit().putBoolean(KEY_PROJECT_FILTER_MY_SKILLS, value).apply()
+
+    fun getProjectFilterOnlyPlus(): Boolean = sharedPreferences.getBoolean(KEY_PROJECT_FILTER_ONLY_PLUS, false)
+
+    private fun setProjectFilterOnlyMyPlus(value: Boolean) = sharedPreferences.edit().putBoolean(KEY_PROJECT_FILTER_ONLY_PLUS, value).apply()
+
+    fun getProjectFilterSkills(): String = sharedPreferences.getString(KEY_PROJECT_FILTER_SKILLS, "")
+
+    private fun setProjectFilterOnlySkills(value: String) = sharedPreferences.edit().putString(KEY_PROJECT_FILTER_SKILLS, value).apply()
+
+    fun saveProjectFilter(onlyMySkills: Boolean, skills: String, onlyPlus: Boolean) {
+        setProjectFilterOnlyMySkills(onlyMySkills)
+        setProjectFilterOnlyMyPlus(onlyPlus)
+        setProjectFilterOnlySkills(skills)
+    }
+
     companion object {
         const val KEY_API_TOKEN = "KEY_API_TOKEN"
         const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
@@ -86,6 +104,10 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         const val KEY_APP_LANGUAGE = "KEY_APP_LANGUAGE"
         const val KEY_APP_THEME = "KEY_APP_THEME"
         const val KEY_WORKER_UNMETERED = "KEY_WORKER_UNMETERED"
+
+        const val KEY_PROJECT_FILTER_MY_SKILLS = "KEY_PROJECT_FILTER_MY_SKILLS"
+        const val KEY_PROJECT_FILTER_ONLY_PLUS = "KEY_PROJECT_FILTER_ONLY_PLUS"
+        const val KEY_PROJECT_FILTER_SKILLS = "KEY_PROJECT_FILTER_SKILLS"
     }
 
 }

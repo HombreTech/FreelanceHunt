@@ -1,10 +1,9 @@
 package tech.hombre.domain.interaction.projectslist
 
-import tech.hombre.domain.base.BaseUseCase
 import tech.hombre.domain.model.ProjectsList
 import tech.hombre.domain.model.Result
 
-interface GetProjectsListUseCase : BaseUseCase<String, ProjectsList> {
+interface GetProjectsListUseCase {
 
-    override suspend operator fun invoke(url: String): Result<ProjectsList>
+    suspend operator fun invoke(url: String, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String): Result<ProjectsList>
 }

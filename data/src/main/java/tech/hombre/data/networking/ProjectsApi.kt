@@ -6,8 +6,8 @@ import tech.hombre.data.networking.model.*
 
 interface ProjectsApi {
 
-    @GET
-    suspend fun getProjectsList(@Url url: String): Response<ProjectsListResponse>
+    @GET("projects")
+    suspend fun getProjectsList(@Query("page[number]") page: String, @Query("filter[only_my_skills]") onlyMySkills: Int, @Query("filter[only_for_plus]") onlyForPlus: Int, @Query("filter[skill_id]") skills: String): Response<ProjectsListResponse>
 
     @GET
     suspend fun getMyProjectsList(@Url url: String): Response<MyProjectsListResponse>

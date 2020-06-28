@@ -2,7 +2,6 @@ package tech.hombre.freelancehunt.ui.main.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import tech.hombre.data.BuildConfig
 import tech.hombre.domain.interaction.projectslist.GetProjectsListUseCase
 import tech.hombre.domain.interaction.projectslist.detail.GetProjectDetailUseCase
 import tech.hombre.domain.model.ProjectDetail
@@ -14,19 +13,27 @@ import tech.hombre.freelancehunt.ui.base.Error
 import tech.hombre.freelancehunt.ui.base.Success
 import tech.hombre.freelancehunt.ui.base.ViewState
 
-class ProjectsViewModel(private val getProjectsList: GetProjectsListUseCase, private val getProjectDetail: GetProjectDetailUseCase) :
+class ProjectsViewModel(
+    private val getProjectsList: GetProjectsListUseCase,
+    private val getProjectDetail: GetProjectDetailUseCase
+) :
     BaseViewModel<ProjectsList>() {
 
     lateinit var pagination: ProjectsList.Links
+
+    var skills = intArrayOf()
+    var onlyMySkills = false
+    var onlyForPlus = false
 
     val _details = MutableLiveData<ViewState<ProjectDetail>>()
     val details: LiveData<ViewState<ProjectDetail>>
         get() = _details
 
-    fun getProjectsLists(url: String = BuildConfig.BASE_URL + "projects") = executeUseCase {
-        getProjectsList(url)
+    fun getProjectsLists(page: Int) = executeUseCase {
+        getProjectsList(page.toString(), onlyMySkills, onlyForPlus, skills.joinToString { it.toString() })
             .onSuccess {
                 pagination = it.links
+
                 _viewState.value = Success(it)
             }
             .onFailure { _viewState.value = Error(it.throwable) }
@@ -36,5 +43,15 @@ class ProjectsViewModel(private val getProjectsList: GetProjectsListUseCase, pri
         getProjectDetail(url)
             .onSuccess { _details.value = Success(it) }
             .onFailure { _details.value = Error(it.throwable) }
+    }
+
+    fun setProjectFilters(
+        onlyMySkills: Boolean,
+        skills: IntArray,
+        onlyForPlus: Boolean
+    ) {
+        this.skills = skills
+        this.onlyMySkills = onlyMySkills
+        this.onlyForPlus = onlyForPlus
     }
 }

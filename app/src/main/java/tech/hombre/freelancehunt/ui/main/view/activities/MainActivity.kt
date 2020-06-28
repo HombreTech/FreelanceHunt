@@ -2,8 +2,6 @@ package tech.hombre.freelancehunt.ui.main.view.activities
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.work.*
@@ -78,18 +76,6 @@ class MainActivity : BaseActivity() {
                 setupTasks()
             }
         billingClient.init()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_share -> true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

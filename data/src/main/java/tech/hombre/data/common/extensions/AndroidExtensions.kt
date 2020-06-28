@@ -36,3 +36,5 @@ fun String.getApiError(): ApiError {
         ApiError(error = ApiError.Error(title = GENERAL_NETWORK_ERROR))
     }
 }
+
+fun Boolean.toInt() = if (this) 1 else 0

@@ -1,9 +1,13 @@
 package tech.hombre.freelancehunt.ui.main.view.fragments
 
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_projects.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.domain.model.ProjectsList
@@ -14,11 +18,17 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
+import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
 import tech.hombre.freelancehunt.ui.main.presentation.ProjectsViewModel
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.ProjectFilterBottomDialogFragment
 
-class ProjectsFragment : BaseFragment() {
+
+class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSubmitProjectFilter {
 
     private val viewModel: ProjectsViewModel by viewModel()
+
+    private val publicViewModel: MainPublicViewModel by sharedViewModel()
 
     override fun getLayout() = R.layout.fragment_projects
 
@@ -29,7 +39,7 @@ class ProjectsFragment : BaseFragment() {
     override fun viewReady() {
         initList()
         subscribeToData()
-        viewModel.getProjectsLists()
+        viewModel.getProjectsLists(1)
     }
 
     private fun initList() {
@@ -95,20 +105,35 @@ class ProjectsFragment : BaseFragment() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getProjectsLists(viewModel.pagination.next)
+                    viewModel.getProjectsLists(page + 1)
                 }
             }
         })
 
         refresh.setOnRefreshListener {
-            items.clear()
-            adapter.setItems(items)
-            viewModel.getProjectsLists()
+            refreshList()
         }
+
+        restoreFilter()
+
+    }
+
+    private fun restoreFilter() {
+        viewModel.onlyMySkills = appPreferences.getProjectFilterOnlyMySkills()
+        viewModel.skills = if (appPreferences.getProjectFilterSkills()
+                .isNotEmpty()
+        ) appPreferences.getProjectFilterSkills().split(",").map { it.toInt() }
+            .toIntArray() else intArrayOf()
+        viewModel.onlyForPlus = appPreferences.getProjectFilterOnlyPlus()
     }
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        publicViewModel.fabClickAction.subscribe(this, { action ->
+            when (action) {
+                "project_filter" -> showFilterDialog()
+            }
+        })
         viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
@@ -120,6 +145,18 @@ class ProjectsFragment : BaseFragment() {
                 is NoInternetState -> showNoInternetError()
             }
         })
+    }
+
+    private fun showFilterDialog() {
+        BottomMenuBuilder(
+            requireContext(),
+            childFragmentManager,
+            ProjectFilterBottomDialogFragment.TAG
+        ).buildMenuForProjectFilter(
+            viewModel.onlyMySkills,
+            viewModel.skills,
+            viewModel.onlyForPlus
+        )
     }
 
     private fun handleViewState(viewState: ViewState<ProjectsList>) {
@@ -141,6 +178,19 @@ class ProjectsFragment : BaseFragment() {
         snackbar(getString(R.string.no_internet_error_message), projectsFragmentContainer)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_projects, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_filter -> {
+                showFilterDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     private fun initProjectsList(projectsList: ProjectsList) {
         hideLoading()
@@ -148,6 +198,26 @@ class ProjectsFragment : BaseFragment() {
 
         items.addAll(projectsList.data)
         adapter.setItems(items)
+    }
+
+    override fun onSubmitProjectFilter(
+        onlyMySkills: Boolean,
+        skills: IntArray,
+        onlyForPlus: Boolean
+    ) {
+        viewModel.setProjectFilters(onlyMySkills, skills, onlyForPlus)
+        appPreferences.saveProjectFilter(
+            onlyMySkills,
+            skills.joinToString { it.toString() },
+            onlyForPlus
+        )
+        refreshList()
+    }
+
+    private fun refreshList() {
+        items.clear()
+        adapter.setItems(items)
+        viewModel.getProjectsLists(1)
     }
 
     companion object {

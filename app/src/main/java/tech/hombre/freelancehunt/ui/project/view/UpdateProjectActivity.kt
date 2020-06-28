@@ -120,12 +120,9 @@ class UpdateProjectActivity : BaseActivity() {
                         checkedSkills
                     ) { dialog, which, isChecked ->
                         checkedSkills[which] = isChecked
-
                         updateSkillsView()
-
-
                     }
-
+                setPositiveButton("OK") { dialog, which -> }
                 show()
             }
         }

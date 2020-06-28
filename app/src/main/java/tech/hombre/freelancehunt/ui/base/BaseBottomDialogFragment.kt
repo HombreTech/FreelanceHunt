@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
+import tech.hombre.data.local.LocalProperties
 import tech.hombre.freelancehunt.common.EMPTY_STRING
 import tech.hombre.freelancehunt.common.extensions.toast
 
 
 abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
+
+    protected val appPreferences: LocalProperties by inject { parametersOf(this) }
 
     abstract fun viewReady()
 

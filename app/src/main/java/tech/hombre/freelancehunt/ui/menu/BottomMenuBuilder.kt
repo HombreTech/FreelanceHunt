@@ -25,8 +25,22 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
     fun buildMenuForCreateThread(profileId: Int) =
         CreateThreadBottomDialogFragment.newInstance(profileId).show(fm, tag)
 
-    fun buildMenuForProposeConditions(workspaceId: Int, budget: WorkspaceDetail.Data.Attributes.Conditions.Budget, safe: String, days: Int) =
-        ProposeConditionsBottomDialogFragment.newInstance(workspaceId, budget, safe, days).show(fm, tag)
+    fun buildMenuForProposeConditions(
+        workspaceId: Int,
+        budget: WorkspaceDetail.Data.Attributes.Conditions.Budget,
+        safe: String,
+        days: Int
+    ) =
+        ProposeConditionsBottomDialogFragment.newInstance(workspaceId, budget, safe, days)
+            .show(fm, tag)
+
+    fun buildMenuForProjectFilter(
+        onlyMySkills: Boolean,
+        skills: IntArray,
+        onlyForPlus: Boolean
+    ) =
+        ProjectFilterBottomDialogFragment.newInstance(onlyMySkills, skills, onlyForPlus)
+            .show(fm, tag)
 
     fun buildMenuForExtendWorkspace(workspaceId: Int) =
         SimpleInputBottomDialogFragment.newInstance(
@@ -137,7 +151,7 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
                 )
             )
         } else {
-            if (isEmployer &&  (projectStatus == ProjectStatus.OPEN_FOR_PROPOSALS || projectStatus == ProjectStatus.PROJECT_ONGOING) && projectStatus != ProjectStatus.PENDING_PAYMENT_RESERVATION) items.add(
+            if (isEmployer && (projectStatus == ProjectStatus.OPEN_FOR_PROPOSALS || projectStatus == ProjectStatus.PROJECT_ONGOING) && projectStatus != ProjectStatus.PENDING_PAYMENT_RESERVATION) items.add(
                 MenuItem(
                     context.getString(R.string.extend_project),
                     "extend",

@@ -22,6 +22,11 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
         subscribeToData()
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
         bottomNavigationView.selectedItemId = R.id.menu_projects
+        fab.setOnClickListener {
+            when (bottomNavigationView.selectedItemId) {
+                R.id.menu_projects -> sharedViewModelMain.onFabClickAction("project_filter")
+            }
+        }
     }
 
     private fun subscribeToData() {
@@ -38,6 +43,7 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        hideShowFab(item.itemId)
         return when (item.itemId) {
             R.id.menu_feed -> {
                 childFragmentManager.switch(
@@ -64,6 +70,16 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
                 true
             }
             else -> false
+        }
+    }
+
+    private fun hideShowFab(itemId: Int) {
+        when(itemId) {
+            R.id.menu_projects -> {
+                fab.setImageResource(R.drawable.filter)
+                fab.show()
+            }
+            else -> fab.hide()
         }
     }
 

@@ -206,4 +206,7 @@
     <string name="pay">Pay</string>
     <string name="requirements">Requirements</string>
     <string name="definition">Definition</string>
+    <string name="project_filter">Projects filter</string>
+    <string name="is_only_my_skills">Only my skills</string>
+    <string name="apply">Apply</string>
 </resources>

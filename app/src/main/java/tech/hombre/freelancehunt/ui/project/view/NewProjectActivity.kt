@@ -104,7 +104,7 @@ class NewProjectActivity : BaseActivity() {
                                 placeholder.removeRange(placeholder.length - 1, placeholder.length)
                         } else skillsList.text = getString(R.string.select)
                     }
-
+                setPositiveButton("OK") { dialog, which -> }
                 show()
             }
         }

@@ -1,5 +1,6 @@
 package tech.hombre.data.repository.projectslist
 
+import tech.hombre.data.common.extensions.toInt
 import tech.hombre.data.database.dao.ProjectsListDao
 import tech.hombre.data.database.model.ProjectsListEntity
 import tech.hombre.data.networking.ProjectsApi
@@ -14,10 +15,10 @@ class ProjectsListRepositoryImpl(
     private val ProjectsListDao: ProjectsListDao
 ) : BaseRepository<ProjectsList, ProjectsListEntity>(),
     ProjectsListRepository {
-    override suspend fun getProjectsList(url: String): Result<ProjectsList> {
+    override suspend fun getProjectsList(url: String, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String): Result<ProjectsList> {
         return fetchData(
             apiDataProvider = {
-                projectsApi.getProjectsList(url).getData(
+                projectsApi.getProjectsList(url, onlyMySkills.toInt(), onlyForPlus.toInt(), skills).getData(
                     fetchFromCacheAction = { ProjectsListDao.getProjectsList(url) },
                     cacheAction = { ProjectsListDao.saveProjectsList(it) })
             },
