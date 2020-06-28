@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/projectsFragmentContainer"
     android:layout_width="match_parent"
-    android:layout_height="600dp">
+    android:layout_height="match_parent">
 
     <TextView
-        style="@style/TextStyle.Heading"
-        android:layout_width="wrap_content"
+        android:id="@+id/empty"
+        style="@style/TextStyle.Caption"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_standart"
-        android:gravity="center_horizontal"
-        android:text="@string/not_implemented"
+        android:layout_marginStart="@dimen/padding_middle"
+        android:layout_marginEnd="@dimen/padding_middle"
+        android:ellipsize="end"
         android:textColor="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/employer_not_have_active_projects" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_project_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

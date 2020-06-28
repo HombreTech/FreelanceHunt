@@ -196,4 +196,5 @@
     <string name="project_filter">Фильтр проектов</string>
     <string name="is_only_my_skills">Только моя специализация</string>
     <string name="apply">Применить</string>
+    <string name="employer_not_have_active_projects">У заказчика нет активных проектов</string>
 </resources>

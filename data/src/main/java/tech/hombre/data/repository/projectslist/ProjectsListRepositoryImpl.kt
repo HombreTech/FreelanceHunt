@@ -15,10 +15,10 @@ class ProjectsListRepositoryImpl(
     private val ProjectsListDao: ProjectsListDao
 ) : BaseRepository<ProjectsList, ProjectsListEntity>(),
     ProjectsListRepository {
-    override suspend fun getProjectsList(url: String, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String): Result<ProjectsList> {
+    override suspend fun getProjectsList(url: String, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int): Result<ProjectsList> {
         return fetchData(
             apiDataProvider = {
-                projectsApi.getProjectsList(url, onlyMySkills.toInt(), onlyForPlus.toInt(), skills).getData(
+                projectsApi.getProjectsList(url, onlyMySkills.toInt(), onlyForPlus.toInt(), skills, employerId).getData(
                     fetchFromCacheAction = { ProjectsListDao.getProjectsList(url) },
                     cacheAction = { ProjectsListDao.saveProjectsList(it) })
             },

@@ -209,4 +209,5 @@
     <string name="project_filter">Projects filter</string>
     <string name="is_only_my_skills">Only my skills</string>
     <string name="apply">Apply</string>
+    <string name="employer_not_have_active_projects">Employer not have active projects</string>
 </resources>

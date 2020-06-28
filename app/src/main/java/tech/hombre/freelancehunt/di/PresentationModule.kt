@@ -6,10 +6,7 @@ import tech.hombre.freelancehunt.ui.contest.presentation.ContestCommentsViewMode
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestDetailViewModel
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestOverviewViewModel
 import tech.hombre.freelancehunt.ui.contest.presentation.ContestPublicViewModel
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerPublicViewModel
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerReviewsViewModel
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployersViewModel
+import tech.hombre.freelancehunt.ui.employers.presentation.*
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerPublicViewModel
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerReviewsViewModel
@@ -59,4 +56,5 @@ val presentationModule = module {
     viewModel { UpdateProjectViewModel(get(), get(), get()) }
     viewModel { MyProjectSharedViewModel() }
     viewModel { ProjectFilterBottomDialogFragment.ProjectFilterViewModel(get()) }
+    viewModel { EmployerProjectsViewModel(get()) }
 }

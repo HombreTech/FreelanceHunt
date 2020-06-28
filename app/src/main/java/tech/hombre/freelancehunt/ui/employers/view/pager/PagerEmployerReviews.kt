@@ -1,6 +1,5 @@
 package tech.hombre.freelancehunt.ui.employers.view.pager
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.widget.RatingBar
 import android.widget.TextView
@@ -9,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_pager_employer_reviews.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.EmployerReviews
 import tech.hombre.freelancehunt.R
@@ -19,17 +17,12 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerPublicViewModel
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerReviewsViewModel
-import tech.hombre.freelancehunt.ui.project.presentation.ProjectDetailViewModel
 
 class PagerEmployerReviews : BaseFragment() {
     override fun getLayout() = R.layout.fragment_pager_employer_reviews
 
     private val viewModel: EmployerReviewsViewModel by viewModel()
-
-    private val projectPublicViewModel: EmployerPublicViewModel by sharedViewModel()
 
     lateinit var adapter: RendererRecyclerViewAdapter
 
