@@ -28,6 +28,7 @@ Another one Freelancehunt.com client app.
   - All employers list
   - Overview
     - About
+    - Active projects
     - Reviews
 - **Messages**
   - All user threads list
