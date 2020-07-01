@@ -16,6 +16,7 @@ fun String.prepareFeedMessage(context: Context): String {
         .replace(context.getString(R.string.type_project), "")
         .replace(context.getString(R.string.type_work), "")
         .replace(context.getString(R.string.type_add_message), context.getString(R.string.message))
+        .replace(context.getString(R.string.type_like_message), "")
         .replace(context.getString(R.string.type_forum_message), "")
         .replace(context.getString(R.string.type_invited_project), "")
         .trim()
@@ -41,6 +42,7 @@ fun getTypeIcon(type: FeedType): Int {
         FeedType.PROJECT -> R.drawable.type_projects
         FeedType.WORK -> R.drawable.type_briefcase
         FeedType.MESSAGE -> R.drawable.type_messages
+        FeedType.LIKE -> R.drawable.type_messages
         FeedType.FORUM_MESSAGE -> R.drawable.type_messages
         FeedType.PERSONAL_PROJECT -> R.drawable.project_small
         else -> R.drawable.type_unknown
@@ -54,6 +56,7 @@ fun getTypeColor(type: FeedType): Int {
         FeedType.PROJECT -> R.color.typeProject
         FeedType.WORK -> R.color.typeWork
         FeedType.MESSAGE -> R.color.typeForumMessage
+        FeedType.LIKE -> R.color.typeForumMessage
         FeedType.FORUM_MESSAGE -> R.color.typeForumMessage
         FeedType.PERSONAL_PROJECT -> R.color.typeWork
         else-> R.color.typeUnknown
@@ -67,6 +70,7 @@ fun getTypeLabel(type: FeedType): Int {
         FeedType.PROJECT -> R.string.new_project
         FeedType.WORK -> R.string.new_work
         FeedType.MESSAGE -> R.string.new_forum_message
+        FeedType.LIKE -> R.string.new_forum_message
         FeedType.FORUM_MESSAGE -> R.string.new_forum_message
         FeedType.PERSONAL_PROJECT -> R.string.new_personal_project
         else -> R.string.other
