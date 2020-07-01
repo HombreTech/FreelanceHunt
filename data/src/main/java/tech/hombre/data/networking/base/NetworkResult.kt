@@ -90,7 +90,9 @@ fun <T : DomainMapper<R>, R : Any> Response<T>.getData(): Result<R> {
                         }
                     }
                     Failure(HttpError(Throwable(result.toString())))
-                } else Failure(HttpError(Throwable(if (error.error.detail.isNullOrEmpty()) error.error.title else error.error.detail)))
+                } else {
+                    Failure(HttpError(Throwable(if (error.error.detail.isNullOrEmpty()) error.error.title else error.error.detail)))
+                }
             }
             else
                 Failure(HttpError(Throwable(GENERAL_NETWORK_ERROR)))

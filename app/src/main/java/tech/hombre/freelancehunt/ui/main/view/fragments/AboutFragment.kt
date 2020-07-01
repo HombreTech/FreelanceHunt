@@ -26,7 +26,7 @@ class AboutFragment : BaseFragment() {
 
     private fun showTelegram() {
         val telegram = Intent(Intent.ACTION_VIEW)
-        telegram.data = Uri.parse("tg:resolve?domain=ilya_kokhan")
+        telegram.data = Uri.parse("tg:resolve?domain=freelancehunt_android")
         startActivity(Intent.createChooser(telegram, getString(R.string.send_with)))
     }
 

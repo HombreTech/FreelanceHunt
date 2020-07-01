@@ -8,7 +8,7 @@ data class ApiError(
 
     data class Error(
         val detail: String? = "",
-        val meta: Meta? = Meta(),
+        val meta: Meta? = null,
         val status: Int = 0,
         val title: String = ""
     )
