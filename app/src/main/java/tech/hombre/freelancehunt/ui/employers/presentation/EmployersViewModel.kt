@@ -20,6 +20,10 @@ class EmployersViewModel(
 
     lateinit var pagination: EmployersList.Links
 
+    var countryId = 0
+
+    var cityId = 0
+
     val _details = MutableLiveData<ViewState<EmployerDetail>>()
     val details: LiveData<ViewState<EmployerDetail>>
         get() = _details
@@ -28,8 +32,8 @@ class EmployersViewModel(
     val countries: LiveData<List<Countries.Data>>
         get() = _countries
 
-    fun getEmployers(url: String = "employers") = executeUseCase {
-        getEmployersList(url)
+    fun getEmployers(page: Int) = executeUseCase {
+        getEmployersList(page.toString(), countryId, cityId)
             .onSuccess {
                 pagination = it.links
                 _viewState.value = Success(it)
@@ -47,5 +51,13 @@ class EmployersViewModel(
                 _details.value = Success(it)
             }
             .onFailure { _details.value = Error(it.throwable) }
+    }
+
+    fun setEmployersFilters(
+        countryId: Int,
+        cityId: Int
+    ) {
+        this.countryId = countryId
+        this.cityId = cityId
     }
 }

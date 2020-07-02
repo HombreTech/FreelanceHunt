@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_employers.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.EmployerDetail
@@ -16,10 +15,11 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
-import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployersViewModel
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.EmployersFilterBottomDialogFragment
 
-class EmployersFragment : BaseFragment() {
+class EmployersFragment : BaseFragment(), EmployersFilterBottomDialogFragment.OnSubmitEmployersFilter {
 
     override fun getLayout() = R.layout.fragment_employers
 
@@ -34,7 +34,7 @@ class EmployersFragment : BaseFragment() {
     override fun viewReady() {
         initList()
         subscribeToData()
-        viewModel.getEmployers()
+        viewModel.getEmployers(1)
     }
 
     private fun subscribeToData() {
@@ -147,16 +147,31 @@ class EmployersFragment : BaseFragment() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (items.isNotEmpty() && viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getEmployers(viewModel.pagination.next)
+                    viewModel.getEmployers(page + 1)
                 }
             }
         })
 
         refresh.setOnRefreshListener {
-            items.clear()
-            adapter.setItems(items)
-            viewModel.getEmployers()
+            refreshList()
         }
+
+        fab.setOnClickListener {
+            BottomMenuBuilder(
+                requireContext(),
+                childFragmentManager,
+                EmployersFilterBottomDialogFragment.TAG
+            ).buildMenuForEmployersFilter(
+                viewModel.countryId,
+                viewModel.cityId
+            )
+        }
+    }
+
+    private fun refreshList() {
+        items.clear()
+        adapter.setItems(items)
+        viewModel.getEmployers(1)
     }
 
     private fun initEmployersList(freelancersList: EmployersList) {
@@ -165,6 +180,11 @@ class EmployersFragment : BaseFragment() {
 
         items.addAll(freelancersList.data)
         adapter.setItems(items)
+    }
+
+    override fun onSubmitEmployersFilter(countryId: Int, cityId: Int) {
+        viewModel.setEmployersFilters(countryId, cityId)
+        refreshList()
     }
 
     companion object {

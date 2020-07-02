@@ -50,6 +50,13 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
         FreelancersFilterBottomDialogFragment.newInstance(skills, countryId, cityId)
             .show(fm, tag)
 
+    fun buildMenuForEmployersFilter(
+        countryId: Int,
+        cityId: Int
+    ) =
+        EmployersFilterBottomDialogFragment.newInstance(countryId, cityId)
+            .show(fm, tag)
+
     fun buildMenuForExtendWorkspace(workspaceId: Int) =
         SimpleInputBottomDialogFragment.newInstance(
             SIMPLE_DIALOG_EXTEND_WORKSPACE,

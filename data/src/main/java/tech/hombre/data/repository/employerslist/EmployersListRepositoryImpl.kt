@@ -12,9 +12,9 @@ class EmployersListRepositoryImpl(
     private val employersApi: EmployersApi
 ) : BaseRepository<EmployersList, DomainMapper<EmployersList>>(),
     EmployersListRepository {
-    override suspend fun getEmployersList(url: String): Result<EmployersList> {
+    override suspend fun getEmployersList(page: String, countryId: Int, cityId: Int): Result<EmployersList> {
         return fetchData(
-            dataProvider = { employersApi.getEmployersList(url).getData() }
+            dataProvider = { employersApi.getEmployersList(page, countryId, cityId).getData() }
         )
     }
 }

@@ -203,4 +203,5 @@
     <string name="select_country">Выберите страну</string>
     <string name="select_city">Выберите город</string>
     <string name="reset">Очистить</string>
+    <string name="employers_filter">Фильтр заказчиков</string>
 </resources>
