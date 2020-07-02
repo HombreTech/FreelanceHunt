@@ -211,4 +211,9 @@
     <string name="apply">Apply</string>
     <string name="employer_not_have_active_projects">Employer not have active projects</string>
     <string name="_1">1 (day)</string>
+    <string name="city">City</string>
+    <string name="freelancers_filter">Freelancers filter</string>
+    <string name="select_country">Select country</string>
+    <string name="select_city">Select city</string>
+    <string name="reset">Reset</string>
 </resources>

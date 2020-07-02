@@ -5,6 +5,6 @@ import tech.hombre.domain.repository.FreelancersRepository
 class GetFreelancersListUseCaseImpl(private val freelancersRepository: FreelancersRepository) :
     GetFreelancersListUseCase {
 
-    override suspend operator fun invoke(url: String) =
-        freelancersRepository.getFreelancersList(url)
+    override suspend operator fun invoke(page: String, skills: String, countryId: Int, cityId: Int) =
+        freelancersRepository.getFreelancersList(page, skills, countryId, cityId)
 }

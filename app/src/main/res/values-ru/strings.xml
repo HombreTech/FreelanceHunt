@@ -198,4 +198,9 @@
     <string name="apply">Применить</string>
     <string name="employer_not_have_active_projects">У заказчика нет активных проектов</string>
     <string name="_1">1 (дней)</string>
+    <string name="city">Город</string>
+    <string name="freelancers_filter">Фильтр фрилансеров</string>
+    <string name="select_country">Выберите страну</string>
+    <string name="select_city">Выберите город</string>
+    <string name="reset">Очистить</string>
 </resources>

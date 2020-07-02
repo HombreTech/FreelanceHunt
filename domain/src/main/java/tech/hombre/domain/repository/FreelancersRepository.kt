@@ -4,5 +4,5 @@ import tech.hombre.domain.model.FreelancersList
 import tech.hombre.domain.model.Result
 
 interface FreelancersRepository {
-    suspend fun getFreelancersList(url: String): Result<FreelancersList>
+    suspend fun getFreelancersList(page: String, skills: String, countryId: Int, cityId: Int): Result<FreelancersList>
 }

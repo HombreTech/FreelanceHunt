@@ -12,9 +12,9 @@ class FreelancersRepositoryImpl(
     private val freelancersApi: FreelancersApi
 ) : BaseRepository<FreelancersList, DomainMapper<FreelancersList>>(),
     FreelancersRepository {
-    override suspend fun getFreelancersList(url: String): Result<FreelancersList> {
+    override suspend fun getFreelancersList(page: String, skills: String, countryId: Int, cityId: Int): Result<FreelancersList> {
         return fetchData(
-            dataProvider = { freelancersApi.getFreelancersList(url).getData() }
+            dataProvider = { freelancersApi.getFreelancersList(page, skills, countryId, cityId).getData() }
         )
     }
 }

@@ -1,6 +1,8 @@
 package tech.hombre.domain.di
 
 import org.koin.dsl.module
+import tech.hombre.domain.interaction.cities.GetCitiesUseCase
+import tech.hombre.domain.interaction.cities.GetCitiesUseCaseImpl
 import tech.hombre.domain.interaction.contests.GetContestsListUseCase
 import tech.hombre.domain.interaction.contests.GetContestsListUseCaseImpl
 import tech.hombre.domain.interaction.contests.comments.GetContestCommentsUseCase
@@ -53,6 +55,7 @@ val interactionModule = module {
     factory<GetContestsListUseCase> { GetContestsListUseCaseImpl(get()) }
     factory<GetFreelancersListUseCase> { GetFreelancersListUseCaseImpl(get()) }
     factory<GetCountriesUseCase> { GetCountriesUseCaseImpl(get()) }
+    factory<GetCitiesUseCase> { GetCitiesUseCaseImpl(get()) }
     factory<GetThreadsListUseCase> { GetThreadsListUseCaseImpl(get()) }
     factory<GetMyBidsListUseCase> { GetMyBidsListUseCaseImpl(get()) }
     factory<GetEmployersListUseCase> { GetEmployersListUseCaseImpl(get()) }

@@ -9,6 +9,7 @@ private const val FEED_LIST_DB = "feedlist-database"
 private const val PROJECTS_LIST_DB = "projectslist-database"
 private const val CONTESTS_LIST_DB = "contestslist-database"
 private const val COUNTRIES_DB = "countries-database"
+private const val CITIES_DB = "cities-database"
 private const val SKILLS_DB = "skills-database"
 
 val databaseModule = module {
@@ -29,6 +30,10 @@ val databaseModule = module {
             .fallbackToDestructiveMigration().build()
     }
     single {
+        Room.databaseBuilder(androidContext(), CitiesDatabase::class.java, CITIES_DB)
+            .fallbackToDestructiveMigration().build()
+    }
+    single {
         Room.databaseBuilder(androidContext(), SkillsDatabase::class.java, SKILLS_DB)
             .fallbackToDestructiveMigration().build()
     }
@@ -36,5 +41,6 @@ val databaseModule = module {
     factory { get<ProjectsListDatabase>().projectsListDao() }
     factory { get<ContestsListDatabase>().contestsListDao() }
     factory { get<CountriesDatabase>().countriesDao() }
+    factory { get<CitiesDatabase>().citiesDao() }
     factory { get<SkillsDatabase>().skillsDao() }
 }

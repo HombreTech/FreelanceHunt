@@ -17,10 +17,11 @@ import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
-import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancersViewModel
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.FreelancersFilterBottomDialogFragment
 
-class FreelancersFragment : BaseFragment() {
+class FreelancersFragment : BaseFragment(), FreelancersFilterBottomDialogFragment.OnSubmitFreelancersFilter {
 
     override fun getLayout() = R.layout.fragment_freelancers
 
@@ -35,7 +36,7 @@ class FreelancersFragment : BaseFragment() {
     override fun viewReady() {
         initList()
         subscribeToData()
-        viewModel.getFreelancers()
+        viewModel.getFreelancers(1)
     }
 
     private fun subscribeToData() {
@@ -144,16 +145,32 @@ class FreelancersFragment : BaseFragment() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getFreelancers(viewModel.pagination.next)
+                    viewModel.getFreelancers(page + 1)
                 }
             }
         })
 
         refresh.setOnRefreshListener {
-            items.clear()
-            adapter.setItems(items)
-            viewModel.getFreelancers()
+            refreshList()
         }
+
+        fab.setOnClickListener {
+            BottomMenuBuilder(
+                requireContext(),
+                childFragmentManager,
+                FreelancersFilterBottomDialogFragment.TAG
+            ).buildMenuForFreelancersFilter(
+                viewModel.skills,
+                viewModel.countryId,
+                viewModel.cityId
+            )
+        }
+    }
+
+    private fun refreshList() {
+        items.clear()
+        adapter.setItems(items)
+        viewModel.getFreelancers(1)
     }
 
     private fun initFreelancersList(freelancersList: FreelancersList) {
@@ -162,6 +179,11 @@ class FreelancersFragment : BaseFragment() {
 
         items.addAll(freelancersList.data)
         adapter.setItems(items)
+    }
+
+    override fun onSubmitProjectFilter(skills: IntArray, countryId: Int, cityId: Int) {
+        viewModel.setFreelancersFilters(skills, countryId, cityId)
+        refreshList()
     }
 
     companion object {

@@ -20,12 +20,18 @@ class FreelancersViewModel(
 
     lateinit var pagination: FreelancersList.Links
 
+    var skills = intArrayOf()
+
+    var countryId = 0
+
+    var cityId = 0
+
     private val _countries = MutableLiveData<List<Countries.Data>>()
     val countries: LiveData<List<Countries.Data>>
         get() = _countries
 
-    fun getFreelancers(url: String = "freelancers") = executeUseCase {
-        getFreelancersList(url)
+    fun getFreelancers(page: Int) = executeUseCase {
+        getFreelancersList(page.toString(), skills.joinToString { it.toString() }, countryId, cityId)
             .onSuccess {
                 pagination = it.links
                 _viewState.value = Success(it)
@@ -35,6 +41,16 @@ class FreelancersViewModel(
 
     fun setCountries() = executeUseCase {
         _countries.value = countriesDao.getCountries().countries.data
+    }
+
+    fun setFreelancersFilters(
+        skills: IntArray,
+        countryId: Int,
+        cityId: Int
+    ) {
+        this.skills = skills
+        this.countryId = countryId
+        this.cityId = cityId
     }
 
 }

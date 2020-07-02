@@ -1,10 +1,9 @@
 package tech.hombre.domain.interaction.freelancerslist
 
-import tech.hombre.domain.base.BaseUseCase
 import tech.hombre.domain.model.FreelancersList
 import tech.hombre.domain.model.Result
 
-interface GetFreelancersListUseCase : BaseUseCase<String, FreelancersList> {
+interface GetFreelancersListUseCase {
 
-    override suspend operator fun invoke(url: String): Result<FreelancersList>
+    suspend operator fun invoke(page: String, skills: String, countryId: Int, cityId: Int): Result<FreelancersList>
 }
