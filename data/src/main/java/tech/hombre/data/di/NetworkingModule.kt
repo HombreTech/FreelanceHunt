@@ -38,9 +38,8 @@ val networkingModule = module {
                         .build()
                 )
             }
-                .callTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+                connectTimeout(30, TimeUnit.SECONDS)
+                readTimeout(30, TimeUnit.SECONDS)
         }.build()
     }
     single {
