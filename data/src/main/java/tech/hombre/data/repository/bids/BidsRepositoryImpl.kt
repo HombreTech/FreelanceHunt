@@ -12,9 +12,9 @@ class BidsRepositoryImpl(
     private val bidsApi: BidsApi
 ) : BaseRepository<MyBidsList, DomainMapper<MyBidsList>>(),
     BidsListRepository {
-    override suspend fun getMyBidsList(url: String): Result<MyBidsList> {
+    override suspend fun getMyBidsList(page: Int, status: String): Result<MyBidsList> {
         return fetchData(
-            dataProvider = { bidsApi.getMyBids(url).getData() }
+            dataProvider = { bidsApi.getMyBids(page, status).getData() }
         )
     }
 }

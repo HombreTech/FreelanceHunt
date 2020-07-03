@@ -6,7 +6,7 @@ import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
-import kotlinx.android.synthetic.main.fragment_threads.*
+import kotlinx.android.synthetic.main.fragment_my_bids.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.freelancehunt.R
@@ -33,10 +33,10 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
     override fun viewReady() {
         initList()
         subscribeToData()
-        viewModel.getMyBids()
+        viewModel.getMyBids(1)
     }
 
-    override fun getLayout() = R.layout.fragment_threads
+    override fun getLayout() = R.layout.fragment_my_bids
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
@@ -80,12 +80,12 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
 
     private fun handleError(error: String) {
         hideLoading()
-        showError(error, threadsFragmentContainer)
+        showError(error, bidsFragmentContainer)
     }
 
     private fun showNoInternetError() {
         hideLoading()
-        snackbar(getString(R.string.no_internet_error_message), threadsFragmentContainer)
+        snackbar(getString(R.string.no_internet_error_message), bidsFragmentContainer)
     }
 
     private fun initList() {
@@ -175,7 +175,7 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getMyBids(viewModel.pagination.next)
+                    viewModel.getMyBids(page + 1)
                 }
             }
         })
@@ -183,8 +183,24 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
         refresh.setOnRefreshListener {
             items.clear()
             adapter.setItems(items)
-            viewModel.getMyBids()
+            viewModel.getMyBids(1)
         }
+
+        bidsRevoked.setOnClickListener {
+            setFilter("revoked")
+        }
+        bidsActive.setOnClickListener {
+            setFilter("active")
+        }
+        bidsRejected.setOnClickListener {
+            setFilter("rejected")
+        }
+    }
+
+    private fun setFilter(status: String) {
+        items.clear()
+        adapter.setItems(items)
+        viewModel.getMyBids(1, status)
     }
 
     private fun initMyBidsList(freelancersList: MyBidsList) {

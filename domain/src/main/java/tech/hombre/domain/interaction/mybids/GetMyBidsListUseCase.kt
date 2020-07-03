@@ -1,10 +1,9 @@
 package tech.hombre.domain.interaction.mybids
 
-import tech.hombre.domain.base.BaseUseCase
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.Result
 
-interface GetMyBidsListUseCase : BaseUseCase<String, MyBidsList> {
+interface GetMyBidsListUseCase {
 
-    override suspend operator fun invoke(url: String): Result<MyBidsList>
+    suspend operator fun invoke(page: Int, status: String): Result<MyBidsList>
 }

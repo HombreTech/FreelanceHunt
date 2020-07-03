@@ -29,8 +29,8 @@ class MyBidsViewModel(private val getMyBidsList: GetMyBidsListUseCase,
     val bidAction: LiveData<ViewState<Pair<Int, String>>>
         get() = _bidAction
 
-    fun getMyBids(url: String = "my/bids") = executeUseCase {
-        getMyBidsList(url)
+    fun getMyBids(page: Int, status: String = "active") = executeUseCase {
+        getMyBidsList(page, status)
             .onSuccess {
                 pagination = it.links
                 _viewState.value = Success(it)

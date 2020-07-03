@@ -4,12 +4,11 @@ import retrofit2.Response
 import retrofit2.http.*
 import tech.hombre.data.networking.model.ChooseBidBody
 import tech.hombre.data.networking.model.MyBidsListResponse
-import tech.hombre.data.networking.model.ProjectAddBidResponse
 
 interface BidsApi {
 
-    @GET
-    suspend fun getMyBids(@Url url: String): Response<MyBidsListResponse>
+    @GET("my/bids")
+    suspend fun getMyBids(@Query("page[number]") page: Int, @Query("filter[status]") status: String): Response<MyBidsListResponse>
 
     @POST("projects/{projectId}/bids/{bidId}/revoke")
     suspend fun revokeProjectBid(
