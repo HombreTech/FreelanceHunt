@@ -217,4 +217,5 @@
     <string name="select_city">Select city</string>
     <string name="reset">Reset</string>
     <string name="employers_filter">Employers filter</string>
+    <string name="contests_filter">Contests filter</string>
 </resources>

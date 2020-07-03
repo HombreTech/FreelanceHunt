@@ -25,6 +25,7 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
         fab.setOnClickListener {
             when (bottomNavigationView.selectedItemId) {
                 R.id.menu_projects -> sharedViewModelMain.onFabClickAction("project_filter")
+                R.id.menu_contests -> sharedViewModelMain.onFabClickAction("contest_filter")
             }
         }
     }
@@ -75,6 +76,7 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
 
     private fun hideShowFab(itemId: Int) {
         when(itemId) {
+            //R.id.menu_contests,
             R.id.menu_projects -> {
                 fab.setImageResource(R.drawable.filter)
                 fab.show()

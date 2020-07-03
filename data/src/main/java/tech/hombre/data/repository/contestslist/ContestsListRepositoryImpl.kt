@@ -1,5 +1,6 @@
 package tech.hombre.data.repository.contestslist
 
+import tech.hombre.data.BuildConfig
 import tech.hombre.data.database.dao.ContestsListDao
 import tech.hombre.data.database.model.ContestsListEntity
 import tech.hombre.data.networking.ContestsApi
@@ -14,14 +15,14 @@ class ContestsListRepositoryImpl(
     private val contestsListDao: ContestsListDao
 ) : BaseRepository<ContestsList, ContestsListEntity>(),
     ContestsListRepository {
-    override suspend fun getContestsList(url: String): Result<ContestsList> {
+    override suspend fun getContestsList(page: Int, skills: String): Result<ContestsList> {
         return fetchData(
             apiDataProvider = {
-                contestsApi.getContestsList(url).getData(
-                    fetchFromCacheAction = { contestsListDao.getContestsList(url) },
+                contestsApi.getContestsList(page, skills).getData(
+                    fetchFromCacheAction = { contestsListDao.getContestsList(BuildConfig.BASE_URL + "contests") },
                     cacheAction = { contestsListDao.saveContestsList(it) })
             },
-            dbDataProvider = { contestsListDao.getContestsList(url) }
+            dbDataProvider = { contestsListDao.getContestsList(BuildConfig.BASE_URL + "contests") }
         )
     }
 }

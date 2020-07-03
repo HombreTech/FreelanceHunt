@@ -2,7 +2,6 @@ package tech.hombre.freelancehunt.ui.main.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import tech.hombre.data.BuildConfig
 import tech.hombre.domain.interaction.contests.GetContestsListUseCase
 import tech.hombre.domain.interaction.contests.detail.GetContestDetailUseCase
 import tech.hombre.domain.model.ContestDetail
@@ -22,12 +21,14 @@ class ContestsViewModel(
 
     lateinit var pagination: ContestsList.Links
 
+    var skills = intArrayOf()
+
     val _details = MutableLiveData<ViewState<ContestDetail>>()
     val details: LiveData<ViewState<ContestDetail>>
         get() = _details
 
-    fun getContestsLists(url: String = BuildConfig.BASE_URL + "contests") = executeUseCase {
-        getContestsList(url)
+    fun getContestsLists(page: Int) = executeUseCase {
+        getContestsList(page, skills.joinToString { it.toString() })
             .onSuccess {
                 pagination = it.links
                 _viewState.value = Success(it)
@@ -41,5 +42,11 @@ class ContestsViewModel(
                 _details.value = Success(it)
             }
             .onFailure { _details.value = Error(it.throwable) }
+    }
+
+    fun setContestsFilters(
+        skills: IntArray
+    ) {
+        this.skills = skills
     }
 }

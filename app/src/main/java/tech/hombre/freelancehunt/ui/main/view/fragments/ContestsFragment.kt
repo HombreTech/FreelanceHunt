@@ -1,9 +1,13 @@
 package tech.hombre.freelancehunt.ui.main.view.fragments
 
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_contests.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ContestDetail
 import tech.hombre.domain.model.ContestsList
@@ -14,10 +18,15 @@ import tech.hombre.freelancehunt.common.widgets.EndlessScroll
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.main.presentation.ContestsViewModel
+import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
+import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
+import tech.hombre.freelancehunt.ui.menu.ContestsFilterBottomDialogFragment
 
-class ContestsFragment : BaseFragment() {
+class ContestsFragment : BaseFragment(), ContestsFilterBottomDialogFragment.OnSubmitContestsFilter {
 
     private val viewModel: ContestsViewModel by viewModel()
+
+    private val publicViewModel: MainPublicViewModel by sharedViewModel()
 
     override fun getLayout() = R.layout.fragment_contests
 
@@ -28,11 +37,16 @@ class ContestsFragment : BaseFragment() {
     override fun viewReady() {
         initList()
         subscribeToData()
-        viewModel.getContestsLists()
+        viewModel.getContestsLists(1)
     }
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
+        publicViewModel.fabClickAction.subscribe(this, { action ->
+            when (action) {
+                "contest_filter" -> showFilterDialog()
+            }
+        })
         viewModel.details.subscribe(this, {
             when (it) {
                 is Loading -> showLoading()
@@ -44,6 +58,16 @@ class ContestsFragment : BaseFragment() {
                 is NoInternetState -> showNoInternetError()
             }
         })
+    }
+
+    private fun showFilterDialog() {
+        BottomMenuBuilder(
+            requireContext(),
+            childFragmentManager,
+            ContestsFilterBottomDialogFragment.TAG
+        ).buildMenuForContestsFilter(
+            viewModel.skills
+        )
     }
 
     private fun handleViewState(viewState: ViewState<ContestsList>) {
@@ -119,18 +143,29 @@ class ContestsFragment : BaseFragment() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getContestsLists(viewModel.pagination.next.substringAfterLast("/"))
+                    viewModel.getContestsLists(page + 1)
                 }
             }
         })
 
         refresh.setOnRefreshListener {
-            items.clear()
-            adapter.setItems(items)
-            viewModel.getContestsLists()
+            refreshList()
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        //inflater.inflate(R.menu.menu_contests, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_filter -> {
+                showFilterDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     private fun initContestsList(contestsList: ContestsList) {
         hideLoading()
@@ -140,6 +175,16 @@ class ContestsFragment : BaseFragment() {
         adapter.setItems(items)
     }
 
+    override fun onSubmitContestsFilter(skills: IntArray) {
+        viewModel.setContestsFilters(skills)
+        refreshList()
+    }
+
+    private fun refreshList() {
+        items.clear()
+        adapter.setItems(items)
+        viewModel.getContestsLists(1)
+    }
 
     companion object {
         @Keep
