@@ -72,7 +72,7 @@
                     android:padding="@dimen/padding_middle"
                     android:scrollbars="vertical"
                     android:textAppearance="@style/TextStyle.Editor"
-                    android:textColor="?textColorSecondary"
+                    android:textColor="?textColorPrimary"
                     android:textColorHint="@color/grey"
                     tools:ignore="ScrollViewSize" />
 
