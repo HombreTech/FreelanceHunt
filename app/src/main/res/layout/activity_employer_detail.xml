@@ -92,7 +92,7 @@
                                     android:background="@drawable/round_shape"
                                     android:elevation="7dp"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@id/name" />
+                                    app:layout_constraintTop_toBottomOf="@id/name" />
 
                                 <com.google.android.material.button.MaterialButton
                                     android:id="@+id/buttonMessage"
@@ -121,7 +121,7 @@
                                     app:flow_horizontalStyle="packed"
                                     app:flow_verticalBias="0"
                                     app:flow_wrapMode="chain"
-                                    app:layout_constraintEnd_toStartOf="@id/avatar"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 

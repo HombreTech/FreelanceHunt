@@ -19,7 +19,7 @@
         android:background="@drawable/round_shape"
         android:elevation="7dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/_name" />
+        app:layout_constraintTop_toBottomOf="@id/_name" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/_buttonMessage"
@@ -47,7 +47,7 @@
         app:flow_horizontalStyle="packed"
         app:flow_verticalBias="0"
         app:flow_wrapMode="chain"
-        app:layout_constraintEnd_toStartOf="@id/_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,9 +60,7 @@
         android:layout_marginTop="@dimen/padding_standart"
         android:layout_marginEnd="@dimen/padding_middle"
         android:background="@drawable/placeholder_dark"
-        app:layout_constraintEnd_toStartOf="@id/_avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <TextView
         android:id="@+id/_login"
@@ -147,10 +145,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:background="@drawable/placeholder_dark"
-        app:layout_constraintEnd_toStartOf="@id/_avatar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/_avatar" />
+         />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/_isplus"
