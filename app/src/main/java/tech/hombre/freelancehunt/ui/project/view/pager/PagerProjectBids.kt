@@ -64,7 +64,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                 R.layout.item_project_bids_list,
                 ProjectBid.Data::class.java,
                 BaseViewRenderer.Binder { model: ProjectBid.Data, finder: ViewFinder, payloads: List<Any?>? ->
-                    if (model.attributes.is_hidden) {
+                    if (model.attributes.is_hidden && !(appPreferences.getCurrentUserType() == UserType.FREELANCER.type && model.attributes.freelancer.id == appPreferences.getCurrentUserId())) {
                         finder
                             .setGone(R.id.clickableView, true)
                             .setGone(R.id.hiddenBid, false)
@@ -283,7 +283,12 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         viewModel.chooseProjectBids(projectId, bidId, comment)
     }
 
-    override fun onMenuItemSelected(primaryId: Int, secondaryId: Int, position: Int, model: MenuItem) {
+    override fun onMenuItemSelected(
+        primaryId: Int,
+        secondaryId: Int,
+        position: Int,
+        model: MenuItem
+    ) {
         when (model.tag) {
             "revoke" -> viewModel.revokeProjectBids(primaryId, secondaryId)
             "reject" -> viewModel.rejectProjectBids(primaryId, secondaryId)
