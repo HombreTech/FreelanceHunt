@@ -18,6 +18,7 @@ fun String.prepareFeedMessage(context: Context): String {
         .replace(context.getString(R.string.type_add_message), context.getString(R.string.message))
         .replace(context.getString(R.string.type_like_message), "")
         .replace(context.getString(R.string.type_forum_message), "")
+        .replace(context.getString(R.string.type_forum_message_2), "")
         .replace(context.getString(R.string.type_invited_project), "")
         .trim()
         .capitalize()
@@ -31,6 +32,7 @@ fun feedTypeByMessage(context: Context, message: String): FeedType {
         message.contains(context.getString(R.string.type_add_message)) -> FeedType.MESSAGE
         message.contains(context.getString(R.string.type_invited_project)) -> FeedType.PERSONAL_PROJECT
         message.contains(context.getString(R.string.type_forum_message)) -> FeedType.FORUM_MESSAGE
+        message.contains(context.getString(R.string.type_forum_message_2)) -> FeedType.FORUM_MESSAGE
         else -> FeedType.UNKNOWN
     }
 }
