@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.main.view.activities
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.GravityCompat
 import androidx.work.*
 import kotlinx.android.synthetic.main.activity_container.*
@@ -20,6 +21,7 @@ import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
+import tech.hombre.freelancehunt.common.widgets.BadgeDrawerArrowDrawable
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.routing.AppNavigator
@@ -46,6 +48,8 @@ import java.util.concurrent.TimeUnit
 class MainActivity : BaseActivity() {
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
+
+    private lateinit var badgeToggleDrawable: BadgeDrawerArrowDrawable
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -203,7 +207,16 @@ class MainActivity : BaseActivity() {
         if (newMassages != null) navigation.menu.findItem(R.id.menu_threads).actionView?.let {
             if (newMassages) {
                 it.subtitle.text = getString(R.string.have_messages)
-            } else it.subtitle.text = getString(R.string.not_have_messages)
+
+                badgeToggleDrawable = BadgeDrawerArrowDrawable(supportActionBar?.themedContext)
+                drawerToggle.drawerArrowDrawable = badgeToggleDrawable
+
+            } else {
+                it.subtitle.text = getString(R.string.not_have_messages)
+
+                badgeToggleDrawable = BadgeDrawerArrowDrawable(supportActionBar?.themedContext)
+                drawerToggle.drawerArrowDrawable = DrawerArrowDrawable(supportActionBar?.themedContext)
+            }
         }
 
     }
