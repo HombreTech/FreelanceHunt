@@ -143,7 +143,7 @@ class ContestsFragment : BaseFragment(), ContestsFilterBottomDialogFragment.OnSu
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getContestsLists(page + 1)
+                    viewModel.getContestsLists(page)
                 }
             }
         })
