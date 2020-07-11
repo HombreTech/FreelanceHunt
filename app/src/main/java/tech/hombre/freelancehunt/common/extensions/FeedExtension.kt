@@ -20,6 +20,7 @@ fun String.prepareFeedMessage(context: Context): String {
         .replace(context.getString(R.string.type_forum_message), "")
         .replace(context.getString(R.string.type_forum_message_2), "")
         .replace(context.getString(R.string.type_invited_project), "")
+        .replace("(${context.getString(R.string.type_appreciated)}) ".toRegex(), "$1 " + "★".repeat(this.split("star.svg").size) + " ")
         .trim()
         .capitalize()
 }
@@ -33,6 +34,7 @@ fun feedTypeByMessage(context: Context, message: String): FeedType {
         message.contains(context.getString(R.string.type_invited_project)) -> FeedType.PERSONAL_PROJECT
         message.contains(context.getString(R.string.type_forum_message)) -> FeedType.FORUM_MESSAGE
         message.contains(context.getString(R.string.type_forum_message_2)) -> FeedType.FORUM_MESSAGE
+        message.contains(context.getString(R.string.type_appreciated)) -> FeedType.APPRECIATED
         else -> FeedType.UNKNOWN
     }
 }
@@ -47,6 +49,7 @@ fun getTypeIcon(type: FeedType): Int {
         FeedType.LIKE -> R.drawable.type_messages
         FeedType.FORUM_MESSAGE -> R.drawable.type_messages
         FeedType.PERSONAL_PROJECT -> R.drawable.project_small
+        FeedType.APPRECIATED -> R.drawable.type_appreciated
         else -> R.drawable.type_unknown
     }
 }
@@ -75,6 +78,7 @@ fun getTypeLabel(type: FeedType): Int {
         FeedType.LIKE -> R.string.new_forum_message
         FeedType.FORUM_MESSAGE -> R.string.new_forum_message
         FeedType.PERSONAL_PROJECT -> R.string.new_personal_project
+        FeedType.APPRECIATED -> R.string.contests
         else -> R.string.other
     }
 }
