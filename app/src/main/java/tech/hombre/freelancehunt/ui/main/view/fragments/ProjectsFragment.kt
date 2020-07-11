@@ -122,7 +122,7 @@ class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSub
         viewModel.onlyMySkills = appPreferences.getProjectFilterOnlyMySkills()
         viewModel.skills = if (appPreferences.getProjectFilterSkills()
                 .isNotEmpty()
-        ) appPreferences.getProjectFilterSkills().split(",").map { it.toInt() }
+        ) appPreferences.getProjectFilterSkills().split(",").map { it.trim().toInt() }
             .toIntArray() else intArrayOf()
         viewModel.onlyForPlus = appPreferences.getProjectFilterOnlyPlus()
     }
@@ -208,7 +208,7 @@ class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSub
         viewModel.setProjectFilters(onlyMySkills, skills, onlyForPlus)
         appPreferences.saveProjectFilter(
             onlyMySkills,
-            skills.joinToString { it.toString() },
+            skills.joinToString(separator = ",") { it.toString() },
             onlyForPlus
         )
         refreshList()

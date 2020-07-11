@@ -31,7 +31,7 @@ class FreelancersViewModel(
         get() = _countries
 
     fun getFreelancers(page: Int) = executeUseCase {
-        getFreelancersList(page.toString(), skills.joinToString { it.toString() }, countryId, cityId)
+        getFreelancersList(page.toString(), skills.joinToString(separator = ",") { it.toString() }, countryId, cityId)
             .onSuccess {
                 pagination = it.links
                 _viewState.value = Success(it)

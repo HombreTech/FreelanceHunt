@@ -30,7 +30,7 @@ class ProjectsViewModel(
         get() = _details
 
     fun getProjectsLists(page: Int) = executeUseCase {
-        getProjectsList(page.toString(), onlyMySkills, onlyForPlus, skills.joinToString { it.toString() }, 0)
+        getProjectsList(page.toString(), onlyMySkills, onlyForPlus, skills.joinToString(separator = ",") { it.toString() }, 0)
             .onSuccess {
                 pagination = it.links
 
