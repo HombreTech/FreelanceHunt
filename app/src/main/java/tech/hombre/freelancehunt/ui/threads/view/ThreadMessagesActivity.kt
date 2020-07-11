@@ -112,6 +112,7 @@ class ThreadMessagesActivity : BaseActivity() {
     }
 
     private fun addMessage(message: ThreadMessageList.Data) {
+        editText.setText("")
         messagesGroup.add(ThreadMessageMy(message))
         adapter.setItems(messagesGroup)
         list.postDelayed(
