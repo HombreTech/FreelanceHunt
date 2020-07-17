@@ -229,6 +229,14 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
             )
         )
 
+        items.add(
+            MenuItem(
+                context.getString(R.string.go_to_mailbox),
+                "mailbox",
+                R.drawable.messages
+            )
+        )
+
         if (items.isNotEmpty())
             ListMenuBottomDialogFragment.newInstance(
                 workspaceId,
