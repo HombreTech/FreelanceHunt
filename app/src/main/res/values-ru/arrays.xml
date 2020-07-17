@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="ending_applications">
-        <item>участник</item>
-        <item>участника</item>
-        <item>участников</item>
+        <item>работа</item>
+        <item>работы</item>
+        <item>работ</item>
     </string-array>
 
     <string-array name="ending_messages">

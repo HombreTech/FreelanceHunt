@@ -50,6 +50,7 @@
             app:layout_anchor="@id/fragmentContainer"
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@drawable/filter"
+            android:visibility="gone"
             app:tint="@color/white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
