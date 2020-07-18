@@ -14,6 +14,7 @@ const val SKU_PREMIUM = "premium"
 const val CHANNEL_ID = "freelancehunt_channel_1"
 const val NOTIFY_MESSAGE_ID = 9042
 const val NOTIFY_FEED_ID = 9043
+const val NOTIFY_PROJECTS_ID = 9044
 const val MAX_LINES = 3
 
 const val SIMPLE_DIALOG_REQUEST_ARBITRAGE = 1

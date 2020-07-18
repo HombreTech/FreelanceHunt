@@ -7,7 +7,10 @@ import tech.hombre.data.networking.model.*
 interface ProjectsApi {
 
     @GET("projects")
-    suspend fun getProjectsList(@Query("page[number]") page: String, @Query("filter[only_my_skills]") onlyMySkills: Int, @Query("filter[only_for_plus]") onlyForPlus: Int, @Query("filter[skill_id]") skills: String, @Query("filter[employer_id]") employerId: Int): Response<ProjectsListResponse>
+    suspend fun getProjectsList(@Query("page[number]") page: Int, @Query("filter[only_my_skills]") onlyMySkills: Int, @Query("filter[only_for_plus]") onlyForPlus: Int, @Query("filter[skill_id]") skills: String, @Query("filter[employer_id]") employerId: Int): Response<ProjectsListResponse>
+
+    @GET("projects")
+    suspend fun getSimpleProjectsList(@Query("page[number]") page: Int, @Query("filter[only_my_skills]") onlyMySkills: Int, @Query("filter[only_for_plus]") onlyForPlus: Int, @Query("filter[skill_id]") skills: String, @Query("filter[employer_id]") employerId: Int): Response<SimpleProjectsListResponse>
 
     @GET
     suspend fun getMyProjectsList(@Url url: String): Response<MyProjectsListResponse>

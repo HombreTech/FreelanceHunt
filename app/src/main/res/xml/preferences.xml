@@ -35,6 +35,12 @@
             android:title="@string/pref_notifications_feed"
             app:icon="@drawable/feed_small" />
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="KEY_WORKER_PROJECTS"
+            android:title="@string/pref_notifications_projects"
+            android:summary="@string/pref_notifications_projects_summary"
+            app:icon="@drawable/projects_tinted" />
+        <CheckBoxPreference
             android:defaultValue="true"
             android:key="KEY_WORKER_MESSAGES"
             android:title="@string/pref_notifications_messages"

@@ -64,9 +64,17 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         sharedPreferences.edit().putLong(KEY_LAST_MESSAGE_ID, id).apply()
     }
 
+    fun getLastProjectId(): Int = sharedPreferences.getInt(KEY_LAST_PROJECT_ID, 0)
+
+    fun setLastProjectId(id: Int) {
+        sharedPreferences.edit().putInt(KEY_LAST_PROJECT_ID, id).apply()
+    }
+
     fun getWorkerFeedEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_FEED, true)
 
     fun getWorkerMessagesEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_MESSAGES, true)
+
+    fun getWorkerProjectsEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_PROJECTS, false)
 
     fun getWorkerUnmeteredEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_UNMETERED, false)
 
@@ -99,8 +107,10 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         const val KEY_USER_ID = "KEY_USER_ID"
         const val KEY_LAST_FEED_ID = "KEY_LAST_FEED_ID"
         const val KEY_LAST_MESSAGE_ID = "KEY_LAST_MESSAGE_ID"
+        const val KEY_LAST_PROJECT_ID = "KEY_LAST_PROJECT_ID"
         const val KEY_WORKER_FEED = "KEY_WORKER_FEED"
         const val KEY_WORKER_MESSAGES = "KEY_WORKER_MESSAGES"
+        const val KEY_WORKER_PROJECTS = "KEY_WORKER_PROJECTS"
         const val KEY_WORKER_INTERVAL = "KEY_WORKER_INTERVAL"
         const val KEY_APP_LANGUAGE = "KEY_APP_LANGUAGE"
         const val KEY_APP_THEME = "KEY_APP_THEME"

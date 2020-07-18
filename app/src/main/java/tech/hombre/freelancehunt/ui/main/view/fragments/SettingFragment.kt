@@ -19,6 +19,7 @@ import tech.hombre.data.local.LocalProperties.Companion.KEY_APP_THEME
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_FEED
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_INTERVAL
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_MESSAGES
+import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_PROJECTS
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_UNMETERED
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.IS_PREMIUM
@@ -26,6 +27,7 @@ import tech.hombre.freelancehunt.common.SKU_PREMIUM
 import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.billing.BillingClientModule
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
+import tech.hombre.freelancehunt.framework.tasks.ProjectsWorker
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.ui.login.view.LoginActivity
 import java.util.concurrent.TimeUnit
@@ -63,24 +65,31 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                 KEY_WORKER_FEED -> {
                     val state = pref.getBoolean(key, false)
                     if (state) {
-                        recreateTasks(true, false)
+                        recreateTasks(true, false, false)
                     } else WorkManager.getInstance(requireContext())
                         .cancelUniqueWork(FeedWorker.WORK_NAME)
                 }
                 KEY_WORKER_MESSAGES -> {
                     val state = pref.getBoolean(key, false)
                     if (state) {
-                        recreateTasks(false, true)
+                        recreateTasks(false, true, false)
                     } else WorkManager.getInstance(requireContext())
                         .cancelUniqueWork(ThreadsWorker.WORK_NAME)
+                }
+                KEY_WORKER_PROJECTS -> {
+                    val state = pref.getBoolean(key, false)
+                    if (state) {
+                        recreateTasks(false, false, true)
+                    } else WorkManager.getInstance(requireContext())
+                        .cancelUniqueWork(ProjectsWorker.WORK_NAME)
                 }
                 KEY_WORKER_INTERVAL -> {
                     val interval = appPreferences.getWorkerInterval()
                     if (interval >= 60) {
-                        recreateTasks(true, true)
+                        recreateTasks(true, true, true)
                     } else {
                         if (IS_PREMIUM) {
-                            recreateTasks(true, true)
+                            recreateTasks(true, true, true)
                         } else {
                             resetWorkerInterval(true)
                             premiumDialog()
@@ -88,7 +97,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                     }
                 }
                 KEY_WORKER_UNMETERED -> {
-                    recreateTasks(true, true)
+                    recreateTasks(true, true, true)
                 }
                 KEY_APP_LANGUAGE -> {
                     recreateActivity()
@@ -112,7 +121,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
         activity?.finish()
     }
 
-    private fun recreateTasks(feed: Boolean, messages: Boolean) {
+    private fun recreateTasks(feed: Boolean, messages: Boolean, projects: Boolean) {
         val interval = appPreferences.getWorkerInterval()
         val networkType =
             if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
@@ -133,6 +142,14 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
             ThreadsWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.REPLACE,
             PeriodicWorkRequestBuilder<ThreadsWorker>(
+                interval, TimeUnit.MINUTES
+            ).setConstraints(constrains).build()
+        )
+
+        if (projects) WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
+            ProjectsWorker.WORK_NAME,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            PeriodicWorkRequestBuilder<ProjectsWorker>(
                 interval, TimeUnit.MINUTES
             ).setConstraints(constrains).build()
         )

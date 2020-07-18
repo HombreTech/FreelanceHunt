@@ -199,6 +199,8 @@ class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSub
 
         items.addAll(projectsList.data)
         adapter.setItems(items)
+
+        appPreferences.setLastProjectId(items.first().id)
     }
 
     override fun onSubmitProjectFilter(

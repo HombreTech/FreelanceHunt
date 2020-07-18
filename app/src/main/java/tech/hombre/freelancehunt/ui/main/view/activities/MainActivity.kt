@@ -23,6 +23,7 @@ import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
 import tech.hombre.freelancehunt.common.widgets.BadgeDrawerArrowDrawable
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
+import tech.hombre.freelancehunt.framework.tasks.ProjectsWorker
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.routing.ScreenType
@@ -286,6 +287,14 @@ class MainActivity : BaseActivity() {
                 ThreadsWorker.WORK_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,
                 PeriodicWorkRequestBuilder<ThreadsWorker>(
+                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
+                ).setConstraints(constrains).build()
+            )
+        if (appPreferences.getWorkerProjectsEnabled())
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                ProjectsWorker.WORK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                PeriodicWorkRequestBuilder<ProjectsWorker>(
                     appPreferences.getWorkerInterval(), TimeUnit.MINUTES
                 ).setConstraints(constrains).build()
             )

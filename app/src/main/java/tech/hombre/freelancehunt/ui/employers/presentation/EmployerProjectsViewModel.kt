@@ -17,7 +17,7 @@ class EmployerProjectsViewModel(
 
 
     fun getProjectsLists(page: Int, employerId: Int) = executeUseCase {
-        getProjectsList(page.toString(), false, false, "", employerId)
+        getProjectsList(page, false, false, "", employerId)
             .onSuccess {
                 pagination = it.links
 
