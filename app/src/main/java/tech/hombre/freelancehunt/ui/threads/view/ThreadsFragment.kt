@@ -2,7 +2,6 @@ package tech.hombre.freelancehunt.ui.threads.view
 
 import androidx.annotation.Keep
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_threads.*
@@ -80,13 +79,13 @@ class ThreadsFragment : BaseFragment() {
                             model.attributes.last_post_at.parseFullDate(true).getTimeAgo()
                         )
                         .setText(R.id.subject, model.attributes.subject)
-                        .setImageDrawable(
+                        /*.setImageDrawable(
                             R.id.status,
                             ContextCompat.getDrawable(
                                 requireContext(),
                                 if (model.attributes.is_unread) R.drawable.check else R.drawable.checkall
                             )
-                        )
+                        )*/
                         .find(
                             R.id.avatar,
                             ViewProvider<CustomImageView> { avatar ->
