@@ -16,13 +16,14 @@ class ContestsListRepositoryImpl(
 ) : BaseRepository<ContestsList, ContestsListEntity>(),
     ContestsListRepository {
     override suspend fun getContestsList(page: Int, skills: String): Result<ContestsList> {
+        val url = BuildConfig.BASE_URL + "contests?page[number]=$page&filter[skill_id]=$skills"
         return fetchData(
             apiDataProvider = {
                 contestsApi.getContestsList(page, skills).getData(
-                    fetchFromCacheAction = { contestsListDao.getContestsList(BuildConfig.BASE_URL + "contests") },
+                    fetchFromCacheAction = { contestsListDao.getContestsList(url) },
                     cacheAction = { contestsListDao.saveContestsList(it) })
             },
-            dbDataProvider = { contestsListDao.getContestsList(BuildConfig.BASE_URL + "contests") }
+            dbDataProvider = { contestsListDao.getContestsList(url) }
         )
     }
 }

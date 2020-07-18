@@ -80,6 +80,7 @@ class ContestsFragment : BaseFragment(), ContestsFilterBottomDialogFragment.OnSu
     }
 
     private fun handleError(error: String) {
+        refresh.isRefreshing = false
         hideLoading()
         showError(error, contestsFragmentContainer)
     }

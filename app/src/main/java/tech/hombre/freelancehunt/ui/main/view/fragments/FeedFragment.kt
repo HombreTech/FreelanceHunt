@@ -167,6 +167,7 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun handleError(error: String) {
+        refresh.isRefreshing = false
         hideLoading()
         showError(error, feedFragmentContainer)
     }

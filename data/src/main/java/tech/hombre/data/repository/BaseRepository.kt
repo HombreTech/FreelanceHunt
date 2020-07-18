@@ -25,27 +25,35 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
         dbDataProvider: suspend () -> R,
         fromCache: Boolean = false
     ): Result<T> {
-        return if (connectivity.hasNetworkAccess() && !fromCache) {
-            withContext(contextProvider.io) {
-                apiDataProvider()
-            }
-        } else {
-            withContext(contextProvider.io) {
-                val dbResult = dbDataProvider()
-                if (dbResult != null) Success(dbResult.mapToDomainModel()) else if (fromCache) {
-                    if (connectivity.hasNetworkAccess()) apiDataProvider() else Failure(
-                        HttpError(
-                            Throwable(NOT_HAVE_INTERNET_CONNECTION)
+        try {
+            return if (connectivity.hasNetworkAccess() && !fromCache) {
+                withContext(contextProvider.io) {
+                    apiDataProvider()
+                }
+            } else {
+                withContext(contextProvider.io) {
+                    val dbResult = dbDataProvider()
+                    if (dbResult != null) Success(dbResult.mapToDomainModel()) else if (fromCache) {
+                        if (connectivity.hasNetworkAccess()) apiDataProvider() else Failure(
+                            HttpError(
+                                Throwable(NOT_HAVE_INTERNET_CONNECTION)
+                            )
                         )
-                    )
-                } else {
-                    Failure(
-                        HttpError(
-                            Throwable(DB_ENTRY_ERROR)
+                    } else {
+                        Failure(
+                            HttpError(
+                                Throwable(DB_ENTRY_ERROR)
+                            )
                         )
-                    )
+                    }
                 }
             }
+        } catch (e: Exception) {
+            return Failure(
+                HttpError(
+                    Throwable(NOT_HAVE_INTERNET_CONNECTION)
+                )
+            )
         }
     }
 
@@ -53,12 +61,20 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
      * API request
      */
     protected suspend fun fetchData(dataProvider: suspend () -> Result<T>): Result<T> {
-        return if (connectivity.hasNetworkAccess()) {
-            withContext(contextProvider.io) {
-                dataProvider()
+        return try {
+            if (connectivity.hasNetworkAccess()) {
+                withContext(contextProvider.io) {
+                    dataProvider()
+                }
+            } else {
+                Failure(HttpError(Throwable(NOT_HAVE_INTERNET_CONNECTION)))
             }
-        } else {
-            Failure(HttpError(Throwable(NOT_HAVE_INTERNET_CONNECTION)))
+        } catch (e: Exception) {
+            Failure(
+                HttpError(
+                    Throwable(NOT_HAVE_INTERNET_CONNECTION)
+                )
+            )
         }
     }
 }

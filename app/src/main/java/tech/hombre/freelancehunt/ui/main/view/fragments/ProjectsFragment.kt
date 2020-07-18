@@ -169,6 +169,7 @@ class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSub
     }
 
     private fun handleError(error: String) {
+        refresh.isRefreshing = false
         hideLoading()
         showError(error, projectsFragmentContainer)
     }
