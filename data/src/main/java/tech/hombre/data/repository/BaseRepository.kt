@@ -6,12 +6,16 @@ import org.koin.core.inject
 import tech.hombre.data.common.coroutine.CoroutineContextProvider
 import tech.hombre.data.common.utils.Connectivity
 import tech.hombre.data.database.DB_ENTRY_ERROR
+import tech.hombre.data.networking.CONNECTION_ERROR
 import tech.hombre.data.networking.NOT_HAVE_INTERNET_CONNECTION
+import tech.hombre.data.networking.TIMEOUT_ERROR
 import tech.hombre.data.networking.base.DomainMapper
 import tech.hombre.domain.model.Failure
 import tech.hombre.domain.model.HttpError
 import tech.hombre.domain.model.Result
 import tech.hombre.domain.model.Success
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
     private val connectivity: Connectivity by inject()
@@ -49,9 +53,14 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
                 }
             }
         } catch (e: Exception) {
+            val error = when (e) {
+                is SocketTimeoutException -> TIMEOUT_ERROR
+                is UnknownHostException -> CONNECTION_ERROR
+                else -> CONNECTION_ERROR
+            }
             return Failure(
                 HttpError(
-                    Throwable(NOT_HAVE_INTERNET_CONNECTION)
+                    Throwable(error)
                 )
             )
         }
@@ -70,9 +79,14 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
                 Failure(HttpError(Throwable(NOT_HAVE_INTERNET_CONNECTION)))
             }
         } catch (e: Exception) {
-            Failure(
+            val error = when (e) {
+                is SocketTimeoutException -> TIMEOUT_ERROR
+                is UnknownHostException -> CONNECTION_ERROR
+                else -> CONNECTION_ERROR
+            }
+            return Failure(
                 HttpError(
-                    Throwable(NOT_HAVE_INTERNET_CONNECTION)
+                    Throwable(error)
                 )
             )
         }
