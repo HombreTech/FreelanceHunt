@@ -42,7 +42,7 @@ Another one Freelancehunt.com client app.
   - My bids list ```for freelancers```
   - Add / Revoke / Reject / Choose winner bid
 - **Customization**
-  - Feed/Messages notifications
+  - Feed/Projects/Messages notifications
   - Dark/Light theme
 
 ## Third party libraries
