@@ -16,8 +16,19 @@ data class ThreadMessageList(
             val message: String = "",
             val message_html: String = "",
             val posted_at: String = "",
+            val attachments: List<Attachment> = listOf(),
             val participants: Participants = Participants()
         ) {
+            data class Attachment(
+                val file_type: String = "",
+                val id: Int = 0,
+                val name: String = "",
+                val size: Int = 0,
+                val thumbnail_url: String? = "",
+                val type: String = "",
+                val url: String = ""
+            )
+
             data class Participants(
                 val from: From = From(),
                 val to: To = To()
