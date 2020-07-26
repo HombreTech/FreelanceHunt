@@ -32,6 +32,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.min
 
@@ -210,6 +211,26 @@ fun FragmentManager.switch(
 
 fun Boolean.toVisibleState(): Int {
     return if (this) View.VISIBLE else View.GONE
+}
+
+fun String.extension(): String {
+    return this.substringAfterLast('.', "")
+}
+
+fun Long.humanReadableBytes(): String {
+    val b = when (this) {
+        Long.MIN_VALUE -> Long.MAX_VALUE
+        else -> abs(this)
+    }
+    return when {
+        b < 1024L -> "$this B"
+        b <= 0xfffccccccccccccL shr 40 -> "%.1f KB".format(Locale.UK, this / 1024.0)
+        b <= 0xfffccccccccccccL shr 30 -> "%.1f MB".format(Locale.UK, this / 1048576.0)
+        b <= 0xfffccccccccccccL shr 20 -> "%.1f GB".format(Locale.UK, this / 1.073741824E9)
+        b <= 0xfffccccccccccccL shr 10 -> "%.1f TB".format(Locale.UK, this / 1.099511627776E12)
+        b <= 0xfffccccccccccccL -> "%.1f PiB".format(Locale.UK, (this shr 10) / 1.099511627776E12)
+        else -> "%.1f EB".format(Locale.UK, (this shr 20) / 1.099511627776E12)
+    }
 }
 
 fun FragmentActivity.showFragment(

@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Text" />
+            tools:text="TextTextText TextText Text" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier"
@@ -56,9 +56,20 @@
             android:layout_marginEnd="@dimen/padding_small"
             android:textColor="?textColorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barrier"
+            app:layout_constraintTop_toBottomOf="@id/attachments"
             tools:text="Час назад" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/attachments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/message_send"
+            android:layout_marginTop="@dimen/padding_small"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/barrier"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_threads_attachment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

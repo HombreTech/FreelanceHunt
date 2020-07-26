@@ -27,7 +27,7 @@ data class ThreadMessageList(
                 val thumbnail_url: String? = "",
                 val type: String = "",
                 val url: String = ""
-            )
+            ): ViewModel
 
             data class Participants(
                 val from: From = From(),

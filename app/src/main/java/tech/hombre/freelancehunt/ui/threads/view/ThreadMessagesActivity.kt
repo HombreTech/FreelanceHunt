@@ -2,9 +2,11 @@ package tech.hombre.freelancehunt.ui.threads.view
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.activity_thread_messages.*
 import kotlinx.android.synthetic.main.appbar.*
@@ -15,6 +17,7 @@ import tech.hombre.domain.model.ThreadMessageOther
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
+import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
@@ -22,6 +25,7 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadMessagesViewModel
 import java.util.*
+
 
 class ThreadMessagesActivity : BaseActivity() {
 
@@ -138,6 +142,11 @@ class ThreadMessagesActivity : BaseActivity() {
                                     model.data.attributes.participants.from.avatar.small.url,
                                     isCircle = true
                                 )
+                                avatar.setOnClickListener {
+                                    if (model.data.attributes.participants.from.type == UserType.EMPLOYER.type)  {
+                                        appNavigator.showEmployerDetails(model.data.attributes.participants.from.id)
+                                    } else appNavigator.showFreelancerDetails(model.data.attributes.participants.from.id)
+                                }
                             })
                         .find<CustomHtmlTextView>(R.id.text) {
                             it.setHtmlText(model.data.attributes.message_html, false)
@@ -146,6 +155,51 @@ class ThreadMessagesActivity : BaseActivity() {
                             R.id.postedAt,
                             model.data.attributes.posted_at.parseFullDate(true).getTimeAgo()
                         )
+
+
+                    if (model.data.attributes.attachments.isNotEmpty()) {
+                        val attachmentsAdapter = RendererRecyclerViewAdapter()
+                        attachmentsAdapter.registerRenderer(
+                            ViewRenderer(
+                                R.layout.item_threads_attachment_my,
+                                ThreadMessageList.Data.Attributes.Attachment::class.java,
+                                BaseViewRenderer.Binder { model: ThreadMessageList.Data.Attributes.Attachment, finder: ViewFinder, payloads: List<Any?>? ->
+                                    finder
+                                        .find(
+                                            R.id.thumbnail,
+                                            ViewProvider<CustomImageView> { thumbnail ->
+                                                if (model.thumbnail_url.isNullOrEmpty()) {
+                                                    thumbnail.setUrlSVG(
+                                                        "https://freelancehunt.com/static/images/file-types/${getFileTypeByExtension(
+                                                            model.url.extension()
+                                                        )}.svg"
+                                                    )
+                                                } else thumbnail.setUrl(
+                                                    model.thumbnail_url ?: ""
+                                                )
+                                            })
+                                        .setText(
+                                            R.id.title,
+                                            model.name
+                                        )
+                                        .setText(
+                                            R.id.size,
+                                            model.size.toLong().humanReadableBytes()
+                                        )
+                                        .setOnClickListener {
+                                            val browserIntent = Intent(
+                                                Intent.ACTION_VIEW,
+                                                Uri.parse(model.url)
+                                            )
+                                            startActivity(browserIntent)
+                                        }
+                                }
+                            )
+                        )
+                        finder.find<RecyclerView>(R.id.attachments).adapter = attachmentsAdapter
+                        attachmentsAdapter.setItems(model.data.attributes.attachments)
+                    }
+
                 }
             )
         )
@@ -162,6 +216,11 @@ class ThreadMessagesActivity : BaseActivity() {
                                     model.data.attributes.participants.from.avatar.small.url,
                                     isCircle = true
                                 )
+                                avatar.setOnClickListener {
+                                    if (model.data.attributes.participants.from.type == UserType.EMPLOYER.type)  {
+                                        appNavigator.showEmployerDetails(model.data.attributes.participants.from.id)
+                                    } else appNavigator.showFreelancerDetails(model.data.attributes.participants.from.id)
+                                }
                             })
                         .find<CustomHtmlTextView>(R.id.text) {
                             it.setHtmlText(model.data.attributes.message_html, false)
@@ -170,6 +229,48 @@ class ThreadMessagesActivity : BaseActivity() {
                             R.id.postedAt,
                             model.data.attributes.posted_at.parseFullDate(true).getTimeAgo()
                         )
+                    if (model.data.attributes.attachments.isNotEmpty()) {
+                        val attachmentsAdapter = RendererRecyclerViewAdapter()
+                        attachmentsAdapter.registerRenderer(
+                            ViewRenderer(
+                                R.layout.item_threads_attachment,
+                                ThreadMessageList.Data.Attributes.Attachment::class.java,
+                                BaseViewRenderer.Binder { model: ThreadMessageList.Data.Attributes.Attachment, finder: ViewFinder, payloads: List<Any?>? ->
+                                    finder
+                                        .find(
+                                            R.id.thumbnail,
+                                            ViewProvider<CustomImageView> { thumbnail ->
+                                                if (model.thumbnail_url.isNullOrEmpty()) {
+                                                    thumbnail.setUrlSVG(
+                                                        "https://freelancehunt.com/static/images/file-types/${getFileTypeByExtension(
+                                                            model.url.extension()
+                                                        )}.svg"
+                                                    )
+                                                } else thumbnail.setUrl(
+                                                    model.thumbnail_url ?: ""
+                                                )
+                                            })
+                                        .setText(
+                                            R.id.title,
+                                            model.name
+                                        )
+                                        .setText(
+                                            R.id.size,
+                                            model.size.toLong().humanReadableBytes()
+                                        )
+                                        .setOnClickListener {
+                                            val browserIntent = Intent(
+                                                Intent.ACTION_VIEW,
+                                                Uri.parse(model.url)
+                                            )
+                                            startActivity(browserIntent)
+                                        }
+                                }
+                            )
+                        )
+                        finder.find<RecyclerView>(R.id.attachments).adapter = attachmentsAdapter
+                        attachmentsAdapter.setItems(model.data.attributes.attachments)
+                    }
                 }
             )
         )
