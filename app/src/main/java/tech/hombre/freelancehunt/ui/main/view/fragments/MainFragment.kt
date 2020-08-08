@@ -1,11 +1,13 @@
 package tech.hombre.freelancehunt.ui.main.view.fragments
 
+import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.Keep
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import tech.hombre.freelancehunt.R
+import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
 import tech.hombre.freelancehunt.ui.base.BaseFragment
@@ -21,7 +23,10 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
     override fun viewReady() {
         subscribeToData()
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
-        bottomNavigationView.selectedItemId = R.id.menu_projects
+        arguments?.let {
+            val isFeed = it.getBoolean(EXTRA_1)
+            bottomNavigationView.selectedItemId = if (isFeed) R.id.menu_feed else R.id.menu_projects
+        }
         fab.setOnClickListener {
             when (bottomNavigationView.selectedItemId) {
                 R.id.menu_projects -> sharedViewModelMain.onFabClickAction("project_filter")
@@ -89,7 +94,13 @@ class MainFragment : BaseFragment(), BottomNavigationView.OnNavigationItemSelect
         @Keep
         val TAG = MainFragment::class.java.simpleName
 
-        fun newInstance() = MainFragment()
+        fun newInstance(isFeed: Boolean = false): MainFragment {
+            val fragment = MainFragment()
+            val extra = Bundle()
+            extra.putBoolean(EXTRA_1, isFeed)
+            fragment.arguments = extra
+            return fragment
+        }
     }
 }
 

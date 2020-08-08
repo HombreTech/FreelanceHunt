@@ -69,6 +69,12 @@ class MainActivity : BaseActivity() {
                 )
                 selectMenuItem(R.id.menu_main, true)
             }
+            ScreenType.FEED ->
+                supportFragmentManager.switch(
+                    R.id.fragmentContainer,
+                    MainFragment.newInstance(true),
+                    MainFragment.TAG
+                )
             ScreenType.THREADS -> supportFragmentManager.switch(
                 R.id.fragmentContainer,
                 ThreadsFragment.newInstance(),

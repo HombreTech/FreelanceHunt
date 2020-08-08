@@ -46,7 +46,7 @@ class FeedWorker(
                                 ,
                                 new.map { "<b>${it.attributes.from?.login}</b> <i>${it.attributes.message}</i>" }
                                     .chunked(MAX_LINES)[0],
-                                ScreenType.MAIN,
+                                ScreenType.FEED,
                                 new.size - MAX_LINES,
                                 NOTIFY_FEED_ID
                             )

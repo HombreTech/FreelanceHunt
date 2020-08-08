@@ -116,5 +116,6 @@ class AppNavigator(private val activity: AppCompatActivity) : Navigator {
 
 enum class ScreenType : Serializable {
     MAIN,
+    FEED,
     THREADS
 }
