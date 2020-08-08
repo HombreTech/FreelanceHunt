@@ -11,6 +11,7 @@
     <string name="new_work">Job offer</string>
     <string name="new_forum_message">Discussion</string>
     <string name="type_project">added project</string>
+    <string name="type_project_1" translatable="false">добавила проект</string>
     <string name="type_like_message">like your</string>
     <string name="type_appreciated">appreciated</string>
     <string name="type_work">offers project work</string>

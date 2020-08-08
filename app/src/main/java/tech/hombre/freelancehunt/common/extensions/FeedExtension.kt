@@ -14,6 +14,7 @@ fun String.prepareFeedMessage(context: Context): String {
         .replace("<a href=\"https:\\/\\/freelancehunt.com\\/mailbox.*>(.*?)<\\/a>".toRegex(RegexOption.DOT_MATCHES_ALL), "$1")
         .replace("<.*?>".toRegex(RegexOption.DOT_MATCHES_ALL), "")
         .replace(context.getString(R.string.type_project), "")
+        .replace(context.getString(R.string.type_project_1), "")
         .replace(context.getString(R.string.type_work), "")
         .replace(context.getString(R.string.type_add_message), context.getString(R.string.message))
         .replace(context.getString(R.string.type_like_message), "")
@@ -28,6 +29,7 @@ fun String.prepareFeedMessage(context: Context): String {
 fun feedTypeByMessage(context: Context, message: String): FeedType {
     return when (true) {
         message.contains(context.getString(R.string.type_project)) -> FeedType.PROJECT
+        message.contains(context.getString(R.string.type_project_1)) -> FeedType.PROJECT
         message.contains(context.getString(R.string.type_work)) -> FeedType.WORK
         message.contains(context.getString(R.string.type_like_message)) -> FeedType.LIKE
         message.contains(context.getString(R.string.type_add_message)) -> FeedType.MESSAGE

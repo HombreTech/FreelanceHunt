@@ -93,6 +93,13 @@ class FeedFragment : BaseFragment() {
                                     null,
                                     null
                                 )
+                            } else {
+                                messageView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    null,
+                                    null,
+                                    null,
+                                    null
+                                )
                             }
                             messageView.text =
                                 model.attributes.message.prepareFeedMessage(requireContext())
@@ -109,21 +116,23 @@ class FeedFragment : BaseFragment() {
                                 adapter.notifyItemChanged(items.data.indexOf(model))
                             }
 
-                             if (type == FeedType.UNKNOWN) {
-                                 "<a href=\"(.*?)\".*".toRegex().find(model.attributes.message)?.groupValues?.let {
-                                     SchemeParser.launchUri(requireContext(), it[1])
-                                 }
-                             } else {
-                                 if (type == FeedType.PERSONAL_PROJECT){
-                                     "<a href=\"(.*?)\".*".toRegex().find(model.attributes.message)?.groupValues?.let {
-                                         SchemeParser.launchUri(requireContext(), it[1])
-                                     }
-                                 } else if (!notForMe) {
-                                     if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
-                                 } else handleError(
-                                     getString(R.string.only_for_plus)
-                                 )
-                             }
+                            if (type == FeedType.UNKNOWN) {
+                                "<a href=\"(.*?)\".*".toRegex()
+                                    .find(model.attributes.message)?.groupValues?.let {
+                                    SchemeParser.launchUri(requireContext(), it[1])
+                                }
+                            } else {
+                                if (type == FeedType.PERSONAL_PROJECT) {
+                                    "<a href=\"(.*?)\".*".toRegex()
+                                        .find(model.attributes.message)?.groupValues?.let {
+                                        SchemeParser.launchUri(requireContext(), it[1])
+                                    }
+                                } else if (!notForMe) {
+                                    if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
+                                } else handleError(
+                                    getString(R.string.only_for_plus)
+                                )
+                            }
                         }
                 }
             )
