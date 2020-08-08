@@ -22,6 +22,9 @@ class BillingClientModule(appContext: Application) {
         PurchasesUpdatedListener { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 purchasesList = purchases
+                for (purchase in purchases) {
+                    acknowledgePurchase(purchase)
+                }
                 setPremiumActions()
             }
         }
@@ -68,6 +71,23 @@ class BillingClientModule(appContext: Application) {
         val purchasesResult: PurchasesResult =
             billingClient.queryPurchases(BillingClient.SkuType.INAPP)
         return purchasesResult.purchasesList
+    }
+
+    private fun acknowledgePurchase(purchase: Purchase) {
+        val acknowledgePurchaseResponseListener =
+            AcknowledgePurchaseResponseListener { }
+        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
+            if (!purchase.isAcknowledged) {
+                val acknowledgePurchaseParams =
+                    AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
+                billingClient.acknowledgePurchase(
+                    acknowledgePurchaseParams,
+                    acknowledgePurchaseResponseListener
+                )
+            }
+        }
     }
 
     fun launchBilling(activity: Activity, sku: String) {
