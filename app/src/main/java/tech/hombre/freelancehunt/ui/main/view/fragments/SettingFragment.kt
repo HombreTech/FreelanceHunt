@@ -86,10 +86,10 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                 KEY_WORKER_INTERVAL -> {
                     val interval = appPreferences.getWorkerInterval()
                     if (interval >= 60) {
-                        recreateTasks(true, true, true)
+                        recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                     } else {
                         if (IS_PREMIUM) {
-                            recreateTasks(true, true, true)
+                            recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                         } else {
                             resetWorkerInterval(true)
                             premiumDialog()
@@ -97,7 +97,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                     }
                 }
                 KEY_WORKER_UNMETERED -> {
-                    recreateTasks(true, true, true)
+                    recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                 }
                 KEY_APP_LANGUAGE -> {
                     recreateActivity()
