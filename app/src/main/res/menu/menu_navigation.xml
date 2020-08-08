@@ -8,7 +8,7 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/menu_main"
-            android:icon="@drawable/profile"
+            android:icon="@drawable/home"
             android:title="@string/main" />
     </group>
 
@@ -37,7 +37,7 @@
             android:title="@string/my_contests" />
         <item
             android:id="@+id/menu_workspaces"
-            android:icon="@drawable/briefcase"
+            android:icon="@drawable/tools"
             android:title="@string/my_workspaces" />
     </group>
 

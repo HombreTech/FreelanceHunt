@@ -12,7 +12,7 @@
         android:layout_height="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/verificated_user"
+        app:srcCompat="@drawable/my_profile"
         app:tint="@drawable/menu_icon_background" />
 
     <TextView

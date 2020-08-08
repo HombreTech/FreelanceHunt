@@ -213,14 +213,14 @@ class MainActivity : BaseActivity() {
         }
         if (newMassages != null) navigation.menu.findItem(R.id.menu_threads).actionView?.let {
             if (newMassages) {
+                it.icon.setImageResource(R.drawable.mail)
                 it.subtitle.text = getString(R.string.have_messages)
-
                 badgeToggleDrawable = BadgeDrawerArrowDrawable(supportActionBar?.themedContext)
                 drawerToggle.drawerArrowDrawable = badgeToggleDrawable
 
             } else {
+                it.icon.setImageResource(R.drawable.mail_empty)
                 it.subtitle.text = getString(R.string.not_have_messages)
-
                 badgeToggleDrawable = BadgeDrawerArrowDrawable(supportActionBar?.themedContext)
                 drawerToggle.drawerArrowDrawable = DrawerArrowDrawable(supportActionBar?.themedContext)
             }
