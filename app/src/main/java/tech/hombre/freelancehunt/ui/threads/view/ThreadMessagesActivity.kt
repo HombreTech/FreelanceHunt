@@ -149,7 +149,7 @@ class ThreadMessagesActivity : BaseActivity() {
                                 }
                             })
                         .find<CustomHtmlTextView>(R.id.text) {
-                            it.setHtmlText(model.data.attributes.message_html, false)
+                            it.setHtmlText(model.data.attributes.message_html, false, false)
                         }
                         .setText(
                             R.id.postedAt,
@@ -223,7 +223,7 @@ class ThreadMessagesActivity : BaseActivity() {
                                 }
                             })
                         .find<CustomHtmlTextView>(R.id.text) {
-                            it.setHtmlText(model.data.attributes.message_html, false)
+                            it.setHtmlText(model.data.attributes.message_html, false, false)
                         }
                         .setText(
                             R.id.postedAt,

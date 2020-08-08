@@ -20,9 +20,9 @@ class CustomHtmlTextView @JvmOverloads constructor(
         SchemeParser.launchUri(context, href.toString())
     }
 
-    fun setHtmlText(text: String, fillWidth: Boolean = true) = run {
-        val getter = HtmlHttpImageGetter(this, null, fillWidth).apply {
-            enableCompressImage(true, 70)
+    fun setHtmlText(text: String, compress: Boolean = true, matchWidth: Boolean = true) = run {
+        val getter = HtmlHttpImageGetter(this, null, matchWidth).apply {
+            if (compress) enableCompressImage(true, 70)
         }
 
         setHtml(text.replace("<!--(.*?)-->".toRegex(RegexOption.DOT_MATCHES_ALL), "$1"), getter)
