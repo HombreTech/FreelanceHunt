@@ -37,8 +37,8 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="KEY_WORKER_PROJECTS"
-            android:title="@string/pref_notifications_projects"
             android:summary="@string/pref_notifications_projects_summary"
+            android:title="@string/pref_notifications_projects"
             app:icon="@drawable/projects_tinted" />
         <CheckBoxPreference
             android:defaultValue="true"
@@ -59,5 +59,15 @@
             android:key="KEY_WORKER_INTERVAL"
             android:summary="%s"
             android:title="@string/pref_notifications_interval" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_project_settings"
+        android:title="@string/pref_key_project_title">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="KEY_PROJECT_BIDS_LIST_REVERSED"
+            android:title="@string/pref_project_bids_list_reversed"
+            app:icon="@drawable/rotate" />
     </PreferenceCategory>
 </PreferenceScreen>

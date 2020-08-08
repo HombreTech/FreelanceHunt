@@ -210,4 +210,6 @@
     <string name="reset">Очистить</string>
     <string name="employers_filter">Фильтр заказчиков</string>
     <string name="contests_filter">Фильтр конкурсов</string>
+    <string name="pref_key_project_title">Проект</string>
+    <string name="pref_project_bids_list_reversed">Ставки в обратном порядке</string>
 </resources>

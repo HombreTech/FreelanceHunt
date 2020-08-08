@@ -100,6 +100,8 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         setProjectFilterOnlySkills(skills)
     }
 
+    fun getProjectBidsListReversed(): Boolean = sharedPreferences.getBoolean(KEY_PROJECT_BIDS_LIST_REVERSED, false)
+
     companion object {
         const val KEY_API_TOKEN = "KEY_API_TOKEN"
         const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
@@ -115,6 +117,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         const val KEY_APP_LANGUAGE = "KEY_APP_LANGUAGE"
         const val KEY_APP_THEME = "KEY_APP_THEME"
         const val KEY_WORKER_UNMETERED = "KEY_WORKER_UNMETERED"
+        const val KEY_PROJECT_BIDS_LIST_REVERSED = "KEY_PROJECT_BIDS_LIST_REVERSED"
 
         const val KEY_PROJECT_FILTER_MY_SKILLS = "KEY_PROJECT_FILTER_MY_SKILLS"
         const val KEY_PROJECT_FILTER_ONLY_PLUS = "KEY_PROJECT_FILTER_ONLY_PLUS"

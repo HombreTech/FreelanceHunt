@@ -21,6 +21,9 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/padding_middle"
             android:gravity="center"
+            android:drawableStart="@drawable/lock"
+            app:drawableTint="@color/ratingBarBackground"
+            android:drawablePadding="@dimen/padding_small"
             android:text="@string/bid_is_hidden"
             android:visibility="gone" />
 

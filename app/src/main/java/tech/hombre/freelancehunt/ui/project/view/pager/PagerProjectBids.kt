@@ -265,7 +265,8 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
     private fun initBids(bids: List<ProjectBid.Data>) {
         hideLoading()
         items = bids as ArrayList<ProjectBid.Data>
-        adapter.setItems(items)
+        val reversed = appPreferences.getProjectBidsListReversed()
+        adapter.setItems(if (reversed) items.reversed() else items)
     }
 
     fun onBidAdded(
