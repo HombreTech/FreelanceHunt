@@ -39,25 +39,45 @@
                 android:id="@+id/editorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
                 android:background="?colorPrimary"
                 android:elevation="4dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/attach"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
+                <RelativeLayout
+                    android:padding="@dimen/padding_small"
                     android:layout_weight="0"
-                    android:background="?selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:padding="@dimen/padding_middle"
-                    app:srcCompat="@drawable/attach"
-                    app:tint="@color/white" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.ProgressIndicator
+                        android:id="@+id/attachProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        app:circularInset="0dp"
+                        app:trackColor="@color/ratingBarBackground"
+                        android:progress="0"
+                        tools:progress="15"
+                        android:visibility="invisible"
+                        app:indicatorColor="@color/white"
+                        app:indicatorType="circular" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/attach"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/padding_middle"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/attach"
+                        app:tint="@color/white" />
+                </RelativeLayout>
 
                 <tech.hombre.freelancehunt.common.widgets.EditorEditText
                     android:id="@+id/editText"

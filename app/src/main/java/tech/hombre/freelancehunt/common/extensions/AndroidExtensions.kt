@@ -1,12 +1,14 @@
 package tech.hombre.freelancehunt.common.extensions
 
 import android.content.Context
+import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.text.format.DateUtils.SECOND_IN_MILLIS
 import android.text.format.DateUtils.getRelativeTimeSpanString
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.ArrayRes
@@ -54,6 +56,10 @@ fun toast(message: String) =
 
 fun View.visible() {
     visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
 }
 
 fun View.gone() {
@@ -259,6 +265,28 @@ fun EditText.onDone(callback: () -> Unit) {
         }
         false
     }
+}
+
+fun getMimeType(filepath: String?): String {
+    if (filepath == null) return ""
+
+    val url = filepath.replace(" ", "")
+    var type: String? = null
+
+    val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+    if (extension != null) {
+        type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase())
+    }
+
+    if (type == null) {
+        val cR = App.instance.contentResolver
+        type = cR.getType(Uri.parse(url))
+    }
+
+    if (type == null) {
+        type = "*/*"
+    }
+    return type
 }
 
 inline fun ViewModel.launch(

@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.threads.view
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.view.Menu
 import android.view.MenuItem
@@ -21,9 +22,14 @@ import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
+import tech.hombre.freelancehunt.common.widgets.filepicker.controller.DialogSelectionListener
+import tech.hombre.freelancehunt.common.widgets.filepicker.model.DialogConfigs
+import tech.hombre.freelancehunt.common.widgets.filepicker.model.DialogProperties
+import tech.hombre.freelancehunt.common.widgets.filepicker.view.FilePickerDialog
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadMessagesViewModel
+import java.io.File
 import java.util.*
 
 
@@ -46,6 +52,10 @@ class ThreadMessagesActivity : BaseActivity() {
     // TODO to preferences
     private val delay = 15000L
 
+    lateinit var dialog: FilePickerDialog
+
+    private var isUploading = false
+
     override fun viewReady() {
         setContentView(R.layout.activity_thread_messages)
         setSupportActionBar(toolbar)
@@ -63,7 +73,7 @@ class ThreadMessagesActivity : BaseActivity() {
 
     private fun initViews() {
         attach.setOnClickListener {
-            handleError(getString(R.string.not_implemented_error))
+            if (!isUploading) showSelectFileDialog()
         }
         send.setOnClickListener {
             list.hideKeyboard()
@@ -98,6 +108,7 @@ class ThreadMessagesActivity : BaseActivity() {
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
         viewModel.message.subscribe(this, ::handleMessageViewState)
+        viewModel.uploading.subscribe(this, ::handleUploadingViewState)
     }
 
     private fun handleViewState(viewState: ViewState<ThreadMessageList>) {
@@ -115,6 +126,16 @@ class ThreadMessagesActivity : BaseActivity() {
         }
     }
 
+    private fun handleUploadingViewState(viewState: ViewState<ThreadMessageList.Data>) {
+        when (viewState) {
+            is Success -> addAttachMessage(viewState.data)
+            is Error -> handleError(viewState.error.localizedMessage)
+            is NoInternetState -> showNoInternetError()
+        }
+        isUploading = false
+        attachProgress.invisible()
+    }
+
     private fun addMessage(message: ThreadMessageList.Data) {
         editText.setText("")
         messagesGroup.add(ThreadMessageMy(message))
@@ -124,6 +145,15 @@ class ThreadMessagesActivity : BaseActivity() {
             100
         )
 
+    }
+
+    private fun addAttachMessage(message: ThreadMessageList.Data) {
+        messagesGroup.add(ThreadMessageMy(message))
+        adapter.setItems(messagesGroup)
+        list.postDelayed(
+            { list.scrollToPosition(adapter.itemCount - 1) },
+            100
+        )
     }
 
     private fun initMessagesList() {
@@ -149,7 +179,10 @@ class ThreadMessagesActivity : BaseActivity() {
                                 }
                             })
                         .find<CustomHtmlTextView>(R.id.text) {
-                            it.setHtmlText(model.data.attributes.message_html, false, false)
+                            if (model.data.attributes.message_html.isNotEmpty()) {
+                                it.setHtmlText(model.data.attributes.message_html, false, false)
+                                it.visible()
+                            } else it.gone()
                         }
                         .setText(
                             R.id.postedAt,
@@ -223,7 +256,10 @@ class ThreadMessagesActivity : BaseActivity() {
                                 }
                             })
                         .find<CustomHtmlTextView>(R.id.text) {
-                            it.setHtmlText(model.data.attributes.message_html, false, false)
+                            if (model.data.attributes.message_html.isNotEmpty()) {
+                                it.setHtmlText(model.data.attributes.message_html, false, false)
+                                it.visible()
+                            } else it.gone()
                         }
                         .setText(
                             R.id.postedAt,
@@ -309,7 +345,7 @@ class ThreadMessagesActivity : BaseActivity() {
     private val timerTask = object : TimerTask() {
         override fun run() {
             runOnUiThread {
-                viewModel.getMessages(threadId)
+                if (!isUploading) viewModel.getMessages(threadId)
             }
         }
     }
@@ -318,6 +354,44 @@ class ThreadMessagesActivity : BaseActivity() {
         timer.cancel()
         timer.purge()
         super.finish()
+    }
+
+    private fun showSelectFileDialog() {
+        val properties = DialogProperties().apply {
+            selection_mode = DialogConfigs.SINGLE_MODE
+            selection_type = DialogConfigs.FILE_SELECT
+            root = File(DialogConfigs.DEFAULT_DIR)
+            error_dir = File(DialogConfigs.DEFAULT_DIR)
+            offset = File(DialogConfigs.DEFAULT_DIR)
+            show_hidden_files = false
+        }
+        dialog = FilePickerDialog(this, properties)
+        dialog.setTitle(getString(R.string.attach_selector))
+        dialog.setDialogSelectionListener(object : DialogSelectionListener {
+            override fun onSelectedFilePaths(files: Array<String?>) {
+                val path = files[0]
+                path?.let {
+                    attachProgress.visible()
+                    isUploading = true
+                    viewModel.uploadAttach(threadId, path, path.substringAfterLast("/")) { progress ->
+                        attachProgress.progress = (progress * 100.0).toInt()
+                    }
+                }
+            }
+        })
+        dialog.show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            FilePickerDialog.EXTERNAL_READ_PERMISSION_GRANT -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (this::dialog.isInitialized) dialog.show()
+                } else {
+                    showError(getString(R.string.permissions_denied))
+                }
+            }
+        }
     }
 
     companion object {

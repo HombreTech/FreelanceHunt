@@ -46,4 +46,7 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koinVersion"
 
     api 'com.github.vivchar:RendererRecyclerViewAdapter:3.0.3-SNAPSHOT'
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+
 }

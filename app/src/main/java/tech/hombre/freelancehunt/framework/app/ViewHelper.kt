@@ -13,6 +13,11 @@ object ViewHelper {
     }
 
     @ColorInt
+    fun getAccentColor(context: Context): Int {
+        return getColorAttr(context, R.attr.colorAccent)
+    }
+
+    @ColorInt
     fun getColorAttr(context: Context, attr: Int): Int {
         val theme = context.theme
         val typedArray = theme.obtainStyledAttributes(intArrayOf(attr))

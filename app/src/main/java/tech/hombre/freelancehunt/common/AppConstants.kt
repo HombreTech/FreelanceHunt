@@ -21,6 +21,8 @@ const val SIMPLE_DIALOG_REQUEST_ARBITRAGE = 1
 const val SIMPLE_DIALOG_CLOSE_WORKSPACE = 2
 const val SIMPLE_DIALOG_EXTEND_WORKSPACE = 3
 
+const val ATTACH_MAX_FILESIZE: Long = 1024 * 1000
+
 enum class UserType(val type: String) {
     EMPLOYER("employer"),
     FREELANCER("freelancer")

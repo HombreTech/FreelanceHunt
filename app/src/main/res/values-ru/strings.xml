@@ -212,4 +212,13 @@
     <string name="contests_filter">Фильтр конкурсов</string>
     <string name="pref_key_project_title">Проект</string>
     <string name="pref_project_bids_list_reversed">Ставки в обратном порядке</string>
+    <string name="cancel_button_label">Отмена</string>
+    <string name="choose_button_label">Выбрать</string>
+    <string name="label_parent_directory">Вернуться назад</string>
+    <string name="last_edit">Последнее изменение: %1$s, %2$s</string>
+    <string name="permissions_denied">Нет прав на чтение</string>
+    <string name="error_dir_access">Нет прав на чтение директории</string>
+    <string name="attach_selector">Выберите файл</string>
+    <string name="attach_max_size">Максимальный размер вложения: %s</string>
+    <string name="size">Размер: %s</string>
 </resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	style="?android:attr/background"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:descendantFocusability="blocksDescendants"
+	android:focusable="false"
+	android:minHeight="?android:listPreferredItemHeight"
+	android:orientation="horizontal">
+
+	<ImageView
+		android:id="@+id/image_type"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_gravity="center"
+		android:layout_marginStart="8dp"
+		android:scaleType="centerInside"
+		/>
+
+	<LinearLayout
+		style="?android:attr/background"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_weight="1"
+		android:focusable="false"
+		android:gravity="center_vertical"
+		android:orientation="vertical"
+		>
+
+		<TextView
+			android:id="@+id/fname"
+			style="@style/TextStyle.Title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:text="Filename"
+			/>
+
+		<TextView
+			android:id="@+id/ftype"
+			style="@style/TextStyle.Title.Sub"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:text="Edited"
+			/>
+
+		<TextView
+			android:id="@+id/fsize"
+			style="@style/TextStyle.Title.Sub"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+			tools:visibility="visible"
+			tools:text="Size: 1 KB"
+			/>
+	</LinearLayout>
+
+	<tech.hombre.freelancehunt.common.widgets.filepicker.widget.MaterialCheckbox
+		android:id="@+id/file_mark"
+		android:layout_width="24dp"
+		android:layout_height="24dp"
+		android:layout_gravity="center_vertical"
+		android:layout_marginEnd="@dimen/padding_middle"
+		android:background="?android:attr/selectableItemBackgroundBorderless"
+		/>
+</LinearLayout>
