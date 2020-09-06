@@ -1,9 +1,14 @@
 package tech.hombre.freelancehunt.ui.menu
 
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.annotation.Keep
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_menu_add_bid.*
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.freelancehunt.R
@@ -107,6 +112,28 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+    
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), theme)
+        dialog.setOnShowListener {
+
+            val bottomSheetDialog = it as BottomSheetDialog
+            val parentLayout =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            parentLayout?.let { it ->
+                val behaviour = BottomSheetBehavior.from(it)
+                setupFullHeight(it)
+                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+        return dialog
+    }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+        bottomSheet.layoutParams = layoutParams
     }
 
     companion object {

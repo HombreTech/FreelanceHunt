@@ -154,10 +154,10 @@
     <tech.hombre.freelancehunt.common.widgets.EditorEditText
         android:id="@+id/comment"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/comment_hint"
-        android:lines="3"
         android:paddingTop="0dp"
+        android:lines="8"
         android:textAppearance="@style/TextStyle.Chat.Text"
         android:textColor="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/addBidTitle"
