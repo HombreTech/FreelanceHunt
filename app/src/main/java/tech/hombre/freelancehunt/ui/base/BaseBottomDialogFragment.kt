@@ -20,6 +20,8 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
 
     abstract fun getLayout(): Int
 
+    protected var is_cancelable: Boolean = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +33,10 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewReady()
+        dialog?.setCanceledOnTouchOutside(is_cancelable)
+        dialog?.setCancelable(is_cancelable)
     }
+
 
     fun showError(errorMessage: String?) =
         toast(errorMessage ?: EMPTY_STRING)

@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.annotation.Keep
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -35,6 +34,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
     private var isPlus = false
 
     override fun viewReady() {
+        is_cancelable = false
         arguments?.let {
             isPlus = it.getBoolean(EXTRA_1)
             ids = it.getInt(EXTRA_2, -1)
@@ -123,17 +123,12 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
                 bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             parentLayout?.let { it ->
                 val behaviour = BottomSheetBehavior.from(it)
-                setupFullHeight(it)
+                behaviour.isFitToContents = true
                 behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                behaviour.isHideable = false
             }
         }
         return dialog
-    }
-
-    private fun setupFullHeight(bottomSheet: View) {
-        val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
-        bottomSheet.layoutParams = layoutParams
     }
 
     companion object {
