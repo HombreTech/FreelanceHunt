@@ -11,5 +11,6 @@
     <attr name="menuIconActive" format="color|reference" />
     <attr name="bottomNavColor" format="color|reference" />
     <attr name="placeholder" format="color|reference" />
+    <attr name="myBidColor" format="color|reference" />
 
 </resources>

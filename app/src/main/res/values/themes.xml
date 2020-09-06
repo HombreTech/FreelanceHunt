@@ -17,6 +17,7 @@
         <item name="textColorSecondary">@color/textColorSecondary</item>
         <item name="menuItemTextColor">#2E2E2E</item>
         <item name="card_background">#FFFFFFFF</item>
+        <item name="myBidColor">#0C008577</item>
 
         <item name="popupTheme">@style/popupTheme</item>
         <item name="menuItemColor">@color/menu_item</item>
@@ -54,6 +55,7 @@
 
         <item name="menuItemTextColor">#eee</item>
         <item name="card_background">#2D3035</item>
+        <item name="myBidColor">#16919191</item>
 
         <item name="popupTheme">@style/popupThemeDark</item>
         <item name="menuItemColor">@color/menu_item_dark</item>

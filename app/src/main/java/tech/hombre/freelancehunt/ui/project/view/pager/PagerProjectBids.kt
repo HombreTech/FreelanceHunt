@@ -4,6 +4,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.widget.TextView
 import androidx.annotation.Keep
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.*
@@ -16,6 +17,7 @@ import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
+import tech.hombre.freelancehunt.framework.app.ViewHelper.getColorAttr
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
@@ -25,6 +27,7 @@ import tech.hombre.freelancehunt.ui.menu.ListMenuBottomDialogFragment
 import tech.hombre.freelancehunt.ui.menu.model.MenuItem
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectBidsViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectPublicViewModel
+import java.util.*
 
 class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomListMenuListener,
     ChooseBidBottomDialogFragment.OnChooseBidListener {
@@ -72,6 +75,9 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                         finder
                             .setGone(R.id.hiddenBid, true)
                             .setGone(R.id.clickableView, false)
+                            .find<CardView>(R.id.mainView) {
+                                it.setCardBackgroundColor(if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type && model.attributes.freelancer.id == appPreferences.getCurrentUserId()) getColorAttr(requireContext(), R.attr.myBidColor) else getColorAttr(requireContext(), R.attr.card_background))
+                            }
                             .find(
                                 R.id.avatar,
                                 ViewProvider<CustomImageView> { avatar ->
@@ -266,7 +272,13 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         hideLoading()
         items = bids as ArrayList<ProjectBid.Data>
         val reversed = appPreferences.getProjectBidsListReversed()
-        adapter.setItems(if (reversed) items.reversed() else items)
+        val items = if (reversed) items.reversed() else items
+        if ((appPreferences.getCurrentUserType() == UserType.FREELANCER.type)) {
+            items.find { it.attributes.freelancer.id == appPreferences.getCurrentUserId() }?.let {
+                Collections.swap(items, items.indexOf(it), 0)
+            }
+        }
+        adapter.setItems(items)
     }
 
     fun onBidAdded(
