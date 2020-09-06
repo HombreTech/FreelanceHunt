@@ -200,6 +200,8 @@ class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSub
         items.addAll(projectsList.data)
         adapter.setItems(items)
 
+        if (items.isEmpty()) return
+
         appPreferences.setLastProjectId(items.first().id)
     }
 

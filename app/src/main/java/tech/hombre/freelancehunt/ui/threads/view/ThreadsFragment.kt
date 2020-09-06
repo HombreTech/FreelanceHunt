@@ -139,6 +139,7 @@ class ThreadsFragment : BaseFragment() {
         items.addAll(freelancersList.data)
         adapter.setItems(items)
 
+        if (items.isEmpty()) return
 
         val lastMessageId = items.first().attributes.last_post_at.parseFullDate(true)?.time ?: 0
         appPreferences.setLastMessageId(lastMessageId)
