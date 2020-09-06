@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_project_detail.*
 import kotlinx.android.synthetic.main.placeholder_project.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
-import tech.hombre.domain.model.MyBidsList
+import tech.hombre.domain.model.ProjectBid
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.*
@@ -235,20 +235,10 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
     }
 
     override fun onBidAdded(
-        id: Int,
-        days: Int,
-        budget: MyBidsList.Data.Attributes.Budget,
-        safeType: SafeType,
-        comment: String,
-        isHidden: Boolean
+        bid: ProjectBid.Data
     ) {
         (supportFragmentManager.findFragmentByTag(PagerProjectBids.TAG) as PagerProjectBids).onBidAdded(
-            id,
-            days,
-            budget,
-            safeType,
-            comment,
-            isHidden
+            bid
         )
     }
 

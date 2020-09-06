@@ -17,6 +17,7 @@ import tech.hombre.freelancehunt.ui.menu.ContestsFilterBottomDialogFragment
 import tech.hombre.freelancehunt.ui.menu.EmployersFilterBottomDialogFragment
 import tech.hombre.freelancehunt.ui.menu.FreelancersFilterBottomDialogFragment
 import tech.hombre.freelancehunt.ui.menu.ProjectFilterBottomDialogFragment
+import tech.hombre.freelancehunt.ui.menu.model.AddBidsViewModel
 import tech.hombre.freelancehunt.ui.my.bids.presentation.MyBidsViewModel
 import tech.hombre.freelancehunt.ui.my.contests.presentation.MyContestsViewModel
 import tech.hombre.freelancehunt.ui.my.projects.presentation.MyProjectSharedViewModel
@@ -43,7 +44,7 @@ val presentationModule = module {
     viewModel { FreelancerReviewsViewModel(get(), get(), get()) }
     viewModel { EmployerReviewsViewModel(get(), get(), get()) }
     viewModel { ContestDetailViewModel(get(), get()) }
-    viewModel { ProjectBidsViewModel(get(), get(), get(), get(), get()) }
+    viewModel { ProjectBidsViewModel(get(), get(), get(), get()) }
     viewModel { ProjectCommentsViewModel(get(), get(), get()) }
     viewModel { MainPublicViewModel() }
     viewModel { ProjectPublicViewModel() }
@@ -63,4 +64,5 @@ val presentationModule = module {
     viewModel { FreelancersFilterBottomDialogFragment.FreelancersFilterViewModel(get(), get(), get()) }
     viewModel { EmployersFilterBottomDialogFragment.FreelancersFilterViewModel(get(), get()) }
     viewModel { ContestsFilterBottomDialogFragment.ContestsFilterViewModel(get()) }
+    viewModel { AddBidsViewModel(get()) }
 }

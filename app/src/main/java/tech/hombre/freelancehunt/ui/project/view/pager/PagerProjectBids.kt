@@ -11,7 +11,6 @@ import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_pager_project_bids.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectBid
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.*
@@ -76,7 +75,12 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                             .setGone(R.id.hiddenBid, true)
                             .setGone(R.id.clickableView, false)
                             .find<CardView>(R.id.mainView) {
-                                it.setCardBackgroundColor(if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type && model.attributes.freelancer.id == appPreferences.getCurrentUserId()) getColorAttr(requireContext(), R.attr.myBidColor) else getColorAttr(requireContext(), R.attr.card_background))
+                                it.setCardBackgroundColor(
+                                    if (appPreferences.getCurrentUserType() == UserType.FREELANCER.type && model.attributes.freelancer.id == appPreferences.getCurrentUserId()) getColorAttr(
+                                        requireContext(),
+                                        R.attr.myBidColor
+                                    ) else getColorAttr(requireContext(), R.attr.card_background)
+                                )
                             }
                             .find(
                                 R.id.avatar,
@@ -204,7 +208,6 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
 
     private fun subscribeToData() {
         viewModel.viewState.subscribe(this, ::handleViewState)
-        viewModel.bid.subscribe(this, ::handleAddBid)
         viewModel.bidAction.subscribe(this, ::handleBidAction)
         freelancerViewModel.viewState.subscribe(this, {
             when (it) {
@@ -225,13 +228,6 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
             is Success -> initBids(viewState.data.data)
             is Error -> handleError(viewState.error.localizedMessage)
             is NoInternetState -> showNoInternetError()
-        }
-    }
-
-    private fun handleAddBid(viewState: ViewState<ProjectBid.Data>) {
-        hideLoading()
-        when (viewState) {
-            is Success -> addBid(viewState.data)
         }
     }
 
@@ -256,6 +252,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
     private fun addBid(bid: ProjectBid.Data) {
         items.add(0, bid)
         adapter.setItems(items)
+        snackbar(getString(R.string.bid_add_success), bidsContainer)
     }
 
     private fun handleError(error: String) {
@@ -274,22 +271,18 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
         val reversed = appPreferences.getProjectBidsListReversed()
         val items = if (reversed) items.reversed() else items
         if ((appPreferences.getCurrentUserType() == UserType.FREELANCER.type)) {
-            items.find { it.attributes.freelancer.id == appPreferences.getCurrentUserId() }?.let {
-                Collections.swap(items, items.indexOf(it), 0)
-            }
+            if (items.size > 1) items.find { it.attributes.freelancer.id == appPreferences.getCurrentUserId() }
+                ?.let {
+                    Collections.swap(items, items.indexOf(it), 0)
+                }
         }
         adapter.setItems(items)
     }
 
     fun onBidAdded(
-        id: Int,
-        days: Int,
-        budget: MyBidsList.Data.Attributes.Budget,
-        safeType: SafeType,
-        comment: String,
-        isHidden: Boolean
+        bid: ProjectBid.Data
     ) {
-        viewModel.addNewProjectBid(id, days, budget, safeType, comment, isHidden)
+        addBid(bid)
     }
 
     override fun onBidChoose(projectId: Int, bidId: Int, comment: String) {

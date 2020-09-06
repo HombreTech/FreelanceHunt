@@ -9,13 +9,17 @@ import androidx.annotation.Keep
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_menu_add_bid.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyBidsList
+import tech.hombre.domain.model.ProjectBid
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.CurrencyType
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.EXTRA_2
 import tech.hombre.freelancehunt.common.SafeType
-import tech.hombre.freelancehunt.ui.base.BaseBottomDialogFragment
+import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.ui.base.*
+import tech.hombre.freelancehunt.ui.menu.model.AddBidsViewModel
 
 
 class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
@@ -23,6 +27,8 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
     override fun getLayout() = R.layout.bottom_menu_add_bid
 
     private var listener: OnBidAddedListener? = null
+
+    private val viewModel: AddBidsViewModel by viewModel()
 
     private var ids = -1
     private var cost = 0
@@ -41,7 +47,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
             hiddenBid.isEnabled = isPlus
             buttonAddBid.setOnClickListener {
                 if (correctInputs()) {
-                    listener?.onBidAdded(
+                    viewModel.addNewProjectBid(
                         ids,
                         day,
                         budget,
@@ -49,14 +55,39 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
                         comm,
                         isHiddenBid
                     )
-                    dismiss()
                 } else {
                     showError(getString(R.string.check_inputs))
                 }
             }
+            viewModel.viewState.subscribe(this, ::handleAddBid)
             return
         }
         error(getString(R.string.init_error))
+    }
+
+    private fun handleAddBid(viewState: ViewState<ProjectBid.Data>) {
+        hideLoading()
+        when (viewState) {
+            is Loading -> showLoading()
+            is Success -> {
+                listener?.onBidAdded(viewState.data)
+                dismiss()
+            }
+            is Error -> handleError(viewState.error.localizedMessage)
+        }
+    }
+
+    private fun hideLoading() {
+        progressBar.hide()
+    }
+
+    private fun showLoading() {
+        progressBar.show()
+    }
+
+    private fun handleError(error: String) {
+        hideLoading()
+        showError(error)
     }
 
     private fun correctInputs(): Boolean {
@@ -91,12 +122,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
 
     interface OnBidAddedListener {
         fun onBidAdded(
-            id: Int,
-            days: Int,
-            budget: MyBidsList.Data.Attributes.Budget,
-            safeType: SafeType,
-            comment: String,
-            isHidden: Boolean
+            bid: ProjectBid.Data
         )
     }
 

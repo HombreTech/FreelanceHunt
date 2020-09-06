@@ -180,6 +180,10 @@
         <item name="colorAccent">@color/white</item>
     </style>
 
+    <style name="ContentLoadingProgress2" parent="@style/Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">?iconColor</item>
+    </style>
+
     <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog" >
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

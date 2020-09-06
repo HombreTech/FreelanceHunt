@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/padding_standart">
@@ -64,8 +65,7 @@
                     android:hint="100"
                     android:inputType="number"
                     android:textAppearance="@style/TextStyle.Title.Sub"
-                    android:textColor="?textColorSecondary"
-                     />
+                    android:textColor="?textColorSecondary" />
 
 
                 <androidx.appcompat.widget.AppCompatSpinner
@@ -134,8 +134,7 @@
                 android:hint="@string/_1"
                 android:inputType="number"
                 android:textAppearance="@style/TextStyle.Title.Sub"
-                android:textColor="?textColorSecondary"
-                />
+                android:textColor="?textColorSecondary" />
 
         </TableRow>
     </TableLayout>
@@ -156,8 +155,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/comment_hint"
-        android:paddingTop="0dp"
         android:lines="8"
+        android:paddingTop="0dp"
         android:textAppearance="@style/TextStyle.Chat.Text"
         android:textColor="?textColorSecondary"
         app:layout_constraintEnd_toEndOf="@id/addBidTitle"
@@ -178,6 +177,19 @@
         app:layout_constraintStart_toStartOf="@id/commentTitle"
         app:layout_constraintTop_toBottomOf="@id/comment" />
 
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="@dimen/padding_middle"
+        android:progressTint="?iconColor"
+        android:theme="@style/ContentLoadingProgress2"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/buttonAddBid"
+        app:layout_constraintEnd_toStartOf="@id/buttonAddBid"
+        app:layout_constraintTop_toTopOf="@id/buttonAddBid"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonAddBid"

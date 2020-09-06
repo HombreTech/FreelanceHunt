@@ -110,7 +110,7 @@
     <string name="safe_cost_minimal">Минимальный бюджет Сейф проекта должен быть не менее 200₴ или 600₽</string>
     <string name="bid_comment_min">Минимальная длина ставки должна быть не менее 60 символов.</string>
     <string name="project_description_min">Минимальная длина описания должна быть не менее 60 символов.</string>
-    <string name="bid_add_success">Ставка успешно отправлена</string>
+    <string name="bid_add_success">Ставка успешно добавлена</string>
     <string name="revoke">Отозвать ставку</string>
     <string name="restore">Восстановить</string>
     <string name="reject">Отклонить</string>
