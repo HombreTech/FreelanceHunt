@@ -10,14 +10,30 @@
     android:paddingEnd="@dimen/padding_middle"
     android:paddingBottom="@dimen/padding_standart">
 
+    <TextView
+        android:id="@+id/publishedAt"
+        style="@style/TextStyle.Type.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/calendar_small"
+        android:drawablePadding="@dimen/padding_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/padding_middle"
+        android:gravity="center_vertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:textColor="?textColorPrimary"
+        android:background="@drawable/type"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="1 час 50 минут назад" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/skillList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_middle"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/publishedAt"
         tools:itemCount="5"
         tools:listitem="@layout/item_project_skill_list" />
 

@@ -146,6 +146,10 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
 
         expiredAt.text = details.attributes.expired_at.parseFullDate(true).getTimeAgo()
 
+        expiredAt.setOnClickListener {
+            toast(details.attributes.expired_at.parseFullDate(true).toString())
+        }
+
         fab.setOnClickListener {
             when (tabs.selectedTabPosition) {
                 1 -> {

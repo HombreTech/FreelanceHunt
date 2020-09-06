@@ -12,10 +12,7 @@ import tech.hombre.domain.model.Countries
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.extensions.getTimeAgo
-import tech.hombre.freelancehunt.common.extensions.parseFullDate
-import tech.hombre.freelancehunt.common.extensions.snackbar
-import tech.hombre.freelancehunt.common.extensions.subscribe
+import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.employers.presentation.EmployerDetailViewModel
 import tech.hombre.freelancehunt.ui.project.presentation.ProjectPublicViewModel
@@ -72,6 +69,12 @@ class PagerProjectOverview : BaseFragment() {
         if (details.employer == null) {
             handleError(getString(R.string.only_for_plus))
             return
+        }
+
+        publishedAt.text = details.published_at.parseFullDate(true).getTimeAgo()
+
+        publishedAt.setOnClickListener {
+            toast(details.published_at.parseFullDate(true).toString())
         }
 
         initSkills(details.skills)
