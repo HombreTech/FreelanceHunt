@@ -175,7 +175,7 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getMyBids(page + 1)
+                    viewModel.getMyBids(page)
                 }
             }
         })

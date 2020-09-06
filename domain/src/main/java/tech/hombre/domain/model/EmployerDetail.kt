@@ -108,6 +108,18 @@ data class EmployerDetail(
                 val web: String = ""
             ) : Parcelable
         }
+
+        override fun hashCode(): Int {
+            return this.id
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (other is Data) {
+                val pm: Data = other
+                return pm.id == this.id
+            }
+            return false
+        }
     }
 
     @Parcelize

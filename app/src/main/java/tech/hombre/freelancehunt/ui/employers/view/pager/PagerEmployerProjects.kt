@@ -119,7 +119,7 @@ class PagerEmployerProjects : BaseFragment() {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getProjectsLists(page + 1, employerId = profileId)
+                    viewModel.getProjectsLists(page, employerId = profileId)
                 }
             }
         })

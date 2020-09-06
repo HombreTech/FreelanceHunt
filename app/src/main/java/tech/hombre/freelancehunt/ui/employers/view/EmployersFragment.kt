@@ -147,7 +147,7 @@ class EmployersFragment : BaseFragment(), EmployersFilterBottomDialogFragment.On
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (items.isNotEmpty() && viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getEmployers(page + 1)
+                    viewModel.getEmployers(page)
                 }
             }
         })

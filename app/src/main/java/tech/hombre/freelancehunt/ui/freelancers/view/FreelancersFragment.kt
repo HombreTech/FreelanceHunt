@@ -145,7 +145,7 @@ class FreelancersFragment : BaseFragment(), FreelancersFilterBottomDialogFragmen
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (viewModel.pagination.next.isNotEmpty()) {
                     adapter.showLoadMore()
-                    viewModel.getFreelancers(page + 1)
+                    viewModel.getFreelancers(page)
                 }
             }
         })

@@ -30,15 +30,15 @@ abstract class EndlessScroll : RecyclerView.OnScrollListener() {
         }
         if (totalItemCount < previousTotalItemCount) {
             currentPage = startingPageIndex
-            previousTotalItemCount = totalItemCount + 1
+            previousTotalItemCount = totalItemCount
             if (totalItemCount == 0) {
                 loading = true
             }
         }
 
-        if (loading && totalItemCount > previousTotalItemCount) {
+        if (loading && totalItemCount > previousTotalItemCount + 1) {
             loading = false
-            previousTotalItemCount = totalItemCount + 1
+            previousTotalItemCount = totalItemCount
             currentPage++
         }
 
