@@ -207,7 +207,9 @@ class MyBidsFragment : BaseFragment(), ListMenuBottomDialogFragment.BottomListMe
         hideLoading()
         refresh.isRefreshing = false
 
-        items.addAll(freelancersList.data)
+        val reversed = appPreferences.getProjectBidsListReversed()
+        val itemsList = if (reversed) freelancersList.data.reversed() else freelancersList.data
+        items.addAll(itemsList)
         adapter.setItems(items)
     }
 

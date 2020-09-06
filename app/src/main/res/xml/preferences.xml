@@ -63,7 +63,7 @@
 
     <PreferenceCategory
         android:key="pref_key_project_settings"
-        android:title="@string/pref_key_project_title">
+        android:title="@string/pref_key_lists_title">
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="KEY_PROJECT_BIDS_LIST_REVERSED"

@@ -224,7 +224,7 @@
     <string name="reset">Reset</string>
     <string name="employers_filter">Employers filter</string>
     <string name="contests_filter">Contests filter</string>
-    <string name="pref_key_project_title">Project</string>
+    <string name="pref_key_lists_title">Lists</string>
     <string name="pref_project_bids_list_reversed">Reverse bids list</string>
     <string name="cancel_button_label">Cancel</string>
     <string name="choose_button_label">Select</string>
