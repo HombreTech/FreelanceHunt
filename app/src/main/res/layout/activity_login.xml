@@ -74,13 +74,13 @@
                     android:background="@drawable/token_input"
                     android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm"
                     android:elevation="4dp"
-                    android:ellipsize="end"
+                    android:ellipsize="middle"
                     android:gravity="center"
                     android:hint="@string/token_hint"
                     android:imeOptions="actionDone"
                     android:inputType="text"
-                    android:maxLines="1"
                     android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:textSize="16sp"
                     android:translationZ="8dp" />
 

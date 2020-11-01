@@ -221,4 +221,5 @@
     <string name="attach_selector">Выберите файл</string>
     <string name="attach_max_size">Максимальный размер вложения: %s</string>
     <string name="size">Размер: %s</string>
+    <string name="autostart_permissions_required_error">Ошибка получения прав на работу в фоне</string>
 </resources>

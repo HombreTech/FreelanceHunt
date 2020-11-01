@@ -237,4 +237,5 @@
     <string name="permissions_denied">Permissions denied</string>
     <string name="attach_max_size">Maximum attach filesize: %s</string>
     <string name="size">Size: %s</string>
+    <string name="autostart_permissions_required_error">Autostart permissions require error</string>
 </resources>

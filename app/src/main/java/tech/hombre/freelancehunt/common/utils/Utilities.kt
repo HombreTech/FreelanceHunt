@@ -1,5 +1,6 @@
 package tech.hombre.freelancehunt.common.utils
 
+import android.os.Build
 import android.text.InputFilter
 import android.text.Spanned
 
@@ -39,5 +40,23 @@ object Utilities {
         private fun isInRange(a: Int, b: Int, c: Int): Boolean {
             return if (b > a) c in a..b else c in b..a
         }
+    }
+
+    fun logDeviceInfo(): String {
+        val result = StringBuilder()
+        result.appendln("Board: ${Build.BOARD}")
+        result.appendln("Brand: ${Build.BRAND}")
+        result.appendln("Device: ${Build.DEVICE}")
+        result.appendln("Display: ${Build.DISPLAY}")
+        result.appendln("Hardware: ${Build.HARDWARE}")
+        result.appendln("Manufacturer: ${Build.MANUFACTURER}")
+        result.appendln("Product: ${Build.PRODUCT}")
+        result.appendln("Version.Release: ${Build.VERSION.RELEASE}")
+        result.appendln("Version.Codename: ${Build.VERSION.CODENAME}")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            result.appendln("Version.BaseOS: ${Build.VERSION.BASE_OS}")
+            result.appendln("Version.SecurityPatch: ${Build.VERSION.SECURITY_PATCH}")
+        }
+        return result.toString()
     }
 }

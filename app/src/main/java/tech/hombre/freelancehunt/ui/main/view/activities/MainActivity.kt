@@ -1,8 +1,10 @@
 package tech.hombre.freelancehunt.ui.main.view.activities
 
+import android.content.DialogInterface
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.GravityCompat
 import androidx.work.*
@@ -21,7 +23,10 @@ import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
+import tech.hombre.freelancehunt.common.provider.AutoStartPermissionHelper
+import tech.hombre.freelancehunt.common.utils.Utilities
 import tech.hombre.freelancehunt.common.widgets.BadgeDrawerArrowDrawable
+import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
 import tech.hombre.freelancehunt.framework.tasks.ProjectsWorker
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
@@ -87,6 +92,27 @@ class MainActivity : BaseActivity() {
                 setupTasks()
             }
         billingClient.init()
+        checkPermissions()
+    }
+
+    private fun checkPermissions() {
+        if (!appPreferences.isAutoStartPermissionsRequired()) {
+            if (AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)) {
+                if (AutoStartPermissionHelper.getInstance().getAutoStartPermission(this))
+                    appPreferences.setAutoStartPermissionsRequired()
+                else with(
+                    AlertDialog.Builder(
+                        this,
+                        AppHelper.getDialogTheme(appPreferences.getAppTheme())
+                    )
+                ) {
+                    setTitle(getString(R.string.autostart_permissions_required_error))
+                    setMessage(Utilities.logDeviceInfo())
+                    setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int -> }
+                    show()
+                }
+            } else appPreferences.setAutoStartPermissionsRequired()
+        }
     }
 
     override fun onBackPressed() {
@@ -222,7 +248,8 @@ class MainActivity : BaseActivity() {
                 it.icon.setImageResource(R.drawable.mail_empty)
                 it.subtitle.text = getString(R.string.not_have_messages)
                 badgeToggleDrawable = BadgeDrawerArrowDrawable(supportActionBar?.themedContext)
-                drawerToggle.drawerArrowDrawable = DrawerArrowDrawable(supportActionBar?.themedContext)
+                drawerToggle.drawerArrowDrawable =
+                    DrawerArrowDrawable(supportActionBar?.themedContext)
             }
         }
 
