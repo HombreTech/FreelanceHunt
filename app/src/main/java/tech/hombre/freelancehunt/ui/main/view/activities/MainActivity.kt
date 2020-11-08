@@ -24,7 +24,6 @@ import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
 import tech.hombre.freelancehunt.common.provider.AutoStartPermissionHelper
-import tech.hombre.freelancehunt.common.utils.Utilities
 import tech.hombre.freelancehunt.common.widgets.BadgeDrawerArrowDrawable
 import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
@@ -97,20 +96,31 @@ class MainActivity : BaseActivity() {
 
     private fun checkPermissions() {
         if (!appPreferences.isAutoStartPermissionsRequired()) {
-            if (AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)) {
-                if (AutoStartPermissionHelper.getInstance().getAutoStartPermission(this))
-                    appPreferences.setAutoStartPermissionsRequired()
-                else with(
-                    AlertDialog.Builder(
-                        this,
-                        AppHelper.getDialogTheme(appPreferences.getAppTheme())
-                    )
-                ) {
-                    setTitle(getString(R.string.autostart_permissions_required_error))
-                    setMessage(Utilities.logDeviceInfo())
-                    setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int -> }
-                    show()
+            if (AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)) with(
+                AlertDialog.Builder(
+                    this,
+                    AppHelper.getDialogTheme(appPreferences.getAppTheme())
+                )
+            ) {
+                setMessage(getString(R.string.autostart_permissions_dialog_info))
+                setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int ->
+
+                    if (AutoStartPermissionHelper.getInstance().getAutoStartPermission(context))
+                        appPreferences.setAutoStartPermissionsRequired()
+                    else with(
+                        AlertDialog.Builder(
+                            context,
+                            AppHelper.getDialogTheme(appPreferences.getAppTheme())
+                        )
+                    ) {
+                        setMessage(getString(R.string.autostart_permissions_required_error))
+                        setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int ->
+                            appPreferences.setAutoStartPermissionsRequired()
+                        }
+                        show()
+                    }
                 }
+                show()
             } else appPreferences.setAutoStartPermissionsRequired()
         }
     }

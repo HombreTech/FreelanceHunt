@@ -13,14 +13,16 @@ fun String.prepareFeedMessage(context: Context): String {
         .replace("<a data-toggle=\\\"modal\\\".*?a>".toRegex(RegexOption.DOT_MATCHES_ALL), "")
         .replace("<a href=\"https:\\/\\/freelancehunt.com\\/mailbox.*>(.*?)<\\/a>".toRegex(RegexOption.DOT_MATCHES_ALL), "$1")
         .replace("<.*?>".toRegex(RegexOption.DOT_MATCHES_ALL), "")
-        .replace(context.getString(R.string.type_project), "")
-        .replace(context.getString(R.string.type_project_1), "")
-        .replace(context.getString(R.string.type_work), "")
-        .replace(context.getString(R.string.type_add_message), context.getString(R.string.message))
-        .replace(context.getString(R.string.type_like_message), "")
-        .replace(context.getString(R.string.type_forum_message), "")
-        .replace(context.getString(R.string.type_forum_message_2), "")
-        .replace(context.getString(R.string.type_invited_project), "")
+        .replace(context.getString(R.string.type_project).toRegex(), "")
+        .replace(context.getString(R.string.type_project_1).toRegex(), "")
+        .replace(context.getString(R.string.type_work).toRegex(), "")
+        .replace(context.getString(R.string.type_add_message).toRegex(), context.getString(R.string.message))
+        .replace(context.getString(R.string.type_add_message_1).toRegex(), context.getString(R.string.message))
+        .replace(context.getString(R.string.type_add_message_2).toRegex(), context.getString(R.string.message))
+        .replace(context.getString(R.string.type_like_message).toRegex(), "")
+        .replace(context.getString(R.string.type_forum_message).toRegex(), "")
+        .replace(context.getString(R.string.type_forum_message_2).toRegex(), "")
+        .replace(context.getString(R.string.type_invited_project).toRegex(), "")
         .replace("(${context.getString(R.string.type_appreciated)}) ".toRegex(), "$1 " + "★".repeat(this.split("star.svg").size) + " ")
         .trim()
         .capitalize()
@@ -28,15 +30,15 @@ fun String.prepareFeedMessage(context: Context): String {
 
 fun feedTypeByMessage(context: Context, message: String): FeedType {
     return when (true) {
-        message.contains(context.getString(R.string.type_project)) -> FeedType.PROJECT
-        message.contains(context.getString(R.string.type_project_1)) -> FeedType.PROJECT
-        message.contains(context.getString(R.string.type_work)) -> FeedType.WORK
-        message.contains(context.getString(R.string.type_like_message)) -> FeedType.LIKE
-        message.contains(context.getString(R.string.type_add_message)) -> FeedType.MESSAGE
-        message.contains(context.getString(R.string.type_invited_project)) -> FeedType.PERSONAL_PROJECT
-        message.contains(context.getString(R.string.type_forum_message)) -> FeedType.FORUM_MESSAGE
-        message.contains(context.getString(R.string.type_forum_message_2)) -> FeedType.FORUM_MESSAGE
-        message.contains(context.getString(R.string.type_appreciated)) -> FeedType.APPRECIATED
+        message.contains(context.getString(R.string.type_project).toRegex()) -> FeedType.PROJECT
+        message.contains(context.getString(R.string.type_project_1).toRegex()) -> FeedType.PROJECT
+        message.contains(context.getString(R.string.type_work).toRegex()) -> FeedType.WORK
+        message.contains(context.getString(R.string.type_like_message).toRegex()) -> FeedType.LIKE
+        message.contains(context.getString(R.string.type_add_message).toRegex()) -> FeedType.MESSAGE
+        message.contains(context.getString(R.string.type_invited_project).toRegex()) -> FeedType.PERSONAL_PROJECT
+        message.contains(context.getString(R.string.type_forum_message).toRegex()) -> FeedType.FORUM_MESSAGE
+        message.contains(context.getString(R.string.type_forum_message_2).toRegex()) -> FeedType.FORUM_MESSAGE
+        message.contains(context.getString(R.string.type_appreciated).toRegex()) -> FeedType.APPRECIATED
         else -> FeedType.UNKNOWN
     }
 }

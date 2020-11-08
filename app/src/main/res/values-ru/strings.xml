@@ -6,11 +6,13 @@
     <string name="unknown">-</string>
     <string name="new_work">Предложение работы</string>
     <string name="new_forum_message">Обсуждение</string>
-    <string name="type_project">добавил проект</string>
-    <string name="type_like_message">нравится ваше</string>
-    <string name="type_appreciated">оценил</string>
-    <string name="type_work">предлагает работу над проектом</string>
-    <string name="type_add_message">добавил сообщение</string>
+    <string name="type_project">(.*?добавил проект)</string>
+    <string name="type_project_1">(.*?добавила проект)</string>
+    <string name="type_like_message">(.*?нравится ваше)</string>
+    <string name="type_appreciated">(.*?оценил)</string>
+    <string name="type_work">(.*?предлагает работу над проектом)</string>
+    <string name="type_add_message">(.*?добавил сообщение)</string>
+    <string name="type_add_message_1">(.*?добавила сообщение)</string>
     <string name="premium">Премиум</string>
     <string name="safe">Сейф</string>
     <string name="remote">Удалёнка</string>
@@ -221,5 +223,6 @@
     <string name="attach_selector">Выберите файл</string>
     <string name="attach_max_size">Максимальный размер вложения: %s</string>
     <string name="size">Размер: %s</string>
-    <string name="autostart_permissions_required_error">Ошибка получения прав на работу в фоне</string>
+    <string name="autostart_permissions_required_error">Приложение, ответственное за управление работой приложения в фоне, не найдено. Возможны проблемы с получением уведомлений.</string>
+    <string name="autostart_permissions_dialog_info">На Вашем устройстве ограничена работа приложения в фоне, что может привести к проблемам с автоматической проверкой новых проектов и сообщений. На следующем экране добавьте приложение в список исключений или отключите оптимизацию для него.</string>
 </resources>
