@@ -24,6 +24,7 @@ import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
 import tech.hombre.freelancehunt.common.provider.AutoStartPermissionHelper
+import tech.hombre.freelancehunt.common.provider.PowerSaverHelper
 import tech.hombre.freelancehunt.common.widgets.BadgeDrawerArrowDrawable
 import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
@@ -95,7 +96,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkPermissions() {
-        if (!appPreferences.isAutoStartPermissionsRequired()) {
+        val intent = PowerSaverHelper.prepareIntentForWhiteListingOfBatteryOptimization(this)
+        intent.intent?.let {
+            startActivity(it)
+        } ?: if (!intent.isWhiteListed) if (!appPreferences.isAutoStartPermissionsRequired()) {
             if (AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)) with(
                 AlertDialog.Builder(
                     this,
