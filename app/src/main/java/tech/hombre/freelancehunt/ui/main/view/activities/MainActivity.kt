@@ -48,6 +48,7 @@ import tech.hombre.freelancehunt.ui.my.contests.view.MyContestsFragment
 import tech.hombre.freelancehunt.ui.my.projects.view.MyProjectsFragment
 import tech.hombre.freelancehunt.ui.my.workspaces.view.MyWorkspacesFragment
 import tech.hombre.freelancehunt.ui.threads.view.ThreadsFragment
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -60,6 +61,11 @@ class MainActivity : BaseActivity() {
     private val viewModel: MainViewModel by viewModel()
 
     private val sharedViewModelMain: MainPublicViewModel by viewModel()
+
+    private var timer = Timer()
+
+    // TODO to preferences
+    private val delay = 15000L
 
     override fun viewReady() {
         setContentView(R.layout.activity_container)
@@ -233,6 +239,7 @@ class MainActivity : BaseActivity() {
         viewModel.checkFeed()
         viewModel.refreshCountriesList()
         viewModel.refreshSkillsList()
+        timer.schedule(timerTask, delay, delay)
     }
 
     private fun handleViewState(viewState: ViewState<MyProfile.Data.Attributes>) {
@@ -345,6 +352,20 @@ class MainActivity : BaseActivity() {
                     appPreferences.getWorkerInterval(), TimeUnit.MINUTES
                 ).setConstraints(constrains).build()
             )
+    }
+
+    private val timerTask = object : TimerTask() {
+        override fun run() {
+            runOnUiThread {
+                if (navigation.checkedItem != navigation.menu.findItem(R.id.menu_threads)) viewModel.checkMessages()
+            }
+        }
+    }
+
+    override fun finish() {
+        timer.cancel()
+        timer.purge()
+        super.finish()
     }
 
 }

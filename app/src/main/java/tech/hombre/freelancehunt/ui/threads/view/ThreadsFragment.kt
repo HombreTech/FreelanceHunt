@@ -19,6 +19,7 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.main.presentation.MainPublicViewModel
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadsViewModel
+import java.util.*
 
 class ThreadsFragment : BaseFragment() {
 
@@ -30,10 +31,16 @@ class ThreadsFragment : BaseFragment() {
 
     val items = arrayListOf<ThreadsList.Data>()
 
+    private var timer = Timer()
+
+    // TODO to preferences
+    private val delay = 15000L
+
     override fun viewReady() {
         initList()
         subscribeToData()
         viewModel.getThreads()
+        timer.schedule(timerTask, delay, delay)
     }
 
     override fun getLayout() = R.layout.fragment_threads
@@ -103,7 +110,11 @@ class ThreadsFragment : BaseFragment() {
                             model.attributes.is_unread = false
                             adapter.notifyItemChanged(items.indexOf(model))
                             sharedViewModelMain.setMessagesCounter(items.any { it.attributes.is_unread })
-                            ThreadMessagesActivity.startActivity(requireActivity(), model.id, model.links.self.web)
+                            ThreadMessagesActivity.startActivity(
+                                requireActivity(),
+                                model.id,
+                                model.links.self.web
+                            )
                         }
                 }
             )
@@ -126,10 +137,16 @@ class ThreadsFragment : BaseFragment() {
         })
 
         refresh.setOnRefreshListener {
-            items.clear()
-            adapter.setItems(items)
-            viewModel.getThreads()
+            refreshList(true)
         }
+    }
+
+    private fun refreshList(reload: Boolean) {
+        items.clear()
+        if (reload) {
+            adapter.setItems(items)
+        }
+        viewModel.getThreads()
     }
 
     private fun initThreadsList(freelancersList: ThreadsList) {
@@ -143,6 +160,21 @@ class ThreadsFragment : BaseFragment() {
 
         val lastMessageId = items.first().attributes.last_post_at.parseFullDate(true)?.time ?: 0
         appPreferences.setLastMessageId(lastMessageId)
+    }
+
+    private val timerTask = object : TimerTask() {
+        override fun run() {
+            activity?.runOnUiThread {
+                refreshList(false)
+            }
+
+        }
+    }
+
+    override fun onDestroyView() {
+        timer.cancel()
+        timer.purge()
+        super.onDestroyView()
     }
 
     companion object {
