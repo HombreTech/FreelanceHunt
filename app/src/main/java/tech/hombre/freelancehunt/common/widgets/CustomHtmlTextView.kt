@@ -16,15 +16,22 @@ class CustomHtmlTextView @JvmOverloads constructor(
         setOnClickATagListener(this)
     }
 
-    override fun onClick(widget: View?, href: String?) {
-        SchemeParser.launchUri(context, href.toString())
-    }
-
-    fun setHtmlText(text: String, compress: Boolean = true, matchWidth: Boolean = true) = run {
+    fun setHtmlText(text: String, compress: Boolean = true, matchWidth: Boolean = true): Boolean = run {
         val getter = HtmlHttpImageGetter(this, null, matchWidth).apply {
             if (compress) enableCompressImage(true, 70)
         }
+        try {
+            setHtml(text.replace("<!--(.*?)-->".toRegex(RegexOption.DOT_MATCHES_ALL), "$1"), getter)
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
 
-        setHtml(text.replace("<!--(.*?)-->".toRegex(RegexOption.DOT_MATCHES_ALL), "$1"), getter)
+    }
+
+    override fun onClick(widget: View?, spannedText: String?, href: String?): Boolean {
+        SchemeParser.launchUri(context, href.toString())
+        return false
     }
 }

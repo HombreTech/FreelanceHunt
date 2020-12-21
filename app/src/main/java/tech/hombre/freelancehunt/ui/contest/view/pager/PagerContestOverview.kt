@@ -1,8 +1,12 @@
 package tech.hombre.freelancehunt.ui.contest.view.pager
 
 import android.os.Bundle
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.RelativeLayout
 import androidx.annotation.Keep
-import kotlinx.android.synthetic.main.fragment_pager_project_overview.*
+import kotlinx.android.synthetic.main.fragment_pager_contest_overview.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.ContestDetail
@@ -78,7 +82,27 @@ class PagerContestOverview : BaseFragment() {
                 desc.append(update.description_html)
             }
 
-            description.setHtmlText(desc.toString())
+            if (!description.setHtmlText(desc.toString())) {
+                overviewActivityContainer.removeView(description)
+
+                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                )
+
+                val webView = WebView(requireContext())
+                webView.layoutParams = params
+                webView.apply {
+                    webViewClient = WebViewClient()
+                    settings.javaScriptEnabled = false
+                    settings.javaScriptCanOpenWindowsAutomatically = true
+                    settings.mediaPlaybackRequiresUserGesture = true
+                    webChromeClient = WebChromeClient()
+                    loadDataWithBaseURL(null, desc.toString(), "text/html", "ru_RU", null)
+                }
+                overviewActivityContainer.addView(webView, 2)
+            }
+
         } else description.text = getString(R.string.no_information)
 
         avatar.setUrl(details.employer.avatar.large.url, isCircle = true)

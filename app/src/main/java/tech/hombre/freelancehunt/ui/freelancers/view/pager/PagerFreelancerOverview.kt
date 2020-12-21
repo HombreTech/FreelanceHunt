@@ -1,6 +1,10 @@
 package tech.hombre.freelancehunt.ui.freelancers.view.pager
 
 import android.os.Bundle
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.RelativeLayout
 import androidx.annotation.Keep
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vivchar.rendererrecyclerviewadapter.BaseViewRenderer
@@ -47,7 +51,34 @@ class PagerFreelancerOverview : BaseFragment() {
         }
 
         if (details.attributes.cv_html != null) {
-            summary.setHtmlText(details.attributes.cv_html!!)
+
+            if (!summary.setHtmlText(details.attributes.cv_html!!)) {
+                overviewFragmentContainer.removeView(summary)
+
+                val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                )
+
+                val webView = WebView(requireContext())
+                webView.layoutParams = params
+                webView.apply {
+                    webViewClient = WebViewClient()
+                    settings.javaScriptEnabled = false
+                    settings.javaScriptCanOpenWindowsAutomatically = true
+                    settings.mediaPlaybackRequiresUserGesture = true
+                    webChromeClient = WebChromeClient()
+                    loadDataWithBaseURL(
+                        null,
+                        details.attributes.cv_html,
+                        "text/html",
+                        "ru_RU",
+                        null
+                    )
+                }
+
+                overviewFragmentContainer.addView(webView)
+            }
         } else summary.text = getString(R.string.no_information)
 
         initSkills(details.attributes.skills)
