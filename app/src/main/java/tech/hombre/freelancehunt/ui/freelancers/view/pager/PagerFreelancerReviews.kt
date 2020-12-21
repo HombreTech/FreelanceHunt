@@ -2,11 +2,12 @@ package tech.hombre.freelancehunt.ui.freelancers.view.pager
 
 import android.os.Bundle
 import android.widget.RatingBar
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.github.vivchar.rendererrecyclerviewadapter.*
 import kotlinx.android.synthetic.main.fragment_pager_freelancer_reviews.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -99,32 +100,58 @@ class PagerFreelancerReviews : BaseFragment() {
                         .find(R.id.projectName, ViewProvider<TextView> { projectName ->
                             projectName.text = model.attributes.project.name
                             projectName.compoundDrawablePadding = 8
-                            val rateIcon = ContextCompat.getDrawable(requireContext(), if (model.attributes.grades.total ?: 0f < 6) R.drawable.thumb_down else R.drawable.thumb_up)
-                            projectName.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                rateIcon,
-                                null,
-                                null,
-                                null
-                            )
+                            if (model.attributes.grades != null) {
+                                val rateIcon = ContextCompat.getDrawable(
+                                    requireContext(),
+                                    if (model.attributes.grades!!.total ?: 0f < 6) R.drawable.thumb_down else R.drawable.thumb_up
+                                )
+                                projectName.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    rateIcon,
+                                    null,
+                                    null,
+                                    null
+                                )
+                            } else {
+                                val rateIcon = ContextCompat.getDrawable(
+                                    requireContext(),
+                                    R.drawable.right_hand
+                                )
+                                projectName.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    rateIcon,
+                                    null,
+                                    null,
+                                    null
+                                )
+                            }
                         })
                         .setText(
                             R.id.publishedAt,
                             model.attributes.published_at.parseFullDate(true)
                                 .getSimpleTimeAgo(requireContext())
                         )
-                        .find<RatingBar>(R.id.qualityBar) {
-                            it.rating = (model.attributes.grades.quality ?: 0).toFloat()
+                        .apply {
+                            if (model.attributes.grades != null) {
+                                find<RatingBar>(R.id.qualityBar) {
+                                    it.rating = (model.attributes.grades!!.quality ?: 0).toFloat()
+                                }
+                                find<RatingBar>(R.id.professionalismBar) {
+                                    it.rating =
+                                        (model.attributes.grades!!.professionalism ?: 0).toFloat()
+                                }
+                                find<RatingBar>(R.id.costBar) {
+                                    it.rating = (model.attributes.grades!!.cost ?: 0).toFloat()
+                                }
+                                find<RatingBar>(R.id.connectivityBar) {
+                                    it.rating =
+                                        (model.attributes.grades!!.connectivity ?: 0).toFloat()
+                                }
+                                find<RatingBar>(R.id.scheduleBar) {
+                                    it.rating = (model.attributes.grades!!.schedule ?: 0).toFloat()
+                                }
+                                find<TableLayout>(R.id.grades).isVisible = true
+                            } else find<TableLayout>(R.id.grades).isVisible = false
                         }
-                        .find<RatingBar>(R.id.professionalismBar) {
-                            it.rating = (model.attributes.grades.professionalism ?: 0).toFloat()
-                        }.find<RatingBar>(R.id.costBar) {
-                            it.rating = (model.attributes.grades.cost ?: 0).toFloat()
-                        }.find<RatingBar>(R.id.connectivityBar) {
-                            it.rating = (model.attributes.grades.connectivity ?: 0).toFloat()
-                        }
-                        .find<RatingBar>(R.id.scheduleBar) {
-                            it.rating = (model.attributes.grades.schedule ?: 0).toFloat()
-                        }
+
                         .find(
                             R.id.avatar,
                             ViewProvider<CustomImageView> { avatar ->

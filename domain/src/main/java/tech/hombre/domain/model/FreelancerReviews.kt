@@ -16,7 +16,7 @@ data class FreelancerReviews(
             val is_pending: Boolean = false,
             val pending_ends_at: String? = "",
             val comment: String? = "",
-            val grades: Grades = Grades(),
+            val grades: Grades? = Grades(),
             val from: From = From(),
             val project: Project = Project()
         ) {
