@@ -119,14 +119,14 @@ class FeedFragment : BaseFragment() {
                             if (type == FeedType.UNKNOWN) {
                                 "<a href=\"(.*?)\".*".toRegex()
                                     .find(model.attributes.message)?.groupValues?.let {
-                                    SchemeParser.launchUri(requireContext(), it[1])
-                                }
+                                        SchemeParser.launchUri(requireContext(), it[1])
+                                    }
                             } else {
                                 if (type == FeedType.PERSONAL_PROJECT) {
                                     "<a href=\"(.*?)\".*".toRegex()
                                         .find(model.attributes.message)?.groupValues?.let {
-                                        SchemeParser.launchUri(requireContext(), it[1])
-                                    }
+                                            SchemeParser.launchUri(requireContext(), it[1])
+                                        }
                                 } else if (!notForMe) {
                                     if (type != FeedType.UNKNOWN) viewModel.getProjectDetails(model.links.project)
                                 } else handleError(
@@ -194,20 +194,22 @@ class FeedFragment : BaseFragment() {
         list.layoutManager = LinearLayoutManager(context)
         list.adapter = adapter
 
-        adapter.setItems(feedList.data)
+        if (feedList.data.isNotEmpty()) {
+            adapter.setItems(feedList.data)
 
-        sharedViewModelMain.setFeedBadgeCounter(feedList.data.filter { it.attributes.is_new }.size)
+            sharedViewModelMain.setFeedBadgeCounter(feedList.data.filter { it.attributes.is_new }.size)
+
+            if (feedList.data.any { it.attributes.is_new }) viewModel.markFeedAsReaded()
+
+            appPreferences.setLastFeedId(feedList.data.first().id)
+
+            items = feedList
+        }
 
         refresh.setOnRefreshListener {
             adapter.setItems(arrayListOf())
             viewModel.getFeedLists()
         }
-
-        items = feedList
-
-        if (items.data.any { it.attributes.is_new }) viewModel.markFeedAsReaded()
-
-        appPreferences.setLastFeedId(feedList.data.first().id)
     }
 
 
