@@ -6,6 +6,8 @@ import android.os.Build.VERSION.SDK_INT
 import android.text.format.DateUtils.SECOND_IN_MILLIS
 import android.text.format.DateUtils.getRelativeTimeSpanString
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.webkit.MimeTypeMap
@@ -287,6 +289,22 @@ fun getMimeType(filepath: String?): String {
         type = "*/*"
     }
     return type
+}
+
+fun View.blink(
+    times: Int = Animation.INFINITE,
+    duration: Long = 100L,
+    offset: Long = 20L,
+    minAlpha: Float = 0.0f,
+    maxAlpha: Float = 1.0f,
+    repeatMode: Int = Animation.REVERSE
+) {
+    startAnimation(AlphaAnimation(minAlpha, maxAlpha).also {
+        it.duration = duration
+        it.startOffset = offset
+        it.repeatMode = repeatMode
+        it.repeatCount = times
+    })
 }
 
 inline fun ViewModel.launch(

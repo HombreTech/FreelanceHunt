@@ -1,6 +1,5 @@
 package tech.hombre.freelancehunt.ui.menu
 
-
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.Keep
@@ -59,7 +58,7 @@ class ProjectFilterBottomDialogFragment : BaseBottomDialogFragment() {
 
         isOnlyMySkills.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked && checkedSkills.contains(true)) {
-                checkedSkills = booleanArrayOf()
+                checkedSkills = BooleanArray(skills.size)
                 updateSkillsView()
             }
         }
@@ -104,7 +103,7 @@ class ProjectFilterBottomDialogFragment : BaseBottomDialogFragment() {
     private fun subscribeToData() {
         viewModel.skills.subscribe(this, {
             skills = it
-            checkedSkills = skills.map { false }.toBooleanArray()
+            checkedSkills = BooleanArray(skills.size)
             savedSkills.forEach { savedSill ->
                 checkedSkills[skills.indexOf(skills.find { it.id == savedSill })] = true
             }
