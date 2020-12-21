@@ -12,6 +12,8 @@ import tech.hombre.domain.model.Result
 import tech.hombre.domain.model.Success
 import java.io.IOException
 
+
+
 interface DomainMapper<T : Any> {
     fun mapToDomainModel(): T
 }

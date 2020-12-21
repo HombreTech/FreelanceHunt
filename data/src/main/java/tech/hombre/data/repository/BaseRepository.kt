@@ -21,6 +21,8 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
     private val connectivity: Connectivity by inject()
     private val contextProvider: CoroutineContextProvider by inject()
 
+    fun hasNetworkAccess() = connectivity.hasNetworkAccess()
+    
     /**
      * Cached API request
      */
@@ -30,7 +32,7 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
         fromCache: Boolean = false
     ): Result<T> {
         try {
-            return if (connectivity.hasNetworkAccess() && !fromCache) {
+            return if (hasNetworkAccess() && !fromCache) {
                 withContext(contextProvider.io) {
                     apiDataProvider()
                 }
@@ -38,7 +40,7 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
                 withContext(contextProvider.io) {
                     val dbResult = dbDataProvider()
                     if (dbResult != null) Success(dbResult.mapToDomainModel()) else if (fromCache) {
-                        if (connectivity.hasNetworkAccess()) apiDataProvider() else Failure(
+                        if (hasNetworkAccess()) apiDataProvider() else Failure(
                             HttpError(
                                 Throwable(NOT_HAVE_INTERNET_CONNECTION)
                             )
@@ -71,7 +73,7 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
      */
     protected suspend fun fetchData(dataProvider: suspend () -> Result<T>): Result<T> {
         return try {
-            if (connectivity.hasNetworkAccess()) {
+            if (hasNetworkAccess()) {
                 withContext(contextProvider.io) {
                     dataProvider()
                 }
