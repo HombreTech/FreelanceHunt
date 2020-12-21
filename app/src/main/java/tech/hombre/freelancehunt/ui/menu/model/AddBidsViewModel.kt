@@ -24,7 +24,7 @@ class AddBidsViewModel(
         comment: String,
         isHidden: Boolean
     ) = executeUseCase {
-        addProjectBid(projectId, days, budget, safeType.type!!, comment, isHidden)
+        addProjectBid(projectId, days, budget, safeType.type ?: "null", comment, isHidden)
             .onSuccess {
                 _viewState.value = Success(it)
             }
