@@ -11,8 +11,8 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.work.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import tech.hombre.data.local.LocalProperties
 import tech.hombre.data.local.LocalProperties.Companion.KEY_APP_LANGUAGE
 import tech.hombre.data.local.LocalProperties.Companion.KEY_APP_THEME

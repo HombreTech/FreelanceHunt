@@ -1,8 +1,8 @@
 package tech.hombre.data.repository
 
 import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import tech.hombre.data.common.coroutine.CoroutineContextProvider
 import tech.hombre.data.common.utils.Connectivity
 import tech.hombre.data.database.DB_ENTRY_ERROR

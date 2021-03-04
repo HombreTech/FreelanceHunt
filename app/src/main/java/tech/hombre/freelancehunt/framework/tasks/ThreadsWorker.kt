@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import tech.hombre.data.local.LocalProperties
 import tech.hombre.domain.model.onFailure
 import tech.hombre.domain.model.onSuccess

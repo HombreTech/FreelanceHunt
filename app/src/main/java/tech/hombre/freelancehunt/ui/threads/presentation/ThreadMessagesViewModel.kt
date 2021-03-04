@@ -24,6 +24,7 @@ import tech.hombre.freelancehunt.ui.base.Error
 import tech.hombre.freelancehunt.ui.base.Success
 import tech.hombre.freelancehunt.ui.base.ViewState
 import java.io.File
+import java.net.URLEncoder
 
 
 class ThreadMessagesViewModel(
@@ -65,9 +66,7 @@ class ThreadMessagesViewModel(
             getMimeType(path),
             progressCallback
         )
-
-        val body = MultipartBody.Part.createFormData(filename, file.name, requestFile)
-
+        val body = MultipartBody.Part.createFormData(URLEncoder.encode(filename, "utf-8"), URLEncoder.encode(file.name, "utf-8"), requestFile)
         threadsApi.uploadAttach(threadId, body).enqueue(object : Callback<UploadedThreadMessage> {
             override fun onFailure(call: Call<UploadedThreadMessage>, t: Throwable) {
                 _uploading.value = Error(t)
@@ -90,7 +89,7 @@ class ThreadMessagesViewModel(
         progressCallback: ((progress: Float) -> Unit)?
     ) {
         App.instance.contentResolver.openInputStream(uri)?.use { inputStream ->
-            val tempFile = createTempFile(prefix = "attach", suffix =  "." + filename.extension())
+            val tempFile = File.createTempFile("attach","." + filename.extension())
 
             copyStreamToFile(inputStream, tempFile)
 

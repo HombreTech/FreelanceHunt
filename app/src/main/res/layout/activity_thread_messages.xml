@@ -52,18 +52,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.google.android.material.progressindicator.ProgressIndicator
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
                         android:id="@+id/attachProgress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:max="100"
-                        app:circularInset="0dp"
+                        app:indicatorInset="0dp"
                         app:trackColor="@color/ratingBarBackground"
                         android:progress="0"
                         tools:progress="15"
                         android:visibility="invisible"
                         app:indicatorColor="@color/white"
-                        app:indicatorType="circular" />
+                        />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/attach"

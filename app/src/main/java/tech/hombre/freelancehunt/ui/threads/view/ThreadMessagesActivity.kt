@@ -30,6 +30,7 @@ import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.threads.presentation.ThreadMessagesViewModel
 import java.io.File
+import java.net.URLEncoder
 import java.util.*
 
 
@@ -420,10 +421,10 @@ class ThreadMessagesActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_FILEPICKER) {
             data?.data?.also { uri ->
-                val path = uri.filename()
+                val filename = uri.filename()
                 val fileSize = uri.filesize()
 
-                if (path.extension() !in ATTACH_FILE_EXTENSIONS) {
+                if (filename.extension().toLowerCase() !in ATTACH_FILE_EXTENSIONS) {
                     toast(
                         String.format(
                             getString(R.string.attach_invalid_file),
@@ -446,7 +447,7 @@ class ThreadMessagesActivity : BaseActivity() {
                 viewModel.uploadAttach(
                     uri,
                     threadId,
-                    path
+                    URLEncoder.encode(filename, "utf-8")
                 ) { progress ->
                     attachProgress.progress = (progress * 100.0).toInt()
                 }

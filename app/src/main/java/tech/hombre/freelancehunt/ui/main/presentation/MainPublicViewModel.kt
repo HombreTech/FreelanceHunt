@@ -2,7 +2,7 @@ package tech.hombre.freelancehunt.ui.main.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class MainPublicViewModel : ViewModel(), KoinComponent {
 

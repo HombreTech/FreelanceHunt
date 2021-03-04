@@ -2,7 +2,7 @@ package tech.hombre.freelancehunt.ui.menu
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 import tech.hombre.domain.model.WorkspaceDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.ProjectStatus

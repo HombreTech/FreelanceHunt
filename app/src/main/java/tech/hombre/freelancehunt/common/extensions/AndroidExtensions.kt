@@ -279,10 +279,8 @@ fun getMimeType(filepath: String?): String {
     val url = filepath.replace(" ", "")
     var type: String? = null
 
-    val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-    if (extension != null) {
-        type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase())
-    }
+    val extension = url.extension()
+    type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase())
 
     if (type == null) {
         val cR = App.instance.contentResolver

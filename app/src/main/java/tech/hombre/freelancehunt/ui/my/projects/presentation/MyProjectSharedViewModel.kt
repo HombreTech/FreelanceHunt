@@ -3,7 +3,7 @@ package tech.hombre.freelancehunt.ui.my.projects.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 import tech.hombre.domain.model.ProjectDetail
 
 

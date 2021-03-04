@@ -3,8 +3,8 @@ package tech.hombre.freelancehunt.ui.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import tech.hombre.data.common.utils.Connectivity
 import tech.hombre.freelancehunt.common.extensions.launch
 
