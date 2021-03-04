@@ -21,7 +21,11 @@ const val SIMPLE_DIALOG_REQUEST_ARBITRAGE = 1
 const val SIMPLE_DIALOG_CLOSE_WORKSPACE = 2
 const val SIMPLE_DIALOG_EXTEND_WORKSPACE = 3
 
+const val REQUEST_CODE_FILEPICKER = 5326
+
 const val ATTACH_MAX_FILESIZE: Long = 1024 * 1000
+
+val ATTACH_FILE_EXTENSIONS: Array<String> = arrayOf("gif","jpeg","jpg","png","pdf","psd","gz","7z","docx","doc","zip","rar","rtf","odt","ott","ods","sxw","ai","gzip","cdr","mp3","xlsx","xls","txt","pptx","ppt","css","c","h","js","ico","htm","html","csv","yml","json","avi","eps","sketch")
 
 enum class UserType(val type: String) {
     EMPLOYER("employer"),

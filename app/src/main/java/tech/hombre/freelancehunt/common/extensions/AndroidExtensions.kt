@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.common.extensions
 import android.content.Context
 import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
+import android.provider.OpenableColumns
 import android.text.format.DateUtils.SECOND_IN_MILLIS
 import android.text.format.DateUtils.getRelativeTimeSpanString
 import android.view.View
@@ -32,6 +33,9 @@ import kotlinx.coroutines.launch
 import tech.hombre.data.common.coroutine.CoroutineContextProvider
 import tech.hombre.freelancehunt.App
 import tech.hombre.freelancehunt.R
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -305,6 +309,43 @@ fun View.blink(
         it.repeatMode = repeatMode
         it.repeatCount = times
     })
+}
+
+fun Uri.filename() : String{
+    App.instance.contentResolver.query(this, null, null, null, null).use { cursor ->
+        cursor?.let {
+            val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            it.moveToFirst()
+            return it.getString(nameIndex)
+        }
+    }
+    return ""
+}
+
+fun Uri.filesize() : Long{
+    App.instance.contentResolver.query(this, null, null, null, null).use { cursor ->
+        cursor?.let {
+            val nameIndex = it.getColumnIndex(OpenableColumns.SIZE)
+            it.moveToFirst()
+            return it.getString(nameIndex).toLong()
+        }
+    }
+    return 0
+}
+
+fun copyStreamToFile(inputStream: InputStream, outputFile: File) {
+    inputStream.use { input ->
+        val outputStream = FileOutputStream(outputFile)
+        outputStream.use { output ->
+            val buffer = ByteArray(4 * 1024) // buffer size
+            while (true) {
+                val byteCount = input.read(buffer)
+                if (byteCount < 0) break
+                output.write(buffer, 0, byteCount)
+            }
+            output.flush()
+        }
+    }
 }
 
 inline fun ViewModel.launch(

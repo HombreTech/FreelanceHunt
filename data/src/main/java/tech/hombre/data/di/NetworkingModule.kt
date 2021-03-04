@@ -1,6 +1,7 @@
 package tech.hombre.data.di
 
 import android.content.Context
+import android.os.Build
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -18,7 +19,6 @@ import java.util.concurrent.TimeUnit
 
 val networkingModule = module {
     single { GsonConverterFactory.create(GsonBuilder().setLenient().create()) as Converter.Factory }
-    //single { GsonConverterFactory.create() as Converter.Factory }
     if (BuildConfig.DEBUG) single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
     single {
         OkHttpClient.Builder().apply {
@@ -34,12 +34,19 @@ val networkingModule = module {
                         "Authorization",
                         if (!apiToken.isNullOrEmpty()) "Bearer $apiToken" else ""
                     )
-                        .addHeader("Accept-Language", prefs.getString("KEY_APP_LANGUAGE", getCurrentDefaultLanguage()))
+                        .addHeader(
+                            "Accept-Language",
+                            prefs.getString("KEY_APP_LANGUAGE", getCurrentDefaultLanguage())
+                        )
+                        .addHeader(
+                            "User-Agent",
+                            "Freelancehunt for Android (v${BuildConfig.VERSION_NAME}, b${BuildConfig.VERSION_CODE}; Android ${Build.VERSION.RELEASE})"
+                        )
                         .build()
                 )
             }
-                connectTimeout(30, TimeUnit.SECONDS)
-                readTimeout(30, TimeUnit.SECONDS)
+            connectTimeout(30, TimeUnit.SECONDS)
+            readTimeout(30, TimeUnit.SECONDS)
         }.build()
     }
     single {

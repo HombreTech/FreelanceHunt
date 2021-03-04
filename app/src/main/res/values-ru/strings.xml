@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_internet_error_message">Ошибка подключения к сети. Попробуйте позже.</string>
+    <string name="internet_error_message">Ошибка выполнения запроса</string>
     <string name="token_is_empty">Введите Token</string>
     <string name="new_project">Новый проект</string>
     <string name="unknown">-</string>
@@ -222,6 +223,7 @@
     <string name="error_dir_access">Нет прав на чтение директории</string>
     <string name="attach_selector">Выберите файл</string>
     <string name="attach_max_size">Максимальный размер вложения: %s</string>
+    <string name="attach_invalid_file">Запрещенный тип файла. Разрешены файлы данных типов:\n%s</string>
     <string name="size">Размер: %s</string>
     <string name="autostart_permissions_required_error">Приложение, ответственное за управление работой приложения в фоне, не найдено. Возможны проблемы с получением уведомлений.</string>
     <string name="autostart_permissions_dialog_info">На Вашем устройстве ограничена работа приложения в фоне, что может привести к проблемам с автоматической проверкой новых проектов и сообщений. На следующем экране добавьте приложение в список исключений или отключите оптимизацию для него.</string>

@@ -1,9 +1,11 @@
 package tech.hombre.freelancehunt.ui.threads.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +18,7 @@ import tech.hombre.domain.model.ThreadMessageList
 import tech.hombre.domain.model.ThreadMessageMy
 import tech.hombre.domain.model.ThreadMessageOther
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.EXTRA_2
-import tech.hombre.freelancehunt.common.UserType
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomHtmlTextView
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
@@ -129,7 +129,9 @@ class ThreadMessagesActivity : BaseActivity() {
     private fun handleUploadingViewState(viewState: ViewState<ThreadMessageList.Data>) {
         when (viewState) {
             is Success -> addAttachMessage(viewState.data)
-            is Error -> handleError(viewState.error.localizedMessage)
+            is Error -> handleError(
+                viewState.error.localizedMessage ?: getString(R.string.internet_error_message)
+            )
             is NoInternetState -> showNoInternetError()
         }
         isUploading = false
@@ -173,7 +175,7 @@ class ThreadMessagesActivity : BaseActivity() {
                                     isCircle = true
                                 )
                                 avatar.setOnClickListener {
-                                    if (model.data.attributes.participants.from.type == UserType.EMPLOYER.type)  {
+                                    if (model.data.attributes.participants.from.type == UserType.EMPLOYER.type) {
                                         appNavigator.showEmployerDetails(model.data.attributes.participants.from.id)
                                     } else appNavigator.showFreelancerDetails(model.data.attributes.participants.from.id)
                                 }
@@ -250,7 +252,7 @@ class ThreadMessagesActivity : BaseActivity() {
                                     isCircle = true
                                 )
                                 avatar.setOnClickListener {
-                                    if (model.data.attributes.participants.from.type == UserType.EMPLOYER.type)  {
+                                    if (model.data.attributes.participants.from.type == UserType.EMPLOYER.type) {
                                         appNavigator.showEmployerDetails(model.data.attributes.participants.from.id)
                                     } else appNavigator.showFreelancerDetails(model.data.attributes.participants.from.id)
                                 }
@@ -357,38 +359,96 @@ class ThreadMessagesActivity : BaseActivity() {
     }
 
     private fun showSelectFileDialog() {
-        val properties = DialogProperties().apply {
-            selection_mode = DialogConfigs.SINGLE_MODE
-            selection_type = DialogConfigs.FILE_SELECT
-            root = File(DialogConfigs.DEFAULT_DIR)
-            error_dir = File(DialogConfigs.DEFAULT_DIR)
-            offset = File(DialogConfigs.DEFAULT_DIR)
-            show_hidden_files = false
-        }
-        dialog = FilePickerDialog(this, properties)
-        dialog.setTitle(getString(R.string.attach_selector))
-        dialog.setDialogSelectionListener(object : DialogSelectionListener {
-            override fun onSelectedFilePaths(files: Array<String?>) {
-                val path = files[0]
-                path?.let {
-                    attachProgress.visible()
-                    isUploading = true
-                    viewModel.uploadAttach(threadId, path, path.substringAfterLast("/")) { progress ->
-                        attachProgress.progress = (progress * 100.0).toInt()
+        if (Build.VERSION.SDK_INT >= 29) {
+            startActivityForResult(
+                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "*/*"
+                    addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                },
+                REQUEST_CODE_FILEPICKER
+            )
+        } else {
+            val properties = DialogProperties().apply {
+                selection_mode = DialogConfigs.SINGLE_MODE
+                selection_type = DialogConfigs.FILE_SELECT
+                root = File(DialogConfigs.DEFAULT_DIR)
+                error_dir = File(DialogConfigs.DEFAULT_DIR)
+                offset = File(DialogConfigs.DEFAULT_DIR)
+                show_hidden_files = false
+            }
+            dialog = FilePickerDialog(this, properties)
+            dialog.setTitle(getString(R.string.attach_selector))
+            dialog.setDialogSelectionListener(object : DialogSelectionListener {
+                override fun onSelectedFilePaths(files: Array<String?>) {
+                    val path = files[0]
+                    path?.let {
+                        attachProgress.visible()
+                        isUploading = true
+                        viewModel.uploadAttach(
+                            threadId,
+                            path,
+                            path.substringAfterLast("/")
+                        ) { progress ->
+                            attachProgress.progress = (progress * 100.0).toInt()
+                        }
                     }
                 }
-            }
-        })
-        dialog.show()
+            })
+            dialog.show()
+        }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             FilePickerDialog.EXTERNAL_READ_PERMISSION_GRANT -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (this::dialog.isInitialized) dialog.show()
                 } else {
                     showError(getString(R.string.permissions_denied))
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_FILEPICKER) {
+            data?.data?.also { uri ->
+                val path = uri.filename()
+                val fileSize = uri.filesize()
+
+                if (path.extension() !in ATTACH_FILE_EXTENSIONS) {
+                    toast(
+                        String.format(
+                            getString(R.string.attach_invalid_file),
+                            ATTACH_FILE_EXTENSIONS.joinToString()
+                        )
+                    )
+                    return
+                }
+                if (fileSize > ATTACH_MAX_FILESIZE) {
+                    toast(
+                        String.format(
+                            getString(R.string.attach_max_size),
+                            ATTACH_MAX_FILESIZE.humanReadableBytes()
+                        )
+                    )
+                    return
+                }
+                attachProgress.visible()
+                isUploading = true
+                viewModel.uploadAttach(
+                    uri,
+                    threadId,
+                    path
+                ) { progress ->
+                    attachProgress.progress = (progress * 100.0).toInt()
                 }
             }
         }
