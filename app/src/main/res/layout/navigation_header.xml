@@ -8,6 +8,20 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/isPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/avatar"
+        android:layout_alignBottom="@id/avatar"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:background="@drawable/round_shape"
+        app:layout_constraintBottom_toBottomOf="@id/avatar"
+        app:layout_constraintEnd_toEndOf="@id/avatar"
+        app:srcCompat="@drawable/plus" />
+
     <tech.hombre.freelancehunt.common.widgets.CustomImageView
         android:id="@+id/avatar"
         android:layout_width="96dp"

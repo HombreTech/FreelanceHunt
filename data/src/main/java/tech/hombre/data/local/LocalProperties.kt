@@ -106,6 +106,10 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     fun setAutoStartPermissionsRequired() = sharedPreferences.edit().putBoolean(KEY_AUTOSTART_PERMISSIONS_REQUIRED, true).apply()
 
+    fun isDeveloperNotifyShowed(): Boolean = sharedPreferences.getBoolean(KEY_DEVELOPER_NOTIFY_SHOWED, false)
+
+    fun setDeveloperNotifyShowed() = sharedPreferences.edit().putBoolean(KEY_DEVELOPER_NOTIFY_SHOWED, true).apply()
+
     companion object {
         const val KEY_API_TOKEN = "KEY_API_TOKEN"
         const val KEY_USER_PROFILE = "KEY_USER_PROFILE"
@@ -123,6 +127,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         const val KEY_WORKER_UNMETERED = "KEY_WORKER_UNMETERED"
         const val KEY_PROJECT_BIDS_LIST_REVERSED = "KEY_PROJECT_BIDS_LIST_REVERSED"
         const val KEY_AUTOSTART_PERMISSIONS_REQUIRED = "KEY_AUTOSTART_PERMISSIONS_REQUIRED"
+        const val KEY_DEVELOPER_NOTIFY_SHOWED = "KEY_DEVELOPER_NOTIFY_SHOWED"
 
         const val KEY_PROJECT_FILTER_MY_SKILLS = "KEY_PROJECT_FILTER_MY_SKILLS"
         const val KEY_PROJECT_FILTER_ONLY_PLUS = "KEY_PROJECT_FILTER_ONLY_PLUS"

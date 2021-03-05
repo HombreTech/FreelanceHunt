@@ -34,7 +34,8 @@ object PowerSaverHelper {
     fun prepareIntentForWhiteListingOfBatteryOptimization(
         context: Context,
         packageName: String = context.packageName,
-        alsoWhenWhiteListed: Boolean = false
+        alsoWhenWhiteListed: Boolean = false,
+        onSuccess: Unit
     ): PowerSaveIntent {
         var whiteListed = false
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
@@ -51,7 +52,7 @@ object PowerSaverHelper {
         when (appIsWhiteListedFromPowerSave) {
             WhiteListedInBatteryOptimizations.WHITE_LISTED -> {
                 whiteListed = true
-                if (alsoWhenWhiteListed) intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
+                if (alsoWhenWhiteListed) intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS) else onSuccess.run {  }
             }
             WhiteListedInBatteryOptimizations.NOT_WHITE_LISTED -> intent =
                 Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))

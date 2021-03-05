@@ -3,10 +3,13 @@ package tech.hombre.freelancehunt.ui.main.view.activities
 import android.content.DialogInterface
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.util.Linkify
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.work.*
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.appbar.*
@@ -20,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.EXTRA_1
+import tech.hombre.freelancehunt.common.SKU_PREMIUM
 import tech.hombre.freelancehunt.common.UserType
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.common.extensions.switch
@@ -102,7 +106,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkPermissions() {
-        val intent = PowerSaverHelper.prepareIntentForWhiteListingOfBatteryOptimization(this)
+        val intent = PowerSaverHelper.prepareIntentForWhiteListingOfBatteryOptimization(
+            this,
+            onSuccess = showDeveloperNotify()
+        )
         intent.intent?.let {
             startActivity(it)
         } ?: if (!intent.isWhiteListed) if (!appPreferences.isAutoStartPermissionsRequired()) {
@@ -112,26 +119,53 @@ class MainActivity : BaseActivity() {
                     AppHelper.getDialogTheme(appPreferences.getAppTheme())
                 )
             ) {
+                setCancelable(false)
                 setMessage(getString(R.string.autostart_permissions_dialog_info))
                 setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int ->
 
-                    if (AutoStartPermissionHelper.getInstance().getAutoStartPermission(context))
+                    if (AutoStartPermissionHelper.getInstance().getAutoStartPermission(context)) {
                         appPreferences.setAutoStartPermissionsRequired()
-                    else with(
+                        showDeveloperNotify()
+                    } else with(
                         AlertDialog.Builder(
                             context,
                             AppHelper.getDialogTheme(appPreferences.getAppTheme())
                         )
                     ) {
+                        setCancelable(false)
                         setMessage(getString(R.string.autostart_permissions_required_error))
                         setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int ->
                             appPreferences.setAutoStartPermissionsRequired()
+                            showDeveloperNotify()
                         }
                         show()
                     }
                 }
                 show()
-            } else appPreferences.setAutoStartPermissionsRequired()
+            } else {
+                appPreferences.setAutoStartPermissionsRequired()
+                showDeveloperNotify()
+            }
+        }
+    }
+
+    private fun showDeveloperNotify() {
+        if (appPreferences.isDeveloperNotifyShowed()) return
+        val message = SpannableString(getString(R.string.developer_notify))
+        Linkify.addLinks(message, Linkify.ALL)
+        with(
+            AlertDialog.Builder(
+                this,
+                AppHelper.getDialogTheme(appPreferences.getAppTheme())
+            )
+        )
+        {
+            setCancelable(false)
+            setMessage(message)
+            setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int ->
+                appPreferences.setDeveloperNotifyShowed()
+            }
+            show()
         }
     }
 
@@ -217,8 +251,9 @@ class MainActivity : BaseActivity() {
                         MyWorkspacesFragment.newInstance(),
                         MyWorkspacesFragment.TAG
                     )
+                    R.id.menu_buy_premium -> billingClient.launchBilling(this, SKU_PREMIUM)
                 }
-                if (it.itemId != R.id.menu_profile) {
+                if (it.itemId != R.id.menu_profile && it.itemId != R.id.menu_buy_premium) {
                     selectMenuItem(it.itemId, true)
                 }
             }
@@ -235,11 +270,18 @@ class MainActivity : BaseActivity() {
         sharedViewModelMain.messagesCounter.subscribe(this) {
             updateDrawer(it, null)
         }
+        billingClient.isPremium.subscribe(this, ::handlePremiumState)
         viewModel.checkTokenByMyProfile(appPreferences.getAccessToken())
         viewModel.checkFeed()
         viewModel.refreshCountriesList()
         viewModel.refreshSkillsList()
         timer.schedule(timerTask, delay, delay)
+    }
+
+    private fun handlePremiumState(isPremium: Boolean) {
+        val header = navigation.getHeaderView(0)
+        header.isPlus.isVisible = isPremium
+        navigation.menu.findItem(R.id.menu_buy_premium).isVisible = !isPremium
     }
 
     private fun handleViewState(viewState: ViewState<MyProfile.Data.Attributes>) {
@@ -300,13 +342,17 @@ class MainActivity : BaseActivity() {
 
     private fun updateHeader(profile: MyProfile.Data.Attributes) {
         val header = navigation.getHeaderView(0)
-        header.avatar.setUrl(profile.avatar.large.url, isCircle = true)
-        header.avatar.setOnClickListener { onShowMyProfile() }
-        header.name.text = "${profile.first_name} ${profile.last_name}"
-        header.userType.text =
-            if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) getString(R.string.employer) else getString(
-                R.string.freelancer
-            )
+        header.apply {
+            avatar.setUrl(profile.avatar.large.url, isCircle = true)
+            avatar.setOnClickListener { onShowMyProfile() }
+            isPlus.isVisible = profile.is_plus_active
+            name.text = "${profile.first_name} ${profile.last_name}"
+            userType.text =
+                if (appPreferences.getCurrentUserType() == UserType.EMPLOYER.type) getString(R.string.employer) else getString(
+                    R.string.freelancer
+                )
+        }
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

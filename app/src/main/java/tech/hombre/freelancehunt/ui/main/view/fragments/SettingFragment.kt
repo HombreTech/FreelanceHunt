@@ -22,7 +22,6 @@ import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_MESSAGES
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_PROJECTS
 import tech.hombre.data.local.LocalProperties.Companion.KEY_WORKER_UNMETERED
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.IS_PREMIUM
 import tech.hombre.freelancehunt.common.SKU_PREMIUM
 import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.billing.BillingClientModule
@@ -88,7 +87,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                     if (interval >= 60) {
                         recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                     } else {
-                        if (IS_PREMIUM) {
+                        if (billingClient.isPremium()) {
                             recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                         } else {
                             resetWorkerInterval(true)

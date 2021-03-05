@@ -2,8 +2,6 @@ package tech.hombre.freelancehunt.common
 
 const val EMPTY_STRING = ""
 
-var IS_PREMIUM = false
-
 const val EXTRA_1 = "EXTRA_1"
 const val EXTRA_2 = "EXTRA_2"
 const val EXTRA_3 = "EXTRA_3"

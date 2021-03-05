@@ -140,8 +140,8 @@
     <string name="send_email">Send email</string>
     <string name="open">Open…</string>
     <string name="freelancer_view">Freelancer profile</string>
-    <string name="copyright">© Kokhan Ilya, 2020</string>
-    <string name="madeinchina">Made in Belarus 🇧🇾</string>
+    <string name="copyright">© Kokhan Ilya, 2021</string>
+    <string name="madeinchina">Made in Belarus</string>
     <string name="comment_is_deleted">Comment was deleted</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="freelancehunt_premium" translatable="false">Freelancehunt Premium</string>
@@ -243,4 +243,6 @@
     <string name="size">Size: %s</string>
     <string name="autostart_permissions_required_error">The application responsible for managing the application in the background was not found. There may be problems receiving notifications.</string>
     <string name="autostart_permissions_dialog_info">On your device, the application is limited in the background, which may lead to problems with automatic checking of new projects and messages. On the next screen, add the application to the list of exclusions or turn off optimization for it.</string>
+    <string name="developer_notify">For questions related to the operation of the service (errors, dissatisfaction, claims), please go to https://freelancehunt.com/support\n\nPlease do not use reviews on Google Play for this, because I can\'t help you.\n\nThis app is not an official app and is being developed on a voluntary basis.</string>
+    <string name="buy_premium">Buy premium</string>
 </resources>

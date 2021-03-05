@@ -2,15 +2,20 @@ package tech.hombre.freelancehunt.framework.billing
 
 import android.app.Activity
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import com.android.billingclient.api.Purchase.PurchasesResult
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.IS_PREMIUM
 import tech.hombre.freelancehunt.common.SKU_PREMIUM
 import tech.hombre.freelancehunt.common.extensions.toast
 
 
 class BillingClientModule(appContext: Application) {
+
+    private val _isPremium = MutableLiveData<Boolean>()
+    val isPremium: LiveData<Boolean>
+        get() = _isPremium
 
     private val skuList = arrayListOf<String>(SKU_PREMIUM)
 
@@ -30,8 +35,10 @@ class BillingClientModule(appContext: Application) {
         }
 
     private fun setPremiumActions() {
-        IS_PREMIUM = purchasesList?.any { it?.sku == SKU_PREMIUM } ?: false
+        _isPremium.value = purchasesList?.any { it?.sku == SKU_PREMIUM } ?: false
     }
+
+    fun isPremium() = _isPremium.value ?: false
 
     private var billingClient = BillingClient.newBuilder(appContext)
         .setListener(purchaseUpdateListener)
