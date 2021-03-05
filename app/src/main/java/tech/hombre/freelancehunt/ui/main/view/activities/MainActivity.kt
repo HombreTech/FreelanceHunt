@@ -251,7 +251,9 @@ class MainActivity : BaseActivity() {
                         MyWorkspacesFragment.newInstance(),
                         MyWorkspacesFragment.TAG
                     )
-                    R.id.menu_buy_premium -> billingClient.launchBilling(this, SKU_PREMIUM)
+                    R.id.menu_buy_premium -> {
+                        premiumDialog(this)
+                    }
                 }
                 if (it.itemId != R.id.menu_profile && it.itemId != R.id.menu_buy_premium) {
                     selectMenuItem(it.itemId, true)
@@ -261,6 +263,21 @@ class MainActivity : BaseActivity() {
             true
         }
         updateHeader(appPreferences.getCurrentUserProfile()!!)
+    }
+
+    private fun premiumDialog(activity: MainActivity) = with(
+        AlertDialog.Builder(
+            this,
+            AppHelper.getDialogTheme(appPreferences.getAppTheme())
+        )
+    ) {
+        setTitle(getString(R.string.freelancehunt_premium))
+        setMessage(getString(R.string.premium_caption))
+        setPositiveButton(android.R.string.yes) { dialog: DialogInterface, _: Int ->
+            billingClient.launchBilling(activity, SKU_PREMIUM)
+        }
+        setNegativeButton(android.R.string.no) { dialog: DialogInterface, _: Int -> }
+        show()
     }
 
     private fun subscribeToData() {

@@ -163,7 +163,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
             )
         ) {
             setTitle(getString(R.string.freelancehunt_premium))
-            setMessage(getString(R.string.premium_caption))
+            setMessage(getString(R.string.premium_unlock_caption))
             setPositiveButton(android.R.string.yes) { dialog: DialogInterface, _: Int ->
                 billingClient.launchBilling(requireActivity(), SKU_PREMIUM)
             }

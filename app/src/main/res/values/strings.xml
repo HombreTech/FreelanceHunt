@@ -145,7 +145,8 @@
     <string name="comment_is_deleted">Comment was deleted</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="freelancehunt_premium" translatable="false">Freelancehunt Premium</string>
-    <string name="premium_caption">The ability to check for updates more than once per hour is available in the Premium version of the application. By paying Premium, you will unlock the limit, and most importantly, support me as a developer.\nGo to the purchase dialog?</string>
+    <string name="premium_unlock_caption">The ability to check for updates more than once per hour is available in the Premium version of the application. By paying Premium, you will unlock the limit, and most importantly, support me as a developer.\nGo to the purchase dialog?</string>
+    <string name="premium_caption">By paying Premium, you will unlock the restriction of checking for updates more often than once an hour, and most importantly, you will support me as a developer.\nGo to the purchase dialog?</string>
     <string name="billing_not_ready">Not available on your device</string>
     <string name="pref_app_title">Application</string>
     <string name="pref_language">Language</string>
