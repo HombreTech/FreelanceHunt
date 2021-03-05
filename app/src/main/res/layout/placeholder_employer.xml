@@ -78,7 +78,7 @@
         android:layout_marginStart="@dimen/padding_middle"
         android:layout_marginTop="@dimen/padding_standart"
         android:layout_marginEnd="@dimen/padding_middle"
-        app:constraint_referenced_ids="_rating,_voteup,_votedown"
+        app:constraint_referenced_ids="_rating,_voteup,_votedown,_arbitrages"
         app:flow_horizontalBias="0"
         app:flow_horizontalGap="@dimen/padding_small"
         app:flow_horizontalStyle="packed"
@@ -126,6 +126,19 @@
         android:gravity="center"
         android:text="0"
         android:textColor="?textColorSecondary" />
+
+    <TextView
+        android:id="@+id/_arbitrages"
+        style="@style/TextStyle.Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableStart="@drawable/arbitrage_small"
+        android:drawablePadding="@dimen/padding_small"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:textColor="?textColorSecondary"
+        android:text="0"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/_verified"

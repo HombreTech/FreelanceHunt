@@ -146,6 +146,7 @@ class FreelancerDetailActivity : BaseActivity(),
         }
         voteup.text = details.attributes.positive_reviews.toString()
         votedown.text = details.attributes.negative_reviews.toString()
+        arbitrages.text = details.attributes.arbitrages.toString()
         if (details.attributes.birth_date != null) {
             birthdate.text = details.attributes.birth_date!!.parseSimpleDate()
                 ?.let { calculateAge(it).getEnding(this, R.array.ending_years) }
