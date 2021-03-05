@@ -1,7 +1,9 @@
 package tech.hombre.domain.model
 
+import android.os.Parcelable
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class MyBidsList(
     val `data`: List<Data> = listOf(),
@@ -25,12 +27,13 @@ data class MyBidsList(
             val attachment: Any? = null,
             val published_at: String = ""
         ) {
+            @Parcelize
             data class Budget(
                 @SerializedName("amount")
                 val amount: Int = 0,
                 @SerializedName("currency")
                 val currency: String = ""
-            )
+            ): Parcelable
 
             data class Freelancer(
                 val id: Int = 0,

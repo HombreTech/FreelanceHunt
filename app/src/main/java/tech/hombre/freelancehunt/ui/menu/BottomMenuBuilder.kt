@@ -3,6 +3,7 @@ package tech.hombre.freelancehunt.ui.menu
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import org.koin.core.component.KoinComponent
+import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.WorkspaceDetail
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.ProjectStatus
@@ -16,8 +17,12 @@ import tech.hombre.freelancehunt.ui.menu.model.MenuItem
 class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: String) :
     KoinComponent {
 
-    fun buildMenuForAddBid(isPlus: Boolean, id: Int) =
-        AddBidBottomDialogFragment.newInstance(isPlus, id).show(fm, tag)
+    fun buildMenuForAddBid(
+        isPlus: Boolean,
+        id: Int,
+        budget: MyBidsList.Data.Attributes.Budget?
+    ) =
+        AddBidBottomDialogFragment.newInstance(isPlus, id, budget).show(fm, tag)
 
     fun buildMenuForChooseBid(projectId: Int, bidId: Int) =
         ChooseBidBottomDialogFragment.newInstance(projectId, bidId).show(fm, tag)

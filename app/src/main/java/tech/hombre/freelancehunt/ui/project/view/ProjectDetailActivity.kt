@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_project_detail.*
 import kotlinx.android.synthetic.main.placeholder_project.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.Countries
+import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectBid
 import tech.hombre.domain.model.ProjectDetail
 import tech.hombre.freelancehunt.R
@@ -160,7 +161,10 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
                             AddBidBottomDialogFragment.TAG
                         ).buildMenuForAddBid(
                             appPreferences.getCurrentUserProfile()?.is_plus_active ?: false,
-                            details.id
+                            details.id,
+                            if (details.attributes.budget != null) details.attributes.budget.let { budget ->
+                                MyBidsList.Data.Attributes.Budget(budget!!.amount, budget.currency)
+                            } else null
                         )
                     else if (!details.attributes.is_only_for_plus) {
                         BottomMenuBuilder(
@@ -169,7 +173,10 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
                             AddBidBottomDialogFragment.TAG
                         ).buildMenuForAddBid(
                             appPreferences.getCurrentUserProfile()?.is_plus_active ?: false,
-                            details.id
+                            details.id,
+                            if (details.attributes.budget != null) details.attributes.budget.let { budget ->
+                                MyBidsList.Data.Attributes.Budget(budget!!.amount, budget.currency)
+                            } else null
                         )
                     } else {
                         handleError(getString(R.string.only_for_plus))

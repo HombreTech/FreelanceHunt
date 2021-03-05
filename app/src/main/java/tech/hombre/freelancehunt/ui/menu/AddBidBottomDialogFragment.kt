@@ -13,10 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyBidsList
 import tech.hombre.domain.model.ProjectBid
 import tech.hombre.freelancehunt.R
-import tech.hombre.freelancehunt.common.CurrencyType
-import tech.hombre.freelancehunt.common.EXTRA_1
-import tech.hombre.freelancehunt.common.EXTRA_2
-import tech.hombre.freelancehunt.common.SafeType
+import tech.hombre.freelancehunt.common.*
 import tech.hombre.freelancehunt.common.extensions.subscribe
 import tech.hombre.freelancehunt.ui.base.*
 import tech.hombre.freelancehunt.ui.menu.model.AddBidsViewModel
@@ -44,6 +41,11 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
         arguments?.let {
             isPlus = it.getBoolean(EXTRA_1)
             ids = it.getInt(EXTRA_2, -1)
+            budget = it.getParcelable(EXTRA_3) ?: MyBidsList.Data.Attributes.Budget()
+            costValue.setText(budget.amount.toString())
+            if (!budget.currency.isBlank()) costType.setSelection(
+                CurrencyType.valueOf(budget.currency).ordinal
+            )
             hiddenBid.isEnabled = isPlus
             buttonAddBid.setOnClickListener {
                 if (correctInputs()) {
@@ -139,7 +141,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
         super.onDetach()
         listener = null
     }
-    
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
         dialog.setOnShowListener {
@@ -161,11 +163,16 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
         @Keep
         val TAG = AddBidBottomDialogFragment::class.java.simpleName
 
-        fun newInstance(isPlus: Boolean, ids: Int): AddBidBottomDialogFragment {
+        fun newInstance(
+            isPlus: Boolean,
+            ids: Int,
+            budget: MyBidsList.Data.Attributes.Budget?
+        ): AddBidBottomDialogFragment {
             val fragment = AddBidBottomDialogFragment()
             val extra = Bundle()
             extra.putBoolean(EXTRA_1, isPlus)
             extra.putInt(EXTRA_2, ids)
+            extra.putParcelable(EXTRA_3, budget)
             fragment.arguments = extra
             return fragment
         }
