@@ -215,7 +215,7 @@
                                     android:ellipsize="end"
                                     android:gravity="center"
                                     android:textColor="?textColorSecondary"
-                                    tools:text="2" />
+                                    tools:text="0" />
 
                                 <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/verified"
