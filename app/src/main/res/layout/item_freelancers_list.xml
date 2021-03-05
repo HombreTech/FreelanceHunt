@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_middle"
                 android:layout_marginEnd="@dimen/padding_middle"
-                app:constraint_referenced_ids="voteup, votedown,rating "
+                app:constraint_referenced_ids="voteup, votedown, rating"
                 app:flow_horizontalBias="0"
                 app:flow_horizontalGap="@dimen/padding_small"
                 app:flow_horizontalStyle="packed"
@@ -114,12 +114,10 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/thumb_down"
                 android:drawablePadding="@dimen/padding_small"
+                android:paddingEnd="@dimen/padding_small"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:paddingEnd="@dimen/padding_small"
                 android:textColor="?textColorSecondary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rating"
                 tools:text="0" />
 
 
