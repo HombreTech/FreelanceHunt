@@ -43,9 +43,12 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
             ids = it.getInt(EXTRA_2, -1)
             budget = it.getParcelable(EXTRA_3) ?: MyBidsList.Data.Attributes.Budget()
             costValue.setText(budget.amount.toString())
-            if (!budget.currency.isBlank()) costType.setSelection(
-                CurrencyType.valueOf(budget.currency).ordinal
-            )
+            if (!budget.currency.isBlank()) {
+                costType.setSelection(
+                    CurrencyType.valueOf(budget.currency).ordinal
+                )
+                costType.isEnabled = false
+            }
             hiddenBid.isEnabled = isPlus
             buttonAddBid.setOnClickListener {
                 if (correctInputs()) {
