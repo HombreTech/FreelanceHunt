@@ -5,5 +5,5 @@ import tech.hombre.domain.model.Result
 
 interface GetContestsListUseCase {
 
-    suspend operator fun invoke(page: Int, skills: String): Result<ContestsList>
+    suspend operator fun invoke(page: Int, skills: String?): Result<ContestsList>
 }

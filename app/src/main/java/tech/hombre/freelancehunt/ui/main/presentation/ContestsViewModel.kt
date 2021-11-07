@@ -28,7 +28,7 @@ class ContestsViewModel(
         get() = _details
 
     fun getContestsLists(page: Int) = executeUseCase {
-        getContestsList(page, skills.joinToString(separator = ",") { it.toString() })
+        getContestsList(page, if (skills.isNotEmpty()) skills.joinToString(separator = ",") { it.toString() } else null)
             .onSuccess {
                 pagination = it.links
                 _viewState.value = Success(it)

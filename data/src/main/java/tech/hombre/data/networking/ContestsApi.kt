@@ -13,7 +13,7 @@ import tech.hombre.data.networking.model.MyContestsListResponse
 interface ContestsApi {
 
     @GET("contests")
-    suspend fun getContestsList(@Query("page[number]") page: Int, @Query("filter[skill_id]") skills: String): Response<ContestsListResponse>
+    suspend fun getContestsList(@Query("page[number]") page: Int, @Query("filter[skill_id]") skills: String?): Response<ContestsListResponse>
 
     @GET
     suspend fun getMyContestsList(@Url url: String): Response<MyContestsListResponse>

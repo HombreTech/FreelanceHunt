@@ -15,7 +15,7 @@ class ContestsListRepositoryImpl(
     private val contestsListDao: ContestsListDao
 ) : BaseRepository<ContestsList, ContestsListEntity>(),
     ContestsListRepository {
-    override suspend fun getContestsList(page: Int, skills: String): Result<ContestsList> {
+    override suspend fun getContestsList(page: Int, skills: String?): Result<ContestsList> {
         val url = BuildConfig.BASE_URL + "contests?page[number]=$page&filter[skill_id]=$skills"
         return fetchData(
             apiDataProvider = {
