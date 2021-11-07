@@ -10,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
-import androidx.work.*
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.appbar.*
 import kotlinx.android.synthetic.main.drawer.*
@@ -19,6 +18,7 @@ import kotlinx.android.synthetic.main.navigation_header.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import tech.hombre.domain.model.MyProfile
 import tech.hombre.freelancehunt.R
@@ -31,9 +31,7 @@ import tech.hombre.freelancehunt.common.provider.AutoStartPermissionHelper
 import tech.hombre.freelancehunt.common.provider.PowerSaverHelper
 import tech.hombre.freelancehunt.common.widgets.BadgeDrawerArrowDrawable
 import tech.hombre.freelancehunt.framework.app.AppHelper
-import tech.hombre.freelancehunt.framework.tasks.FeedWorker
-import tech.hombre.freelancehunt.framework.tasks.ProjectsWorker
-import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
+import tech.hombre.freelancehunt.framework.tasks.TasksManger
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.routing.ScreenType
 import tech.hombre.freelancehunt.ui.base.BaseActivity
@@ -53,7 +51,6 @@ import tech.hombre.freelancehunt.ui.my.projects.view.MyProjectsFragment
 import tech.hombre.freelancehunt.ui.my.workspaces.view.MyWorkspacesFragment
 import tech.hombre.freelancehunt.ui.threads.view.ThreadsFragment
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
@@ -65,6 +62,8 @@ class MainActivity : BaseActivity() {
     private val viewModel: MainViewModel by viewModel()
 
     private val sharedViewModelMain: MainPublicViewModel by viewModel()
+
+    private val tasksManger: TasksManger by inject()
 
     private var timer = Timer()
 
@@ -99,7 +98,7 @@ class MainActivity : BaseActivity() {
         }
         if (!intent.getBooleanExtra(EXTRA_1, false))
             CoroutineScope(Dispatchers.Default).launch {
-                setupTasks()
+                tasksManger.setupTasks()
             }
         billingClient.init()
         checkPermissions()
@@ -380,41 +379,6 @@ class MainActivity : BaseActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         drawerToggle.onConfigurationChanged(newConfig)
-    }
-
-    private fun setupTasks() {
-
-        val networkType =
-            if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
-
-        val constrains = Constraints.Builder()
-            .setRequiredNetworkType(networkType)
-            .build()
-
-        if (appPreferences.getWorkerFeedEnabled())
-            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                FeedWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<FeedWorker>(
-                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).build()
-            )
-        if (appPreferences.getWorkerMessagesEnabled())
-            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                ThreadsWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<ThreadsWorker>(
-                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).build()
-            )
-        if (appPreferences.getWorkerProjectsEnabled())
-            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                ProjectsWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<ProjectsWorker>(
-                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).build()
-            )
     }
 
     private val timerTask = object : TimerTask() {

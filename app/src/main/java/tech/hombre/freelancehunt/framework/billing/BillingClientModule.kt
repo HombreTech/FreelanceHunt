@@ -6,12 +6,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import com.android.billingclient.api.Purchase.PurchasesResult
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import tech.hombre.data.local.LocalProperties
 import tech.hombre.freelancehunt.R
 import tech.hombre.freelancehunt.common.SKU_PREMIUM
 import tech.hombre.freelancehunt.common.extensions.toast
+import tech.hombre.freelancehunt.framework.tasks.TasksManger
 
+class BillingClientModule(appContext: Application) : KoinComponent {
 
-class BillingClientModule(appContext: Application) {
+    private val appPreferences: LocalProperties by inject()
+
+    private val tasksManger: TasksManger by inject()
 
     private val _isPremium = MutableLiveData<Boolean>()
     val isPremium: LiveData<Boolean>
@@ -35,7 +42,20 @@ class BillingClientModule(appContext: Application) {
         }
 
     private fun setPremiumActions() {
-        _isPremium.value = purchasesList?.any { it?.sku == SKU_PREMIUM } ?: false
+        val purchased = purchasesList?.any { it?.sku == SKU_PREMIUM }
+        if (purchased == true) {
+            _isPremium.value = true
+        } else {
+            _isPremium.value = false
+            if (appPreferences.getWorkerInterval() < 120) {
+                appPreferences.resetWorkerInterval()
+                tasksManger.recreateTasks(
+                    appPreferences.getWorkerFeedEnabled(),
+                    appPreferences.getWorkerMessagesEnabled(),
+                    appPreferences.getWorkerProjectsEnabled()
+                )
+            }
+        }
     }
 
     fun isPremium() = _isPremium.value ?: false

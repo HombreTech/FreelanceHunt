@@ -8,6 +8,7 @@ import tech.hombre.freelancehunt.framework.billing.BillingClientModule
 import tech.hombre.freelancehunt.framework.notifications.AndroidNotificationService
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
 import tech.hombre.freelancehunt.framework.tasks.ProjectsWorker
+import tech.hombre.freelancehunt.framework.tasks.TasksManger
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.routing.AppFragmentNavigator
 import tech.hombre.freelancehunt.routing.AppNavigator
@@ -17,6 +18,7 @@ val appModule = module {
     single { CoroutineContextProvider() }
     single { (activity: AppCompatActivity) -> AppNavigator(activity) }
     single { (activity: FragmentActivity) -> AppFragmentNavigator(activity) }
+    single { TasksManger(get()) }
     single { BillingClientModule(get()) }
     single { SettingFragment() }
     single { AndroidNotificationService(get()) }

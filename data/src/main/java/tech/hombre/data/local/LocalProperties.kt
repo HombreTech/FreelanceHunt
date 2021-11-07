@@ -46,10 +46,10 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         } else null
     }
 
-    fun getWorkerInterval(): Long = sharedPreferences.getString(KEY_WORKER_INTERVAL, "15").toLong()
+    fun getWorkerInterval(): Long = sharedPreferences.getString(KEY_WORKER_INTERVAL, "120").toLong()
 
     fun resetWorkerInterval() {
-        sharedPreferences.edit().putString(KEY_WORKER_INTERVAL, "60").apply()
+        sharedPreferences.edit().putString(KEY_WORKER_INTERVAL, "120").apply()
     }
 
     fun getLastFeedId(): Long = sharedPreferences.getLong(KEY_LAST_FEED_ID, 0)

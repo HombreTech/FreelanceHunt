@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.work.*
+import androidx.work.WorkManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import tech.hombre.data.local.LocalProperties
@@ -27,9 +27,9 @@ import tech.hombre.freelancehunt.framework.app.AppHelper
 import tech.hombre.freelancehunt.framework.billing.BillingClientModule
 import tech.hombre.freelancehunt.framework.tasks.FeedWorker
 import tech.hombre.freelancehunt.framework.tasks.ProjectsWorker
+import tech.hombre.freelancehunt.framework.tasks.TasksManger
 import tech.hombre.freelancehunt.framework.tasks.ThreadsWorker
 import tech.hombre.freelancehunt.ui.login.view.LoginActivity
-import java.util.concurrent.TimeUnit
 
 
 class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
@@ -38,6 +38,8 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
     private val appPreferences: LocalProperties by inject()
 
     private val billingClient: BillingClientModule by inject()
+
+    private val tasksManger: TasksManger by inject()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = "preferences"
@@ -64,31 +66,31 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                 KEY_WORKER_FEED -> {
                     val state = pref.getBoolean(key, false)
                     if (state) {
-                        recreateTasks(true, false, false)
+                        tasksManger.recreateTasks(true, false, false)
                     } else WorkManager.getInstance(requireContext())
                         .cancelUniqueWork(FeedWorker.WORK_NAME)
                 }
                 KEY_WORKER_MESSAGES -> {
                     val state = pref.getBoolean(key, false)
                     if (state) {
-                        recreateTasks(false, true, false)
+                        tasksManger.recreateTasks(false, true, false)
                     } else WorkManager.getInstance(requireContext())
                         .cancelUniqueWork(ThreadsWorker.WORK_NAME)
                 }
                 KEY_WORKER_PROJECTS -> {
                     val state = pref.getBoolean(key, false)
                     if (state) {
-                        recreateTasks(false, false, true)
+                        tasksManger.recreateTasks(false, false, true)
                     } else WorkManager.getInstance(requireContext())
                         .cancelUniqueWork(ProjectsWorker.WORK_NAME)
                 }
                 KEY_WORKER_INTERVAL -> {
                     val interval = appPreferences.getWorkerInterval()
-                    if (interval >= 60) {
-                        recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
+                    if (interval >= 120) {
+                        tasksManger.recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                     } else {
                         if (billingClient.isPremium()) {
-                            recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
+                            tasksManger.recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                         } else {
                             resetWorkerInterval(true)
                             premiumDialog()
@@ -96,7 +98,7 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
                     }
                 }
                 KEY_WORKER_UNMETERED -> {
-                    recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
+                    tasksManger.recreateTasks(appPreferences.getWorkerFeedEnabled(), appPreferences.getWorkerMessagesEnabled(), appPreferences.getWorkerProjectsEnabled())
                 }
                 KEY_APP_LANGUAGE -> {
                     recreateActivity()
@@ -118,41 +120,6 @@ class SettingFragment : PreferenceFragmentCompat(), KoinComponent,
         }
         startActivity(intent)
         activity?.finish()
-    }
-
-    private fun recreateTasks(feed: Boolean, messages: Boolean, projects: Boolean) {
-        val interval = appPreferences.getWorkerInterval()
-        val networkType =
-            if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
-
-        val constrains = Constraints.Builder()
-            .setRequiredNetworkType(networkType)
-            .build()
-
-        if (feed) WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
-            FeedWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            PeriodicWorkRequestBuilder<FeedWorker>(
-                interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
-        )
-
-        if (messages) WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
-            ThreadsWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            PeriodicWorkRequestBuilder<ThreadsWorker>(
-                interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
-        )
-
-        if (projects) WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
-            ProjectsWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            PeriodicWorkRequestBuilder<ProjectsWorker>(
-                interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
-        )
-
     }
 
     private fun premiumDialog() {

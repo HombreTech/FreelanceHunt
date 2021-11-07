@@ -138,7 +138,7 @@
     <string name="madeinchina">Сделано в Беларуси</string>
     <string name="comment_is_deleted">Комментарий удален</string>
     <string name="open_in_browser">Открыть в браузере</string>
-    <string name="premium_unlock_caption">Возможность проверки обновлений чаще, чем раз в час, доступна в Premium-версии приложения. Оплатив Premium, Вы разблокируете ограничение, а главное поддержите меня как разработчика.\nПерейти к диалогу покупки?</string>
+    <string name="premium_unlock_caption">Возможность проверки обновлений чаще, чем каждые два часа, доступна в Premium-версии приложения. Оплатив Premium, Вы разблокируете ограничение, а главное поддержите меня как разработчика.\nПерейти к диалогу покупки?</string>
     <string name="premium_caption">Оплатив Premium, Вы разблокируете ограничение проверки обновлений чаще, чем раз в час, а главное поддержите меня как разработчика.\nПерейти к диалогу покупки?</string>
     <string name="billing_not_ready">Недоступно на Вашем устройстве</string>
     <string name="pref_app_title">Приложение</string>
