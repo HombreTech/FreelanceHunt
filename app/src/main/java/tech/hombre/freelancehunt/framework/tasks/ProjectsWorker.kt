@@ -37,7 +37,7 @@ class ProjectsWorker(
                 val onlyMySkills = appPreferences.getProjectFilterOnlyMySkills()
                 val onlyForPlus = appPreferences.getProjectFilterOnlyPlus()
                 val skills = appPreferences.getProjectFilterSkills()
-                projectsRepository.getSimpleProjectsList(1, onlyMySkills, onlyForPlus, skills, 0)
+                projectsRepository.getSimpleProjectsList(1, onlyMySkills, onlyForPlus, skills, null)
                     .onSuccess { projects ->
                         val lastChecked = appPreferences.getLastProjectId()
                         val new = projects.data.filter { it.id > lastChecked }

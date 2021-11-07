@@ -16,7 +16,7 @@ class ProjectsListRepositoryImpl(
     private val ProjectsListDao: ProjectsListDao
 ) : BaseRepository<ProjectsList, ProjectsListEntity>(),
     ProjectsListRepository {
-    override suspend fun getProjectsList(page: Int, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int): Result<ProjectsList> {
+    override suspend fun getProjectsList(page: Int, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int?): Result<ProjectsList> {
         val url = BuildConfig.BASE_URL + "projects?page[number]=$page&filter[only_my_skills]=${onlyMySkills.toInt()}&filter[only_for_plus]=${onlyForPlus.toInt()}&filter[skill_id]=$skills&filter[employer_id]=$employerId"
         return fetchData(
             apiDataProvider = {
@@ -28,7 +28,7 @@ class ProjectsListRepositoryImpl(
         )
     }
 
-    override suspend fun getSimpleProjectsList(page: Int, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int): Result<ProjectsList> {
+    override suspend fun getSimpleProjectsList(page: Int, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int?): Result<ProjectsList> {
         return fetchData(
             dataProvider = { projectsApi.getSimpleProjectsList(page, onlyMySkills.toInt(), onlyForPlus.toInt(), skills, employerId).getData() }
         )

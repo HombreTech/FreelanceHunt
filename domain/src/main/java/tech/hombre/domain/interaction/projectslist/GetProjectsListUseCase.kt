@@ -5,5 +5,5 @@ import tech.hombre.domain.model.Result
 
 interface GetProjectsListUseCase {
 
-    suspend operator fun invoke(page: Int, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int): Result<ProjectsList>
+    suspend operator fun invoke(page: Int, onlyMySkills: Boolean, onlyForPlus: Boolean, skills: String, employerId: Int?): Result<ProjectsList>
 }
