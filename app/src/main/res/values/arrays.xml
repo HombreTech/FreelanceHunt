@@ -88,11 +88,13 @@
 
     <string-array name="pref_language_entries">
         <item>Русский</item>
+        <item>Український</item>
         <item>English</item>
     </string-array>
 
     <string-array name="pref_language_values">
         <item>ru</item>
+        <item>uk</item>
         <item>en</item>
     </string-array>
 

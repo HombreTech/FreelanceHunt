@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ending_applications">
+        <item>робота</item>
+        <item>роботи</item>
+        <item>робіт</item>
+    </string-array>
+
+    <string-array name="ending_messages">
+        <item>повідомлення</item>
+        <item>повідомлення</item>
+        <item>повідомлень</item>
+    </string-array>
+
+    <string-array name="ending_days">
+        <item>день</item>
+        <item>дня</item>
+        <item>днів</item>
+    </string-array>
+
+    <string-array name="ending_weeks">
+        <item>тиждень</item>
+        <item>тижня</item>
+        <item>тижнів</item>
+    </string-array>
+
+    <string-array name="ending_month">
+        <item>місяць</item>
+        <item>місяця</item>
+        <item>місяців</item>
+    </string-array>
+
+    <string-array name="ending_years">
+        <item>рік</item>
+        <item>року</item>
+        <item>років</item>
+    </string-array>
+
+    <string-array name="ending_hours">
+        <item>година</item>
+        <item>години</item>
+        <item>годин</item>
+    </string-array>
+
+    <string-array name="ending_minutes">
+        <item>хвилина</item>
+        <item>хвилини</item>
+        <item>хвилин</item>
+    </string-array>
+
+    <string-array name="pref_notifications_period_entries">
+        <item>Кожні 15 хвилин</item>
+        <item>Щопівгодини</item>
+        <item>Раз на годину</item>
+        <item>Кожні дві години</item>
+        <item>Два рази на день</item>
+        <item>Один раз на день</item>
+    </string-array>
+
+    <string-array name="pref_notifications_interval_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+
+    <string-array name="cost_entries">
+        <item>₴ (гривня)</item>
+        <item>₽ (рубль)</item>
+    </string-array>
+
+    <string-array name="safe_entries">
+        <item>Комісію оплачує замовник</item>
+        <item>Комісію оплачую я</item>
+        <item>Комісія ділиться навпіл</item>
+        <item>Прямий розрахунок</item>
+    </string-array>
+
+    <string-array name="project_safe_entries">
+        <item>Комісію оплачую я</item>
+        <item>Комісію оплачує фрілансер</item>
+        <item>Комісія ділиться навпіл</item>
+        <item>Прямий розрахунок</item>
+        <item>Бізнес сейф</item>
+    </string-array>
+
+    <string-array name="pref_theme_entries">
+        <item>Світла</item>
+        <item>Темна</item>
+    </string-array>
+
+</resources>
