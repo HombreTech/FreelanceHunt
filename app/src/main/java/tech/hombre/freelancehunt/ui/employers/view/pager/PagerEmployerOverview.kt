@@ -59,7 +59,7 @@ class PagerEmployerOverview : BaseFragment() {
                     webChromeClient = WebChromeClient()
                     loadDataWithBaseURL(
                         null,
-                        details.attributes.cv_html,
+                        details.attributes.cv_html ?: "",
                         "text/html",
                         "ru_RU",
                         null

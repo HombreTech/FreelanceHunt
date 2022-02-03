@@ -219,7 +219,7 @@ class FilePickerDialog : Dialog, AdapterView.OnItemClickListener {
 		this.callbacks = callbacks
 	}
 
-	override fun setTitle(titleStr: CharSequence) {
+	override fun setTitle(titleStr: CharSequence?) {
 		this.titleStr = titleStr.toString()
 		setTitle()
 	}

@@ -28,7 +28,7 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
         arguments?.let {
             ids = it.getInt(EXTRA_1, -1)
             val budget_con =
-                it.getParcelable(EXTRA_2) as WorkspaceDetail.Data.Attributes.Conditions.Budget
+                it.getParcelable<WorkspaceDetail.Data.Attributes.Conditions.Budget>(EXTRA_2)!!
             val safe_type = it.getString(EXTRA_3)
             safe = SafeType.values().find { it.type == safe_type }
             budget = MyBidsList.Data.Attributes.Budget(budget_con.amount, budget_con.currency)

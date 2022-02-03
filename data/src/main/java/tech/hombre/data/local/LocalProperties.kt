@@ -46,7 +46,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
         } else null
     }
 
-    fun getWorkerInterval(): Long = sharedPreferences.getString(KEY_WORKER_INTERVAL, "120").toLong()
+    fun getWorkerInterval(): Long = sharedPreferences.getString(KEY_WORKER_INTERVAL, "120")?.toLong() ?: 120L
 
     fun resetWorkerInterval() {
         sharedPreferences.edit().putString(KEY_WORKER_INTERVAL, "120").apply()
@@ -78,9 +78,9 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     fun getWorkerUnmeteredEnabled(): Boolean = sharedPreferences.getBoolean(KEY_WORKER_UNMETERED, false)
 
-    fun getAppLanguage(): String = sharedPreferences.getString(KEY_APP_LANGUAGE, getCurrentDefaultLanguage())
+    fun getAppLanguage(): String = sharedPreferences.getString(KEY_APP_LANGUAGE, getCurrentDefaultLanguage()) ?: "ru"
 
-    fun getAppTheme(): String = sharedPreferences.getString(KEY_APP_THEME, "light")
+    fun getAppTheme(): String = sharedPreferences.getString(KEY_APP_THEME, "light") ?: "light"
 
     fun getProjectFilterOnlyMySkills(): Boolean = sharedPreferences.getBoolean(KEY_PROJECT_FILTER_MY_SKILLS, false)
 
@@ -90,7 +90,7 @@ class LocalProperties(private val sharedPreferences: SharedPreferences) {
 
     private fun setProjectFilterOnlyMyPlus(value: Boolean) = sharedPreferences.edit().putBoolean(KEY_PROJECT_FILTER_ONLY_PLUS, value).apply()
 
-    fun getProjectFilterSkills(): String = sharedPreferences.getString(KEY_PROJECT_FILTER_SKILLS, "")
+    fun getProjectFilterSkills(): String = sharedPreferences.getString(KEY_PROJECT_FILTER_SKILLS, "")?: ""
 
     private fun setProjectFilterOnlySkills(value: String) = sharedPreferences.edit().putString(KEY_PROJECT_FILTER_SKILLS, value).apply()
 

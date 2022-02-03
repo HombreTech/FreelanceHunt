@@ -4,6 +4,7 @@ package tech.hombre.freelancehunt.ui.menu
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.annotation.Keep
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -102,16 +103,16 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
         day = days.text.toString().toIntOrNull() ?: 0
         safe = SafeType.values()[safeType.selectedItemPosition]
         val costVerified: Boolean = when {
-                currency == CurrencyType.UAH && cost < 200 -> {
-                    showError(getString(R.string.safe_cost_minimal))
-                    return false
-                }
-                currency == CurrencyType.RUB && cost < 600 -> {
-                    showError(getString(R.string.safe_cost_minimal))
-                    return false
-                }
-                else -> true
+            currency == CurrencyType.UAH && cost < 200 -> {
+                showError(getString(R.string.safe_cost_minimal))
+                return false
             }
+            currency == CurrencyType.RUB && cost < 600 -> {
+                showError(getString(R.string.safe_cost_minimal))
+                return false
+            }
+            else -> true
+        }
         if (!costVerified) return false
         comm = comment.savedText.toString()
         if (comm.length < 60) {
@@ -155,6 +156,12 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
                 behaviour.state = BottomSheetBehavior.STATE_EXPANDED
                 behaviour.isHideable = false
             }
+        }
+        dialog.setOnKeyListener { _, _, keyEvent ->
+            if (keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
+                dismiss()
+                true
+            } else false
         }
         return dialog
     }

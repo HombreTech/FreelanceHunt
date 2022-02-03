@@ -34,7 +34,7 @@ class ListMenuBottomDialogFragment : BaseBottomDialogFragment() {
 
     override fun viewReady() {
         arguments?.let {
-            items = it.getParcelableArrayList(EXTRA_1)
+            items = it.getParcelableArrayList(EXTRA_1)!!
             projectId = it.getInt(EXTRA_2)
             bidId = it.getInt(EXTRA_3)
             adapter = RendererRecyclerViewAdapter()

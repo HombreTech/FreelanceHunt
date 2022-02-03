@@ -13,7 +13,6 @@ import android.view.animation.LinearInterpolator
 import androidx.annotation.IntDef
 import androidx.annotation.RestrictTo
 import androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP
-import androidx.core.util.Preconditions
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 
 
@@ -51,7 +50,7 @@ class CircularProgressDrawable(context: Context) : Drawable(),
 
     /** Canvas rotation in degrees.  */
     private var rotation = 0f
-    private val mResources: Resources = Preconditions.checkNotNull(context).resources
+    private val mResources: Resources = context.resources
     private var mAnimator: Animator? = null
     var mRotationCount = 0f
     var mFinishing = false
@@ -309,7 +308,7 @@ class CircularProgressDrawable(context: Context) : Drawable(),
         return mRing.alpha
     }
 
-    override fun setColorFilter(colorFilter: ColorFilter) {
+    override fun setColorFilter(colorFilter: ColorFilter?) {
         mRing.setColorFilter(colorFilter)
         invalidateSelf()
     }
@@ -644,7 +643,7 @@ class CircularProgressDrawable(context: Context) : Drawable(),
                     startAngle + sweepAngle, bounds.centerX(),
                     bounds.centerY()
                 )
-                c.drawPath(mArrow, mArrowPaint)
+                c.drawPath(mArrow!!, mArrowPaint)
                 c.restore()
             }
         }// if colors are reset, make sure to reset the color index as well

@@ -42,7 +42,7 @@ class BillingClientModule(appContext: Application) : KoinComponent {
         }
 
     private fun setPremiumActions() {
-        val purchased = purchasesList?.any { it?.sku == SKU_PREMIUM }
+        val purchased = purchasesList?.any { it?.skus?.get(0) == SKU_PREMIUM }
         if (purchased == true) {
             _isPremium.value = true
         } else {
