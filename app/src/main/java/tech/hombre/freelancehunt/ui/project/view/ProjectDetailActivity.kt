@@ -134,7 +134,7 @@ class ProjectDetailActivity : BaseActivity(), AddBidBottomDialogFragment.OnBidAd
         safe.text = getTitleBySafeType(
             this,
             SafeType.values().find { it.type == details.attributes.safe_type }
-                ?: SafeType.DIRECT_PAYMENT)
+                ?: SafeType.EMPLOYER)
 
         isremote.visibility = details.attributes.is_remote_job.toVisibleState()
         name.text = details.attributes.name

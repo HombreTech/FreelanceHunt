@@ -18,7 +18,6 @@ import tech.hombre.freelancehunt.common.extensions.*
 import tech.hombre.freelancehunt.common.widgets.CustomImageView
 import tech.hombre.freelancehunt.framework.app.ViewHelper.getColorAttr
 import tech.hombre.freelancehunt.ui.base.*
-import tech.hombre.freelancehunt.ui.base.ViewState
 import tech.hombre.freelancehunt.ui.freelancers.presentation.FreelancerDetailViewModel
 import tech.hombre.freelancehunt.ui.menu.BottomMenuBuilder
 import tech.hombre.freelancehunt.ui.menu.ChooseBidBottomDialogFragment
@@ -110,7 +109,7 @@ class PagerProjectBids : BaseFragment(), ListMenuBottomDialogFragment.BottomList
                                 getTitleBySafeType(
                                     requireContext(),
                                     SafeType.values().find { it.type == model.attributes.safe_type }
-                                        ?: SafeType.DIRECT_PAYMENT)
+                                        ?: SafeType.EMPLOYER)
                             )
                             .find<TextView>(R.id.status) {
                                 val status = getBidStatus(model.attributes.status)

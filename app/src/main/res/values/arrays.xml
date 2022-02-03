@@ -72,18 +72,13 @@
     </string-array>
 
     <string-array name="safe_entries">
-        <item>Employer pays commission</item>
-        <item>I pay the commission</item>
-        <item>Commission is divided in half</item>
-        <item>Direct pay</item>
+        <item>Employer pays 9% commission</item>
+        <item>I pay the 9% commission</item>
     </string-array>
 
     <string-array name="project_safe_entries">
-        <item>I pay the commission</item>
-        <item>Freelancer pays commission</item>
-        <item>Commission is divided in half</item>
-        <item>Direct pay</item>
-        <item>Business safe</item>
+        <item>I pay the 9% commission</item>
+        <item>Freelancer pays 9% commission</item>
     </string-array>
 
     <string-array name="pref_language_entries">

@@ -85,10 +85,7 @@ enum class ContestStatus(val id: Int) {
 
 enum class SafeType(val type: String?) {
     EMPLOYER("employer"),
-    DEVELOPER("developer"),
-    SPLIT("split"),
-    DIRECT_PAYMENT(null),
-    EMPLOYER_CASHLESS("employer_cashless")
+    DEVELOPER("developer")
 }
 
 enum class CurrencyType(val currency: String) {

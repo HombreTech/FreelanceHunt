@@ -58,7 +58,7 @@ class ProjectsFragment : BaseFragment(), ProjectFilterBottomDialogFragment.OnSub
                             getTitleBySafeType(
                                 requireContext(),
                                 SafeType.values().find { it.type == model.attributes.safe_type }
-                                    ?: SafeType.DIRECT_PAYMENT))
+                                    ?: SafeType.EMPLOYER))
                         .setGone(R.id.isremote, !model.attributes.is_remote_job)
                         .setText(R.id.name, model.attributes.name)
                         .setText(R.id.description, model.attributes.description.collapse(300))

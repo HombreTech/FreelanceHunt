@@ -60,7 +60,7 @@ class PagerEmployerProjects : BaseFragment() {
                             getTitleBySafeType(
                                 requireContext(),
                                 SafeType.values().find { it.type == model.attributes.safe_type }
-                                    ?: SafeType.DIRECT_PAYMENT))
+                                    ?: SafeType.EMPLOYER))
                         .setGone(R.id.isremote, !model.attributes.is_remote_job)
                         .setText(R.id.status, model.attributes.status.name)
                         .setText(R.id.name, model.attributes.name)

@@ -150,7 +150,6 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
         workspaceId: Int,
         isConfirmed: Boolean,
         projectStatus: ProjectStatus,
-        isDirectPay: Boolean,
         isEmployer: Boolean
     ) {
         val items = arrayListOf<MenuItem>()
@@ -185,7 +184,7 @@ class BottomMenuBuilder(val context: Context, val fm: FragmentManager, val tag: 
                 )
             )
 
-            if ((projectStatus == ProjectStatus.PROJECT_ONGOING || projectStatus == ProjectStatus.PROJECT_NOT_COMPLETED) && !isDirectPay) items.add(
+            if ((projectStatus == ProjectStatus.PROJECT_ONGOING || projectStatus == ProjectStatus.PROJECT_NOT_COMPLETED)) items.add(
                 MenuItem(
                     context.getString(R.string.request_arbitrage),
                     "arbitrage",

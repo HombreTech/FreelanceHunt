@@ -27,7 +27,8 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
     override fun viewReady() {
         arguments?.let {
             ids = it.getInt(EXTRA_1, -1)
-            val budget_con = it.getParcelable(EXTRA_2) as WorkspaceDetail.Data.Attributes.Conditions.Budget
+            val budget_con =
+                it.getParcelable(EXTRA_2) as WorkspaceDetail.Data.Attributes.Conditions.Budget
             val safe_type = it.getString(EXTRA_3)
             safe = SafeType.values().find { it.type == safe_type }
             budget = MyBidsList.Data.Attributes.Budget(budget_con.amount, budget_con.currency)
@@ -67,19 +68,16 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
         budget = MyBidsList.Data.Attributes.Budget(cost, currency.currency)
         day = days.text.toString().toIntOrNull() ?: 0
         safe = SafeType.values()[safeType.selectedItemPosition]
-        var costVerified = true
-        if (safe != SafeType.DIRECT_PAYMENT) {
-            costVerified = when {
-                currency == CurrencyType.UAH && cost < 200 -> {
-                    showError(getString(R.string.safe_cost_minimal))
-                    return false
-                }
-                currency == CurrencyType.RUB && cost < 600 -> {
-                    showError(getString(R.string.safe_cost_minimal))
-                    return false
-                }
-                else -> true
+        val costVerified: Boolean = when {
+            currency == CurrencyType.UAH && cost < 200 -> {
+                showError(getString(R.string.safe_cost_minimal))
+                return false
             }
+            currency == CurrencyType.RUB && cost < 600 -> {
+                showError(getString(R.string.safe_cost_minimal))
+                return false
+            }
+            else -> true
         }
         if (!costVerified) return false
         comm = comment.savedText.toString()
@@ -118,7 +116,12 @@ class ProposeConditionsBottomDialogFragment : BaseBottomDialogFragment() {
         @Keep
         val TAG = ProposeConditionsBottomDialogFragment::class.java.simpleName
 
-        fun newInstance(ids: Int, budget: WorkspaceDetail.Data.Attributes.Conditions.Budget, safe: String, days: Int): ProposeConditionsBottomDialogFragment {
+        fun newInstance(
+            ids: Int,
+            budget: WorkspaceDetail.Data.Attributes.Conditions.Budget,
+            safe: String,
+            days: Int
+        ): ProposeConditionsBottomDialogFragment {
             val fragment = ProposeConditionsBottomDialogFragment()
             val extra = Bundle()
             extra.putInt(EXTRA_1, ids)

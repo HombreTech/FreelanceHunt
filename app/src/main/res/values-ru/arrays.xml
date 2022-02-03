@@ -72,18 +72,13 @@
     </string-array>
 
     <string-array name="safe_entries">
-        <item>Комиссию оплачивает заказчик</item>
-        <item>Комиссию оплачиваю я</item>
-        <item>Комиссия делится пополам</item>
-        <item>Прямой расчет</item>
+        <item>Комиссию 9% оплачивает заказчик</item>
+        <item>Комиссию 9% оплачиваю я</item>
     </string-array>
 
     <string-array name="project_safe_entries">
-        <item>Комиссию оплачиваю я</item>
-        <item>Комиссию оплачивает фрилансер</item>
-        <item>Комиссия делится пополам</item>
-        <item>Прямой расчет</item>
-        <item>Бизнес сейф</item>
+        <item>Комиссию 9% оплачиваю я</item>
+        <item>Комиссию 9% оплачивает фрилансер</item>
     </string-array>
 
     <string-array name="pref_theme_entries">

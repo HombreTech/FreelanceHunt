@@ -101,9 +101,7 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
         budget = MyBidsList.Data.Attributes.Budget(cost, currency.currency)
         day = days.text.toString().toIntOrNull() ?: 0
         safe = SafeType.values()[safeType.selectedItemPosition]
-        var costVerified = true
-        if (safe != SafeType.DIRECT_PAYMENT) {
-            costVerified = when {
+        val costVerified: Boolean = when {
                 currency == CurrencyType.UAH && cost < 200 -> {
                     showError(getString(R.string.safe_cost_minimal))
                     return false
@@ -114,7 +112,6 @@ class AddBidBottomDialogFragment : BaseBottomDialogFragment() {
                 }
                 else -> true
             }
-        }
         if (!costVerified) return false
         comm = comment.savedText.toString()
         if (comm.length < 60) {

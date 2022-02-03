@@ -35,11 +35,8 @@ fun getColorByProjectStatus(status: ProjectStatus): Int {
 
 fun getTitleBySafeType(context: Context, type: SafeType): String {
     return context.getString(when (type) {
-        SafeType.DIRECT_PAYMENT -> R.string.safe_type_1
         SafeType.EMPLOYER -> R.string.safe_type_2
         SafeType.DEVELOPER -> R.string.safe_type_3
-        SafeType.SPLIT -> R.string.safe_type_4
-        SafeType.EMPLOYER_CASHLESS -> R.string.safe_type_5
     })
 }
 

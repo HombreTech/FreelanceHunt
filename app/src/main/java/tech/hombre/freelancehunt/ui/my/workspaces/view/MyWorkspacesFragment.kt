@@ -89,7 +89,7 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                         .setText(R.id.safe, getTitleBySafeType(
                             requireContext(),
                             SafeType.values().find { it.type == model.attributes.project.safe_type }
-                                ?: SafeType.DIRECT_PAYMENT))
+                                ?: SafeType.EMPLOYER))
                         .setText(
                             R.id.budget,
                             if (model.attributes.project.budget != null) "${model.attributes.project.budget!!.amount} ${currencyToChar(
@@ -186,8 +186,7 @@ class MyWorkspacesFragment : BaseFragment(), ListMenuBottomDialogFragment.Bottom
                                 isConfirmed,
                                 projectStatus,
                                 SafeType.values()
-                                    .find { it.type == model.attributes.project.safe_type } == SafeType.DIRECT_PAYMENT,
-                                appPreferences.getCurrentUserType() == UserType.EMPLOYER.type
+                                    .find { it.type == model.attributes.project.safe_type } == SafeType.EMPLOYER
                             )
                         }
                 }
