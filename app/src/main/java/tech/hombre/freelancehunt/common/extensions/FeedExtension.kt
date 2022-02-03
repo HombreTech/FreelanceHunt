@@ -18,6 +18,7 @@ fun String.prepareFeedMessage(context: Context): String {
         .replace(context.getString(R.string.type_work).toRegex(), "")
         .replace(context.getString(R.string.type_add_message).toRegex(), context.getString(R.string.message))
         .replace(context.getString(R.string.type_add_message_1).toRegex(), context.getString(R.string.message))
+        .replace(context.getString(R.string.type_new_vacancy).toRegex(), "")
         .replace(context.getString(R.string.type_add_message_2).toRegex(), context.getString(R.string.message))
         .replace(context.getString(R.string.type_like_message).toRegex(), "")
         .replace(context.getString(R.string.type_forum_message).toRegex(), "")
@@ -39,6 +40,7 @@ fun feedTypeByMessage(context: Context, message: String): FeedType {
         message.contains(context.getString(R.string.type_forum_message).toRegex()) -> FeedType.FORUM_MESSAGE
         message.contains(context.getString(R.string.type_forum_message_2).toRegex()) -> FeedType.FORUM_MESSAGE
         message.contains(context.getString(R.string.type_appreciated).toRegex()) -> FeedType.APPRECIATED
+        message.contains(context.getString(R.string.type_new_vacancy).toRegex()) -> FeedType.VACANCY
         else -> FeedType.UNKNOWN
     }
 }
@@ -54,6 +56,7 @@ fun getTypeIcon(type: FeedType): Int {
         FeedType.FORUM_MESSAGE -> R.drawable.type_messages
         FeedType.PERSONAL_PROJECT -> R.drawable.project_small
         FeedType.APPRECIATED -> R.drawable.type_appreciated
+        FeedType.VACANCY -> R.drawable.type_new_vacancy
         else -> R.drawable.type_unknown
     }
 }
@@ -68,6 +71,7 @@ fun getTypeColor(type: FeedType): Int {
         FeedType.LIKE -> R.color.typeForumMessage
         FeedType.FORUM_MESSAGE -> R.color.typeForumMessage
         FeedType.PERSONAL_PROJECT -> R.color.typeWork
+        FeedType.VACANCY -> R.color.typeWork
         else-> R.color.typeUnknown
     }
 }
@@ -83,6 +87,7 @@ fun getTypeLabel(type: FeedType): Int {
         FeedType.FORUM_MESSAGE -> R.string.new_forum_message
         FeedType.PERSONAL_PROJECT -> R.string.new_personal_project
         FeedType.APPRECIATED -> R.string.contests
+        FeedType.VACANCY -> R.string.vacancy
         else -> R.string.other
     }
 }

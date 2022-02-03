@@ -14,6 +14,7 @@
     <string name="type_work">(.*?пропонує роботу над проектом)</string>
     <string name="type_add_message">(.*?додав повідомлення)</string>
     <string name="type_add_message_1">(.*?додала повідомлення)</string>
+    <string name="type_new_vacancy">(.*?Відкрита вакансія)</string>
     <string name="premium">Преміум</string>
     <string name="safe">Сейф</string>
     <string name="remote">Віддалення</string>
@@ -56,6 +57,7 @@
     <string name="skills">Спеціалізація</string>
     <string name="share">Поділитися</string>
     <string name="message">Повідомлення</string>
+    <string name="vacancy">Вакансія</string>
     <string name="thread_view">Перегляд розмови</string>
     <string name="type_here">Почніть писати повідомлення…</string>
     <string name="employer_view">Профіль замовника</string>

@@ -38,7 +38,8 @@ enum class FeedType(val type: Int) {
     FORUM_MESSAGE(4),
     PERSONAL_PROJECT(5),
     MESSAGE(6),
-    APPRECIATED(7)
+    APPRECIATED(7),
+    VACANCY(8)
 }
 
 enum class FreelancerStatus(val status: Int) {

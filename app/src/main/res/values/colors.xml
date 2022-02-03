@@ -33,6 +33,7 @@
     <color name="typeForumMessage">#909A28</color>
     <color name="typeLike">#E91E63</color>
     <color name="typeComment">#3F51B5</color>
+    <color name="typeVacancy">#4CAF50</color>
 
     <color name="isPremium">#ffbb17</color>
     <color name="isSafe">#1E88E5</color>

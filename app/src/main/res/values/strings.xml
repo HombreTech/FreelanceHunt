@@ -19,6 +19,7 @@
     <string name="type_add_message">(.*?add message)</string>
     <string name="type_add_message_1">(.*?added message)</string>
     <string name="type_add_message_2" translatable="false">(.*?added a message)</string>
+    <string name="type_new_vacancy">(.*?A job is open)</string>
     <string name="premium">Premium</string>
     <string name="safe">Safe</string>
     <string name="remote">Remote</string>
@@ -61,6 +62,7 @@
     <string name="skills">Skills</string>
     <string name="share">Share</string>
     <string name="message">Message</string>
+    <string name="vacancy">Vacancy</string>
     <string name="thread_view">View dialog</string>
     <string name="type_here">Start writing a message…</string>
     <string name="employer_view">Employer profile</string>

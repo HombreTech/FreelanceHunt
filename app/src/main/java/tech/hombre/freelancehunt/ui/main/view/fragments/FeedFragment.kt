@@ -116,7 +116,7 @@ class FeedFragment : BaseFragment() {
                                 adapter.notifyItemChanged(items.data.indexOf(model))
                             }
 
-                            if (type == FeedType.UNKNOWN) {
+                            if (type == FeedType.UNKNOWN || type == FeedType.VACANCY) {
                                 "<a href=\"(.*?)\".*".toRegex()
                                     .find(model.attributes.message)?.groupValues?.let {
                                         SchemeParser.launchUri(requireContext(), it[1])
