@@ -75,7 +75,7 @@
             android:id="@+id/menu_logout"
             android:icon="@drawable/logout"
             android:title="@string/logout"
-            android:visible="false" />
+            />
     </group>
 
 </menu>
