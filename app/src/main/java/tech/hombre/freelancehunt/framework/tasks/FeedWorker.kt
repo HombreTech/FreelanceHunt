@@ -30,6 +30,8 @@ class FeedWorker(
 
     private val notificationService: AndroidNotificationService by inject()
 
+    private val tasksManger: TasksManger by inject()
+
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             Log.d("FeedWorker", "doWork")
@@ -54,10 +56,11 @@ class FeedWorker(
                     }
                 }.onFailure { Log.e("FeedWorker", it.throwable.message, it.throwable) }
             } else Log.d("FeedWorker", "Skip")
+            tasksManger.recreateTasks(feed = true)
             Result.success()
         } catch (e: Exception) {
             Log.e("FeedWorker", e.message, e)
-            Result.failure()
+            Result.retry()
         }
     }
 

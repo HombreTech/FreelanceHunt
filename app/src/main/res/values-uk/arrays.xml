@@ -49,6 +49,8 @@
     </string-array>
 
     <string-array name="pref_notifications_period_entries">
+        <item>Кожні 5 хвилин</item>
+        <item>Кожні 10 хвилин</item>
         <item>Кожні 15 хвилин</item>
         <item>Щопівгодини</item>
         <item>Раз на годину</item>
@@ -58,6 +60,8 @@
     </string-array>
 
     <string-array name="pref_notifications_interval_values">
+        <item>5</item>
+        <item>10</item>
         <item>15</item>
         <item>30</item>
         <item>60</item>

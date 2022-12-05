@@ -49,6 +49,8 @@
     </string-array>
 
     <string-array name="pref_notifications_period_entries">
+        <item>Каждые 5 минут</item>
+        <item>Каждые 10 минут</item>
         <item>Каждые 15 минут</item>
         <item>Каждые полчаса</item>
         <item>Раз в час</item>
@@ -58,6 +60,8 @@
     </string-array>
 
     <string-array name="pref_notifications_interval_values">
+        <item>5</item>
+        <item>10</item>
         <item>15</item>
         <item>30</item>
         <item>60</item>
