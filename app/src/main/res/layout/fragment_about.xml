@@ -288,16 +288,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/copyright" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    app:layout_constraintTop_toBottomOf="@id/madeinchina"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:elevation="6dp"
-                    android:layout_marginTop="@dimen/padding_small"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_belarus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

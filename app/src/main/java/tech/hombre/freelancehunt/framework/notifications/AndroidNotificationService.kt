@@ -12,7 +12,6 @@ import tech.hombre.freelancehunt.common.CHANNEL_ID
 import tech.hombre.freelancehunt.common.EXTRA_1
 import tech.hombre.freelancehunt.routing.AppNavigator
 import tech.hombre.freelancehunt.ui.login.view.LoginActivity
-import tech.hombre.freelancehunt.ui.main.view.activities.MainActivity
 
 
 class AndroidNotificationService constructor(val appContext: Application) : NotificationService {
@@ -35,7 +34,11 @@ class AndroidNotificationService constructor(val appContext: Application) : Noti
             appContext,
             msg.id,
             notificationIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
         )
 
         fun createNotification(): Notification? {

@@ -9,7 +9,7 @@
 
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name=".App"
@@ -26,6 +26,7 @@
         <activity
             android:name=".ui.login.view.LoginActivity"
             android:configChanges="keyboard"
+            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,21 +72,22 @@
 
         <activity
             android:name=".ui.project.view.NewProjectActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
             android:configChanges="orientation|screenSize"
             android:label="@string/new_project"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name=".ui.project.view.UpdateProjectActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
             android:configChanges="orientation|screenSize"
             android:label="@string/update_project"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name=".ui.base.LinksParserActivity"
             android:configChanges="keyboard|orientation|screenSize"
+            android:exported="true"
             android:noHistory="true"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter
