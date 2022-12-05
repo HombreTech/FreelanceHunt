@@ -1,15 +1,21 @@
 name: Android CI
 
-on: [push]
+on:
+  push:
+    branches: [ master, dev, features/*, bugs/*, improvements/* ]
+  pull_request:
+    branches: [ master, dev, features/*, bugs/*, improvements/* ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: set up JDK 1.8
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v2
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          java-version: 1.8
+          java-version: 11
+          distribution: 'temurin'
+          cache: gradle
       - name: Build with Gradle
         run: ./gradlew assembleDebug
