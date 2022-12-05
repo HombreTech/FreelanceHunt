@@ -31,6 +31,8 @@ class ThreadsWorker(
 
     private val notificationService: AndroidNotificationService by inject()
 
+    private val tasksManger: TasksManger by inject()
+
     override suspend fun doWork(): Result {
         try {
             Log.d("ThreadsWorker", "doWork")
@@ -64,10 +66,11 @@ class ThreadsWorker(
                     }
                     .onFailure { Log.e("ThreadsWorker", it.throwable.message, it.throwable) }
             } else Log.d("FeedWorker", "Skip")
+            tasksManger.recreateTasks(messages = true)
             return Result.success()
         } catch (e: Exception) {
             Log.e("ThreadsWorker", e.message, e)
-            return Result.failure()
+            return Result.retry()
         }
     }
 

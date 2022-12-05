@@ -1,6 +1,7 @@
 package tech.hombre.freelancehunt.framework.tasks
 
 import android.content.Context
+import android.util.Log
 import androidx.work.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -12,6 +13,7 @@ class TasksManger(val context: Context) : KoinComponent {
     private val appPreferences: LocalProperties by inject()
 
     fun setupTasks() {
+        Log.d("TasksManager", "Setup tasks")
         val networkType =
             if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
 
@@ -19,33 +21,39 @@ class TasksManger(val context: Context) : KoinComponent {
             .setRequiredNetworkType(networkType)
             .build()
 
+        val interval = appPreferences.getWorkerInterval()
+
         if (appPreferences.getWorkerFeedEnabled())
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            WorkManager.getInstance(context).enqueueUniqueWork(
                 FeedWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<FeedWorker>(
-                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).build()
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequestBuilder<FeedWorker>()
+                    .setInitialDelay(interval, TimeUnit.MINUTES)
+                    .setConstraints(constrains)
+                    .build()
             )
         if (appPreferences.getWorkerMessagesEnabled())
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            WorkManager.getInstance(context).enqueueUniqueWork(
                 ThreadsWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<ThreadsWorker>(
-                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).build()
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequestBuilder<ThreadsWorker>()
+                    .setInitialDelay(interval, TimeUnit.MINUTES)
+                    .setConstraints(constrains)
+                    .build()
             )
         if (appPreferences.getWorkerProjectsEnabled())
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            WorkManager.getInstance(context).enqueueUniqueWork(
                 ProjectsWorker.WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<ProjectsWorker>(
-                    appPreferences.getWorkerInterval(), TimeUnit.MINUTES
-                ).setConstraints(constrains).build()
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequestBuilder<ProjectsWorker>()
+                    .setInitialDelay(interval, TimeUnit.MINUTES)
+                    .setConstraints(constrains)
+                    .build()
             )
     }
 
-    fun recreateTasks(feed: Boolean, messages: Boolean, projects: Boolean) {
+    fun recreateTasks(feed: Boolean = false, messages: Boolean = false, projects: Boolean = false) {
+        Log.d("TasksManager", "recreate tasks [feed = $feed, messages = $messages, projects = $projects]")
         val interval = appPreferences.getWorkerInterval()
         val networkType =
             if (appPreferences.getWorkerUnmeteredEnabled()) NetworkType.UNMETERED else NetworkType.CONNECTED
@@ -54,28 +62,31 @@ class TasksManger(val context: Context) : KoinComponent {
             .setRequiredNetworkType(networkType)
             .build()
 
-        if (feed) WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+        if (feed) WorkManager.getInstance(context).enqueueUniqueWork(
             FeedWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            PeriodicWorkRequestBuilder<FeedWorker>(
-                interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<FeedWorker>()
+                .setInitialDelay(interval, TimeUnit.MINUTES)
+                .setConstraints(constrains)
+                .build()
         )
 
-        if (messages) WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+        if (messages) WorkManager.getInstance(context).enqueueUniqueWork(
             ThreadsWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            PeriodicWorkRequestBuilder<ThreadsWorker>(
-                interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<ThreadsWorker>()
+                .setInitialDelay(interval, TimeUnit.MINUTES)
+                .setConstraints(constrains)
+                .build()
         )
 
-        if (projects) WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+        if (projects) WorkManager.getInstance(context).enqueueUniqueWork(
             ProjectsWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            PeriodicWorkRequestBuilder<ProjectsWorker>(
-                interval, TimeUnit.MINUTES
-            ).setConstraints(constrains).build()
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<ProjectsWorker>()
+                .setInitialDelay(interval, TimeUnit.MINUTES)
+                .setConstraints(constrains)
+                .build()
         )
 
     }

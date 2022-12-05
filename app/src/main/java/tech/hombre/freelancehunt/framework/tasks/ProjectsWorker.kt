@@ -30,6 +30,8 @@ class ProjectsWorker(
 
     private val notificationService: AndroidNotificationService by inject()
 
+    private val tasksManger: TasksManger by inject()
+
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             Log.d("ProjectsWorker", "doWork")
@@ -60,10 +62,11 @@ class ProjectsWorker(
                         }
                     }.onFailure { Log.e("ProjectsWorker", it.throwable.message, it.throwable) }
             } else Log.d("ProjectsWorker", "Skip")
+            tasksManger.recreateTasks(projects = true)
             Result.success()
         } catch (e: Exception) {
             Log.e("ProjectsWorker", e.message, e)
-            Result.failure()
+            Result.retry()
         }
     }
 
