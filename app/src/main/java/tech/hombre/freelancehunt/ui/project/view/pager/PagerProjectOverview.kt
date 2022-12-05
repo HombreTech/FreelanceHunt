@@ -2,6 +2,7 @@ package tech.hombre.freelancehunt.ui.project.view.pager
 
 import android.os.Bundle
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.RelativeLayout
@@ -98,6 +99,7 @@ class PagerProjectOverview : BaseFragment() {
             }
 
             if (!description.setHtmlText(desc.toString())) {
+                val viewId = description.id
                 overviewActivityContainer.removeView(description)
 
                 val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
@@ -106,9 +108,21 @@ class PagerProjectOverview : BaseFragment() {
                 )
 
                 val webView = WebView(requireContext())
-                webView.layoutParams = params
                 webView.apply {
-                    webViewClient = WebViewClient()
+                    id = viewId
+                    layoutParams = params
+                    webViewClient = object  : WebViewClient() {
+                        override fun shouldOverrideUrlLoading(
+                            view: WebView?,
+                            request: WebResourceRequest?
+                        ): Boolean {
+                            request?.let {
+                                val url = request.url
+                                openUrl(requireContext(), url.toString())
+                            }
+                            return true
+                        }
+                    }
                     settings.javaScriptEnabled = false
                     settings.javaScriptCanOpenWindowsAutomatically = true
                     settings.mediaPlaybackRequiresUserGesture = true
